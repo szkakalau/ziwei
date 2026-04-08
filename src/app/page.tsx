@@ -136,8 +136,8 @@ export default function HomePage() {
             },
             {
               title: "Love & Career Insights",
-              src: "/images/love-career.png",
-              caption: "Understand relationship patterns and career potential.",
+              src: "/images/love-career.jpg",
+              caption: "Insights into love, career and financial potential.",
             },
           ].map((card) => (
             <div
