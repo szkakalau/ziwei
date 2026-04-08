@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import BirthFormModal from "@/components/BirthFormModal";
+import Image from "next/image";
 
 export const metadata: Metadata = {
   title: "Purple Star astrology reading—free preview",
@@ -43,6 +44,9 @@ export default function HomePage() {
               <p className="font-body text-sm text-ink-dim">
                 Free preview • No signup required
               </p>
+              <p className="font-body text-sm text-ink-dim">
+                Used by 1,000+ early astrology readers
+              </p>
             </div>
           </div>
 
@@ -85,21 +89,14 @@ export default function HomePage() {
       </section>
 
       {/* ② SOCIAL PROOF BAR */}
-      <section className="border-y border-white/10 bg-mist/40 py-10 backdrop-blur-sm">
+      <section className="border-y border-white/10 bg-mist/40 py-6 backdrop-blur-sm">
         <div className="mx-auto max-w-6xl px-6">
-          <div className="flex flex-col items-start justify-between gap-4 md:flex-row md:items-center">
-            <p className="font-body text-lg text-ink">
-              Loved by early astrology enthusiasts worldwide
-            </p>
-            <div className="flex items-center gap-4">
-              <span className="font-mono text-sm tracking-wider text-gold">
-                ★★★★★
-              </span>
-              <span className="font-body text-sm text-ink-muted">
-                Early beta readers from Reddit &amp; astrology communities
-              </span>
-            </div>
-          </div>
+          <p className="text-center font-body text-sm text-ink-muted">
+            <span className="font-mono text-sm tracking-wider text-gold">
+              ★★★★★
+            </span>{" "}
+            Early beta readers from Reddit &amp; astrology communities
+          </p>
         </div>
       </section>
 
@@ -114,46 +111,62 @@ export default function HomePage() {
         </h2>
 
         <div className="mt-14 grid gap-8 md:grid-cols-3">
-          {["Chart", "Long-form analysis", "Love / career section"].map(
-            (label, i) => (
+          {[
+            {
+              title: "Your Destiny Chart",
+              src: "/images/chart-preview.png",
+              caption:
+                "12 Life Palaces with 100+ stars mapped from your birth data.",
+            },
+            {
+              title: "Deep Personality Analysis",
+              src: "/images/report-preview.png",
+              caption: "AI-generated interpretation based on classical Zi Wei texts.",
+            },
+            {
+              title: "Love & Career Insights",
+              src: "/images/love-career.png",
+              caption: "Understand relationship patterns and career potential.",
+            },
+          ].map((card) => (
             <div
-              key={label}
-              className="group relative overflow-hidden rounded-sm border border-white/10 bg-panel p-4 shadow-panel backdrop-blur-sm"
+              key={card.title}
+              className="group relative overflow-hidden rounded-sm border border-white/10 bg-panel p-5 shadow-panel backdrop-blur-sm"
             >
               <div
-                className="pointer-events-none absolute inset-0 bg-grid-fine bg-grid opacity-20"
+                className="pointer-events-none absolute inset-0 bg-grid-fine bg-grid opacity-18"
                 aria-hidden
               />
-              <div className="relative aspect-[4/3] w-full overflow-hidden rounded-sm border border-gold/15 bg-void/70">
+
+              <p className="relative font-display text-xl font-semibold text-ink">
+                {card.title}
+              </p>
+              <div className="relative mt-4 overflow-hidden rounded-sm border border-gold/15 bg-void/70">
                 <div
-                  className="absolute inset-0 opacity-60"
+                  className="pointer-events-none absolute inset-0 opacity-60"
                   style={{
                     background:
                       "radial-gradient(120% 90% at 20% 20%, rgba(61,155,132,0.18), transparent 55%), radial-gradient(90% 70% at 90% 30%, rgba(201,84,60,0.16), transparent 55%)",
                   }}
                   aria-hidden
                 />
-                <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between">
-                  <span className="font-mono text-[11px] uppercase tracking-widest text-ink-dim">
-                    screenshot_{i + 1}
-                  </span>
-                  <span className="font-mono text-[11px] text-gold">
-                    placeholder
-                  </span>
-                </div>
+                <Image
+                  src={card.src}
+                  alt={card.title}
+                  width={1200}
+                  height={900}
+                  className="relative block aspect-[4/3] w-full object-cover opacity-95"
+                />
               </div>
-              <p className="relative mt-4 font-mono text-xs uppercase tracking-widest text-ink-dim">
-                {label}
+              <p className="relative mt-4 font-body text-sm leading-relaxed text-ink-muted">
+                {card.caption}
               </p>
             </div>
-            ),
-          )}
+          ))}
         </div>
 
         <p className="mx-auto mt-10 max-w-2xl text-center font-body text-lg text-ink-muted">
-          This is not a horoscope.
-          <br />
-          It’s a full destiny chart with deep interpretation.
+          This is a full destiny report — not a daily horoscope.
         </p>
       </section>
 
@@ -239,27 +252,41 @@ export default function HomePage() {
             What’s inside your full reading
           </h2>
 
-          <div className="mx-auto mt-14 max-w-3xl rounded-sm border border-gold/25 bg-panel p-10 shadow-panel backdrop-blur-sm">
-            <ul className="space-y-3 font-body text-lg text-ink-muted">
-              {[
-                "✓ Full 12 Life Palaces interpretation",
-                "✓ Personality strengths & blind spots",
-                "✓ Career & wealth potential",
-                "✓ Love & relationship patterns",
-                "✓ Major life cycle timeline",
-                "✓ Key opportunities & challenges",
-                "✓ Hidden talents and risks",
-              ].map((t) => (
-                <li key={t} className="flex gap-3">
-                  <span className="text-gold" aria-hidden>
-                    ✓
-                  </span>
-                  <span>{t.replace(/^✓\s*/, "")}</span>
-                </li>
-              ))}
-            </ul>
-            <p className="mt-8 font-mono text-xs uppercase tracking-widest text-jade">
-              Instant PDF-style report generated by AI
+          <div className="mx-auto mt-14 max-w-4xl rounded-sm border border-gold/25 bg-panel p-10 shadow-panel backdrop-blur-sm">
+            <div className="grid gap-10 md:grid-cols-2">
+              <ul className="space-y-3 font-body text-lg text-ink-muted">
+                {[
+                  "✓ 12 Life Palaces breakdown",
+                  "✓ Personality strengths & blind spots",
+                  "✓ Career & wealth potential",
+                  "✓ Love & relationship patterns",
+                ].map((t) => (
+                  <li key={t} className="flex gap-3">
+                    <span className="text-gold" aria-hidden>
+                      ✓
+                    </span>
+                    <span>{t.replace(/^✓\s*/, "")}</span>
+                  </li>
+                ))}
+              </ul>
+              <ul className="space-y-3 font-body text-lg text-ink-muted">
+                {[
+                  "✓ 10-year life cycle timeline",
+                  "✓ Major opportunities & risks",
+                  "✓ Hidden talents analysis",
+                  "✓ Downloadable PDF report",
+                ].map((t) => (
+                  <li key={t} className="flex gap-3">
+                    <span className="text-gold" aria-hidden>
+                      ✓
+                    </span>
+                    <span>{t.replace(/^✓\s*/, "")}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <p className="mt-10 font-body text-sm text-ink-dim">
+              Instantly generated after your chart is created.
             </p>
           </div>
         </div>
@@ -267,19 +294,17 @@ export default function HomePage() {
 
       {/* ⑦ SAMPLE INSIGHT */}
       <section className="relative mx-auto max-w-6xl px-6 py-24">
-        <div className="mx-auto max-w-3xl rounded-sm border border-white/10 bg-void/55 p-10 shadow-panel">
-          <p className="font-mono text-xs uppercase tracking-widest text-gold/80">
-            Sample
-          </p>
-          <h2 className="mt-3 font-display text-3xl font-semibold text-ink md:text-4xl">
-            Example insight from a real chart:
+        <div className="mx-auto max-w-4xl">
+          <h2 className="text-center font-display text-3xl font-semibold tracking-tight text-ink md:text-4xl">
+            Example insight from a real chart
           </h2>
-          <p className="mt-6 font-body text-lg leading-relaxed text-ink-muted">
-            &quot;You tend to experience major career turning points around your
-            early 30s. Your chart shows strong strategic ability, but delayed
-            recognition. You thrive in roles that combine analysis and
-            independence.&quot;
-          </p>
+          <div className="mx-auto mt-10 max-w-3xl rounded-sm border border-white/10 bg-mist/45 p-10 shadow-panel backdrop-blur-sm">
+            <p className="font-body text-lg leading-relaxed text-ink-muted">
+              &quot;You tend to experience major career turning points in your early 30s.
+              Your chart shows strong strategic ability but delayed recognition.
+              You thrive in roles combining analysis and independence.&quot;
+            </p>
+          </div>
         </div>
       </section>
 
@@ -288,19 +313,28 @@ export default function HomePage() {
         <div className="mx-auto max-w-6xl px-6">
           <div className="grid gap-8 md:grid-cols-3">
             {[
-              "Way deeper than any astrology app I’ve tried.",
-              "The relationship section felt weirdly accurate.",
-              "I didn’t expect Chinese astrology to be this detailed.",
-            ].map((quote) => (
+              { quote: "Way deeper than any astrology app I’ve tried.", by: "Early reader" },
+              {
+                quote: "The relationship section felt weirdly accurate.",
+                by: "Astrology enthusiast",
+              },
+              {
+                quote: "I didn’t expect Chinese astrology to be this detailed.",
+                by: "Beta tester",
+              },
+            ].map((t) => (
               <div
-                key={quote}
+                key={t.quote}
                 className="rounded-sm border border-white/10 bg-panel p-8 shadow-panel backdrop-blur-sm"
               >
                 <p className="font-mono text-sm tracking-wider text-gold">
                   ★★★★★
                 </p>
                 <p className="mt-4 font-body leading-relaxed text-ink-muted">
-                  {quote}
+                  {t.quote}
+                </p>
+                <p className="mt-5 font-mono text-xs uppercase tracking-widest text-ink-dim">
+                  {t.by}
                 </p>
               </div>
             ))}
@@ -310,9 +344,13 @@ export default function HomePage() {
 
       {/* ⑨ PRICING TEASER */}
       <section className="relative mx-auto max-w-6xl px-6 py-24 text-center">
-        <p className="font-body text-xl text-ink">Free preview available</p>
+        <h2 className="font-display text-3xl font-semibold tracking-tight text-ink md:text-4xl">
+          Start free. Unlock your full destiny report anytime.
+        </h2>
         <p className="mt-3 font-display text-4xl font-semibold text-ink md:text-5xl">
-          Unlock full reading — $19
+          Free preview available
+          <br />
+          Full report — $19
         </p>
         <div className="mt-10 flex justify-center">
           <BirthFormModal triggerText="Generate My Chart →" />
@@ -327,6 +365,10 @@ export default function HomePage() {
           </h2>
           <div className="mt-12 space-y-4">
             {[
+              {
+                q: "Is this AI or real astrology?",
+                a: "Both. We calculate your chart using the traditional Zi Wei Dou Shu system, then AI translates the complex chart into readable insights.",
+              },
               {
                 q: "Is this real astrology?",
                 a: "Yes. We use the traditional Zi Wei Dou Shu calculation system.",
