@@ -1,7 +1,7 @@
 import { find as findTimezones } from "geo-tz";
 import { DateTime } from "luxon";
 import { apparentSolarFromUtcInstant } from "@/lib/apparentSolar";
-import { geocodeLocation } from "@/lib/geocode";
+import { GeocodeUnavailableError, geocodeLocation } from "@/lib/geocode";
 import { buildChartFromApparentSolar } from "@/lib/astroChart";
 import { sanitizeChartForEnglishSite } from "@/lib/chartSanitize";
 
@@ -31,6 +31,7 @@ export type BirthChartFailure = {
   ok: false;
   errorCode:
     | "LOCATION_NOT_FOUND"
+    | "GEOCODE_UNAVAILABLE"
     | "TIMEZONE_UNKNOWN"
     | "INVALID_DATETIME";
 };
@@ -38,7 +39,15 @@ export type BirthChartFailure = {
 export async function computeBirthChart(
   input: BirthChartInput,
 ): Promise<BirthChartSuccess | BirthChartFailure> {
-  const geo = await geocodeLocation(input.location);
+  let geo;
+  try {
+    geo = await geocodeLocation(input.location);
+  } catch (e) {
+    if (e instanceof GeocodeUnavailableError) {
+      return { ok: false, errorCode: "GEOCODE_UNAVAILABLE" };
+    }
+    return { ok: false, errorCode: "GEOCODE_UNAVAILABLE" };
+  }
   if (!geo) {
     return { ok: false, errorCode: "LOCATION_NOT_FOUND" };
   }

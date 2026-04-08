@@ -8,6 +8,63 @@ export type GeocodeHit = {
   displayName: string;
 };
 
+export class GeocodeUnavailableError extends Error {
+  constructor(message = "Geocoding service unavailable") {
+    super(message);
+    this.name = "GeocodeUnavailableError";
+  }
+}
+
+export type GeocodeSuggestion = {
+  lat: number;
+  lon: number;
+  displayName: string;
+};
+
+export async function geocodeSuggestions(
+  query: string,
+  limit = 5,
+): Promise<GeocodeSuggestion[]> {
+  const q = query.trim();
+  if (!q) return [];
+
+  const userAgent =
+    process.env.NOMINATIM_USER_AGENT?.trim() ||
+    "ZiweiMarketingSite/1.0 (add NOMINATIM_USER_AGENT in env for production)";
+
+  const url = new URL("https://nominatim.openstreetmap.org/search");
+  url.searchParams.set("q", q);
+  url.searchParams.set("format", "json");
+  url.searchParams.set("limit", String(limit));
+
+  let res: Response;
+  try {
+    res = await fetch(url.toString(), {
+      headers: { "User-Agent": userAgent },
+      cache: "no-store",
+    });
+  } catch {
+    throw new GeocodeUnavailableError();
+  }
+
+  if (!res.ok) return [];
+
+  const data = (await res.json()) as Array<{
+    lat: string;
+    lon: string;
+    display_name: string;
+  }>;
+
+  return data
+    .map((hit) => {
+      const lat = Number(hit.lat);
+      const lon = Number(hit.lon);
+      if (!Number.isFinite(lat) || !Number.isFinite(lon)) return null;
+      return { lat, lon, displayName: hit.display_name };
+    })
+    .filter(Boolean) as GeocodeSuggestion[];
+}
+
 export async function geocodeLocation(
   query: string,
 ): Promise<GeocodeHit | null> {
@@ -23,10 +80,15 @@ export async function geocodeLocation(
   url.searchParams.set("format", "json");
   url.searchParams.set("limit", "1");
 
-  const res = await fetch(url.toString(), {
-    headers: { "User-Agent": userAgent },
-    cache: "no-store",
-  });
+  let res: Response;
+  try {
+    res = await fetch(url.toString(), {
+      headers: { "User-Agent": userAgent },
+      cache: "no-store",
+    });
+  } catch {
+    throw new GeocodeUnavailableError();
+  }
 
   if (!res.ok) return null;
 
