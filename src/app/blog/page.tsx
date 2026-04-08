@@ -33,10 +33,10 @@ export default function BlogPage({ searchParams }: Props) {
   return (
     <div className="mx-auto max-w-5xl px-4 py-16 sm:px-6">
       <header>
-        <h1 className="text-4xl font-bold tracking-tight text-zinc-900">
+        <h1 className="font-display text-4xl font-semibold tracking-tight text-ink md:text-5xl">
           Blog
         </h1>
-        <p className="mt-4 max-w-2xl text-lg text-zinc-600">
+        <p className="mt-4 max-w-2xl font-body text-lg text-ink-muted">
           SEO + GEO-friendly guides on Chinese astrology themes—definitions,
           FAQs, and structured lists for readers and AI systems.
         </p>
@@ -45,10 +45,10 @@ export default function BlogPage({ searchParams }: Props) {
       <div className="mt-10 flex flex-wrap gap-2">
         <Link
           href="/blog"
-          className={`rounded-full px-4 py-1.5 text-sm font-medium ${
+          className={`rounded-sm px-4 py-1.5 font-mono text-sm font-medium uppercase tracking-wide ${
             !activeCategory
-              ? "bg-violet-700 text-white"
-              : "bg-zinc-100 text-zinc-700 hover:bg-zinc-200"
+              ? "border border-gold/40 bg-cinnabar/20 text-gold"
+              : "border border-white/10 bg-void/50 text-ink-muted hover:border-gold/25 hover:text-ink"
           }`}
         >
           All
@@ -57,10 +57,10 @@ export default function BlogPage({ searchParams }: Props) {
           <Link
             key={c}
             href={`/blog?category=${encodeURIComponent(c)}`}
-            className={`rounded-full px-4 py-1.5 text-sm font-medium ${
+            className={`rounded-sm px-4 py-1.5 font-mono text-sm font-medium ${
               activeCategory === c
-                ? "bg-violet-700 text-white"
-                : "bg-zinc-100 text-zinc-700 hover:bg-zinc-200"
+                ? "border border-gold/40 bg-cinnabar/20 text-gold"
+                : "border border-white/10 bg-void/50 text-ink-muted hover:border-gold/25 hover:text-ink"
             }`}
           >
             {c}
@@ -71,21 +71,20 @@ export default function BlogPage({ searchParams }: Props) {
       <ul className="mt-12 space-y-8">
         {posts.map((post) => (
           <li key={post.slug}>
-            <article className="rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm transition hover:border-violet-200">
-              <p className="text-xs font-semibold uppercase tracking-wide text-violet-700">
+            <article className="rounded-sm border border-white/10 bg-panel p-6 shadow-panel backdrop-blur-sm transition hover:border-gold/30">
+              <p className="font-mono text-xs font-semibold uppercase tracking-wider text-jade">
                 {post.category}
               </p>
-              <h2 className="mt-2 text-xl font-semibold text-zinc-900">
-                <Link
-                  href={`/blog/${post.slug}`}
-                  className="hover:text-violet-800"
-                >
+              <h2 className="mt-2 font-display text-xl font-semibold text-ink">
+                <Link href={`/blog/${post.slug}`} className="hover:text-gold">
                   {post.title}
                 </Link>
               </h2>
-              <p className="mt-2 text-sm text-zinc-600">{post.description}</p>
+              <p className="mt-2 font-body text-sm text-ink-muted">
+                {post.description}
+              </p>
               <time
-                className="mt-3 block text-xs text-zinc-400"
+                className="mt-3 block font-mono text-xs text-ink-dim"
                 dateTime={post.date}
               >
                 {post.date}
@@ -96,7 +95,9 @@ export default function BlogPage({ searchParams }: Props) {
       </ul>
 
       {posts.length === 0 && (
-        <p className="mt-12 text-zinc-500">No posts in this category yet.</p>
+        <p className="mt-12 font-body text-ink-dim">
+          No posts in this category yet.
+        </p>
       )}
     </div>
   );

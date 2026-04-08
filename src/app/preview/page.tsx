@@ -30,7 +30,7 @@ export default function PreviewPage() {
 
   if (!chart) {
     return (
-      <div className="flex h-screen items-center justify-center text-zinc-600">
+      <div className="flex h-screen items-center justify-center font-body text-ink-muted">
         Loading your chart…
       </div>
     );
@@ -38,34 +38,36 @@ export default function PreviewPage() {
 
   return (
     <div className="mx-auto max-w-3xl px-6 py-20">
-      <h1 className="mb-4 text-3xl font-bold text-zinc-900">
+      <h1 className="mb-4 font-display text-3xl font-semibold text-ink md:text-4xl">
         Your chart preview
       </h1>
-      <p className="mb-8 text-zinc-600">
+      <p className="mb-8 font-body leading-relaxed text-ink-muted">
         Raw chart data (English labels). This is a developer-style preview so
         you can verify the engine output before we layer AI copy on top.
       </p>
 
       {meta ? (
-        <div className="mb-8 rounded-lg border border-zinc-200 bg-zinc-50 p-4 text-sm text-zinc-700">
-          <p className="font-medium text-zinc-900">How this was computed</p>
-          <ul className="mt-2 list-inside list-disc space-y-1">
+        <div className="mb-8 rounded-sm border border-gold/25 bg-panel p-5 font-body text-sm text-ink-muted shadow-panel backdrop-blur-sm">
+          <p className="font-display font-semibold text-ink">
+            How this was computed
+          </p>
+          <ul className="mt-3 list-inside list-disc space-y-1">
             <li>
-              <span className="font-medium">Birth place: </span>
+              <span className="font-medium text-ink">Birth place: </span>
               {meta.placeLabel}
             </li>
             <li>
-              <span className="font-medium">Time zone used: </span>
+              <span className="font-medium text-ink">Time zone used: </span>
               {meta.timezone}
             </li>
             <li>
-              <span className="font-medium">Apparent solar date: </span>
+              <span className="font-medium text-ink">Apparent solar date: </span>
               {meta.apparentSolarDate}
             </li>
             <li>
-              <span className="font-medium">Apparent solar time: </span>
+              <span className="font-medium text-ink">Apparent solar time: </span>
               {meta.apparentSolarTime}
-              <span className="text-zinc-500">
+              <span className="text-ink-dim">
                 {" "}
                 (longitude + equation of time, after your local clock time)
               </span>
@@ -74,7 +76,7 @@ export default function PreviewPage() {
         </div>
       ) : null}
 
-      <pre className="overflow-auto rounded-lg bg-zinc-100 p-6 text-xs text-zinc-800">
+      <pre className="overflow-auto rounded-sm border border-white/10 bg-void/80 p-6 font-mono text-xs leading-relaxed text-ink-muted">
         {JSON.stringify(chart, null, 2)}
       </pre>
     </div>

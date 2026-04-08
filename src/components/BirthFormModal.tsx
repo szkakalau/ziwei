@@ -8,6 +8,11 @@ import {
 } from "@headlessui/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import {
+  isValid24hTime,
+  normalizeYyyyMmDd,
+  pad24hTime,
+} from "@/lib/birthFormParse";
 
 const ERROR_COPY: Record<string, string> = {
   LOCATION_NOT_FOUND:
@@ -37,6 +42,19 @@ export default function BirthFormModal() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setError(null);
+
+    const birthDateNorm = normalizeYyyyMmDd(form.birthDate);
+    if (!birthDateNorm) {
+      setError(ERROR_COPY.INVALID_DATETIME);
+      return;
+    }
+    const timeRaw = form.birthTime.trim();
+    if (!isValid24hTime(timeRaw)) {
+      setError(ERROR_COPY.INVALID_DATETIME);
+      return;
+    }
+    const birthTimeNorm = pad24hTime(timeRaw);
+
     setPending(true);
 
     try {
@@ -44,8 +62,8 @@ export default function BirthFormModal() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          birthDate: form.birthDate,
-          birthTime: form.birthTime || "12:00",
+          birthDate: birthDateNorm,
+          birthTime: birthTimeNorm,
           gender: form.gender,
           location: form.location,
         }),
@@ -86,11 +104,7 @@ export default function BirthFormModal() {
 
   return (
     <>
-      <button
-        type="button"
-        onClick={() => setIsOpen(true)}
-        className="rounded bg-black px-8 py-4 text-lg text-white"
-      >
+      <button type="button" onClick={() => setIsOpen(true)} className="btn-cta">
         Get my free reading
       </button>
 
@@ -103,14 +117,22 @@ export default function BirthFormModal() {
         className="relative z-50"
       >
         <div className="fixed inset-0 flex items-center justify-center p-4">
-          <DialogBackdrop className="fixed inset-0 bg-black/40" />
+          <DialogBackdrop className="fixed inset-0 bg-void/85 backdrop-blur-sm" />
 
-          <DialogPanel className="relative w-full max-w-md rounded-xl bg-white p-8 shadow-xl">
-            <DialogTitle className="mb-4 text-2xl font-bold">
+          <DialogPanel
+            lang="en-US"
+            className="relative w-full max-w-md border border-gold/25 bg-mist/95 p-8 shadow-panel backdrop-blur-xl"
+          >
+            <div
+              className="pointer-events-none absolute inset-0 bg-grid-fine bg-grid opacity-30"
+              aria-hidden
+            />
+            <div className="relative">
+            <DialogTitle className="font-display text-2xl font-semibold text-ink">
               Get your free preview
             </DialogTitle>
 
-            <p className="mb-4 text-sm text-gray-600">
+            <p className="mb-4 mt-2 font-body text-sm leading-relaxed text-ink-muted">
               Enter the date and time on the clock where you were born. We use
               your birth place to find the correct time zone, then adjust to
               apparent solar time for the chart.
@@ -123,10 +145,14 @@ export default function BirthFormModal() {
                 </label>
                 <input
                   id="birthDate"
-                  type="date"
+                  type="text"
+                  inputMode="numeric"
+                  autoComplete="bday"
+                  placeholder="YYYY-MM-DD"
+                  title="Gregorian date, format YYYY-MM-DD"
                   required
                   value={form.birthDate}
-                  className="w-full rounded border p-3"
+                  className="input-ink font-mono"
                   onChange={(e) =>
                     setForm({ ...form, birthDate: e.target.value })
                   }
@@ -139,14 +165,17 @@ export default function BirthFormModal() {
                 </label>
                 <input
                   id="birthTime"
-                  type="time"
+                  type="text"
+                  inputMode="numeric"
+                  placeholder="HH:MM"
+                  title="24-hour local time at birth place, e.g. 14:30"
                   value={form.birthTime}
-                  className="w-full rounded border p-3"
+                  className="input-ink font-mono"
                   onChange={(e) =>
                     setForm({ ...form, birthTime: e.target.value })
                   }
                 />
-                <p className="mt-1 text-xs text-gray-500">
+                <p className="mt-1 font-mono text-xs text-ink-dim">
                   Optional. If unknown, we use 12:00 PM (noon) local time.
                 </p>
               </div>
@@ -158,7 +187,7 @@ export default function BirthFormModal() {
                 <select
                   id="gender"
                   value={form.gender}
-                  className="w-full rounded border p-3"
+                  className="input-ink"
                   onChange={(e) =>
                     setForm({ ...form, gender: e.target.value })
                   }
@@ -178,7 +207,7 @@ export default function BirthFormModal() {
                   placeholder="City, state / province, country"
                   required
                   value={form.location}
-                  className="w-full rounded border p-3"
+                  className="input-ink"
                   onChange={(e) =>
                     setForm({ ...form, location: e.target.value })
                   }
@@ -196,7 +225,7 @@ export default function BirthFormModal() {
                   required
                   value={form.email}
                   autoComplete="email"
-                  className="w-full rounded border p-3"
+                  className="input-ink"
                   onChange={(e) =>
                     setForm({ ...form, email: e.target.value })
                   }
@@ -204,7 +233,7 @@ export default function BirthFormModal() {
               </div>
 
               {error ? (
-                <p className="text-sm text-red-600" role="alert">
+                <p className="text-sm text-cinnabar" role="alert">
                   {error}
                 </p>
               ) : null}
@@ -212,16 +241,17 @@ export default function BirthFormModal() {
               <button
                 type="submit"
                 disabled={pending}
-                className="w-full rounded bg-black py-3 text-white disabled:opacity-60"
+                className="btn-cta w-full py-3.5 text-base disabled:opacity-60"
               >
                 {pending ? "Building your chart…" : "Generate my reading"}
               </button>
             </form>
 
-            <p className="mt-3 text-xs text-gray-400">
+            <p className="mt-3 font-body text-xs text-ink-dim">
               We use your email to send your reading. We don&apos;t sell your
               data.
             </p>
+            </div>
           </DialogPanel>
         </div>
       </Dialog>

@@ -1,19 +1,33 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
+import {
+  Cormorant_Garamond,
+  Lora,
+  IBM_Plex_Mono,
+} from "next/font/google";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { getSiteUrl } from "@/lib/site";
 import "./globals.css";
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
+const display = Cormorant_Garamond({
+  subsets: ["latin"],
+  variable: "--font-display",
+  weight: ["400", "600", "700"],
+  display: "swap",
 });
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
+
+const body = Lora({
+  subsets: ["latin"],
+  variable: "--font-body",
+  weight: ["400", "600"],
+  display: "swap",
+});
+
+const mono = IBM_Plex_Mono({
+  subsets: ["latin"],
+  variable: "--font-mono",
+  weight: ["400", "500"],
+  display: "swap",
 });
 
 const siteUrl = getSiteUrl();
@@ -50,9 +64,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en-US">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} min-h-screen font-sans antialiased`}
+        className={`${display.variable} ${body.variable} ${mono.variable} min-h-screen font-body antialiased`}
       >
         <Navbar />
         <main className="min-h-[calc(100vh-8rem)]">{children}</main>

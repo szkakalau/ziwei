@@ -10,10 +10,10 @@ export const metadata: Metadata = {
 export default function FaqPage() {
   return (
     <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
-      <h1 className="text-4xl font-bold tracking-tight text-zinc-900">
+      <h1 className="font-display text-4xl font-semibold tracking-tight text-ink md:text-5xl">
         Frequently asked questions
       </h1>
-      <p className="mt-4 text-lg text-zinc-600">
+      <p className="mt-4 font-body text-lg text-ink-muted">
         Transparency for ads, payments, and trust.
       </p>
 

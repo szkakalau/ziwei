@@ -3,24 +3,128 @@
 @tailwind utilities;
 
 :root {
-  --background: #fafaf9;
-  --foreground: #18181b;
+  --background: #07090d;
+  --foreground: #e8e4dc;
+  --cinnabar: #c9543c;
+  --gold: #c9a75e;
+  --jade: #3d9b84;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0c0a09;
-    --foreground: #fafaf9;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   color: var(--foreground);
-  background: var(--background);
+  background-color: var(--background);
+  background-image: radial-gradient(
+      ellipse 120% 80% at 50% -25%,
+      rgba(61, 155, 132, 0.11),
+      transparent 50%
+    ),
+    radial-gradient(
+      ellipse 70% 50% at 95% 35%,
+      rgba(201, 84, 60, 0.07),
+      transparent 45%
+    ),
+    linear-gradient(180deg, #07090d 0%, #0a0f12 45%, #07090d 100%);
+  min-height: 100vh;
+}
+
+/* Subtle film grain */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
+
+  .opacity-0-animate {
+    opacity: 0;
+  }
+
+  .animate-on-load {
+    animation: fadeUp 0.85s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+
+  .animate-on-load-delay-1 {
+    animation: fadeUp 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.1s forwards;
+    opacity: 0;
+  }
+
+  .animate-on-load-delay-2 {
+    animation: fadeUp 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.2s forwards;
+    opacity: 0;
+  }
+
+  .animate-on-load-delay-3 {
+    animation: fadeUp 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.32s forwards;
+    opacity: 0;
+  }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@layer components {
+  .btn-cta {
+    @apply relative inline-flex items-center justify-center overflow-hidden rounded-sm px-8 py-4 font-body text-lg font-semibold tracking-wide text-void transition-all duration-300;
+    background: linear-gradient(
+      145deg,
+      #e8d5a8 0%,
+      var(--gold) 35%,
+      #c9543c 100%
+    );
+    box-shadow:
+      0 0 0 1px rgba(201, 167, 94, 0.35),
+      0 12px 40px -8px rgba(201, 84, 60, 0.45),
+      inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  }
+
+  .btn-cta:hover {
+    @apply -translate-y-0.5;
+    box-shadow:
+      0 0 0 1px rgba(201, 167, 94, 0.5),
+      0 18px 48px -8px rgba(201, 84, 60, 0.55),
+      inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  }
+
+  .btn-cta:active {
+    @apply translate-y-0;
+  }
+
+  .btn-cta:disabled {
+    @apply translate-y-0 cursor-not-allowed opacity-50;
+  }
+
+  .input-ink {
+    @apply w-full rounded-sm border border-white/10 bg-void/60 px-3 py-3 font-body text-ink placeholder:text-ink-dim backdrop-blur-sm transition-colors focus:border-gold/40 focus:outline-none focus:ring-1 focus:ring-gold/30;
+  }
+
+  .link-gold {
+    @apply text-gold transition-colors hover:text-gold/80;
+  }
+}
+
+/* date/time inputs on dark UI */
+input[type="date"],
+input[type="time"],
+select {
+  color-scheme: dark;
 }

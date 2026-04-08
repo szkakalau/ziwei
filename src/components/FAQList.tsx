@@ -74,17 +74,21 @@ export default function FAQList() {
     <div className="mt-12 space-y-14">
       {sections.map((section) => (
         <section key={section.title}>
-          <h2 className="text-xl font-semibold text-zinc-900">{section.title}</h2>
+          <h2 className="font-display text-xl font-semibold text-ink">
+            {section.title}
+          </h2>
           <div className="mt-6 space-y-4">
             {section.items.map((item) => (
               <details
                 key={item.q}
-                className="group rounded-xl border border-zinc-200 bg-white p-4 open:shadow-sm"
+                className="group rounded-sm border border-white/10 bg-panel p-4 open:border-gold/25 open:shadow-panel backdrop-blur-sm"
               >
-                <summary className="cursor-pointer list-none font-medium text-zinc-900 after:float-right after:text-zinc-400 after:content-['+'] open:after:content-['−']">
+                <summary className="cursor-pointer list-none font-medium text-ink after:float-right after:text-gold/70 after:content-['+'] open:after:content-['−']">
                   {item.q}
                 </summary>
-                <p className="mt-3 text-sm leading-relaxed text-zinc-600">{item.a}</p>
+                <p className="mt-3 font-body text-sm leading-relaxed text-ink-muted">
+                  {item.a}
+                </p>
               </details>
             ))}
           </div>

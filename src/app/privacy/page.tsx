@@ -8,9 +8,13 @@ export const metadata: Metadata = {
 export default function PrivacyPage() {
   return (
     <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
-      <h1 className="text-4xl font-bold text-zinc-900">Privacy Policy</h1>
-      <p className="mt-6 text-sm text-zinc-500">Last updated: April 8, 2026</p>
-      <div className="prose prose-zinc mt-10 max-w-none text-sm">
+      <h1 className="font-display text-4xl font-semibold text-ink md:text-5xl">
+        Privacy Policy
+      </h1>
+      <p className="mt-6 font-mono text-sm text-ink-dim">
+        Last updated: April 8, 2026
+      </p>
+      <div className="prose prose-invert mt-10 max-w-none text-sm prose-headings:font-display prose-headings:text-ink prose-p:text-ink-muted prose-li:text-ink-muted prose-strong:text-ink">
         <p>
           This placeholder summarizes our intent before legal review. Replace
           with counsel-approved text before running paid ads at scale.

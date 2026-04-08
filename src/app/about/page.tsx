@@ -9,10 +9,10 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
-      <h1 className="text-4xl font-bold tracking-tight text-zinc-900">
+      <h1 className="font-display text-4xl font-semibold tracking-tight text-ink md:text-5xl">
         Our mission: make ancient astrology accessible
       </h1>
-      <div className="prose prose-zinc prose-lg mt-10 max-w-none">
+      <div className="prose prose-invert prose-lg mt-10 max-w-none prose-headings:font-display prose-headings:text-ink prose-p:font-body prose-p:text-ink-muted prose-strong:text-ink prose-li:text-ink-muted">
         <p>
           Ziwei Dou Shu and related traditions are part of East Asian cultural
           heritage. We treat them as <strong>cultural wisdom</strong>: symbolic
@@ -31,7 +31,7 @@ export default function AboutPage() {
           human judgment; it scales explanation so more people can benefit from
           the underlying framework.
         </p>
-        <p className="text-sm text-zinc-500">
+        <p className="font-body text-sm text-ink-dim">
           If you need professional help (health, legal, financial, or
           crisis support), please consult a qualified expert.
         </p>

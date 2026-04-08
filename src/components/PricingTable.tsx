@@ -57,18 +57,22 @@ export default function PricingTable() {
       {plans.map((plan) => (
         <div
           key={plan.name}
-          className={`flex flex-col rounded-2xl border p-8 shadow-sm ${
+          className={`flex flex-col rounded-sm border p-8 shadow-panel backdrop-blur-sm ${
             plan.name === "Full Birth Chart"
-              ? "border-violet-300 bg-violet-50/40 ring-2 ring-violet-200/60"
-              : "border-zinc-200 bg-white"
+              ? "border-gold/50 bg-jade-dim ring-1 ring-gold/30"
+              : "border-white/10 bg-panel"
           }`}
         >
-          <h2 className="text-xl font-semibold text-zinc-900">{plan.name}</h2>
-          <p className="mt-4 text-4xl font-bold text-zinc-900">{plan.price}</p>
-          <ul className="mt-6 flex-1 space-y-3 text-sm text-zinc-600">
+          <h2 className="font-display text-xl font-semibold text-ink">
+            {plan.name}
+          </h2>
+          <p className="mt-4 font-display text-4xl font-bold text-ink">
+            {plan.price}
+          </p>
+          <ul className="mt-6 flex-1 space-y-3 font-body text-sm text-ink-muted">
             {plan.features.map((f) => (
               <li key={f} className="flex gap-2">
-                <span className="text-violet-600" aria-hidden>
+                <span className="text-gold" aria-hidden>
                   •
                 </span>
                 <span>{f}</span>
@@ -79,14 +83,14 @@ export default function PricingTable() {
             <button
               type="button"
               disabled
-              className="mt-8 w-full cursor-not-allowed rounded-full border border-zinc-200 bg-zinc-100 py-3 text-sm font-semibold text-zinc-500"
+              className="mt-8 w-full cursor-not-allowed rounded-sm border border-white/10 bg-void/60 py-3 font-mono text-sm font-semibold uppercase tracking-wide text-ink-dim"
             >
               Coming soon
             </button>
           ) : (
             <Link
               href={readingUrl}
-              className="mt-8 inline-flex w-full items-center justify-center rounded-full bg-violet-700 py-3 text-sm font-semibold text-white transition hover:bg-violet-800"
+              className="mt-8 inline-flex w-full items-center justify-center rounded-sm border border-gold/35 bg-gradient-to-br from-cinnabar to-cinnabar-deep py-3 font-mono text-sm font-semibold uppercase tracking-wide text-ink transition hover:brightness-110"
             >
               {plan.cta}
             </Link>

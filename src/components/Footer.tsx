@@ -9,16 +9,17 @@ const links = [
 
 export default function Footer() {
   return (
-    <footer className="border-t border-zinc-200 bg-zinc-50/80">
+    <footer className="relative border-t border-white/10 bg-mist/50">
+      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-gold/20 to-transparent" />
       <div className="mx-auto flex max-w-6xl flex-col gap-6 px-4 py-12 sm:flex-row sm:items-center sm:justify-between sm:px-6">
-        <p className="text-sm text-zinc-500">
+        <p className="max-w-md font-body text-sm text-ink-dim">
           © {new Date().getFullYear()} Ziwei AI. For reflection and
           entertainment only—not medical, legal, or financial advice.
         </p>
-        <ul className="flex flex-wrap gap-x-6 gap-y-2 text-sm font-medium text-zinc-600">
+        <ul className="flex flex-wrap gap-x-6 gap-y-2 text-sm font-medium text-ink-muted">
           {links.map((l) => (
             <li key={l.href}>
-              <Link href={l.href} className="hover:text-violet-700">
+              <Link href={l.href} className="transition-colors hover:text-gold">
                 {l.label}
               </Link>
             </li>
