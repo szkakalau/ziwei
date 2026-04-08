@@ -114,14 +114,25 @@ export default function HomePage() {
           {[
             {
               title: "Your Destiny Chart",
-              src: "/images/chart-preview.png",
-              caption:
-                "12 Life Palaces with 100+ stars mapped from your birth data.",
+              src: "/images/destiny-chart-preview.jpg",
+              caption: (
+                <>
+                  Your birth chart mapped using the Zi Wei Dou Shu system.
+                  <br />
+                  12 Life Palaces • 100+ stars • Lunar calendar calculation
+                </>
+              ),
             },
             {
               title: "Deep Personality Analysis",
-              src: "/images/report-preview.png",
-              caption: "AI-generated interpretation based on classical Zi Wei texts.",
+              src: "/images/report-preview.jpg",
+              caption: (
+                <>
+                  A personalized written report generated from your chart.
+                  <br />
+                  Easy to read. Deeply detailed.
+                </>
+              ),
             },
             {
               title: "Love & Career Insights",
