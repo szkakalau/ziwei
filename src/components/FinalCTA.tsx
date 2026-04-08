@@ -16,7 +16,7 @@ export default function FinalCTA() {
       </h2>
 
       <div className="relative mt-10 flex justify-center">
-        <BirthFormModal />
+        <BirthFormModal triggerText="Generate My Chart →" />
       </div>
     </section>
   );

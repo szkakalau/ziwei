@@ -40,7 +40,7 @@ export default function Hero() {
       </div>
 
       <div className="animate-on-load-delay-3 mt-10 flex flex-col items-center">
-        <BirthFormModal />
+        <BirthFormModal triggerText="Generate My Chart →" />
       </div>
 
       <p className="mt-4 font-body text-sm text-ink-dim">

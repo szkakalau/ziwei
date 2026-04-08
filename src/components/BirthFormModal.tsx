@@ -26,7 +26,15 @@ const ERROR_COPY: Record<string, string> = {
   INVALID_BODY: "Something went wrong. Please try again.",
 };
 
-export default function BirthFormModal() {
+type Props = {
+  triggerText?: string;
+  triggerClassName?: string;
+};
+
+export default function BirthFormModal({
+  triggerText,
+  triggerClassName,
+}: Props) {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const [pending, setPending] = useState(false);
@@ -104,9 +112,11 @@ export default function BirthFormModal() {
 
   return (
     <>
-      <button type="button" onClick={() => setIsOpen(true)} className="btn-cta">
-        Get my free reading
-      </button>
+      <BirthFormTrigger
+        onOpen={() => setIsOpen(true)}
+        triggerText={triggerText}
+        triggerClassName={triggerClassName}
+      />
 
       <Dialog
         open={isOpen}
@@ -256,5 +266,21 @@ export default function BirthFormModal() {
         </div>
       </Dialog>
     </>
+  );
+}
+
+function BirthFormTrigger({
+  onOpen,
+  triggerText = "Get my free reading",
+  triggerClassName = "btn-cta",
+}: {
+  onOpen: () => void;
+  triggerText?: string;
+  triggerClassName?: string;
+}) {
+  return (
+    <button type="button" onClick={onOpen} className={triggerClassName}>
+      {triggerText}
+    </button>
   );
 }
