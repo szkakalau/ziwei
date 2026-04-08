@@ -150,7 +150,7 @@ export default function BirthFormModal({
 
       setIsOpen(false);
       setPending(false);
-      router.push("/preview");
+      router.push("/calculating");
     } catch {
       setError(
         "Network error. If you're on a VPN or restricted network, try turning it off and retry.",
