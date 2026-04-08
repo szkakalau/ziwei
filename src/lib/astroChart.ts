@@ -21,6 +21,22 @@ export function solarTimeToTimeIndex(hour: number, minute: number): number {
   return 6;
 }
 
+export function buildChartFromLocalClock({
+  birthDate,
+  birthTime,
+  gender,
+}: {
+  birthDate: string; // YYYY-MM-DD
+  birthTime: string; // HH:MM
+  gender: "male" | "female";
+}) {
+  const [y, m, d] = birthDate.split("-").map(Number);
+  const [hh, mm] = birthTime.split(":").map(Number);
+  const timeIndex = solarTimeToTimeIndex(Number(hh) || 12, Number(mm) || 0);
+  const genderName = gender === "male" ? "男" : "女";
+  return astro.bySolar(`${y}-${m}-${d}`, timeIndex, genderName, true, "en-US");
+}
+
 /**
  * Build a chart from apparent solar calendar components (after timezone + true solar correction).
  * iztro expects gender as Chinese characters internally; UI uses en-US for all surfaced labels.

@@ -43,6 +43,7 @@ export default function BirthFormModal({
   const [isOpen, setIsOpen] = useState(false);
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [notice, setNotice] = useState<string | null>(null);
   const [locationQuery, setLocationQuery] = useState("");
   const [locationResults, setLocationResults] = useState<string[]>([]);
   const [locationOpen, setLocationOpen] = useState(false);
@@ -54,6 +55,8 @@ export default function BirthFormModal({
     email: "",
   });
   const [unknownTime, setUnknownTime] = useState(false);
+  const [allowFallback, setAllowFallback] = useState(false);
+  const [geocodeDown, setGeocodeDown] = useState(false);
 
   async function updateLocationSuggestions(nextQuery: string) {
     const q = nextQuery.trim();
@@ -68,10 +71,15 @@ export default function BirthFormModal({
         | { ok: true; results: Array<{ displayName: string }> }
         | { ok: false; error: string };
       if (!res.ok || !data.ok) {
+        if ((data as { ok: false; error: string }).error === "GEOCODE_UNAVAILABLE") {
+          setGeocodeDown(true);
+          setAllowFallback(true);
+        }
         setLocationResults([]);
         setLocationOpen(false);
         return;
       }
+      setGeocodeDown(false);
       const names = data.results.map((r) => r.displayName).slice(0, 6);
       setLocationResults(names);
       setLocationOpen(names.length > 0);
@@ -81,9 +89,53 @@ export default function BirthFormModal({
     }
   }
 
+  async function requestChart(params: {
+    birthDate: string;
+    birthTime: string;
+    gender: string;
+    location: string;
+    allowFallback: boolean;
+  }): Promise<
+    | { ok: true; chart: unknown; meta?: unknown }
+    | { ok: false; status: number; errorCode: string }
+  > {
+    const res = await fetch("/api/birth-chart", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(params),
+    });
+
+    let data:
+      | {
+          ok?: boolean;
+          error?: string;
+          chart?: unknown;
+          meta?: unknown;
+        }
+      | null = null;
+    try {
+      data = (await res.json()) as {
+        ok?: boolean;
+        error?: string;
+        chart?: unknown;
+        meta?: unknown;
+      };
+    } catch {
+      data = null;
+    }
+
+    if (!res.ok || !data?.ok || data.chart == null) {
+      const code = typeof data?.error === "string" ? data.error : "";
+      return { ok: false, status: res.status, errorCode: code || "UNKNOWN" };
+    }
+
+    return { ok: true, chart: data.chart, meta: data.meta };
+  }
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setError(null);
+    setNotice(null);
 
     const birthDateNorm = normalizeYyyyMmDd(form.birthDate);
     if (!birthDateNorm) {
@@ -100,52 +152,61 @@ export default function BirthFormModal({
     setPending(true);
 
     try {
-      const res = await fetch("/api/birth-chart", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          birthDate: birthDateNorm,
-          birthTime: birthTimeNorm,
-          gender: form.gender,
-          location: form.location || locationQuery,
-        }),
+      const params = {
+        birthDate: birthDateNorm,
+        birthTime: birthTimeNorm,
+        gender: form.gender,
+        location: form.location || locationQuery,
+      };
+
+      // First attempt: normal mode.
+      const first = await requestChart({
+        ...params,
+        allowFallback,
       });
 
-      let data:
-        | {
-            ok?: boolean;
-            error?: string;
-            chart?: unknown;
-            meta?: unknown;
+      if (!first.ok) {
+        if (first.errorCode === "GEOCODE_UNAVAILABLE" && !allowFallback) {
+          // Smooth fallback: auto-switch and retry once.
+          setAllowFallback(true);
+          setGeocodeDown(true);
+          setNotice(
+            "Location services are unavailable. Continuing with an approximate chart.",
+          );
+          const second = await requestChart({ ...params, allowFallback: true });
+          if (!second.ok) {
+            setError(
+              ERROR_COPY[second.errorCode] ??
+                `Request failed (${second.status}). Please try again in a moment.`,
+            );
+            setPending(false);
+            return;
           }
-        | null = null;
+          sessionStorage.setItem("userChart", JSON.stringify(second.chart));
+          if (second.meta != null) {
+            sessionStorage.setItem("userChartMeta", JSON.stringify(second.meta));
+          }
+          sessionStorage.setItem("userEmail", form.email);
+          sessionStorage.setItem("userBirthLocation", form.location || locationQuery);
+          setIsOpen(false);
+          setPending(false);
+          router.push("/calculating");
+          return;
+        }
 
-      try {
-        data = (await res.json()) as {
-          ok?: boolean;
-          error?: string;
-          chart?: unknown;
-          meta?: unknown;
-        };
-      } catch {
-        data = null;
-      }
-
-      if (!res.ok || !data?.ok || data.chart == null) {
-        const code = typeof data?.error === "string" ? data.error : "";
         setError(
-          ERROR_COPY[code] ??
-            `Request failed (${res.status}). Please try again in a moment.`,
+          ERROR_COPY[first.errorCode] ??
+            `Request failed (${first.status}). Please try again in a moment.`,
         );
         setPending(false);
         return;
       }
 
-      sessionStorage.setItem("userChart", JSON.stringify(data.chart));
+      sessionStorage.setItem("userChart", JSON.stringify(first.chart));
       sessionStorage.setItem("userEmail", form.email);
-      sessionStorage.setItem("userBirthLocation", form.location);
-      if (data.meta != null) {
-        sessionStorage.setItem("userChartMeta", JSON.stringify(data.meta));
+      sessionStorage.setItem("userBirthLocation", form.location || locationQuery);
+      if (first.meta != null) {
+        sessionStorage.setItem("userChartMeta", JSON.stringify(first.meta));
       }
 
       setIsOpen(false);
@@ -333,6 +394,11 @@ export default function BirthFormModal({
                     >
                       Birth City
                     </label>
+                    {geocodeDown ? (
+                      <p className="mt-1 font-body text-xs text-ink-dim">
+                        Autocomplete is temporarily unavailable. You can still continue with an approximate chart.
+                      </p>
+                    ) : null}
                 <input
                   id="location"
                   type="text"
@@ -405,9 +471,23 @@ export default function BirthFormModal({
                 </div>
               </div>
 
+              {notice ? (
+                <p className="text-sm text-ink-muted" role="status">
+                  {notice}
+                </p>
+              ) : null}
+
               {error ? (
                 <p className="text-sm text-cinnabar" role="alert">
                   {error}
+                </p>
+              ) : null}
+
+              {allowFallback ? (
+                <p className="font-body text-xs text-ink-dim">
+                  You can continue with an approximate chart (no time-zone or
+                  true-solar correction). You can still upgrade later for the
+                  full report.
                 </p>
               ) : null}
 

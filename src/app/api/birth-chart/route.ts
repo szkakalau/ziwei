@@ -27,6 +27,7 @@ export async function POST(request: Request) {
     const birthTime = typeof o.birthTime === "string" ? o.birthTime : "";
     const location = typeof o.location === "string" ? o.location : "";
     const gender = o.gender === "female" ? "female" : "male";
+    const allowFallback = o.allowFallback === true;
 
     if (!birthDate || !location) {
       return NextResponse.json(
@@ -40,6 +41,7 @@ export async function POST(request: Request) {
       birthTime,
       gender,
       location,
+      allowFallback,
     });
 
     if (!result.ok) {

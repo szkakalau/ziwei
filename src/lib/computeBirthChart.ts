@@ -2,7 +2,10 @@ import { find as findTimezones } from "geo-tz";
 import { DateTime } from "luxon";
 import { apparentSolarFromUtcInstant } from "@/lib/apparentSolar";
 import { GeocodeUnavailableError, geocodeLocation } from "@/lib/geocode";
-import { buildChartFromApparentSolar } from "@/lib/astroChart";
+import {
+  buildChartFromApparentSolar,
+  buildChartFromLocalClock,
+} from "@/lib/astroChart";
 import { sanitizeChartForEnglishSite } from "@/lib/chartSanitize";
 
 export type BirthChartInput = {
@@ -10,6 +13,7 @@ export type BirthChartInput = {
   birthTime: string;
   gender: "male" | "female";
   location: string;
+  allowFallback?: boolean;
 };
 
 export type BirthChartMeta = {
@@ -19,6 +23,7 @@ export type BirthChartMeta = {
   placeLabel: string;
   apparentSolarDate: string;
   apparentSolarTime: string;
+  isApproximate?: boolean;
 };
 
 export type BirthChartSuccess = {
@@ -44,7 +49,47 @@ export async function computeBirthChart(
     geo = await geocodeLocation(input.location);
   } catch (e) {
     if (e instanceof GeocodeUnavailableError) {
+      if (input.allowFallback) {
+        const chart = buildChartFromLocalClock({
+          birthDate: input.birthDate,
+          birthTime: input.birthTime?.trim() || "12:00",
+          gender: input.gender,
+        });
+        return {
+          ok: true,
+          chart: sanitizeChartForEnglishSite(chart),
+          meta: {
+            timezone: "Approximate",
+            latitude: 0,
+            longitude: 0,
+            placeLabel: input.location || "Unknown",
+            apparentSolarDate: input.birthDate,
+            apparentSolarTime: input.birthTime?.trim() || "12:00",
+            isApproximate: true,
+          },
+        };
+      }
       return { ok: false, errorCode: "GEOCODE_UNAVAILABLE" };
+    }
+    if (input.allowFallback) {
+      const chart = buildChartFromLocalClock({
+        birthDate: input.birthDate,
+        birthTime: input.birthTime?.trim() || "12:00",
+        gender: input.gender,
+      });
+      return {
+        ok: true,
+        chart: sanitizeChartForEnglishSite(chart),
+        meta: {
+          timezone: "Approximate",
+          latitude: 0,
+          longitude: 0,
+          placeLabel: input.location || "Unknown",
+          apparentSolarDate: input.birthDate,
+          apparentSolarTime: input.birthTime?.trim() || "12:00",
+          isApproximate: true,
+        },
+      };
     }
     return { ok: false, errorCode: "GEOCODE_UNAVAILABLE" };
   }

@@ -11,6 +11,7 @@ type ChartMeta = {
   placeLabel: string;
   apparentSolarDate: string;
   apparentSolarTime: string;
+  isApproximate?: boolean;
 };
 
 type ChartLike = {
@@ -72,6 +73,12 @@ export default function PreviewPage() {
             {meta?.placeLabel ?? "—"}
           </span>
         </p>
+        {meta?.isApproximate ? (
+          <p className="mt-3 font-body text-sm text-ink-dim">
+            Approximate chart: location services were unavailable, so time-zone
+            and true-solar corrections were skipped.
+          </p>
+        ) : null}
       </header>
 
       {/* ② Destiny chart */}
