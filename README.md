@@ -1,36 +1,45 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Ziwei AI — Marketing site
 
-## Getting Started
+Next.js 14 (App Router) + Tailwind CSS + MDX blog (`content/blog`). CTA buttons use `NEXT_PUBLIC_READING_URL`.
 
-First, run the development server:
+## Local development
 
 ```bash
+npm install
+cp .env.example .env.local
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Environment variables
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+See [.env.example](.env.example). Set `NEXT_PUBLIC_SITE_URL` to your production origin (no trailing slash) before launch so metadata, `sitemap.xml`, and Open Graph URLs are correct.
 
-## Learn More
+## Blog (MDX)
 
-To learn more about Next.js, take a look at the following resources:
+Add files under `content/blog/*.mdx` with frontmatter:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- `title`, `description`, `date` (ISO date string), `category` (one of the values in `lib/blog.ts`).
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+GEO-friendly structure: definition section, lists, FAQ, clear `h2`/`h3` headings.
 
 ## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. Create a GitHub repository and push this project.
+2. In [Vercel](https://vercel.com), **Add New Project** → Import the repo.
+3. Framework preset: **Next.js**. Root directory: repository root.
+4. Add environment variables: `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_READING_URL` (and future Stripe/MailerLite keys when integrated).
+5. Deploy, then attach your custom domain under **Project → Settings → Domains**.
+6. Update `NEXT_PUBLIC_SITE_URL` to the production URL and redeploy if needed.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Official docs: [Next.js on Vercel](https://vercel.com/docs/frameworks/nextjs).
+
+## Scripts
+
+| Command        | Action              |
+| -------------- | ------------------- |
+| `npm run dev`  | Dev server          |
+| `npm run build`| Production build    |
+| `npm run start`| Start production    |
+| `npm run lint` | ESLint              |
