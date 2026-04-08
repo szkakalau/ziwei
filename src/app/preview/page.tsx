@@ -1,8 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Link from "next/link";
-import { getReadingUrl } from "@/lib/site";
 
 type ChartMeta = {
   timezone: string;
@@ -23,13 +21,27 @@ type ChartLike = {
   }>;
 };
 
+type BirthInput = {
+  birthDate: string;
+  birthTime: string;
+  gender: "male" | "female";
+  location: string;
+  allowFallback?: boolean;
+};
+
 export default function PreviewPage() {
   const [chart, setChart] = useState<unknown>(null);
   const [meta, setMeta] = useState<ChartMeta | null>(null);
+  const [birthInput, setBirthInput] = useState<BirthInput | null>(null);
+  const [email, setEmail] = useState<string>("");
+  const [checkoutPending, setCheckoutPending] = useState(false);
+  const [checkoutError, setCheckoutError] = useState<string | null>(null);
 
   useEffect(() => {
     const stored = sessionStorage.getItem("userChart");
     const rawMeta = sessionStorage.getItem("userChartMeta");
+    const rawBirth = sessionStorage.getItem("userBirthInput");
+    const rawEmail = sessionStorage.getItem("userEmail");
     if (stored) setChart(JSON.parse(stored));
     if (rawMeta) {
       try {
@@ -38,6 +50,14 @@ export default function PreviewPage() {
         setMeta(null);
       }
     }
+    if (rawBirth) {
+      try {
+        setBirthInput(JSON.parse(rawBirth) as BirthInput);
+      } catch {
+        setBirthInput(null);
+      }
+    }
+    if (rawEmail) setEmail(rawEmail);
   }, []);
 
   if (!chart) {
@@ -48,9 +68,43 @@ export default function PreviewPage() {
     );
   }
 
-  const readingUrl = getReadingUrl();
   const c = chart as ChartLike;
   const palaces = Array.isArray(c?.palaces) ? c.palaces : [];
+
+  async function startCheckout() {
+    setCheckoutError(null);
+    if (!birthInput) {
+      setCheckoutError("Missing birth data. Please return to the homepage and generate your chart again.");
+      return;
+    }
+    setCheckoutPending(true);
+    try {
+      const res = await fetch("/api/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...birthInput,
+          email,
+          allowFallback: birthInput.allowFallback === true || meta?.isApproximate === true,
+        }),
+      });
+      const data = (await res.json()) as
+        | { ok: true; url: string | null }
+        | { ok: false; error: string };
+
+      if (!res.ok || !data.ok || !data.url) {
+        setCheckoutError(
+          "We couldn't start checkout. Please try again in a moment.",
+        );
+        setCheckoutPending(false);
+        return;
+      }
+      window.location.href = data.url;
+    } catch {
+      setCheckoutError("Network error. Please try again in a moment.");
+      setCheckoutPending(false);
+    }
+  }
 
   return (
     <div className="mx-auto max-w-6xl px-6 py-16">
@@ -179,13 +233,21 @@ export default function PreviewPage() {
             <p className="font-display text-2xl font-semibold text-ink">
               Unlock full report — $19
             </p>
-            <Link
-              href={readingUrl}
-              className="btn-cta px-7 py-3.5 text-base"
+            <button
+              type="button"
+              className="btn-cta px-7 py-3.5 text-base disabled:opacity-60"
+              disabled={checkoutPending}
+              onClick={() => void startCheckout()}
             >
-              Unlock My Full Reading →
-            </Link>
+              {checkoutPending ? "Opening checkout…" : "Unlock My Full Reading →"}
+            </button>
           </div>
+
+          {checkoutError ? (
+            <p className="mt-4 font-body text-sm text-cinnabar" role="alert">
+              {checkoutError}
+            </p>
+          ) : null}
 
           <p className="mt-6 font-body text-sm text-ink-dim">
             Instant access • One-time payment • 30+ page report

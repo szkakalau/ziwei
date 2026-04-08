@@ -186,6 +186,16 @@ export default function BirthFormModal({
           if (second.meta != null) {
             sessionStorage.setItem("userChartMeta", JSON.stringify(second.meta));
           }
+          sessionStorage.setItem(
+            "userBirthInput",
+            JSON.stringify({
+              birthDate: birthDateNorm,
+              birthTime: birthTimeNorm,
+              gender: form.gender,
+              location: form.location || locationQuery,
+              allowFallback: true,
+            }),
+          );
           sessionStorage.setItem("userEmail", form.email);
           sessionStorage.setItem("userBirthLocation", form.location || locationQuery);
           setIsOpen(false);
@@ -205,6 +215,16 @@ export default function BirthFormModal({
       sessionStorage.setItem("userChart", JSON.stringify(first.chart));
       sessionStorage.setItem("userEmail", form.email);
       sessionStorage.setItem("userBirthLocation", form.location || locationQuery);
+      sessionStorage.setItem(
+        "userBirthInput",
+        JSON.stringify({
+          birthDate: birthDateNorm,
+          birthTime: birthTimeNorm,
+          gender: form.gender,
+          location: form.location || locationQuery,
+          allowFallback,
+        }),
+      );
       if (first.meta != null) {
         sessionStorage.setItem("userChartMeta", JSON.stringify(first.meta));
       }
