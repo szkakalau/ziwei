@@ -1,5 +1,6 @@
-import { find as findTimezones } from "geo-tz";
-import { DateTime } from "luxon";
+import { find as findTimezones1970 } from "geo-tz";
+import { find as findTimezonesAll } from "geo-tz/all";
+import { DateTime, FixedOffsetZone } from "luxon";
 import { apparentSolarFromUtcInstant } from "@/lib/apparentSolar";
 import { GeocodeUnavailableError, geocodeLocation } from "@/lib/geocode";
 import {
@@ -40,6 +41,38 @@ export type BirthChartFailure = {
     | "TIMEZONE_UNKNOWN"
     | "INVALID_DATETIME";
 };
+
+/** Try 1970-reduced DB first, then full DB (covers more coordinates). */
+function timezonesAtPoint(lat: number, lon: number): string[] {
+  try {
+    const z = findTimezones1970(lat, lon);
+    if (z.length > 0) return z;
+  } catch {
+    /* fall through */
+  }
+  try {
+    const z = findTimezonesAll(lat, lon);
+    if (z.length > 0) return z;
+  } catch {
+    /* fall through */
+  }
+  return [];
+}
+
+/** Mean solar time offset from longitude (minutes east of UTC), clamped to ±14h. */
+function meanSolarOffsetMinutes(longitudeEast: number): number {
+  const raw = Math.round(longitudeEast * 4);
+  return Math.max(-840, Math.min(840, raw));
+}
+
+function utcOffsetLabel(totalMinutes: number): string {
+  const sign = totalMinutes >= 0 ? "+" : "-";
+  const abs = Math.abs(totalMinutes);
+  const h = Math.floor(abs / 60);
+  const m = abs % 60;
+  if (m === 0) return `${sign}${h}`;
+  return `${sign}${h}:${String(m).padStart(2, "0")}`;
+}
 
 export async function computeBirthChart(
   input: BirthChartInput,
@@ -97,36 +130,23 @@ export async function computeBirthChart(
     return { ok: false, errorCode: "LOCATION_NOT_FOUND" };
   }
 
-  let zones: string[];
-  try {
-    zones = findTimezones(geo.lat, geo.lon);
-  } catch {
-    if (input.allowFallback) {
-      const chart = buildChartFromLocalClock({
-        birthDate: input.birthDate,
-        birthTime: input.birthTime?.trim() || "12:00",
-        gender: input.gender,
-      });
-      return {
-        ok: true,
-        chart: sanitizeChartForEnglishSiteSafe(chart),
-        meta: {
-          timezone: "Approximate",
-          latitude: geo.lat,
-          longitude: geo.lon,
-          placeLabel: geo.displayName,
-          apparentSolarDate: input.birthDate,
-          apparentSolarTime: input.birthTime?.trim() || "12:00",
-          isApproximate: true,
-        },
-      };
-    }
-    return { ok: false, errorCode: "TIMEZONE_UNKNOWN" };
+  const zones = timezonesAtPoint(geo.lat, geo.lon);
+  const ianaZone = zones[0];
+
+  let zoneForLuxon: string | FixedOffsetZone;
+  let timezoneLabel: string;
+  let usedLongitudeTimezoneFallback: boolean;
+
+  if (ianaZone != null) {
+    zoneForLuxon = ianaZone;
+    timezoneLabel = ianaZone;
+    usedLongitudeTimezoneFallback = false;
+  } else {
+    const offsetMin = meanSolarOffsetMinutes(geo.lon);
+    zoneForLuxon = FixedOffsetZone.instance(offsetMin);
+    timezoneLabel = `Estimated mean solar (UTC${utcOffsetLabel(offsetMin)})`;
+    usedLongitudeTimezoneFallback = true;
   }
-  if (!zones.length) {
-    return { ok: false, errorCode: "TIMEZONE_UNKNOWN" };
-  }
-  const zone = zones[0];
 
   const parts = input.birthDate.split("-").map(Number);
   const y = parts[0];
@@ -152,7 +172,7 @@ export async function computeBirthChart(
       second: 0,
       millisecond: 0,
     },
-    { zone },
+    { zone: zoneForLuxon },
   );
 
   if (!civil.isValid) {
@@ -185,12 +205,13 @@ export async function computeBirthChart(
     ok: true,
     chart: chartPayload,
     meta: {
-      timezone: zone,
+      timezone: timezoneLabel,
       latitude: geo.lat,
       longitude: geo.lon,
       placeLabel: geo.displayName,
       apparentSolarDate,
       apparentSolarTime,
+      ...(usedLongitudeTimezoneFallback ? { isApproximate: true } : {}),
     },
   };
 }
