@@ -151,7 +151,7 @@ export default function PreviewPage() {
             </p>
           </div>
           <div className="rounded-sm border border-gold/20 bg-void/60 px-4 py-3 font-mono text-xs uppercase tracking-widest text-ink-dim">
-            Chart overview
+            Free preview
           </div>
         </div>
 

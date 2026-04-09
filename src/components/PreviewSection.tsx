@@ -7,7 +7,7 @@ export default function PreviewSection() {
       />
       <div className="relative mx-auto max-w-4xl">
         <h2 className="text-center font-display text-3xl font-semibold tracking-tight text-ink md:text-4xl">
-          What your reading can cover
+          Your free preview includes
         </h2>
 
         <div className="mt-14 grid gap-8 md:grid-cols-2">

@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Chart preview",
   description:
-    "DestinyBlueprint chart preview — purchase the full report for the complete reading.",
+    "Your free DestinyBlueprint Zi Wei chart preview — unlock the full report when you are ready.",
 };
 
 export default function PreviewLayout({

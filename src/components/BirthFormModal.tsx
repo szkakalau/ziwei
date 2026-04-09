@@ -6,6 +6,7 @@ import {
   DialogPanel,
   DialogTitle,
 } from "@headlessui/react";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import {
   isValid24hTime,
@@ -38,6 +39,7 @@ export default function BirthFormModal({
   triggerText,
   triggerClassName,
 }: Props) {
+  const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -87,6 +89,49 @@ export default function BirthFormModal({
     }
   }
 
+  async function requestChart(params: {
+    birthDate: string;
+    birthTime: string;
+    gender: string;
+    location: string;
+    allowFallback: boolean;
+  }): Promise<
+    | { ok: true; chart: unknown; meta?: unknown }
+    | { ok: false; status: number; errorCode: string }
+  > {
+    const res = await fetch("/api/birth-chart", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(params),
+    });
+
+    let data:
+      | {
+          ok?: boolean;
+          error?: string;
+          chart?: unknown;
+          meta?: unknown;
+        }
+      | null = null;
+    try {
+      data = (await res.json()) as {
+        ok?: boolean;
+        error?: string;
+        chart?: unknown;
+        meta?: unknown;
+      };
+    } catch {
+      data = null;
+    }
+
+    if (!res.ok || !data?.ok || data.chart == null) {
+      const code = typeof data?.error === "string" ? data.error : "";
+      return { ok: false, status: res.status, errorCode: code || "UNKNOWN" };
+    }
+
+    return { ok: true, chart: data.chart, meta: data.meta };
+  }
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setError(null);
@@ -114,36 +159,108 @@ export default function BirthFormModal({
     setPending(true);
 
     try {
-      const birthData = {
+      const params = {
         birthDate: birthDateNorm,
         birthTime: birthTimeNorm,
         gender: form.gender,
         location,
-        allowFallback,
       };
 
-      // Persist before leaving the site (survives Stripe redirect back).
-      localStorage.setItem("userBirthInput", JSON.stringify(birthData));
-      localStorage.setItem("userEmail", email);
-      localStorage.setItem("userBirthLocation", location);
-
-      const res = await fetch("/api/checkout", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...birthData, email }),
+      const first = await requestChart({
+        ...params,
+        allowFallback,
       });
-      const data = (await res.json()) as
-        | { ok: true; url: string | null }
-        | { ok: false; error: string };
 
-      if (!res.ok || !data.ok || !data.url) {
-        setError("We couldn't start checkout. Please try again in a moment.");
+      if (!first.ok) {
+        if (first.errorCode === "GEOCODE_UNAVAILABLE" && !allowFallback) {
+          setAllowFallback(true);
+          setGeocodeDown(true);
+          setNotice(
+            "Location services are unavailable. Continuing with an approximate chart.",
+          );
+          const second = await requestChart({ ...params, allowFallback: true });
+          if (!second.ok) {
+            setError(
+              ERROR_COPY[second.errorCode] ??
+                `Request failed (${second.status}). Please try again in a moment.`,
+            );
+            setPending(false);
+            return;
+          }
+          sessionStorage.setItem("userChart", JSON.stringify(second.chart));
+          if (second.meta != null) {
+            sessionStorage.setItem("userChartMeta", JSON.stringify(second.meta));
+          }
+          sessionStorage.setItem(
+            "userBirthInput",
+            JSON.stringify({
+              birthDate: birthDateNorm,
+              birthTime: birthTimeNorm,
+              gender: form.gender,
+              location,
+              allowFallback: true,
+            }),
+          );
+          sessionStorage.setItem("userEmail", email);
+          sessionStorage.setItem("userBirthLocation", location);
+          localStorage.setItem(
+            "userBirthInput",
+            JSON.stringify({
+              birthDate: birthDateNorm,
+              birthTime: birthTimeNorm,
+              gender: form.gender,
+              location,
+              allowFallback: true,
+            }),
+          );
+          localStorage.setItem("userEmail", email);
+          localStorage.setItem("userBirthLocation", location);
+          setIsOpen(false);
+          setPending(false);
+          router.push("/calculating");
+          return;
+        }
+
+        setError(
+          ERROR_COPY[first.errorCode] ??
+            `Request failed (${first.status}). Please try again in a moment.`,
+        );
         setPending(false);
         return;
       }
 
+      sessionStorage.setItem("userChart", JSON.stringify(first.chart));
+      sessionStorage.setItem("userEmail", email);
+      sessionStorage.setItem("userBirthLocation", location);
+      sessionStorage.setItem(
+        "userBirthInput",
+        JSON.stringify({
+          birthDate: birthDateNorm,
+          birthTime: birthTimeNorm,
+          gender: form.gender,
+          location,
+          allowFallback,
+        }),
+      );
+      localStorage.setItem(
+        "userBirthInput",
+        JSON.stringify({
+          birthDate: birthDateNorm,
+          birthTime: birthTimeNorm,
+          gender: form.gender,
+          location,
+          allowFallback,
+        }),
+      );
+      localStorage.setItem("userEmail", email);
+      localStorage.setItem("userBirthLocation", location);
+      if (first.meta != null) {
+        sessionStorage.setItem("userChartMeta", JSON.stringify(first.meta));
+      }
+
       setIsOpen(false);
-      window.location.href = data.url;
+      setPending(false);
+      router.push("/calculating");
     } catch {
       setError(
         "Network error. If you're on a VPN or restricted network, try turning it off and retry.",
@@ -190,11 +307,11 @@ export default function BirthFormModal({
                   date; lunar used in the calculation.
                 </p>
                 <p className="mt-2 font-mono text-[10px] uppercase tracking-widest text-ink-dim sm:text-xs">
-                  Secure checkout · private · full report by email
+                  ~30 sec · private · free preview
                 </p>
                 <div className="mt-3 flex items-center justify-between gap-3">
                   <p className="font-mono text-[10px] uppercase tracking-widest text-ink-dim sm:text-xs">
-                    Birth details → Payment
+                    Step 1 of 2
                   </p>
                   <div className="h-1 min-w-[5rem] flex-1 max-w-[7rem] overflow-hidden rounded-full bg-white/10">
                     <div className="h-full w-1/2 bg-gradient-to-r from-jade to-gold" />
@@ -392,14 +509,17 @@ export default function BirthFormModal({
                     </p>
                   ) : null}
                   <p className="font-body text-[11px] text-ink-dim">
-                    Payment required to generate your report · we don&apos;t sell your data.
+                    Free preview first · pay only to unlock the full report · we
+                    don&apos;t sell your data.
                   </p>
                   <button
                     type="submit"
                     disabled={pending}
                     className="btn-cta w-full py-3 text-sm disabled:opacity-60 sm:py-3.5 sm:text-base"
                   >
-                    {pending ? "Redirecting to payment…" : "Generate Report →"}
+                    {pending
+                      ? "Building your chart…"
+                      : "Generate My Free Chart →"}
                   </button>
                 </div>
               </form>

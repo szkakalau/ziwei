@@ -3,6 +3,18 @@ import { getReadingUrl } from "@/lib/site";
 
 const plans = [
   {
+    name: "Free preview",
+    price: "$0",
+    highlight: false,
+    features: [
+      "Interactive chart on-site",
+      "Sample personality & theme copy",
+      "Upgrade anytime from your preview",
+    ],
+    cta: "Start free",
+    soon: false,
+  },
+  {
     name: "Full Destiny Report",
     price: "$19",
     highlight: true,
@@ -45,7 +57,7 @@ export default function PricingTable() {
   const readingUrl = getReadingUrl();
 
   return (
-    <div className="mt-14 grid gap-6 sm:gap-8 md:grid-cols-2 lg:grid-cols-3">
+    <div className="mt-14 grid gap-6 sm:gap-8 md:grid-cols-2">
       {plans.map((plan) => (
         <div
           key={plan.name}

@@ -42,7 +42,7 @@ export default function HomePage() {
             <div className="mt-8 flex w-full max-w-md flex-col items-stretch gap-3 sm:mt-10 sm:max-w-none sm:items-start">
               <BirthFormModal triggerText="Generate My Chart →" />
               <p className="font-body text-sm text-ink-dim">
-                Secure checkout · Full report by email · No account required
+                Free chart preview · No signup required
               </p>
               <p className="font-body text-sm text-ink-dim">
                 Used by 1,000+ early astrology readers
@@ -356,10 +356,12 @@ export default function HomePage() {
       {/* ⑨ PRICING TEASER */}
       <section className="relative mx-auto max-w-6xl px-6 py-24 text-center">
         <h2 className="font-display text-3xl font-semibold tracking-tight text-ink md:text-4xl">
-          One payment. Your full destiny report.
+          Start free. Unlock your full destiny report anytime.
         </h2>
         <p className="mt-3 font-display text-3xl font-semibold text-ink sm:text-4xl md:text-5xl">
-          Full Zi Wei reading — $19
+          Free preview on-site
+          <br />
+          Full report — $19
         </p>
         <div className="mt-10 flex justify-center">
           <BirthFormModal triggerText="Generate My Chart →" />

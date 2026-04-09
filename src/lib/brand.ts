@@ -13,4 +13,4 @@ export function getSupportEmail(): string {
 }
 
 export const DEFAULT_META_DESCRIPTION =
-  "DestinyBlueprint — AI-powered Purple Star (Zi Wei Dou Shu) readings: personality, relationships, and life themes. Pay once, full report by email.";
+  "DestinyBlueprint — AI-powered Purple Star (Zi Wei Dou Shu) readings. Free chart preview on-site; unlock the full report when you are ready.";

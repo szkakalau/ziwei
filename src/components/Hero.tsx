@@ -44,7 +44,8 @@ export default function Hero() {
       </div>
 
       <p className="mt-4 max-w-md px-2 font-body text-sm text-ink-dim sm:mx-auto">
-        Secure checkout. Full reading delivered by email—no account required.
+        Includes a free chart preview. Unlock the full report when you are
+        ready—no account required.
       </p>
     </section>
   );

@@ -4,7 +4,7 @@ import PricingTable from "@/components/PricingTable";
 export const metadata: Metadata = {
   title: "Pricing",
   description:
-    "Simple, transparent pricing for DestinyBlueprint — full Zi Wei destiny report and add-ons.",
+    "Simple pricing for DestinyBlueprint — free chart preview, full Zi Wei report, and add-ons.",
 };
 
 export default function PricingPage() {
@@ -15,8 +15,8 @@ export default function PricingPage() {
           Simple, transparent pricing
         </h1>
         <p className="mx-auto mt-4 max-w-2xl font-body text-lg text-ink-muted">
-          One clear paid tier for your full reading. Optional add-ons ship when
-          they&apos;re ready.
+          Start with a free on-site preview, then unlock the full reading when
+          you want depth. Optional add-ons ship when they&apos;re ready.
         </p>
       </header>
 
