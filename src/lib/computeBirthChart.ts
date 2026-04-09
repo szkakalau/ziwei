@@ -6,7 +6,7 @@ import {
   buildChartFromApparentSolar,
   buildChartFromLocalClock,
 } from "@/lib/astroChart";
-import { sanitizeChartForEnglishSite } from "@/lib/chartSanitize";
+import { sanitizeChartForEnglishSiteSafe } from "@/lib/chartSanitize";
 
 export type BirthChartInput = {
   birthDate: string;
@@ -57,7 +57,7 @@ export async function computeBirthChart(
         });
         return {
           ok: true,
-          chart: sanitizeChartForEnglishSite(chart),
+          chart: sanitizeChartForEnglishSiteSafe(chart),
           meta: {
             timezone: "Approximate",
             latitude: 0,
@@ -79,7 +79,7 @@ export async function computeBirthChart(
       });
       return {
         ok: true,
-        chart: sanitizeChartForEnglishSite(chart),
+        chart: sanitizeChartForEnglishSiteSafe(chart),
         meta: {
           timezone: "Approximate",
           latitude: 0,
@@ -97,7 +97,32 @@ export async function computeBirthChart(
     return { ok: false, errorCode: "LOCATION_NOT_FOUND" };
   }
 
-  const zones = findTimezones(geo.lat, geo.lon);
+  let zones: string[];
+  try {
+    zones = findTimezones(geo.lat, geo.lon);
+  } catch {
+    if (input.allowFallback) {
+      const chart = buildChartFromLocalClock({
+        birthDate: input.birthDate,
+        birthTime: input.birthTime?.trim() || "12:00",
+        gender: input.gender,
+      });
+      return {
+        ok: true,
+        chart: sanitizeChartForEnglishSiteSafe(chart),
+        meta: {
+          timezone: "Approximate",
+          latitude: geo.lat,
+          longitude: geo.lon,
+          placeLabel: geo.displayName,
+          apparentSolarDate: input.birthDate,
+          apparentSolarTime: input.birthTime?.trim() || "12:00",
+          isApproximate: true,
+        },
+      };
+    }
+    return { ok: false, errorCode: "TIMEZONE_UNKNOWN" };
+  }
   if (!zones.length) {
     return { ok: false, errorCode: "TIMEZONE_UNKNOWN" };
   }
@@ -137,16 +162,21 @@ export async function computeBirthChart(
   const utc = civil.toUTC();
   const apparent = apparentSolarFromUtcInstant(utc, geo.lon);
 
-  const chart = buildChartFromApparentSolar({
-    year: apparent.year,
-    month: apparent.month,
-    day: apparent.day,
-    hour: apparent.hour,
-    minute: apparent.minute,
-    gender: input.gender,
-  });
+  let chart: ReturnType<typeof buildChartFromApparentSolar>;
+  try {
+    chart = buildChartFromApparentSolar({
+      year: apparent.year,
+      month: apparent.month,
+      day: apparent.day,
+      hour: apparent.hour,
+      minute: apparent.minute,
+      gender: input.gender,
+    });
+  } catch {
+    return { ok: false, errorCode: "INVALID_DATETIME" };
+  }
 
-  const chartPayload = sanitizeChartForEnglishSite(chart);
+  const chartPayload = sanitizeChartForEnglishSiteSafe(chart);
 
   const apparentSolarDate = `${apparent.year}-${String(apparent.month).padStart(2, "0")}-${String(apparent.day).padStart(2, "0")}`;
   const apparentSolarTime = `${String(apparent.hour).padStart(2, "0")}:${String(apparent.minute).padStart(2, "0")}`;

@@ -257,282 +257,242 @@ export default function BirthFormModal({
         }}
         className="relative z-50"
       >
-        <div className="fixed inset-0 flex items-center justify-center p-4">
+        <div className="fixed inset-0 flex items-center justify-center p-3 sm:p-4">
           <DialogBackdrop className="fixed inset-0 bg-void/85 backdrop-blur-sm" />
 
           <DialogPanel
             lang="en-US"
-            className="relative w-full max-w-md border border-gold/25 bg-mist/95 p-8 shadow-panel backdrop-blur-xl"
+            className="relative flex max-h-[min(92dvh,40rem)] w-full max-w-md flex-col overflow-hidden border border-gold/25 bg-mist/95 shadow-panel backdrop-blur-xl"
           >
             <div
               className="pointer-events-none absolute inset-0 bg-grid-fine bg-grid opacity-30"
               aria-hidden
             />
-            <div className="relative">
-            <DialogTitle className="font-display text-2xl font-semibold text-ink">
-              Create your destiny chart in 30 seconds
-            </DialogTitle>
-
-            <p className="mt-2 font-body text-sm leading-relaxed text-ink-muted">
-              We use your birth data to calculate your Zi Wei astrology chart.
-              Your data is never stored or shared.
-            </p>
-
-            <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2 font-body text-sm text-ink-muted">
-              <span>⏱ Takes 30 seconds</span>
-              <span>🔒 Private &amp; secure</span>
-              <span>✨ Instant free preview</span>
-            </div>
-
-            <div className="mt-6 flex items-center justify-between gap-4">
-              <p className="font-mono text-xs uppercase tracking-widest text-ink-dim">
-                Step 1 of 2 — Birth Details
-              </p>
-              <div className="h-1 w-28 overflow-hidden rounded-full bg-white/10">
-                <div className="h-full w-1/2 bg-gradient-to-r from-jade to-gold" />
-              </div>
-            </div>
-
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="rounded-sm border border-white/10 bg-void/40 p-4">
-                <div className="flex items-start gap-3">
-                  <span aria-hidden className="mt-0.5 text-lg">
-                    📅
-                  </span>
-                  <div className="flex-1">
-                    <label
-                      htmlFor="birthDate"
-                      className="block font-body text-sm font-semibold text-ink"
-                    >
-                      Date of Birth
-                    </label>
-                    <p className="mt-1 font-body text-xs text-ink-dim">
-                      We use the lunar calendar for calculation.
-                    </p>
-                <input
-                  id="birthDate"
-                  type="text"
-                  inputMode="numeric"
-                  autoComplete="bday"
-                  placeholder="YYYY-MM-DD"
-                  title="Gregorian date, format YYYY-MM-DD"
-                  required
-                  value={form.birthDate}
-                  className="input-ink font-mono"
-                  onChange={(e) =>
-                    setForm({ ...form, birthDate: e.target.value })
-                  }
-                />
+            <div className="relative flex min-h-0 flex-1 flex-col">
+              <div className="shrink-0 border-b border-white/10 px-4 pb-3 pt-4 sm:px-5 sm:pt-5">
+                <DialogTitle className="font-display text-xl font-semibold leading-snug text-ink sm:text-2xl">
+                  Create your chart
+                </DialogTitle>
+                <p className="mt-1.5 font-body text-xs leading-relaxed text-ink-muted sm:text-sm">
+                  Birth data for Zi Wei only — not stored or shared. Gregorian
+                  date; lunar used in the calculation.
+                </p>
+                <p className="mt-2 font-mono text-[10px] uppercase tracking-widest text-ink-dim sm:text-xs">
+                  ~30 sec · private · free preview
+                </p>
+                <div className="mt-3 flex items-center justify-between gap-3">
+                  <p className="font-mono text-[10px] uppercase tracking-widest text-ink-dim sm:text-xs">
+                    Step 1 of 2
+                  </p>
+                  <div className="h-1 min-w-[5rem] flex-1 max-w-[7rem] overflow-hidden rounded-full bg-white/10">
+                    <div className="h-full w-1/2 bg-gradient-to-r from-jade to-gold" />
                   </div>
                 </div>
               </div>
 
-              <div className="rounded-sm border border-white/10 bg-void/40 p-4">
-                <div className="flex items-start gap-3">
-                  <span aria-hidden className="mt-0.5 text-lg">
-                    ⏰
-                  </span>
-                  <div className="flex-1">
-                    <label
-                      htmlFor="birthTime"
-                      className="block font-body text-sm font-semibold text-ink"
-                    >
-                      Birth Time (if known)
-                    </label>
-                <input
-                  id="birthTime"
-                  type="text"
-                  inputMode="numeric"
-                  placeholder="HH:MM"
-                  title="24-hour local time at birth place, e.g. 14:30"
-                  value={unknownTime ? "" : form.birthTime}
-                  disabled={unknownTime}
-                  className="input-ink font-mono disabled:opacity-50"
-                  onChange={(e) =>
-                    setForm({ ...form, birthTime: e.target.value })
-                  }
-                />
-                    <div className="mt-2 flex items-center justify-between gap-4">
-                      <label className="flex items-center gap-2 font-body text-xs text-ink-muted">
+              <form
+                onSubmit={handleSubmit}
+                className="flex min-h-0 flex-1 flex-col"
+              >
+                <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-4 py-3 sm:px-5">
+                  <div className="space-y-3">
+                    <div className="grid gap-3 sm:grid-cols-2">
+                      <div className="rounded-sm border border-white/10 bg-void/40 p-3">
+                        <label
+                          htmlFor="birthDate"
+                          className="block font-body text-xs font-semibold text-ink sm:text-sm"
+                        >
+                          Date of birth
+                        </label>
                         <input
-                          type="checkbox"
-                          className="h-4 w-4 accent-gold"
-                          checked={unknownTime}
+                          id="birthDate"
+                          type="text"
+                          inputMode="numeric"
+                          autoComplete="bday"
+                          placeholder="YYYY-MM-DD"
+                          title="Gregorian date, format YYYY-MM-DD"
+                          required
+                          value={form.birthDate}
+                          className="input-ink mt-1.5 font-mono text-sm"
+                          onChange={(e) =>
+                            setForm({ ...form, birthDate: e.target.value })
+                          }
+                        />
+                      </div>
+                      <div className="rounded-sm border border-white/10 bg-void/40 p-3">
+                        <label
+                          htmlFor="gender"
+                          className="block font-body text-xs font-semibold text-ink sm:text-sm"
+                        >
+                          Gender
+                        </label>
+                        <select
+                          id="gender"
+                          value={form.gender}
+                          className="input-ink mt-1.5 text-sm"
+                          onChange={(e) =>
+                            setForm({ ...form, gender: e.target.value })
+                          }
+                        >
+                          <option value="male">Male</option>
+                          <option value="female">Female</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div className="rounded-sm border border-white/10 bg-void/40 p-3">
+                      <label
+                        htmlFor="birthTime"
+                        className="block font-body text-xs font-semibold text-ink sm:text-sm"
+                      >
+                        Birth time (24h, local)
+                      </label>
+                      <input
+                        id="birthTime"
+                        type="text"
+                        inputMode="numeric"
+                        placeholder="HH:MM"
+                        title="24-hour local time at birth place, e.g. 14:30"
+                        value={unknownTime ? "" : form.birthTime}
+                        disabled={unknownTime}
+                        className="input-ink mt-1.5 font-mono text-sm disabled:opacity-50"
+                        onChange={(e) =>
+                          setForm({ ...form, birthTime: e.target.value })
+                        }
+                      />
+                      <div className="mt-2 flex flex-col gap-1.5 sm:flex-row sm:items-center sm:justify-between">
+                        <label className="flex cursor-pointer items-center gap-2 font-body text-[11px] text-ink-muted sm:text-xs">
+                          <input
+                            type="checkbox"
+                            className="h-3.5 w-3.5 shrink-0 accent-gold sm:h-4 sm:w-4"
+                            checked={unknownTime}
+                            onChange={(e) => {
+                              setUnknownTime(e.target.checked);
+                              if (e.target.checked) {
+                                setForm({ ...form, birthTime: "" });
+                              }
+                            }}
+                          />
+                          I don&apos;t know my birth time
+                        </label>
+                        <p className="font-mono text-[10px] text-ink-dim sm:text-xs">
+                          If unknown → 12:00 noon
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="rounded-sm border border-white/10 bg-void/40 p-3">
+                      <div className="relative">
+                        <label
+                          htmlFor="location"
+                          className="block font-body text-xs font-semibold text-ink sm:text-sm"
+                        >
+                          Birth city
+                        </label>
+                        {geocodeDown ? (
+                          <p className="mt-1 font-body text-[11px] text-ink-dim">
+                            Autocomplete unavailable — you can still continue
+                            with an approximate chart.
+                          </p>
+                        ) : null}
+                        <input
+                          id="location"
+                          type="text"
+                          placeholder="e.g. New York, London"
+                          required
+                          value={locationQuery}
+                          className="input-ink mt-1.5 text-sm"
                           onChange={(e) => {
-                            setUnknownTime(e.target.checked);
-                            if (e.target.checked) {
-                              setForm({ ...form, birthTime: "" });
-                            }
+                            const next = e.target.value;
+                            setLocationQuery(next);
+                            setForm({ ...form, location: next });
+                            void updateLocationSuggestions(next);
+                          }}
+                          onFocus={() =>
+                            setLocationOpen(locationResults.length > 0)
+                          }
+                          onBlur={() => {
+                            setTimeout(() => setLocationOpen(false), 120);
                           }}
                         />
-                        I don&apos;t know my birth time
+                        {locationOpen && locationResults.length ? (
+                          <div className="absolute left-0 right-0 top-full z-20 mt-1 overflow-hidden rounded-sm border border-white/10 bg-void/95 shadow-panel">
+                            <ul className="max-h-36 overflow-auto py-1 sm:max-h-40">
+                              {locationResults.map((name) => (
+                                <li key={name}>
+                                  <button
+                                    type="button"
+                                    className="w-full px-3 py-1.5 text-left font-body text-xs text-ink-muted hover:bg-white/5 hover:text-ink sm:text-sm"
+                                    onClick={() => {
+                                      setLocationQuery(name);
+                                      setForm({ ...form, location: name });
+                                      setLocationOpen(false);
+                                    }}
+                                  >
+                                    {name}
+                                  </button>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        ) : null}
+                      </div>
+                    </div>
+
+                    <div className="rounded-sm border border-white/10 bg-void/40 p-3">
+                      <label
+                        htmlFor="email"
+                        className="block font-body text-xs font-semibold text-ink sm:text-sm"
+                      >
+                        Email
                       </label>
-                      <p className="font-mono text-xs text-ink-dim">
-                        If unknown, we use 12:00 PM (noon).
-                      </p>
+                      <input
+                        id="email"
+                        type="email"
+                        placeholder="For your reading"
+                        required
+                        value={form.email}
+                        autoComplete="email"
+                        className="input-ink mt-1.5 text-sm"
+                        onChange={(e) =>
+                          setForm({ ...form, email: e.target.value })
+                        }
+                      />
                     </div>
                   </div>
                 </div>
-              </div>
 
-              <div className="rounded-sm border border-white/10 bg-void/40 p-4">
-                <div className="flex items-start gap-3">
-                  <span aria-hidden className="mt-0.5 text-lg">
-                    🧭
-                  </span>
-                  <div className="flex-1">
-                    <label
-                      htmlFor="gender"
-                      className="block font-body text-sm font-semibold text-ink"
-                    >
-                      Gender
-                    </label>
-                <select
-                  id="gender"
-                  value={form.gender}
-                  className="input-ink"
-                  onChange={(e) =>
-                    setForm({ ...form, gender: e.target.value })
-                  }
-                >
-                  <option value="male">Male</option>
-                  <option value="female">Female</option>
-                </select>
-                  </div>
+                <div className="shrink-0 space-y-2 border-t border-white/10 bg-mist/95 px-4 py-3 backdrop-blur-md sm:px-5">
+                  {notice ? (
+                    <p className="text-xs text-ink-muted sm:text-sm" role="status">
+                      {notice}
+                    </p>
+                  ) : null}
+                  {error ? (
+                    <p className="text-xs text-cinnabar sm:text-sm" role="alert">
+                      {error}
+                    </p>
+                  ) : null}
+                  {allowFallback ? (
+                    <p className="font-body text-[11px] leading-snug text-ink-dim">
+                      Approximate chart: no full time-zone / true-solar
+                      correction. You can upgrade later.
+                    </p>
+                  ) : null}
+                  <p className="font-body text-[11px] text-ink-dim">
+                    Free preview before payment · we don&apos;t sell your data.
+                  </p>
+                  <button
+                    type="submit"
+                    disabled={pending}
+                    className="btn-cta w-full py-3 text-sm disabled:opacity-60 sm:py-3.5 sm:text-base"
+                  >
+                    {pending
+                      ? "Building your chart…"
+                      : "Generate My Free Chart →"}
+                  </button>
                 </div>
-              </div>
-
-              <div className="rounded-sm border border-white/10 bg-void/40 p-4">
-                <div className="flex items-start gap-3">
-                  <span aria-hidden className="mt-0.5 text-lg">
-                    🌍
-                  </span>
-                  <div className="relative flex-1">
-                    <label
-                      htmlFor="location"
-                      className="block font-body text-sm font-semibold text-ink"
-                    >
-                      Birth City
-                    </label>
-                    {geocodeDown ? (
-                      <p className="mt-1 font-body text-xs text-ink-dim">
-                        Autocomplete is temporarily unavailable. You can still continue with an approximate chart.
-                      </p>
-                    ) : null}
-                <input
-                  id="location"
-                  type="text"
-                  placeholder="Search city (e.g. New York, London)"
-                  required
-                  value={locationQuery}
-                  className="input-ink"
-                  onChange={(e) => {
-                    const next = e.target.value;
-                    setLocationQuery(next);
-                    setForm({ ...form, location: next });
-                    void updateLocationSuggestions(next);
-                  }}
-                  onFocus={() => setLocationOpen(locationResults.length > 0)}
-                  onBlur={() => {
-                    // allow click selection
-                    setTimeout(() => setLocationOpen(false), 120);
-                  }}
-                />
-                    {locationOpen && locationResults.length ? (
-                      <div className="absolute left-0 right-0 top-[calc(100%+0.5rem)] z-10 overflow-hidden rounded-sm border border-white/10 bg-void/95 shadow-panel">
-                        <ul className="max-h-56 overflow-auto py-1">
-                          {locationResults.map((name) => (
-                            <li key={name}>
-                              <button
-                                type="button"
-                                className="w-full px-3 py-2 text-left font-body text-sm text-ink-muted hover:bg-white/5 hover:text-ink"
-                                onClick={() => {
-                                  setLocationQuery(name);
-                                  setForm({ ...form, location: name });
-                                  setLocationOpen(false);
-                                }}
-                              >
-                                {name}
-                              </button>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    ) : null}
-                  </div>
-                </div>
-              </div>
-
-              <div className="rounded-sm border border-white/10 bg-void/40 p-4">
-                <div className="flex items-start gap-3">
-                  <span aria-hidden className="mt-0.5 text-lg">
-                    ✉️
-                  </span>
-                  <div className="flex-1">
-                    <label
-                      htmlFor="email"
-                      className="block font-body text-sm font-semibold text-ink"
-                    >
-                      Email address
-                    </label>
-                <input
-                  id="email"
-                  type="email"
-                  placeholder="Email address"
-                  required
-                  value={form.email}
-                  autoComplete="email"
-                  className="input-ink"
-                  onChange={(e) =>
-                    setForm({ ...form, email: e.target.value })
-                  }
-                />
-                  </div>
-                </div>
-              </div>
-
-              {notice ? (
-                <p className="text-sm text-ink-muted" role="status">
-                  {notice}
-                </p>
-              ) : null}
-
-              {error ? (
-                <p className="text-sm text-cinnabar" role="alert">
-                  {error}
-                </p>
-              ) : null}
-
-              {allowFallback ? (
-                <p className="font-body text-xs text-ink-dim">
-                  You can continue with an approximate chart (no time-zone or
-                  true-solar correction). You can still upgrade later for the
-                  full report.
-                </p>
-              ) : null}
-
-              <p className="font-body text-xs text-ink-dim">
-                You’ll see a free preview before any payment.
-              </p>
-
-              <button
-                type="submit"
-                disabled={pending}
-                className="btn-cta w-full py-3.5 text-base disabled:opacity-60"
-              >
-                {pending ? "Building your chart…" : "Generate My Free Chart →"}
-              </button>
-            </form>
-
-            <div className="mt-4 flex items-center justify-between gap-4">
-              <p className="font-body text-xs text-ink-dim">
-                We use your email to send your reading. We don&apos;t sell your
-                data.
-              </p>
-              <p className="font-body text-xs text-ink-dim">
-                ★★★★★ Trusted by early readers worldwide
-              </p>
-            </div>
+              </form>
             </div>
           </DialogPanel>
         </div>

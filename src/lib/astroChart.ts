@@ -33,7 +33,8 @@ export function buildChartFromLocalClock({
   const [y, m, d] = birthDate.split("-").map(Number);
   const [hh, mm] = birthTime.split(":").map(Number);
   const timeIndex = solarTimeToTimeIndex(Number(hh) || 12, Number(mm) || 0);
-  const genderName = gender === "male" ? "男" : "女";
+  // iztro accepts English gender tokens when output language is en-US
+  const genderName = gender === "male" ? "male" : "female";
   return astro.bySolar(`${y}-${m}-${d}`, timeIndex, genderName, true, "en-US");
 }
 
@@ -58,7 +59,6 @@ export function buildChartFromApparentSolar({
 }) {
   const solarDateStr = `${year}-${month}-${day}`;
   const timeIndex = solarTimeToTimeIndex(hour, minute);
-  // iztro expects these exact gender tokens for internal lookup (not shown in UI).
-  const genderName = gender === "male" ? "男" : "女";
+  const genderName = gender === "male" ? "male" : "female";
   return astro.bySolar(solarDateStr, timeIndex, genderName, true, "en-US");
 }
