@@ -48,9 +48,18 @@ export async function sendPaidReportViaResend(args: SendPaidReportEmailArgs) {
          </div>`
       : "";
 
+  const disclaimer = `
+    <p style="margin:0 0 8px;font-size:13px;color:#444;">
+      This report is generated using traditional Zi Wei Dou Shu astrology and modern software interpretation.
+      It is for <strong>personal insight and entertainment only</strong> — not medical, legal, or financial advice.
+    </p>
+  `;
+
   const html = `
     <div style="font-family:ui-sans-serif,system-ui,sans-serif;line-height:1.6;color:#111;">
-      <h2 style="margin:0 0 12px;">Your Zi Wei Destiny Report</h2>
+      <h2 style="margin:0 0 12px;">Your Zi Wei Destiny Reading ✨</h2>
+      ${disclaimer}
+      <hr style="border:none;border-top:1px solid #e5e5e5;margin:16px 0;" />
       ${intro}
       ${bodyBlock}
       <p style="margin:16px 0 8px;">
@@ -61,13 +70,17 @@ export async function sendPaidReportViaResend(args: SendPaidReportEmailArgs) {
       <p style="margin:0 0 16px;">
         <a href="${escapeHtml(args.pdfUrl)}">Download PDF</a>
       </p>
+      <hr style="border:none;border-top:1px solid #e5e5e5;margin:20px 0;" />
+      <p style="margin:0;font-size:12px;color:#666;">
+        For personal insight and entertainment only. Not a substitute for professional advice.
+      </p>
     </div>
   `;
 
   const { error } = await resend.emails.send({
     from,
     to: args.to,
-    subject: "Your Zi Wei Destiny Report is ready ✨",
+    subject: "Your Zi Wei Destiny Reading ✨",
     html,
   });
 
