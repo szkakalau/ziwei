@@ -21,7 +21,14 @@ export default function SuccessClient() {
   const totalMs = useMemo(() => steps.reduce((acc, s) => acc + s.d, 0), []);
 
   useEffect(() => {
-    if (!sessionId) return;
+    const hasBirthInput =
+      typeof window !== "undefined" &&
+      Boolean(sessionStorage.getItem("userBirthInput"));
+
+    // Two paths:
+    // - session_id present: use paid flow (/report validates Stripe payment)
+    // - no session_id: MVP flow (no backend validation; generate from stored birth input)
+    if (!sessionId && !hasBirthInput) return;
     let alive = true;
     let timeout: ReturnType<typeof setTimeout> | null = null;
 
@@ -29,7 +36,11 @@ export default function SuccessClient() {
       if (!alive) return;
       setIdx(i);
       if (i >= steps.length) {
-        router.replace(`/report?session_id=${encodeURIComponent(sessionId)}`);
+        if (sessionId) {
+          router.replace(`/report?session_id=${encodeURIComponent(sessionId)}`);
+        } else {
+          router.replace("/mvp-report");
+        }
         return;
       }
       timeout = setTimeout(() => tick(i + 1), steps[i].d);
@@ -122,6 +133,11 @@ export default function SuccessClient() {
               className="link-gold"
               href={`/report?session_id=${encodeURIComponent(sessionId)}`}
             >
+              {isDone ? "Open report now →" : "Skip wait →"}
+            </Link>
+          ) : typeof window !== "undefined" &&
+            sessionStorage.getItem("userBirthInput") ? (
+            <Link className="link-gold" href="/mvp-report">
               {isDone ? "Open report now →" : "Skip wait →"}
             </Link>
           ) : (

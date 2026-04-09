@@ -6,13 +6,14 @@ import {
   DialogPanel,
   DialogTitle,
 } from "@headlessui/react";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import {
   isValid24hTime,
   normalizeYyyyMmDd,
   pad24hTime,
 } from "@/lib/birthFormParse";
+
+const STRIPE_PAYMENT_LINK = "https://buy.stripe.com/fZu28kdPc1g61sx0DC2oE00";
 
 const ERROR_COPY: Record<string, string> = {
   LOCATION_NOT_FOUND:
@@ -39,7 +40,6 @@ export default function BirthFormModal({
   triggerText,
   triggerClassName,
 }: Props) {
-  const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -89,49 +89,6 @@ export default function BirthFormModal({
     }
   }
 
-  async function requestChart(params: {
-    birthDate: string;
-    birthTime: string;
-    gender: string;
-    location: string;
-    allowFallback: boolean;
-  }): Promise<
-    | { ok: true; chart: unknown; meta?: unknown }
-    | { ok: false; status: number; errorCode: string }
-  > {
-    const res = await fetch("/api/birth-chart", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(params),
-    });
-
-    let data:
-      | {
-          ok?: boolean;
-          error?: string;
-          chart?: unknown;
-          meta?: unknown;
-        }
-      | null = null;
-    try {
-      data = (await res.json()) as {
-        ok?: boolean;
-        error?: string;
-        chart?: unknown;
-        meta?: unknown;
-      };
-    } catch {
-      data = null;
-    }
-
-    if (!res.ok || !data?.ok || data.chart == null) {
-      const code = typeof data?.error === "string" ? data.error : "";
-      return { ok: false, status: res.status, errorCode: code || "UNKNOWN" };
-    }
-
-    return { ok: true, chart: data.chart, meta: data.meta };
-  }
-
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setError(null);
@@ -149,89 +106,31 @@ export default function BirthFormModal({
     }
     const birthTimeNorm = pad24hTime(timeRaw);
 
+    const location = (form.location || locationQuery).trim();
+    const email = form.email.trim();
+    if (!location || !email) {
+      setError(ERROR_COPY.MISSING_FIELDS);
+      return;
+    }
+
     setPending(true);
 
     try {
-      const params = {
-        birthDate: birthDateNorm,
-        birthTime: birthTimeNorm,
-        gender: form.gender,
-        location: form.location || locationQuery,
-      };
-
-      // First attempt: normal mode.
-      const first = await requestChart({
-        ...params,
-        allowFallback,
-      });
-
-      if (!first.ok) {
-        if (first.errorCode === "GEOCODE_UNAVAILABLE" && !allowFallback) {
-          // Smooth fallback: auto-switch and retry once.
-          setAllowFallback(true);
-          setGeocodeDown(true);
-          setNotice(
-            "Location services are unavailable. Continuing with an approximate chart.",
-          );
-          const second = await requestChart({ ...params, allowFallback: true });
-          if (!second.ok) {
-            setError(
-              ERROR_COPY[second.errorCode] ??
-                `Request failed (${second.status}). Please try again in a moment.`,
-            );
-            setPending(false);
-            return;
-          }
-          sessionStorage.setItem("userChart", JSON.stringify(second.chart));
-          if (second.meta != null) {
-            sessionStorage.setItem("userChartMeta", JSON.stringify(second.meta));
-          }
-          sessionStorage.setItem(
-            "userBirthInput",
-            JSON.stringify({
-              birthDate: birthDateNorm,
-              birthTime: birthTimeNorm,
-              gender: form.gender,
-              location: form.location || locationQuery,
-              allowFallback: true,
-            }),
-          );
-          sessionStorage.setItem("userEmail", form.email);
-          sessionStorage.setItem("userBirthLocation", form.location || locationQuery);
-          setIsOpen(false);
-          setPending(false);
-          router.push("/calculating");
-          return;
-        }
-
-        setError(
-          ERROR_COPY[first.errorCode] ??
-            `Request failed (${first.status}). Please try again in a moment.`,
-        );
-        setPending(false);
-        return;
-      }
-
-      sessionStorage.setItem("userChart", JSON.stringify(first.chart));
-      sessionStorage.setItem("userEmail", form.email);
-      sessionStorage.setItem("userBirthLocation", form.location || locationQuery);
       sessionStorage.setItem(
         "userBirthInput",
         JSON.stringify({
           birthDate: birthDateNorm,
           birthTime: birthTimeNorm,
           gender: form.gender,
-          location: form.location || locationQuery,
+          location,
           allowFallback,
         }),
       );
-      if (first.meta != null) {
-        sessionStorage.setItem("userChartMeta", JSON.stringify(first.meta));
-      }
+      sessionStorage.setItem("userEmail", email);
+      sessionStorage.setItem("userBirthLocation", location);
 
       setIsOpen(false);
-      setPending(false);
-      router.push("/calculating");
+      window.location.href = STRIPE_PAYMENT_LINK;
     } catch {
       setError(
         "Network error. If you're on a VPN or restricted network, try turning it off and retry.",
@@ -487,9 +386,7 @@ export default function BirthFormModal({
                     disabled={pending}
                     className="btn-cta w-full py-3 text-sm disabled:opacity-60 sm:py-3.5 sm:text-base"
                   >
-                    {pending
-                      ? "Building your chart…"
-                      : "Generate My Free Chart →"}
+                    {pending ? "Redirecting to payment…" : "Generate Report →"}
                   </button>
                 </div>
               </form>
