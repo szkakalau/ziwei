@@ -13,8 +13,6 @@ import {
   pad24hTime,
 } from "@/lib/birthFormParse";
 
-const STRIPE_PAYMENT_LINK = "https://buy.stripe.com/fZu28kdPc1g61sx0DC2oE00";
-
 const ERROR_COPY: Record<string, string> = {
   LOCATION_NOT_FOUND:
     "We couldn't find that place. Try adding the state or country (for example: Boston, MA, USA).",
@@ -116,21 +114,36 @@ export default function BirthFormModal({
     setPending(true);
 
     try {
-      sessionStorage.setItem(
-        "userBirthInput",
-        JSON.stringify({
-          birthDate: birthDateNorm,
-          birthTime: birthTimeNorm,
-          gender: form.gender,
-          location,
-          allowFallback,
-        }),
-      );
-      sessionStorage.setItem("userEmail", email);
-      sessionStorage.setItem("userBirthLocation", location);
+      const birthData = {
+        birthDate: birthDateNorm,
+        birthTime: birthTimeNorm,
+        gender: form.gender,
+        location,
+        allowFallback,
+      };
+
+      // Persist before leaving the site (survives Stripe redirect back).
+      localStorage.setItem("userBirthInput", JSON.stringify(birthData));
+      localStorage.setItem("userEmail", email);
+      localStorage.setItem("userBirthLocation", location);
+
+      const res = await fetch("/api/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...birthData, email }),
+      });
+      const data = (await res.json()) as
+        | { ok: true; url: string | null }
+        | { ok: false; error: string };
+
+      if (!res.ok || !data.ok || !data.url) {
+        setError("We couldn't start checkout. Please try again in a moment.");
+        setPending(false);
+        return;
+      }
 
       setIsOpen(false);
-      window.location.href = STRIPE_PAYMENT_LINK;
+      window.location.href = data.url;
     } catch {
       setError(
         "Network error. If you're on a VPN or restricted network, try turning it off and retry.",
@@ -379,7 +392,7 @@ export default function BirthFormModal({
                     </p>
                   ) : null}
                   <p className="font-body text-[11px] text-ink-dim">
-                    Free preview before payment · we don&apos;t sell your data.
+                    Payment required to generate your report · we don&apos;t sell your data.
                   </p>
                   <button
                     type="submit"

@@ -40,8 +40,10 @@ export default function PreviewPage() {
   useEffect(() => {
     const stored = sessionStorage.getItem("userChart");
     const rawMeta = sessionStorage.getItem("userChartMeta");
-    const rawBirth = sessionStorage.getItem("userBirthInput");
-    const rawEmail = sessionStorage.getItem("userEmail");
+    const rawBirth =
+      localStorage.getItem("userBirthInput") ?? sessionStorage.getItem("userBirthInput");
+    const rawEmail =
+      localStorage.getItem("userEmail") ?? sessionStorage.getItem("userEmail");
     if (stored) setChart(JSON.parse(stored));
     if (rawMeta) {
       try {

@@ -27,7 +27,8 @@ export default function MvpReportPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const rawBirth = sessionStorage.getItem("userBirthInput");
+    const rawBirth =
+      localStorage.getItem("userBirthInput") ?? sessionStorage.getItem("userBirthInput");
     if (!rawBirth) {
       setError("Missing birth data. Please return to the homepage and try again.");
       setLoading(false);
