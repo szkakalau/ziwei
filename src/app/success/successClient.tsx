@@ -129,8 +129,8 @@ export default function SuccessClient() {
             ✨ Thank you — we&apos;re preparing your reading
           </h1>
           <p className="mt-3 font-body text-base text-ink-muted md:text-lg">
-            Your Zi Wei destiny reading is being prepared.{" "}
-            <span className="text-ink-muted">我们正在为你生成紫微解读。</span>
+            Your Zi Wei destiny reading is being prepared. You can open your
+            report below while we finalize your email delivery.
           </p>
           {sessionId ? (
             <p className="mt-3 font-mono text-[11px] text-ink-dim">
@@ -152,8 +152,8 @@ export default function SuccessClient() {
             to your inbox.
           </p>
           <p className="font-body text-sm text-ink-dim">
-            If nothing arrives within 10 minutes, check your spam / promotions
-            folder. 若 10 分钟内未收到，请查看垃圾邮件夹。
+            If nothing arrives within 10 minutes, check your spam or promotions
+            folder.
           </p>
         </div>
 

@@ -190,11 +190,11 @@ export default function BirthFormModal({
                   date; lunar used in the calculation.
                 </p>
                 <p className="mt-2 font-mono text-[10px] uppercase tracking-widest text-ink-dim sm:text-xs">
-                  ~30 sec · private · free preview
+                  Secure checkout · private · full report by email
                 </p>
                 <div className="mt-3 flex items-center justify-between gap-3">
                   <p className="font-mono text-[10px] uppercase tracking-widest text-ink-dim sm:text-xs">
-                    Step 1 of 2
+                    Birth details → Payment
                   </p>
                   <div className="h-1 min-w-[5rem] flex-1 max-w-[7rem] overflow-hidden rounded-full bg-white/10">
                     <div className="h-full w-1/2 bg-gradient-to-r from-jade to-gold" />

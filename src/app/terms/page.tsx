@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Terms of Service",
-  description: "Terms of use for Ziwei AI readings and website.",
+  description: "Terms of use for DestinyBlueprint readings and website.",
 };
 
 export default function TermsPage() {

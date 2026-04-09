@@ -21,7 +21,7 @@ export function chartToAiPrompt(params: {
     chartJson = `${chartJson.slice(0, MAX_CHART_JSON_CHARS)}\n\n[…truncated for length…]`;
   }
 
-  return `You are an expert Zi Wei Dou Shu (紫微斗数) consultant writing a paid client report in English.
+  return `You are an expert Zi Wei Dou Shu (Purple Star astrology) consultant writing a paid client report in English.
 
 Birth context (after timezone / true-solar handling where applicable):
 - Apparent solar date used for the chart: ${meta.apparentSolarDate}

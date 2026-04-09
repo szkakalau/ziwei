@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
-  description: "How Ziwei AI handles personal and birth-related information.",
+  description: "How DestinyBlueprint handles personal and birth-related information.",
 };
 
 export default function PrivacyPage() {

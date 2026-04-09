@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import {
   Cormorant_Garamond,
   Lora,
@@ -6,6 +6,7 @@ import {
 } from "next/font/google";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { BRAND_NAME, DEFAULT_META_DESCRIPTION } from "@/lib/brand";
 import { getSiteUrl } from "@/lib/site";
 import "./globals.css";
 
@@ -32,30 +33,34 @@ const mono = IBM_Plex_Mono({
 
 const siteUrl = getSiteUrl();
 
+const defaultTitle = `${BRAND_NAME} | Purple Star Astrology Reading (AI-Powered)`;
+
 export const metadata: Metadata = {
   metadataBase: siteUrl,
   title: {
-    default:
-      "Ziwei AI | Purple Star Astrology Reading (AI-Powered)",
-    template: "%s | Ziwei AI",
+    default: defaultTitle,
+    template: `%s | ${BRAND_NAME}`,
   },
-  description:
-    "Get a modern, AI-powered read on your Purple Star (Zi Wei Dou Shu) chart—personality, relationships, and life themes. Free preview.",
+  description: DEFAULT_META_DESCRIPTION,
   openGraph: {
     type: "website",
     locale: "en_US",
     url: siteUrl,
-    siteName: "Ziwei AI",
-    title: "Ziwei AI | Purple Star Astrology Reading (AI-Powered)",
-    description:
-      "Get a modern, AI-powered read on your Purple Star chart—personality, relationships, and life themes. Free preview.",
+    siteName: BRAND_NAME,
+    title: defaultTitle,
+    description: DEFAULT_META_DESCRIPTION,
   },
   twitter: {
     card: "summary_large_image",
-    title: "Ziwei AI | Purple Star Astrology Reading (AI-Powered)",
-    description:
-      "Get a modern, AI-powered read on your Purple Star chart—personality, relationships, and life themes.",
+    title: defaultTitle,
+    description: DEFAULT_META_DESCRIPTION,
   },
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: "#07090d",
 };
 
 export default function RootLayout({

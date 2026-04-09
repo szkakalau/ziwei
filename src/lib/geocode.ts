@@ -30,7 +30,7 @@ export async function geocodeSuggestions(
 
   const userAgent =
     process.env.NOMINATIM_USER_AGENT?.trim() ||
-    "ZiweiMarketingSite/1.0 (add NOMINATIM_USER_AGENT in env for production)";
+    "DestinyBlueprint/1.0 (add NOMINATIM_USER_AGENT in env for production)";
 
   const url = new URL("https://nominatim.openstreetmap.org/search");
   url.searchParams.set("q", q);
@@ -73,7 +73,7 @@ export async function geocodeLocation(
 
   const userAgent =
     process.env.NOMINATIM_USER_AGENT?.trim() ||
-    "ZiweiMarketingSite/1.0 (add NOMINATIM_USER_AGENT in env for production)";
+    "DestinyBlueprint/1.0 (add NOMINATIM_USER_AGENT in env for production)";
 
   const url = new URL("https://nominatim.openstreetmap.org/search");
   url.searchParams.set("q", q);

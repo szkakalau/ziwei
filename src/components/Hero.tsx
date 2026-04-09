@@ -20,7 +20,7 @@ export default function Hero() {
         aria-hidden
       />
 
-      <h1 className="animate-on-load font-display text-5xl font-semibold leading-[1.08] tracking-tight text-ink md:text-6xl lg:text-7xl">
+      <h1 className="animate-on-load font-display text-4xl font-semibold leading-[1.08] tracking-tight text-ink sm:text-5xl md:text-6xl lg:text-7xl">
         Purple Star Astrology,
         <br />
         <span className="bg-gradient-to-r from-gold via-ink to-jade bg-clip-text text-transparent">
@@ -43,8 +43,8 @@ export default function Hero() {
         <BirthFormModal triggerText="Generate My Chart →" />
       </div>
 
-      <p className="mt-4 font-body text-sm text-ink-dim">
-        Includes a free preview. No account required.
+      <p className="mt-4 max-w-md px-2 font-body text-sm text-ink-dim sm:mx-auto">
+        Secure checkout. Full reading delivered by email—no account required.
       </p>
     </section>
   );

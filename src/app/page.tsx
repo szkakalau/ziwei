@@ -1,18 +1,18 @@
 import type { Metadata } from "next";
 import BirthFormModal from "@/components/BirthFormModal";
+import { DEFAULT_META_DESCRIPTION } from "@/lib/brand";
 import Image from "next/image";
 
 export const metadata: Metadata = {
-  title: "Purple Star astrology reading—free preview",
-  description:
-    "See how AI translates classical Purple Star (Zi Wei) astrology into clear, practical insights about you.",
+  title: "Purple Star astrology reading",
+  description: DEFAULT_META_DESCRIPTION,
 };
 
 export default function HomePage() {
   return (
     <main>
       {/* ① HERO */}
-      <section className="relative isolate mx-auto max-w-6xl overflow-hidden px-6 pb-16 pt-16 text-left md:pb-20 md:pt-20">
+      <section className="relative isolate mx-auto max-w-6xl overflow-hidden px-4 pb-14 pt-12 text-left sm:px-6 md:pb-20 md:pt-20">
         <div
           className="pointer-events-none absolute inset-0 bg-grid-fine bg-grid opacity-40"
           aria-hidden
@@ -32,17 +32,17 @@ export default function HomePage() {
 
         <div className="grid items-center gap-10 md:grid-cols-[1.15fr_0.85fr]">
           <div>
-            <h1 className="mt-4 font-display text-5xl font-semibold leading-[1.02] tracking-tight text-ink md:text-6xl lg:text-7xl">
+            <h1 className="mt-4 font-display text-4xl font-semibold leading-[1.05] tracking-tight text-ink sm:text-5xl md:text-6xl lg:text-7xl">
               The astrology system used by Chinese emperors — now powered by AI
             </h1>
-            <p className="mt-7 max-w-xl font-body text-xl leading-relaxed text-ink-muted">
+            <p className="mt-6 max-w-xl font-body text-lg leading-relaxed text-ink-muted sm:mt-7 sm:text-xl">
               Discover your Life Palace, destiny cycles, relationship patterns and hidden strengths with Zi Wei Dou Shu.
             </p>
 
-            <div className="mt-10 flex flex-col items-start gap-3">
+            <div className="mt-8 flex w-full max-w-md flex-col items-stretch gap-3 sm:mt-10 sm:max-w-none sm:items-start">
               <BirthFormModal triggerText="Generate My Chart →" />
               <p className="font-body text-sm text-ink-dim">
-                Free preview • No signup required
+                Secure checkout · Full report by email · No account required
               </p>
               <p className="font-body text-sm text-ink-dim">
                 Used by 1,000+ early astrology readers
@@ -356,12 +356,10 @@ export default function HomePage() {
       {/* ⑨ PRICING TEASER */}
       <section className="relative mx-auto max-w-6xl px-6 py-24 text-center">
         <h2 className="font-display text-3xl font-semibold tracking-tight text-ink md:text-4xl">
-          Start free. Unlock your full destiny report anytime.
+          One payment. Your full destiny report.
         </h2>
-        <p className="mt-3 font-display text-4xl font-semibold text-ink md:text-5xl">
-          Free preview available
-          <br />
-          Full report — $19
+        <p className="mt-3 font-display text-3xl font-semibold text-ink sm:text-4xl md:text-5xl">
+          Full Zi Wei reading — $19
         </p>
         <div className="mt-10 flex justify-center">
           <BirthFormModal triggerText="Generate My Chart →" />

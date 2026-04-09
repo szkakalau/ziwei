@@ -103,8 +103,8 @@ export default function MvpReportPage() {
             <Link className="btn-cta px-6 py-3 text-sm" href="/">
               Back to home
             </Link>
-            <Link className="link-gold" href="/preview">
-              See free preview →
+            <Link className="link-gold" href="/">
+              Back to home →
             </Link>
           </div>
         </div>

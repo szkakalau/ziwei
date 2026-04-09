@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Free preview",
+  title: "Chart preview",
   description:
-    "Your free Zi Wei (Purple Star) preview — upgrade to unlock the full destiny report.",
+    "DestinyBlueprint chart preview — purchase the full report for the complete reading.",
 };
 
 export default function PreviewLayout({

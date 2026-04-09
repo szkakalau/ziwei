@@ -127,7 +127,7 @@ export async function GET(request: Request) {
     return new Response(Buffer.from(bytes), {
       headers: {
         "Content-Type": "application/pdf",
-        "Content-Disposition": "attachment; filename=\"ziwei-destiny-report.pdf\"",
+        "Content-Disposition": "attachment; filename=\"destinyblueprint-destiny-report.pdf\"",
         "Cache-Control": "no-store",
       },
     });

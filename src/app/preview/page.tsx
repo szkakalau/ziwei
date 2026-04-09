@@ -151,7 +151,7 @@ export default function PreviewPage() {
             </p>
           </div>
           <div className="rounded-sm border border-gold/20 bg-void/60 px-4 py-3 font-mono text-xs uppercase tracking-widest text-ink-dim">
-            Free preview
+            Chart overview
           </div>
         </div>
 
@@ -176,7 +176,7 @@ export default function PreviewPage() {
         </div>
       </section>
 
-      {/* ③ Free preview modules */}
+      {/* Sample insight modules */}
       <section className="mt-14 grid gap-6 md:grid-cols-3">
         <div className="rounded-sm border border-white/10 bg-panel p-8 shadow-panel backdrop-blur-sm">
           <h3 className="font-display text-xl font-semibold text-ink">

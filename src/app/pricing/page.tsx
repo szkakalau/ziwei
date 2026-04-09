@@ -4,7 +4,7 @@ import PricingTable from "@/components/PricingTable";
 export const metadata: Metadata = {
   title: "Pricing",
   description:
-    "Simple, transparent pricing for AI Chinese astrology: free preview, full birth chart PDF, and more.",
+    "Simple, transparent pricing for DestinyBlueprint — full Zi Wei destiny report and add-ons.",
 };
 
 export default function PricingPage() {
@@ -15,7 +15,8 @@ export default function PricingPage() {
           Simple, transparent pricing
         </h1>
         <p className="mx-auto mt-4 max-w-2xl font-body text-lg text-ink-muted">
-          No hidden tiers. Start free, upgrade when you want depth.
+          One clear paid tier for your full reading. Optional add-ons ship when
+          they&apos;re ready.
         </p>
       </header>
 

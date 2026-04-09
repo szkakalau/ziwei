@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Affiliate program",
   description:
-    "Affiliate program for Ziwei AI—coming soon with competitive commissions for partners.",
+    "Affiliate program for DestinyBlueprint—coming soon with competitive commissions for partners.",
 };
 
 export default function AffiliatePage() {

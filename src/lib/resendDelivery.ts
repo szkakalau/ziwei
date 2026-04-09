@@ -28,7 +28,9 @@ export async function sendPaidReportViaResend(args: SendPaidReportEmailArgs) {
     throw new Error("Missing RESEND_API_KEY");
   }
   if (!from) {
-    throw new Error("Missing RESEND_FROM (e.g. Destiny <reports@yourdomain.com>)");
+    throw new Error(
+      "Missing RESEND_FROM (e.g. DestinyBlueprint <reports@destinyblueprint.xyz>)",
+    );
   }
 
   const resend = new Resend(apiKey);

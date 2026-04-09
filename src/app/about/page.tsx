@@ -14,7 +14,7 @@ export default function AboutPage() {
       </h1>
       <div className="prose prose-invert prose-lg mt-10 max-w-none prose-headings:font-display prose-headings:text-ink prose-p:font-body prose-p:text-ink-muted prose-strong:text-ink prose-li:text-ink-muted">
         <p>
-          Ziwei Dou Shu and related traditions are part of East Asian cultural
+          Zi Wei Dou Shu and related traditions are part of East Asian cultural
           heritage. We treat them as <strong>cultural wisdom</strong>: symbolic
           language for describing personality patterns, relationships, and life
           phases—not a claim of supernatural authority.
