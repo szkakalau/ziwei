@@ -5,11 +5,12 @@ export function getSiteUrl(): URL {
 }
 
 /**
- * Navbar / pricing “Get reading” target. Defaults to the homepage so we never
- * ship a fake example.com URL; set NEXT_PUBLIC_READING_URL to your checkout or app when ready.
+ * Navbar / pricing “Get reading” target.
+ * Defaults to home + #get-reading so the CTA scrolls to the birth form (plain "/" looks broken on the homepage).
+ * Override with NEXT_PUBLIC_READING_URL if you want a different path.
  */
 export function getReadingUrl(): string {
   const raw = process.env.NEXT_PUBLIC_READING_URL?.trim();
   if (raw) return raw;
-  return "/";
+  return "/#get-reading";
 }

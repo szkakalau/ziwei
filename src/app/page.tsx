@@ -39,7 +39,10 @@ export default function HomePage() {
               Discover your Life Palace, destiny cycles, relationship patterns and hidden strengths with Zi Wei Dou Shu.
             </p>
 
-            <div className="mt-8 flex w-full max-w-md flex-col items-stretch gap-3 sm:mt-10 sm:max-w-none sm:items-start">
+            <div
+              id="get-reading"
+              className="mt-8 flex w-full max-w-md scroll-mt-28 flex-col items-stretch gap-3 sm:mt-10 sm:max-w-none sm:items-start"
+            >
               <BirthFormModal triggerText="Generate My Chart →" />
               <p className="font-body text-sm text-ink-dim">
                 Free chart preview · No signup required

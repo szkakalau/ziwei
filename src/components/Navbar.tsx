@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { BRAND_NAME } from "@/lib/brand";
+import ReadingNavLink from "@/components/ReadingNavLink";
 import { getReadingUrl } from "@/lib/site";
 
 const nav = [
@@ -34,12 +35,12 @@ export default function Navbar() {
           ))}
         </nav>
         <div className="flex shrink-0 items-center gap-2 sm:gap-3">
-          <Link
+          <ReadingNavLink
             href={readingUrl}
             className="inline-flex min-h-11 min-w-[44px] items-center justify-center rounded-sm border border-gold/35 bg-gradient-to-br from-cinnabar to-cinnabar-deep px-3 py-2.5 font-mono text-[10px] font-medium uppercase tracking-wider text-ink shadow-[0_0_24px_-4px_rgba(201,84,60,0.5)] transition-all hover:border-gold/50 hover:brightness-110 sm:px-4 sm:text-xs"
           >
             Get my reading
-          </Link>
+          </ReadingNavLink>
         </div>
       </div>
       <nav className="flex gap-4 overflow-x-auto overscroll-x-contain border-t border-white/5 px-4 py-2.5 text-sm text-ink-muted [-webkit-overflow-scrolling:touch] md:hidden">
