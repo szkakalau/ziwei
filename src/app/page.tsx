@@ -47,7 +47,10 @@ export default function HomePage() {
               id="get-reading"
               className="mt-8 flex w-full max-w-md scroll-mt-28 flex-col items-stretch gap-3 sm:mt-10 sm:max-w-none sm:items-start"
             >
-              <BirthFormModal triggerText="Generate My Chart →" />
+              <BirthFormModal
+                triggerText="Generate My Chart →"
+                successBehavior="callback"
+              />
               <p className="font-body text-sm text-ink-dim">
                 Free chart preview · No signup required
               </p>
@@ -364,7 +367,10 @@ export default function HomePage() {
           Full report — {FULL_REPORT_PRICE_LABEL}
         </p>
         <div className="mt-10 flex justify-center">
-          <BirthFormModal triggerText="Generate My Chart →" />
+          <BirthFormModal
+            triggerText="Generate My Chart →"
+            successBehavior="callback"
+          />
         </div>
       </section>
 
@@ -420,7 +426,10 @@ export default function HomePage() {
           Let AI reveal it.
         </h2>
         <div className="mt-10 flex justify-center">
-          <BirthFormModal triggerText="Generate My Chart →" />
+          <BirthFormModal
+            triggerText="Generate My Chart →"
+            successBehavior="callback"
+          />
         </div>
       </section>
     </main>

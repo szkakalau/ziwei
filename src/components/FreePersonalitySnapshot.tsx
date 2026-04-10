@@ -2,6 +2,7 @@
 
 import BirthFormModal from "@/components/BirthFormModal";
 import { FULL_REPORT_PRICE_LABEL } from "@/lib/brand";
+import { CHART_SAVED_EVENT } from "@/lib/chartSavedEvent";
 import { buildPersonalitySnapshot, type PersonalitySnapshot } from "@/lib/personalitySnapshot";
 import { startStripeCheckoutFromStored } from "@/lib/startStripeCheckoutFromStored";
 import Link from "next/link";
@@ -32,14 +33,7 @@ export default function FreePersonalitySnapshot() {
   const [checkoutPending, setCheckoutPending] = useState(false);
   const [checkoutError, setCheckoutError] = useState<string | null>(null);
 
-  useEffect(() => {
-    const chart = loadChartFromStorage();
-    if (chart) {
-      setSnapshot(buildPersonalitySnapshot(chart));
-    }
-  }, []);
-
-  const onChartReady = useCallback(() => {
+  const refreshSnapshotFromStorage = useCallback(() => {
     const chart = loadChartFromStorage();
     if (chart) {
       setSnapshot(buildPersonalitySnapshot(chart));
@@ -48,6 +42,18 @@ export default function FreePersonalitySnapshot() {
       });
     }
   }, []);
+
+  useEffect(() => {
+    refreshSnapshotFromStorage();
+  }, [refreshSnapshotFromStorage]);
+
+  useEffect(() => {
+    function onChartSaved() {
+      refreshSnapshotFromStorage();
+    }
+    window.addEventListener(CHART_SAVED_EVENT, onChartSaved);
+    return () => window.removeEventListener(CHART_SAVED_EVENT, onChartSaved);
+  }, [refreshSnapshotFromStorage]);
 
   async function handleUnlock() {
     setCheckoutError(null);
@@ -106,7 +112,6 @@ export default function FreePersonalitySnapshot() {
                 triggerText="Reveal My First Insight ✨"
                 triggerClassName="btn-cta px-8 py-3.5 text-base shadow-[0_0_32px_-6px_rgba(201,84,60,0.55)]"
                 successBehavior="callback"
-                onChartReady={onChartReady}
               />
             </div>
             <p className="mt-5 font-mono text-[11px] text-ink-dim">
@@ -231,7 +236,6 @@ export default function FreePersonalitySnapshot() {
                     triggerText="New birth details"
                     triggerClassName="rounded-sm border border-white/15 bg-white/5 px-4 py-2.5 font-mono text-xs uppercase tracking-wider text-ink-muted transition-colors hover:border-gold/35 hover:text-ink"
                     successBehavior="callback"
-                    onChartReady={onChartReady}
                   />
                 </div>
               </div>

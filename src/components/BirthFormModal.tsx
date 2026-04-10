@@ -13,6 +13,7 @@ import {
   normalizeYyyyMmDd,
   pad24hTime,
 } from "@/lib/birthFormParse";
+import { dispatchChartSaved } from "@/lib/chartSavedEvent";
 
 const ERROR_COPY: Record<string, string> = {
   LOCATION_NOT_FOUND:
@@ -35,7 +36,7 @@ type Props = {
   triggerClassName?: string;
   /** Default: navigate to /calculating after chart is stored. Use `callback` for inline preview on the same page. */
   successBehavior?: "navigate" | "callback";
-  /** Called after chart + birth data are saved to storage (when successBehavior is `callback`). */
+  /** Optional hook after save when `successBehavior` is `callback` (e.g. extra UI). Chart save also dispatches `CHART_SAVED_EVENT` on `window`. */
   onChartReady?: () => void;
 };
 
@@ -221,10 +222,11 @@ export default function BirthFormModal({
           );
           localStorage.setItem("userEmail", email);
           localStorage.setItem("userBirthLocation", location);
+          dispatchChartSaved();
           setIsOpen(false);
           setPending(false);
-          if (successBehavior === "callback" && onChartReady) {
-            onChartReady();
+          if (successBehavior === "callback") {
+            onChartReady?.();
             return;
           }
           router.push("/calculating");
@@ -268,10 +270,11 @@ export default function BirthFormModal({
         sessionStorage.setItem("userChartMeta", JSON.stringify(first.meta));
       }
 
+      dispatchChartSaved();
       setIsOpen(false);
       setPending(false);
-      if (successBehavior === "callback" && onChartReady) {
-        onChartReady();
+      if (successBehavior === "callback") {
+        onChartReady?.();
         return;
       }
       router.push("/calculating");
