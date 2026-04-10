@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { FULL_REPORT_PRICE_LABEL } from "@/lib/brand";
 
 type ChartMeta = {
   timezone: string;
@@ -233,7 +234,7 @@ export default function PreviewPage() {
 
           <div className="mt-10 flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between">
             <p className="font-display text-2xl font-semibold text-ink">
-              Unlock full report — $19
+              Unlock full report — {FULL_REPORT_PRICE_LABEL}
             </p>
             <button
               type="button"
