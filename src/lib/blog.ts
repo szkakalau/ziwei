@@ -8,7 +8,8 @@ export type BlogCategory =
   | "Chinese Zodiac"
   | "Five Elements"
   | "Astrology vs Western"
-  | "Relationship astrology";
+  | "Relationship astrology"
+  | "Purple Star Astrology";
 
 export type PostFrontmatter = {
   title: string;
@@ -57,8 +58,9 @@ export function getAllPosts(): PostMeta[] {
 }
 
 export const BLOG_CATEGORIES: BlogCategory[] = [
+  "Purple Star Astrology",
+  "Astrology vs Western",
   "Chinese Zodiac",
   "Five Elements",
-  "Astrology vs Western",
   "Relationship astrology",
 ];

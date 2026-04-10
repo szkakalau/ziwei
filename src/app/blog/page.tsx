@@ -9,7 +9,7 @@ import {
 export const metadata: Metadata = {
   title: "Blog",
   description:
-    "Guides on Chinese zodiac, five elements, compatibility, and how AI reads classical astrology.",
+    "Zi Wei Dou Shu (Purple Star) guides, Chinese zodiac, five elements, relationship patterns, and how AI translates classical charts—structured for readers and search.",
 };
 
 type Props = {
