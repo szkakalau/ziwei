@@ -22,7 +22,7 @@ Add files under `content/blog/*.mdx` with frontmatter:
 
 - `title`, `description`, `date` (ISO date string), `category` (one of the values in `lib/blog.ts`).
 
-GEO-friendly structure: definition section, lists, FAQ, clear `h2`/`h3` headings.
+Use clear `h2`/`h3` headings, short definitions, lists, and FAQ-style sections so posts are easy to scan.
 
 ## Deploy on Vercel
 

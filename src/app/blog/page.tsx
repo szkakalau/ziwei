@@ -9,7 +9,7 @@ import {
 export const metadata: Metadata = {
   title: "Blog",
   description:
-    "Zi Wei Dou Shu (Purple Star) guides, Chinese zodiac, five elements, relationship patterns, and how AI translates classical charts—structured for readers and search.",
+    "Articles on Zi Wei Dou Shu (Purple Star astrology), the Chinese zodiac, five elements, love and compatibility—explained in plain English.",
 };
 
 type Props = {
@@ -37,8 +37,9 @@ export default function BlogPage({ searchParams }: Props) {
           Blog
         </h1>
         <p className="mt-4 max-w-2xl font-body text-lg text-ink-muted">
-          SEO + GEO-friendly guides on Chinese astrology themes—definitions,
-          FAQs, and structured lists for readers and AI systems.
+          Short reads on Purple Star (Zi Wei) charts, timing, love and career
+          themes, and how they differ from Western sun-sign astrology—without the
+          fluff.
         </p>
       </header>
 
