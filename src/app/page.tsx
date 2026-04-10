@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
 import BirthFormModal from "@/components/BirthFormModal";
-import { DEFAULT_META_DESCRIPTION } from "@/lib/brand";
+import AuthoritySection from "@/components/AuthoritySection";
+import FreePersonalitySnapshot from "@/components/FreePersonalitySnapshot";
+import HowItWorks from "@/components/HowItWorks";
+import RiskReversalSection from "@/components/RiskReversalSection";
+import { DEFAULT_META_DESCRIPTION, FULL_REPORT_PRICE_LABEL } from "@/lib/brand";
 import Image from "next/image";
 
 export const metadata: Metadata = {
@@ -103,7 +107,16 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ③ SEE A REAL READING */}
+      {/* ③ FREE PERSONALITY SNAPSHOT (conversion core) */}
+      <FreePersonalitySnapshot />
+
+      {/* ④ AUTHORITY & TRUST (Reddit skepticism → “serious system”) */}
+      <AuthoritySection />
+
+      {/* ⑤ HOW IT WORKS */}
+      <HowItWorks />
+
+      {/* ⑥ SEE A REAL READING */}
       <section className="relative mx-auto max-w-6xl px-6 py-24">
         <div
           className="pointer-events-none absolute left-1/2 top-0 h-px w-24 -translate-x-1/2 bg-gradient-to-r from-transparent via-gold/60 to-transparent"
@@ -184,7 +197,7 @@ export default function HomePage() {
         </p>
       </section>
 
-      {/* ④ WHAT IS ZI WEI ASTROLOGY */}
+      {/* ⑦ WHAT IS ZI WEI ASTROLOGY */}
       <section className="relative border-y border-white/10 bg-mist/35 py-24 backdrop-blur-sm">
         <div
           className="pointer-events-none absolute inset-0 bg-grid-fine bg-grid opacity-18"
@@ -219,7 +232,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ⑤ WHY IT FEELS DIFFERENT */}
+      {/* ⑧ WHY IT FEELS DIFFERENT */}
       <section className="relative mx-auto max-w-6xl px-6 py-24">
         <h2 className="text-center font-display text-3xl font-semibold tracking-tight text-ink md:text-4xl">
           Why people find it more accurate than Western astrology
@@ -259,7 +272,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ⑥ WHAT YOU GET IN FULL REPORT */}
+      {/* ⑨ WHAT YOU GET IN FULL REPORT */}
       <section className="relative border-y border-white/10 bg-mist/35 py-24 backdrop-blur-sm">
         <div className="mx-auto max-w-6xl px-6">
           <h2 className="text-center font-display text-3xl font-semibold tracking-tight text-ink md:text-4xl">
@@ -306,23 +319,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ⑦ SAMPLE INSIGHT */}
-      <section className="relative mx-auto max-w-6xl px-6 py-24">
-        <div className="mx-auto max-w-4xl">
-          <h2 className="text-center font-display text-3xl font-semibold tracking-tight text-ink md:text-4xl">
-            Example insight from a real chart
-          </h2>
-          <div className="mx-auto mt-10 max-w-3xl rounded-sm border border-white/10 bg-mist/45 p-10 shadow-panel backdrop-blur-sm">
-            <p className="font-body text-lg leading-relaxed text-ink-muted">
-              &quot;You tend to experience major career turning points in your early 30s.
-              Your chart shows strong strategic ability but delayed recognition.
-              You thrive in roles combining analysis and independence.&quot;
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* ⑧ TESTIMONIALS */}
+      {/* ⑩ TESTIMONIALS */}
       <section className="relative border-y border-white/10 bg-mist/35 py-24 backdrop-blur-sm">
         <div className="mx-auto max-w-6xl px-6">
           <div className="grid gap-8 md:grid-cols-3">
@@ -356,7 +353,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ⑨ PRICING TEASER */}
+      {/* ⑪ PRICING TEASER */}
       <section className="relative mx-auto max-w-6xl px-6 py-24 text-center">
         <h2 className="font-display text-3xl font-semibold tracking-tight text-ink md:text-4xl">
           Start free. Unlock your full destiny report anytime.
@@ -364,14 +361,17 @@ export default function HomePage() {
         <p className="mt-3 font-display text-3xl font-semibold text-ink sm:text-4xl md:text-5xl">
           Free preview on-site
           <br />
-          Full report — $19
+          Full report — {FULL_REPORT_PRICE_LABEL}
         </p>
         <div className="mt-10 flex justify-center">
           <BirthFormModal triggerText="Generate My Chart →" />
         </div>
       </section>
 
-      {/* ⑩ FAQ */}
+      {/* ⑫ RISK REVERSAL (refund + speed + Stripe) */}
+      <RiskReversalSection />
+
+      {/* ⑬ FAQ */}
       <section className="relative border-y border-white/10 bg-mist/35 py-24 backdrop-blur-sm">
         <div className="mx-auto max-w-4xl px-6">
           <h2 className="text-center font-display text-3xl font-semibold tracking-tight text-ink md:text-4xl">
@@ -412,7 +412,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ⑪ FINAL CTA */}
+      {/* ⑭ FINAL CTA */}
       <section className="relative mx-auto max-w-6xl px-6 py-24 text-center">
         <h2 className="font-display text-4xl font-semibold leading-tight text-ink md:text-5xl">
           Your destiny chart is already written.

@@ -33,11 +33,17 @@ const ERROR_COPY: Record<string, string> = {
 type Props = {
   triggerText?: string;
   triggerClassName?: string;
+  /** Default: navigate to /calculating after chart is stored. Use `callback` for inline preview on the same page. */
+  successBehavior?: "navigate" | "callback";
+  /** Called after chart + birth data are saved to storage (when successBehavior is `callback`). */
+  onChartReady?: () => void;
 };
 
 export default function BirthFormModal({
   triggerText,
   triggerClassName,
+  successBehavior = "navigate",
+  onChartReady,
 }: Props) {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
@@ -217,6 +223,10 @@ export default function BirthFormModal({
           localStorage.setItem("userBirthLocation", location);
           setIsOpen(false);
           setPending(false);
+          if (successBehavior === "callback" && onChartReady) {
+            onChartReady();
+            return;
+          }
           router.push("/calculating");
           return;
         }
@@ -260,6 +270,10 @@ export default function BirthFormModal({
 
       setIsOpen(false);
       setPending(false);
+      if (successBehavior === "callback" && onChartReady) {
+        onChartReady();
+        return;
+      }
       router.push("/calculating");
     } catch {
       setError(
