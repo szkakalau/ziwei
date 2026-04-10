@@ -16,4 +16,4 @@ export const DEFAULT_META_DESCRIPTION =
   "DestinyBlueprint — AI-powered Purple Star (Zi Wei Dou Shu) readings. Free chart preview on-site; unlock the full report when you are ready.";
 
 /** Display price for full PDF report (Stripe / marketing). */
-export const FULL_REPORT_PRICE_LABEL = "$19";
+export const FULL_REPORT_PRICE_LABEL = "$9";
