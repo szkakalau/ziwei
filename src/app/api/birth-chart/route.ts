@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { computeBirthChart } from "@/lib/computeBirthChart";
+import { buildZhChartPlainForMeta } from "@/lib/chartZhForPaidPdf";
 
 export const runtime = "nodejs";
 
@@ -28,6 +29,7 @@ export async function POST(request: Request) {
     const location = typeof o.location === "string" ? o.location : "";
     const gender = o.gender === "female" ? "female" : "male";
     const allowFallback = o.allowFallback === true;
+    const includeZhChart = o.includeZhChart === true;
 
     if (!birthDate || !location) {
       return NextResponse.json(
@@ -49,11 +51,15 @@ export async function POST(request: Request) {
       return NextResponse.json({ ok: false, error: result.errorCode }, { status });
     }
 
-    return NextResponse.json({
+    const payload: Record<string, unknown> = {
       ok: true,
       chart: result.chart,
       meta: result.meta,
-    });
+    };
+    if (includeZhChart) {
+      payload.chartZh = buildZhChartPlainForMeta(result.meta, gender);
+    }
+    return NextResponse.json(payload);
   } catch {
     // Ensure the client always receives JSON (avoids res.json() throwing).
     return NextResponse.json(

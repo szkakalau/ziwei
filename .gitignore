@@ -34,3 +34,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Local PDF samples (served at /output/*.pdf when dev server runs)
+/public/output/*.pdf
+# Ad-hoc script output at repo root
+/output/

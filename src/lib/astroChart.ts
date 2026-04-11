@@ -42,6 +42,8 @@ export function buildChartFromLocalClock({
  * Build a chart from apparent solar calendar components (after timezone + true solar correction).
  * iztro expects gender as Chinese characters internally; UI uses en-US for all surfaced labels.
  */
+export type IztroLocale = "en-US" | "zh-CN";
+
 export function buildChartFromApparentSolar({
   year,
   month,
@@ -49,6 +51,7 @@ export function buildChartFromApparentSolar({
   hour,
   minute,
   gender,
+  locale = "en-US" as IztroLocale,
 }: {
   year: number;
   month: number;
@@ -56,9 +59,10 @@ export function buildChartFromApparentSolar({
   hour: number;
   minute: number;
   gender: "male" | "female";
+  locale?: IztroLocale;
 }) {
   const solarDateStr = `${year}-${month}-${day}`;
   const timeIndex = solarTimeToTimeIndex(hour, minute);
   const genderName = gender === "male" ? "male" : "female";
-  return astro.bySolar(solarDateStr, timeIndex, genderName, true, "en-US");
+  return astro.bySolar(solarDateStr, timeIndex, genderName, true, locale);
 }
