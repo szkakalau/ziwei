@@ -74,6 +74,22 @@ function utcOffsetLabel(totalMinutes: number): string {
   return `${sign}${h}:${String(m).padStart(2, "0")}`;
 }
 
+/** Latin-only query (e.g. pinyin) but geocoder returned local script — show what the user typed for labels. */
+function placeLabelForDisplay(userLocation: string, geocoderDisplayName: string): string {
+  const q = userLocation.trim();
+  const userIsLatinOnly =
+    q.length > 0 &&
+    Array.from(q).every((ch) => {
+      const cp = ch.codePointAt(0) ?? 0;
+      return cp <= 0xff;
+    });
+  const displayHasNonLatin = Array.from(geocoderDisplayName).some(
+    (ch) => (ch.codePointAt(0) ?? 0) > 0xff,
+  );
+  if (userIsLatinOnly && displayHasNonLatin) return q;
+  return geocoderDisplayName;
+}
+
 export async function computeBirthChart(
   input: BirthChartInput,
 ): Promise<BirthChartSuccess | BirthChartFailure> {
@@ -208,7 +224,7 @@ export async function computeBirthChart(
       timezone: timezoneLabel,
       latitude: geo.lat,
       longitude: geo.lon,
-      placeLabel: geo.displayName,
+      placeLabel: placeLabelForDisplay(input.location, geo.displayName),
       apparentSolarDate,
       apparentSolarTime,
       ...(usedLongitudeTimezoneFallback ? { isApproximate: true } : {}),

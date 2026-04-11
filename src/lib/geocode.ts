@@ -40,7 +40,11 @@ export async function geocodeSuggestions(
   let res: Response;
   try {
     res = await fetch(url.toString(), {
-      headers: { "User-Agent": userAgent },
+      headers: {
+        "User-Agent": userAgent,
+        // Prefer English place names so UI/PDF match Latin input (pinyin, English) instead of local script.
+        "Accept-Language": "en",
+      },
       cache: "no-store",
     });
   } catch {
@@ -83,7 +87,10 @@ export async function geocodeLocation(
   let res: Response;
   try {
     res = await fetch(url.toString(), {
-      headers: { "User-Agent": userAgent },
+      headers: {
+        "User-Agent": userAgent,
+        "Accept-Language": "en",
+      },
       cache: "no-store",
     });
   } catch {

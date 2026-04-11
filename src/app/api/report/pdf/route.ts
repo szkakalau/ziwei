@@ -3,8 +3,10 @@ import { PDFDocument, StandardFonts, rgb } from "pdf-lib";
 import { getStripe } from "@/lib/stripeServer";
 import { computeBirthChart } from "@/lib/computeBirthChart";
 import { buildFullReport } from "@/lib/report";
+import { toPdfStandardFontText } from "@/lib/pdfStandardFontText";
 
 export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 
 function wrapText(text: string, maxChars: number) {
   const words = text.split(/\s+/).filter(Boolean);
@@ -68,6 +70,21 @@ export async function GET(request: Request) {
       },
     });
 
+    const m = chartResult.meta;
+    const headerDate = m.apparentSolarDate ?? "—";
+    const headerTime = m.apparentSolarTime ?? "—";
+    const headerPlace = m.placeLabel ?? "—";
+    const placeForPdf = Array.from(headerPlace).some((ch) => (ch.codePointAt(0) ?? 0) > 0xff)
+      ? "Full place name on web report (non-Latin script)."
+      : headerPlace;
+    const approxLine = m.isApproximate
+      ? "Note: This report is based on an approximate chart (time-zone and true-solar corrections were unavailable)."
+      : "";
+    const summaryLinesForPdf = [
+      `Generated from your birth data: ${headerDate} • ${headerTime} • ${placeForPdf}`,
+      approxLine,
+    ].filter(Boolean);
+
     const pdf = await PDFDocument.create();
     const font = await pdf.embedFont(StandardFonts.Helvetica);
     const fontBold = await pdf.embedFont(StandardFonts.HelveticaBold);
@@ -79,8 +96,9 @@ export async function GET(request: Request) {
     let y = height - 64;
 
     const drawLine = (s: string, size: number, bold = false) => {
+      const line = toPdfStandardFontText(s);
       const f = bold ? fontBold : font;
-      page.drawText(s, {
+      page.drawText(line, {
         x: marginX,
         y,
         size,
@@ -94,7 +112,7 @@ export async function GET(request: Request) {
     drawLine(report.subtitle, 12);
     y -= 8;
 
-    for (const l of report.summaryLines) {
+    for (const l of summaryLinesForPdf) {
       for (const w of wrapText(l, 86)) drawLine(w, 10);
     }
 
@@ -131,7 +149,8 @@ export async function GET(request: Request) {
         "Cache-Control": "no-store",
       },
     });
-  } catch {
+  } catch (err) {
+    console.error("[api/report/pdf]", err);
     return NextResponse.json({ ok: false, error: "INTERNAL_ERROR" }, { status: 500 });
   }
 }
