@@ -4,6 +4,7 @@ import {
   Lora,
   IBM_Plex_Mono,
 } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { BRAND_NAME, DEFAULT_META_DESCRIPTION } from "@/lib/brand";
@@ -76,6 +77,7 @@ export default function RootLayout({
         <Navbar />
         <main className="min-h-[calc(100vh-8rem)]">{children}</main>
         <Footer />
+        <Analytics />
       </body>
     </html>
   );
