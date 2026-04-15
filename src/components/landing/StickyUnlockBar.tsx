@@ -10,7 +10,7 @@ type Props = {
 
 export default function StickyUnlockBar({ onUnlock, pending, priceLabel = "$9" }: Props) {
   return (
-    <div className="fixed inset-x-0 bottom-0 z-50 border-t border-white/10 bg-void/75 backdrop-blur-xl">
+    <div className="fixed inset-x-0 bottom-0 z-50 border-t border-white/10 bg-void/75 backdrop-blur-xl pb-[env(safe-area-inset-bottom)]">
       <div
         className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-gold/35 to-transparent"
         aria-hidden

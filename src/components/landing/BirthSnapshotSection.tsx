@@ -426,7 +426,7 @@ export default function BirthSnapshotSection() {
               </p>
             </div>
 
-            <div className="sticky top-20 z-30 mt-8 rounded-sm border border-gold/20 bg-void/70 p-4 backdrop-blur-md">
+            <div className="sticky top-16 z-30 mt-8 rounded-sm border border-gold/20 bg-void/70 p-4 backdrop-blur-md sm:top-20">
               <p className="font-body text-sm text-ink-muted">
                 ✅ Fill in 3 steps → Get your FREE personalized Zi Wei personality snapshot instantly
               </p>

@@ -14,6 +14,19 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Avoid accidental horizontal scroll from effects/shadows */
+html,
+body {
+  max-width: 100%;
+  overflow-x: clip;
+}
+
+/* Better tap behavior on mobile */
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
 /* Prevent iOS Safari zoom on focus for inputs below 16px */
 @media (max-width: 640px) {
   input.input-ink,

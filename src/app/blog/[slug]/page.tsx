@@ -74,7 +74,7 @@ export default async function BlogPostPage({ params }: Props) {
           {post.meta.date}
         </time>
       </header>
-      <div className="prose prose-invert prose-lg mt-10 max-w-none prose-headings:scroll-mt-24 prose-headings:font-display prose-headings:text-ink prose-p:font-body prose-p:text-ink-muted prose-strong:text-ink prose-a:text-gold prose-a:no-underline hover:prose-a:underline prose-li:text-ink-muted prose-blockquote:border-gold/30 prose-blockquote:text-ink-muted prose-code:rounded-sm prose-code:bg-void/80 prose-code:px-1 prose-code:text-jade">
+      <div className="prose prose-invert prose-base mt-10 max-w-none sm:prose-lg prose-headings:scroll-mt-24 prose-headings:font-display prose-headings:text-ink prose-p:font-body prose-p:text-ink-muted prose-strong:text-ink prose-a:text-gold prose-a:no-underline hover:prose-a:underline prose-li:text-ink-muted prose-blockquote:border-gold/30 prose-blockquote:text-ink-muted prose-code:rounded-sm prose-code:bg-void/80 prose-code:px-1 prose-code:text-jade">
         {content}
       </div>
     </div>

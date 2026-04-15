@@ -47,6 +47,25 @@ function CellIcon({ state }: { state: "yes" | "no" | "partial" | "dash" }) {
   );
 }
 
+function paidLabel(
+  paidState:
+    | "yes"
+    | "yes-inbox"
+    | "yes-line"
+    | "yes-forecast"
+    | "yes-coverage",
+) {
+  return paidState === "yes-inbox"
+    ? "Delivered To Your Inbox In 2 Minutes"
+    : paidState === "yes-line"
+      ? "Line-by-Line Analysis"
+      : paidState === "yes-forecast"
+        ? "Full Opportunities & Risks Forecast"
+        : paidState === "yes-coverage"
+          ? "Full Coverage"
+          : "Full Access";
+}
+
 export default function FreeVsPaidTable({ onUnlockClick, unlockHref }: Props) {
   return (
     <section className="relative border-y border-white/10 bg-mist/35 py-20 backdrop-blur-sm md:py-24">
@@ -58,7 +77,51 @@ export default function FreeVsPaidTable({ onUnlockClick, unlockHref }: Props) {
           Get your free snapshot instantly, unlock the full destiny report anytime for just $9
         </p>
 
-        <div className="mt-10 overflow-x-auto rounded-sm border border-white/10 bg-panel/60 backdrop-blur-sm">
+        {/* Mobile: stacked comparison cards */}
+        <div className="mt-10 grid gap-4 md:hidden">
+          {rows.map(([label, freeState, paidState]) => (
+            <div
+              key={label}
+              className="rounded-sm border border-white/10 bg-panel/60 p-4 backdrop-blur-sm"
+            >
+              <p className="font-body text-sm font-semibold text-ink">{label}</p>
+              <div className="mt-3 grid gap-3">
+                <div className="rounded-sm border border-white/10 bg-void/40 px-3 py-3">
+                  <p className="font-mono text-[10px] uppercase tracking-widest text-ink-dim">
+                    Free Snapshot
+                  </p>
+                  <div className="mt-2">
+                    <CellIcon
+                      state={
+                        freeState === "yes"
+                          ? "yes"
+                          : freeState === "partial"
+                            ? "partial"
+                            : freeState === "dash"
+                              ? "dash"
+                              : "no"
+                      }
+                    />
+                  </div>
+                </div>
+                <div className="rounded-sm border border-gold/25 bg-gold/5 px-3 py-3">
+                  <p className="font-mono text-[10px] uppercase tracking-widest text-gold/90">
+                    Full $9 Report
+                  </p>
+                  <div className="mt-2 inline-flex items-start gap-2 text-jade">
+                    <Check className="mt-0.5 h-4 w-4 shrink-0" aria-hidden />
+                    <span className="font-body text-sm text-ink-muted">
+                      {paidLabel(paidState)}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Desktop: wide table */}
+        <div className="mt-10 hidden overflow-x-auto rounded-sm border border-white/10 bg-panel/60 backdrop-blur-sm md:block">
           <table className="min-w-[860px] w-full border-collapse">
             <thead>
               <tr className="text-left">
@@ -100,19 +163,11 @@ export default function FreeVsPaidTable({ onUnlockClick, unlockHref }: Props) {
                       }
                     />
                   </td>
-                  <td className="px-5 py-4 bg-gold/5">
+                  <td className="bg-gold/5 px-5 py-4">
                     <span className="inline-flex items-center gap-2 text-jade">
                       <Check className="h-4 w-4" aria-hidden />
                       <span className="font-body text-sm text-ink-muted">
-                        {paidState === "yes-inbox"
-                          ? "Delivered To Your Inbox In 2 Minutes"
-                          : paidState === "yes-line"
-                            ? "Line-by-Line Analysis"
-                            : paidState === "yes-forecast"
-                              ? "Full Opportunities & Risks Forecast"
-                              : paidState === "yes-coverage"
-                                ? "Full Coverage"
-                                : "Full Access"}
+                        {paidLabel(paidState)}
                       </span>
                     </span>
                   </td>
