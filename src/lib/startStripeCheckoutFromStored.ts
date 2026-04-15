@@ -6,7 +6,9 @@ export type CheckoutStartResult =
   | { ok: true; url: string }
   | { ok: false; message: string };
 
-export async function startStripeCheckoutFromStored(): Promise<CheckoutStartResult> {
+export async function startStripeCheckoutFromStored(options?: {
+  offerStartAt?: number;
+}): Promise<CheckoutStartResult> {
   const rawBirth =
     typeof window !== "undefined"
       ? localStorage.getItem("userBirthInput") ??
@@ -54,6 +56,7 @@ export async function startStripeCheckoutFromStored(): Promise<CheckoutStartResu
       ...birthInput,
       allowFallback:
         birthInput.allowFallback === true || meta?.isApproximate === true,
+      offerStartAt: options?.offerStartAt,
     }),
   });
 

@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Sparkles, TrendingUp, Shield, ArrowRight } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -229,6 +230,7 @@ function buildStructured(snapshot: PersonalitySnapshot) {
 }
 
 export default function BirthSnapshotSection() {
+  const router = useRouter();
   const resultRef = useRef<HTMLDivElement>(null);
   const [snapshot, setSnapshot] = useState<PersonalitySnapshot | null>(null);
   const [pending, setPending] = useState(false);
@@ -243,6 +245,7 @@ export default function BirthSnapshotSection() {
   const [hour, setHour] = useState("");
   const [minute, setMinute] = useState("");
   const [location, setLocation] = useState("");
+  const [unknownTime, setUnknownTime] = useState(false);
 
   const [locationOpen, setLocationOpen] = useState(false);
   const [locationResults, setLocationResults] = useState<string[]>([]);
@@ -261,6 +264,17 @@ export default function BirthSnapshotSection() {
   useEffect(() => {
     saveFormCache({ step, year, month, day, hour, minute, location });
   }, [step, year, month, day, hour, minute, location]);
+
+  useEffect(() => {
+    track("form_step_view", { step });
+  }, [step]);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    if (year) return;
+    const now = new Date().getFullYear();
+    setYear(String(now - 18));
+  }, [year]);
 
   const refreshSnapshotFromStorage = useCallback(() => {
     const chart = loadChartFromStorage();
@@ -288,7 +302,7 @@ export default function BirthSnapshotSection() {
   const minutes = useMemo(() => Array.from({ length: 60 }, (_, i) => i), []);
 
   const step1Complete = Boolean(year && month && day);
-  const step2Complete = Boolean(hour !== "" && minute !== "");
+  const step2Complete = unknownTime || Boolean(hour !== "" && minute !== "");
   const step3Complete = Boolean(location.trim().length >= 2);
 
   async function updateLocation(next: string) {
@@ -317,13 +331,19 @@ export default function BirthSnapshotSection() {
     const birthDate = normalizeYyyyMmDd(`${year}-${month}-${day}`);
     if (!birthDate) {
       setError("That date doesn't look valid. Double-check and try again.");
+      track("form_generate_snapshot_error", { reason: "invalid_date" });
       setPending(false);
       return;
     }
-    const birthTime = pad24hTime(`${hour}:${String(minute).padStart(2, "0")}`);
+    const safeHour = unknownTime ? "12" : hour;
+    const safeMinute = unknownTime ? "0" : minute;
+    const birthTime = pad24hTime(
+      `${safeHour}:${String(safeMinute).padStart(2, "0")}`,
+    );
     const loc = location.trim();
     if (!loc) {
       setError("Please enter your birth city & country.");
+      track("form_generate_snapshot_error", { reason: "missing_location" });
       setPending(false);
       return;
     }
@@ -334,10 +354,11 @@ export default function BirthSnapshotSection() {
         birthTime,
         gender: "male",
         location: loc,
-        allowFallback: false,
+        allowFallback: unknownTime,
       });
       if (!res.ok) {
         setError("Something went wrong. Please try again.");
+        track("form_generate_snapshot_error", { reason: "api_error", status: res.status });
         setPending(false);
         return;
       }
@@ -352,7 +373,7 @@ export default function BirthSnapshotSection() {
         birthTime,
         gender: "male",
         location: loc,
-        allowFallback: false,
+        allowFallback: unknownTime,
       };
       sessionStorage.setItem("userBirthInput", JSON.stringify(birthInput));
       localStorage.setItem("userBirthInput", JSON.stringify(birthInput));
@@ -360,8 +381,10 @@ export default function BirthSnapshotSection() {
       track("snapshot_generated");
       refreshSnapshotFromStorage();
       setPending(false);
+      router.push("/snapshot");
     } catch {
       setError("Network error. Please try again.");
+      track("form_generate_snapshot_error", { reason: "network_error" });
       setPending(false);
     }
   }
@@ -403,6 +426,44 @@ export default function BirthSnapshotSection() {
               </p>
             </div>
 
+            <div className="sticky top-20 z-30 mt-8 rounded-sm border border-gold/20 bg-void/70 p-4 backdrop-blur-md">
+              <p className="font-body text-sm text-ink-muted">
+                ✅ Fill in 3 steps → Get your FREE personalized Zi Wei personality snapshot instantly
+              </p>
+              <div className="mt-3 grid gap-2 sm:grid-cols-3">
+                <div
+                  className={`rounded-sm border px-3 py-2 text-xs font-mono uppercase tracking-widest ${
+                    step === 1
+                      ? "border-gold/40 bg-white/[0.04] text-ink"
+                      : "border-white/10 text-ink-dim"
+                  }`}
+                >
+                  Step 1: Birth Date
+                </div>
+                <div
+                  className={`rounded-sm border px-3 py-2 text-xs font-mono uppercase tracking-widest ${
+                    step === 2
+                      ? "border-gold/40 bg-white/[0.04] text-ink"
+                      : "border-white/10 text-ink-dim"
+                  }`}
+                >
+                  Step 2: Birth Time
+                </div>
+                <div
+                  className={`rounded-sm border px-3 py-2 text-xs font-mono uppercase tracking-widest ${
+                    step === 3
+                      ? "border-gold/40 bg-white/[0.04] text-ink"
+                      : "border-white/10 text-ink-dim"
+                  }`}
+                >
+                  Step 3: Birth Place
+                </div>
+              </div>
+              <p className="mt-3 font-body text-sm text-ink-muted">
+                🔒 100% Private · No signup required · We never share your birth data
+              </p>
+            </div>
+
             <Card className="mt-10 overflow-hidden border-gold/25 bg-void/60">
               <CardHeader className="border-b border-white/10 bg-gradient-to-r from-void/60 via-transparent to-jade-dim/20">
                 <div className="flex items-end justify-between gap-3">
@@ -417,12 +478,17 @@ export default function BirthSnapshotSection() {
                   {step === 1
                     ? "Step 1: Enter Your Birth Date"
                     : step === 2
-                      ? "Step 2: Enter Your Exact Birth Time"
+                      ? "Step 2: Enter Your Birth Time"
                       : "Step 3: Enter Your Birth Place"}
                 </CardTitle>
+                {step === 1 ? (
+                  <p className="mt-2 font-body text-sm text-ink-muted">
+                    Your birth date is the foundation of your Zi Wei chart
+                  </p>
+                ) : null}
                 {step === 2 ? (
                   <p className="mt-2 font-body text-sm text-ink-muted">
-                    The more accurate your birth time, the more precise your chart will be
+                    Exact birth time gives you the most accurate chart, same as our paid report
                   </p>
                 ) : null}
                 {step === 3 ? (
@@ -489,15 +555,45 @@ export default function BirthSnapshotSection() {
                       variant="cta"
                       className="w-full"
                       disabled={!step1Complete}
-                      onClick={() => setStep(2)}
+                      onClick={() => {
+                        track("form_step_next_click", { from: 1, to: 2 });
+                        setStep(2);
+                      }}
                     >
-                      Continue To Next Step <ArrowRight className="h-4 w-4" aria-hidden />
+                      Next → Tell Me My Birth Time{" "}
+                      <ArrowRight className="h-4 w-4" aria-hidden />
                     </Button>
                   </div>
                 ) : null}
 
                 {step === 2 ? (
                   <div className="space-y-4">
+                    <div className="flex items-start gap-3 rounded-sm border border-white/10 bg-white/[0.03] p-4">
+                      <input
+                        id="unknown-birth-time"
+                        type="checkbox"
+                        className="mt-1 h-4 w-4 accent-gold"
+                        checked={unknownTime}
+                        onChange={(e) => {
+                          const next = e.target.checked;
+                          setUnknownTime(next);
+                          track("form_birth_time_unknown_toggle", { checked: next });
+                          if (next) {
+                            setHour("12");
+                            setMinute("0");
+                          }
+                        }}
+                      />
+                      <div>
+                        <Label htmlFor="unknown-birth-time">
+                          I don&apos;t know my exact birth time
+                        </Label>
+                        <p className="mt-1 font-body text-xs text-ink-muted">
+                          We&apos;ll generate your chart with standard noon time, and note the full
+                          adjustments in your paid report.
+                        </p>
+                      </div>
+                    </div>
                     <div className="grid gap-4 sm:grid-cols-2">
                       <div>
                         <Label htmlFor="birth-hour">Hour</Label>
@@ -506,6 +602,7 @@ export default function BirthSnapshotSection() {
                           className="input-ink mt-1.5"
                           value={hour}
                           onChange={(e) => setHour(e.target.value)}
+                          disabled={unknownTime}
                         >
                           <option value="">Select</option>
                           {hours.map((h) => (
@@ -522,6 +619,7 @@ export default function BirthSnapshotSection() {
                           className="input-ink mt-1.5"
                           value={minute}
                           onChange={(e) => setMinute(e.target.value)}
+                          disabled={unknownTime}
                         >
                           <option value="">Select</option>
                           {minutes.map((m) => (
@@ -537,9 +635,13 @@ export default function BirthSnapshotSection() {
                       variant="cta"
                       className="w-full"
                       disabled={!step2Complete}
-                      onClick={() => setStep(3)}
+                      onClick={() => {
+                        track("form_step_next_click", { from: 2, to: 3, unknownTime });
+                        setStep(3);
+                      }}
                     >
-                      Continue To Next Step <ArrowRight className="h-4 w-4" aria-hidden />
+                      Next → Enter My Birth Place{" "}
+                      <ArrowRight className="h-4 w-4" aria-hidden />
                     </Button>
                   </div>
                 ) : null}
@@ -593,12 +695,23 @@ export default function BirthSnapshotSection() {
                       disabled={!step3Complete || pending}
                       onClick={() => void handleGenerate()}
                     >
-                      {pending ? "Generating…" : "Generate My Free Snapshot"}
+                      {pending
+                        ? "Generating…"
+                        : "Generate My FREE Snapshot Now · No Signup Required"}
                     </Button>
                   </div>
                 ) : null}
               </CardContent>
             </Card>
+
+            <div className="mt-6 rounded-sm border border-white/10 bg-void/60 p-4 backdrop-blur-sm">
+              <p className="font-body text-sm text-ink-muted">
+                ★★★★★ &quot;Took 30 seconds, and the free snapshot was scarily accurate&quot; — Early Reader
+              </p>
+              <p className="mt-2 font-body text-sm text-ink-muted">
+                🛡️ 30-Day Money-Back Guarantee on all full reports
+              </p>
+            </div>
           </>
         ) : null}
 

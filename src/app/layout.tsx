@@ -4,6 +4,7 @@ import {
   Lora,
   IBM_Plex_Mono,
 } from "next/font/google";
+import Script from "next/script";
 import LayoutChrome from "@/components/LayoutChrome";
 import { BRAND_NAME, DEFAULT_META_DESCRIPTION } from "@/lib/brand";
 import { getSiteUrl } from "@/lib/site";
@@ -67,11 +68,29 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const gaId = process.env.NEXT_PUBLIC_GA4_ID;
   return (
     <html lang="en-US">
       <body
         className={`${display.variable} ${body.variable} ${mono.variable} min-h-screen font-body antialiased`}
       >
+        {gaId ? (
+          <>
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}
+              strategy="afterInteractive"
+            />
+            <Script id="ga4-init" strategy="afterInteractive">
+              {`
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){window.dataLayer.push(arguments);}
+                window.gtag = gtag;
+                gtag('js', new Date());
+                gtag('config', '${gaId}', { send_page_view: true });
+              `}
+            </Script>
+          </>
+        ) : null}
         <LayoutChrome>{children}</LayoutChrome>
       </body>
     </html>
