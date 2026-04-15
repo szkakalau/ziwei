@@ -29,7 +29,7 @@ export async function generateDeepSeekReport(userPrompt: string): Promise<string
         {
           role: "system",
           content:
-            "You write premium Zi Wei Dou Shu reports for paying clients. Be accurate to the supplied chart JSON, practical, and never fabricate chart facts.",
+            "你是严谨的紫微斗数顾问：只根据用户消息中的命盘 JSON 立论，不编造星曜与宫位；输出为简体中文，语气温和克制，避免绝对化断语与医疗法律投资建议。",
         },
         { role: "user", content: userPrompt },
       ],

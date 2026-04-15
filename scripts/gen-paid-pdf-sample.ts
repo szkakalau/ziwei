@@ -9,7 +9,7 @@
  * (Static /output/... can 404 if the file was never generated or is gitignored.)
  *
  * Loads `.env.local` if present (simple KEY=value lines).
- * Set OPENAI_API_KEY for full LLM text; otherwise uses short placeholders per palace.
+ * Set DEEPSEEK_API_KEY (preferred) or OPENAI_API_KEY for full LLM text; otherwise placeholders.
  */
 
 import { existsSync, readFileSync, writeFileSync, mkdirSync } from "fs";
@@ -44,9 +44,9 @@ function loadEnvLocal() {
 function mockInterpretations(keys: string[]): PaidPalaceInterpretation[] {
   return keys.map((key) => ({
     palaceKey: key,
-    title: `${key.replace(/^\w/, (c) => c.toUpperCase())} palace (placeholder — set OPENAI_API_KEY for AI text)`,
+    title: `${key.replace(/^\w/, (c) => c.toUpperCase())} palace (placeholder — set DEEPSEEK_API_KEY or OPENAI_API_KEY)`,
     paragraphs: [
-      `Sample placeholder for the “${key}” palace. Configure OPENAI_API_KEY in .env.local and re-run to generate full English commentary from your chart JSON.`,
+      `Sample placeholder for the “${key}” palace. Configure DEEPSEEK_API_KEY or OPENAI_API_KEY in .env.local and re-run.`,
     ],
   }));
 }
@@ -83,14 +83,14 @@ async function main() {
   ).map((p) => String(p.name ?? "").trim());
 
   let interpretations: PaidPalaceInterpretation[];
-  if (process.env.OPENAI_API_KEY?.trim()) {
-    console.log("Calling OpenAI for twelve-palace commentary…");
+  if (process.env.DEEPSEEK_API_KEY?.trim() || process.env.OPENAI_API_KEY?.trim()) {
+    console.log("Calling LLM (DeepSeek preferred) for twelve-palace commentary…");
     interpretations = await fetchPaidPalaceInterpretations({
       chart: chartResult.chart,
       meta,
     });
   } else {
-    console.warn("OPENAI_API_KEY missing — using placeholder English blocks.");
+    console.warn("DEEPSEEK_API_KEY / OPENAI_API_KEY missing — using placeholder English blocks.");
     interpretations = mockInterpretations(palaceKeys);
   }
 

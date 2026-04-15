@@ -29,7 +29,9 @@ function chartJsonForPrompt(chart: unknown): string {
 function buildUserPrompt(chart: unknown, meta: BirthChartMeta, palaceKeys: string[]): string {
   const chartJson = chartJsonForPrompt(chart);
   const keysLine = palaceKeys.join(", ");
-  return `Birth context (true solar / timezone adjusted where applicable):
+  return `You are producing **Part II** of a paid PDF: English commentary that appears **after** a Chinese chart grid (Part I). Every palace title and all paragraph text must be **English only**.
+
+Birth context (true solar / timezone adjusted where applicable):
 - Apparent solar date used for the chart: ${meta.apparentSolarDate}
 - Apparent solar time used for the chart: ${meta.apparentSolarTime}
 - Place label: ${meta.placeLabel}
@@ -58,7 +60,7 @@ Rules:
 - Ground every claim in the JSON (stars, brightness, mutagen if present, stems/branches if present). Do not invent stars or move stars between palaces.
 - Write for an intelligent Western reader; define rare jargon briefly when needed.
 - No medical, legal, or financial advice; no deterministic fate claims; frame as traditional symbolic reading.
-- English only in title and paragraphs.`;
+- English only in title and paragraphs (these strings are rendered verbatim in the PDF Part II; do not use Chinese or other languages).`;
 }
 
 function normalizeInterpretations(
@@ -167,7 +169,7 @@ export async function fetchPaidPalaceInterpretations(params: {
       {
         role: "system",
         content:
-          "You are an expert Zi Wei Dou Shu (Purple Star Astrology) consultant. You output only valid JSON as instructed.",
+          "You are an expert Zi Wei Dou Shu consultant. Output only valid JSON as instructed. All human-readable fields (palace titles and paragraphs) must be English — they are printed as Part II of a bilingual PDF after a Chinese chart.",
       },
       { role: "user", content: userPrompt },
     ],

@@ -48,6 +48,7 @@ export async function GET(request: Request) {
     const meta = chartResult.meta;
     const chartZhPlain = buildZhChartPlainForMeta(meta, gender);
 
+    /** Part II: DeepSeek/OpenAI English twelve-palace JSON (separate from post-checkout email long-form). */
     let interpretations;
     try {
       interpretations = await fetchPaidPalaceInterpretations({

@@ -77,8 +77,8 @@ export async function POST(request: Request) {
 
         if (chartResult.ok) {
           const prompt = chartToAiPrompt({
-            chart: chartResult.chart,
             meta: chartResult.meta,
+            gender,
           });
           try {
             aiReportText = await generateDeepSeekReport(prompt);
