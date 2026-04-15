@@ -12,10 +12,6 @@ export async function startStripeCheckoutFromStored(): Promise<CheckoutStartResu
       ? localStorage.getItem("userBirthInput") ??
         sessionStorage.getItem("userBirthInput")
       : null;
-  const rawEmail =
-    typeof window !== "undefined"
-      ? localStorage.getItem("userEmail") ?? sessionStorage.getItem("userEmail")
-      : null;
   const rawMeta =
     typeof window !== "undefined"
       ? sessionStorage.getItem("userChartMeta")
@@ -42,11 +38,6 @@ export async function startStripeCheckoutFromStored(): Promise<CheckoutStartResu
     return { ok: false, message: "Invalid stored birth data. Please try again." };
   }
 
-  const email = rawEmail?.trim() ?? "";
-  if (!email) {
-    return { ok: false, message: "Email missing. Please open the form and save your chart again." };
-  }
-
   let meta: { isApproximate?: boolean } | null = null;
   if (rawMeta) {
     try {
@@ -61,7 +52,6 @@ export async function startStripeCheckoutFromStored(): Promise<CheckoutStartResu
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       ...birthInput,
-      email,
       allowFallback:
         birthInput.allowFallback === true || meta?.isApproximate === true,
     }),

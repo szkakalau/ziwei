@@ -4,8 +4,7 @@ import {
   Lora,
   IBM_Plex_Mono,
 } from "next/font/google";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+import LayoutChrome from "@/components/LayoutChrome";
 import { BRAND_NAME, DEFAULT_META_DESCRIPTION } from "@/lib/brand";
 import { getSiteUrl } from "@/lib/site";
 import "./globals.css";
@@ -73,9 +72,7 @@ export default function RootLayout({
       <body
         className={`${display.variable} ${body.variable} ${mono.variable} min-h-screen font-body antialiased`}
       >
-        <Navbar />
-        <main className="min-h-[calc(100vh-8rem)]">{children}</main>
-        <Footer />
+        <LayoutChrome>{children}</LayoutChrome>
       </body>
     </html>
   );

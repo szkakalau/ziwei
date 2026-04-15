@@ -10,7 +10,6 @@ type Body = {
   gender?: "male" | "female";
   location?: string;
   allowFallback?: boolean;
-  email?: string;
 };
 
 export async function POST(request: Request) {
@@ -35,7 +34,6 @@ export async function POST(request: Request) {
     const location = typeof body.location === "string" ? body.location : "";
     const gender = body.gender === "female" ? "female" : "male";
     const allowFallback = body.allowFallback === true;
-    const email = typeof body.email === "string" ? body.email.trim() : "";
 
     if (!birthDate || !birthTime || !location) {
       return NextResponse.json(
@@ -51,8 +49,7 @@ export async function POST(request: Request) {
       mode: "payment",
       line_items: [{ price: priceId, quantity: 1 }],
       success_url: `${siteUrl}/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${siteUrl}/pricing`,
-      customer_email: email || undefined,
+      cancel_url: `${siteUrl}/#birth-form`,
       metadata: {
         birthDate,
         birthTime,

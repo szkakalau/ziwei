@@ -53,11 +53,21 @@ const config: Config = {
         "fade-up-delayed": "fadeUp 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.12s forwards",
         "fade-up-slow": "fadeUp 1.1s cubic-bezier(0.22, 1, 0.36, 1) 0.2s forwards",
         shimmer: "shimmer 8s ease-in-out infinite",
+        "accordion-down": "accordion-down 0.2s ease-out",
+        "accordion-up": "accordion-up 0.2s ease-out",
       },
       keyframes: {
         fadeUp: {
           from: { opacity: "0", transform: "translateY(20px)" },
           to: { opacity: "1", transform: "translateY(0)" },
+        },
+        "accordion-down": {
+          from: { height: "0" },
+          to: { height: "var(--radix-accordion-content-height)" },
+        },
+        "accordion-up": {
+          from: { height: "var(--radix-accordion-content-height)" },
+          to: { height: "0" },
         },
         shimmer: {
           "0%, 100%": { opacity: "0.4" },

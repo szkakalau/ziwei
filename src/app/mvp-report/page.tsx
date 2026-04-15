@@ -85,7 +85,7 @@ export default function MvpReportPage() {
 
   if (loading) {
     return (
-      <div className="flex min-h-[calc(100vh-8rem)] items-center justify-center px-6 py-20 font-body text-ink-muted">
+      <div className="flex min-h-[calc(100vh-8rem)] items-center justify-center px-4 py-16 font-body text-ink-muted sm:px-6 sm:py-20">
         Generating your report…
       </div>
     );
@@ -93,8 +93,8 @@ export default function MvpReportPage() {
 
   if (error || !report) {
     return (
-      <div className="mx-auto max-w-3xl px-6 py-16">
-        <div className="rounded-sm border border-white/10 bg-panel p-8 shadow-panel backdrop-blur-sm">
+      <div className="mx-auto max-w-3xl px-4 py-14 sm:px-6 sm:py-16">
+        <div className="rounded-sm border border-white/10 bg-panel p-6 shadow-panel backdrop-blur-sm sm:p-8">
           <h1 className="font-display text-3xl font-semibold text-ink">
             Couldn&apos;t generate report
           </h1>
@@ -117,7 +117,7 @@ export default function MvpReportPage() {
   const headerPlace = meta?.placeLabel ?? birthInput?.location ?? "—";
 
   return (
-    <div className="relative mx-auto max-w-6xl px-6 py-16">
+    <div className="relative mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-16">
       <div
         className="pointer-events-none absolute inset-0 bg-grid-fine bg-grid opacity-20"
         aria-hidden
@@ -149,7 +149,7 @@ export default function MvpReportPage() {
         {report.sections.map((s) => (
           <div
             key={s.id}
-            className="rounded-sm border border-white/10 bg-panel p-8 shadow-panel backdrop-blur-sm"
+            className="rounded-sm border border-white/10 bg-panel p-6 shadow-panel backdrop-blur-sm sm:p-8"
           >
             <h2 className="font-display text-2xl font-semibold text-ink">{s.title}</h2>
             <div className="mt-4 space-y-3 font-body leading-relaxed text-ink-muted">
@@ -161,7 +161,7 @@ export default function MvpReportPage() {
         ))}
       </section>
 
-      <section className="relative mt-14 rounded-sm border border-white/10 bg-panel p-10 shadow-panel backdrop-blur-sm">
+      <section className="relative mt-14 rounded-sm border border-white/10 bg-panel p-6 shadow-panel backdrop-blur-sm sm:p-10">
         <div className="flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
           <div className="max-w-2xl">
             <h2 className="font-display text-3xl font-semibold text-ink">
@@ -192,7 +192,7 @@ export default function MvpReportPage() {
       </section>
 
       <section className="relative mt-14 rounded-sm border border-gold/25 bg-void/55 shadow-panel">
-        <div className="bg-grid-fine bg-grid px-8 py-10">
+        <div className="bg-grid-fine bg-grid px-5 py-8 sm:px-8 sm:py-10">
           <h2 className="font-display text-3xl font-semibold text-ink md:text-4xl">
             {report.timeline.title}
           </h2>

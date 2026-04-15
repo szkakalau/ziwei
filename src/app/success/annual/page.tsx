@@ -2,13 +2,13 @@ import Link from "next/link";
 
 export default function AnnualSuccessPage() {
   return (
-    <main className="relative mx-auto flex min-h-[calc(100vh-8rem)] max-w-xl flex-col items-stretch px-6 py-16 md:max-w-2xl md:py-20">
+    <main className="relative mx-auto flex min-h-[calc(100vh-8rem)] max-w-xl flex-col items-stretch px-4 py-14 sm:px-6 sm:py-16 md:max-w-2xl md:py-20">
       <div
         className="pointer-events-none absolute inset-0 bg-grid-fine bg-grid opacity-25"
         aria-hidden
       />
 
-      <div className="relative w-full space-y-8 overflow-hidden rounded-sm border border-jade/30 bg-panel p-8 shadow-panel backdrop-blur-sm sm:p-10">
+      <div className="relative w-full space-y-8 overflow-hidden rounded-sm border border-jade/30 bg-panel p-6 shadow-panel backdrop-blur-sm sm:p-10">
         <header className="text-center">
           <p className="font-mono text-[10px] uppercase tracking-widest text-ink-dim">
             Add-on confirmed

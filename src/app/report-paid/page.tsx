@@ -19,8 +19,8 @@ export default async function ReportPaidPage({ searchParams }: PageProps) {
   const sessionId = firstParam(searchParams?.session_id);
   if (!sessionId) {
     return (
-      <div className="mx-auto max-w-3xl px-6 py-16">
-        <div className="rounded-sm border border-white/10 bg-panel p-8 shadow-panel backdrop-blur-sm">
+      <div className="mx-auto max-w-3xl px-4 py-14 sm:px-6 sm:py-16">
+        <div className="rounded-sm border border-white/10 bg-panel p-6 shadow-panel backdrop-blur-sm sm:p-8">
           <h1 className="font-display text-3xl font-semibold text-ink">
             Missing session
           </h1>
@@ -41,8 +41,8 @@ export default async function ReportPaidPage({ searchParams }: PageProps) {
   const session = await stripe.checkout.sessions.retrieve(sessionId);
   if (session.payment_status !== "paid") {
     return (
-      <div className="mx-auto max-w-3xl px-6 py-16">
-        <div className="rounded-sm border border-white/10 bg-panel p-8 shadow-panel backdrop-blur-sm">
+      <div className="mx-auto max-w-3xl px-4 py-14 sm:px-6 sm:py-16">
+        <div className="rounded-sm border border-white/10 bg-panel p-6 shadow-panel backdrop-blur-sm sm:p-8">
           <h1 className="font-display text-3xl font-semibold text-ink">
             Payment not completed
           </h1>
@@ -76,8 +76,8 @@ export default async function ReportPaidPage({ searchParams }: PageProps) {
 
   if (!chartResult.ok) {
     return (
-      <div className="mx-auto max-w-3xl px-6 py-16">
-        <div className="rounded-sm border border-white/10 bg-panel p-8 shadow-panel backdrop-blur-sm">
+      <div className="mx-auto max-w-3xl px-4 py-14 sm:px-6 sm:py-16">
+        <div className="rounded-sm border border-white/10 bg-panel p-6 shadow-panel backdrop-blur-sm sm:p-8">
           <h1 className="font-display text-3xl font-semibold text-ink">
             We couldn&apos;t build your chart
           </h1>
@@ -103,7 +103,7 @@ export default async function ReportPaidPage({ searchParams }: PageProps) {
   const pdfHref = `/api/report/pdf?session_id=${encodeURIComponent(sessionId)}`;
 
   return (
-    <div className="relative mx-auto max-w-6xl px-6 py-16">
+    <div className="relative mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-16">
       <div
         className="pointer-events-none absolute inset-0 bg-grid-fine bg-grid opacity-20"
         aria-hidden
@@ -134,7 +134,7 @@ export default async function ReportPaidPage({ searchParams }: PageProps) {
         {report.sections.map((s) => (
           <div
             key={s.id}
-            className="rounded-sm border border-white/10 bg-panel p-8 shadow-panel backdrop-blur-sm"
+            className="rounded-sm border border-white/10 bg-panel p-6 shadow-panel backdrop-blur-sm sm:p-8"
           >
             <h2 className="font-display text-2xl font-semibold text-ink">
               {s.title}
@@ -148,7 +148,7 @@ export default async function ReportPaidPage({ searchParams }: PageProps) {
         ))}
       </section>
 
-      <section className="relative mt-14 rounded-sm border border-white/10 bg-panel p-10 shadow-panel backdrop-blur-sm">
+      <section className="relative mt-14 rounded-sm border border-white/10 bg-panel p-6 shadow-panel backdrop-blur-sm sm:p-10">
         <div className="flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
           <div className="max-w-2xl">
             <h2 className="font-display text-3xl font-semibold text-ink">
@@ -184,7 +184,7 @@ export default async function ReportPaidPage({ searchParams }: PageProps) {
       </section>
 
       <section className="relative mt-14 rounded-sm border border-gold/25 bg-void/55 shadow-panel">
-        <div className="bg-grid-fine bg-grid px-8 py-10">
+        <div className="bg-grid-fine bg-grid px-5 py-8 sm:px-8 sm:py-10">
           <h2 className="font-display text-3xl font-semibold text-ink md:text-4xl">
             {report.timeline.title}
           </h2>
@@ -196,7 +196,7 @@ export default async function ReportPaidPage({ searchParams }: PageProps) {
         </div>
       </section>
 
-      <section className="relative mt-14 rounded-sm border border-white/10 bg-panel p-10 shadow-panel backdrop-blur-sm">
+      <section className="relative mt-14 rounded-sm border border-white/10 bg-panel p-6 shadow-panel backdrop-blur-sm sm:p-10">
         <h2 className="font-display text-2xl font-semibold text-ink">
           {report.upsell.title}
         </h2>

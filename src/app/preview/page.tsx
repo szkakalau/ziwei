@@ -34,7 +34,6 @@ export default function PreviewPage() {
   const [chart, setChart] = useState<unknown>(null);
   const [meta, setMeta] = useState<ChartMeta | null>(null);
   const [birthInput, setBirthInput] = useState<BirthInput | null>(null);
-  const [email, setEmail] = useState<string>("");
   const [checkoutPending, setCheckoutPending] = useState(false);
   const [checkoutError, setCheckoutError] = useState<string | null>(null);
 
@@ -43,8 +42,6 @@ export default function PreviewPage() {
     const rawMeta = sessionStorage.getItem("userChartMeta");
     const rawBirth =
       localStorage.getItem("userBirthInput") ?? sessionStorage.getItem("userBirthInput");
-    const rawEmail =
-      localStorage.getItem("userEmail") ?? sessionStorage.getItem("userEmail");
     if (stored) setChart(JSON.parse(stored));
     if (rawMeta) {
       try {
@@ -60,7 +57,6 @@ export default function PreviewPage() {
         setBirthInput(null);
       }
     }
-    if (rawEmail) setEmail(rawEmail);
   }, []);
 
   if (!chart) {
@@ -87,7 +83,6 @@ export default function PreviewPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           ...birthInput,
-          email,
           allowFallback: birthInput.allowFallback === true || meta?.isApproximate === true,
         }),
       });
@@ -110,7 +105,7 @@ export default function PreviewPage() {
   }
 
   return (
-    <div className="mx-auto max-w-6xl px-6 py-16">
+    <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-16">
       {/* ① Hero summary */}
       <header className="mx-auto max-w-3xl text-center">
         <h1 className="font-display text-4xl font-semibold tracking-tight text-ink md:text-5xl">
@@ -139,7 +134,7 @@ export default function PreviewPage() {
       </header>
 
       {/* ② Destiny chart */}
-      <section className="mt-14 rounded-sm border border-white/10 bg-panel p-8 shadow-panel backdrop-blur-sm">
+      <section className="mt-12 rounded-sm border border-white/10 bg-panel p-6 shadow-panel backdrop-blur-sm sm:mt-14 sm:p-8">
         <div className="flex flex-col gap-8 md:flex-row md:items-start md:justify-between">
           <div className="max-w-xl">
             <h2 className="font-display text-2xl font-semibold text-ink">
@@ -178,8 +173,8 @@ export default function PreviewPage() {
       </section>
 
       {/* Sample insight modules */}
-      <section className="mt-14 grid gap-6 md:grid-cols-3">
-        <div className="rounded-sm border border-white/10 bg-panel p-8 shadow-panel backdrop-blur-sm">
+      <section className="mt-12 grid gap-6 md:mt-14 md:grid-cols-3">
+        <div className="rounded-sm border border-white/10 bg-panel p-6 shadow-panel backdrop-blur-sm sm:p-8">
           <h3 className="font-display text-xl font-semibold text-ink">
             Your Core Personality
           </h3>
@@ -190,7 +185,7 @@ export default function PreviewPage() {
           </p>
         </div>
 
-        <div className="rounded-sm border border-white/10 bg-panel p-8 shadow-panel backdrop-blur-sm">
+        <div className="rounded-sm border border-white/10 bg-panel p-6 shadow-panel backdrop-blur-sm sm:p-8">
           <h3 className="font-display text-xl font-semibold text-ink">
             Your Life Theme
           </h3>
@@ -201,7 +196,7 @@ export default function PreviewPage() {
           </p>
         </div>
 
-        <div className="rounded-sm border border-gold/25 bg-panel p-8 shadow-panel backdrop-blur-sm">
+        <div className="rounded-sm border border-gold/25 bg-panel p-6 shadow-panel backdrop-blur-sm sm:p-8">
           <h3 className="font-display text-xl font-semibold text-ink">
             Key Insight
           </h3>
@@ -214,8 +209,8 @@ export default function PreviewPage() {
       </section>
 
       {/* ④ Paywall */}
-      <section className="mt-14 overflow-hidden rounded-sm border border-gold/25 bg-void/55 shadow-panel">
-        <div className="bg-grid-fine bg-grid px-8 py-10">
+      <section className="mt-12 overflow-hidden rounded-sm border border-gold/25 bg-void/55 shadow-panel sm:mt-14">
+        <div className="bg-grid-fine bg-grid px-5 py-8 sm:px-8 sm:py-10">
           <h2 className="font-display text-3xl font-semibold text-ink md:text-4xl">
             Your full destiny report is ready
           </h2>
