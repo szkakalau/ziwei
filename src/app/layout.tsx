@@ -5,6 +5,7 @@ import {
   IBM_Plex_Mono,
 } from "next/font/google";
 import Script from "next/script";
+import { Analytics } from "@vercel/analytics/next";
 import LayoutChrome from "@/components/LayoutChrome";
 import { BRAND_NAME, DEFAULT_META_DESCRIPTION } from "@/lib/brand";
 import { getSiteUrl } from "@/lib/site";
@@ -92,6 +93,7 @@ export default function RootLayout({
           </>
         ) : null}
         <LayoutChrome>{children}</LayoutChrome>
+        <Analytics />
       </body>
     </html>
   );
