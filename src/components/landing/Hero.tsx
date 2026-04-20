@@ -43,21 +43,21 @@ export default function Hero({ formAnchorId }: Props) {
         aria-hidden
       />
 
-      <div className="mx-auto flex min-h-[calc(100svh-3.5rem)] max-w-6xl flex-col justify-center px-4 py-14 sm:px-6 sm:py-20">
+      <div className="mx-auto flex min-h-[calc(92svh-3.5rem)] max-w-6xl flex-col justify-center px-4 py-10 sm:min-h-[calc(100svh-4rem)] sm:px-6 sm:py-20">
         <div className="mx-auto w-full max-w-3xl text-center">
-          <h1 className="font-display text-4xl font-semibold leading-[1.04] tracking-tight text-ink sm:text-5xl md:text-6xl animate-on-load">
+          <h1 className="font-display text-[clamp(2.1rem,7.2vw,3.25rem)] font-semibold leading-[1.06] tracking-tight text-ink sm:text-5xl md:text-6xl animate-on-load">
             The Astrology System Used By Chinese Emperors — Now Powered By AI
           </h1>
-          <h2 className="mt-6 font-body text-lg leading-relaxed text-ink-muted sm:text-xl md:text-2xl animate-on-load-delay-1">
+          <h2 className="mt-5 font-body text-[1.03rem] leading-relaxed text-ink-muted sm:mt-6 sm:text-xl md:text-2xl animate-on-load-delay-1">
             Discover your Life Palace, 10-year destiny cycles, relationship
             patterns and hidden strengths with Zi Wei Dou Shu.
           </h2>
 
-          <div className="mt-10 grid gap-3 text-left sm:grid-cols-3 sm:gap-4">
+          <div className="mt-8 grid gap-3 text-left sm:mt-10 sm:grid-cols-3 sm:gap-4">
             {trust.map((t) => (
               <div
                 key={t.text}
-                className="flex items-start gap-3 rounded-sm border border-white/10 bg-panel/60 px-4 py-3 backdrop-blur-sm animate-on-load-delay-2"
+                className="flex items-start gap-3 rounded-sm border border-white/10 bg-panel/60 px-3.5 py-3 backdrop-blur-sm animate-on-load-delay-2 sm:px-4"
               >
                 <t.icon className="mt-0.5 h-4 w-4 text-gold" aria-hidden />
                 <p className="font-body text-sm leading-snug text-ink-muted">
@@ -67,7 +67,7 @@ export default function Hero({ formAnchorId }: Props) {
             ))}
           </div>
 
-          <div className="mt-10 flex flex-col items-center gap-4 animate-on-load-delay-3">
+          <div className="mt-9 flex flex-col items-center gap-4 animate-on-load-delay-3 sm:mt-10">
             <Button asChild variant="cta" size="lg" className="w-full max-w-xl">
               <a
                 href={`#${formAnchorId}`}

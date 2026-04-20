@@ -426,11 +426,11 @@ export default function BirthSnapshotSection() {
               </p>
             </div>
 
-            <div className="sticky top-16 z-30 mt-8 rounded-sm border border-gold/20 bg-void/70 p-4 backdrop-blur-md sm:top-20">
+            <div className="sticky top-14 z-30 mt-8 rounded-sm border border-gold/20 bg-void/70 p-3.5 backdrop-blur-md sm:top-20 sm:p-4">
               <p className="font-body text-sm text-ink-muted">
                 ✅ Fill in 3 steps → Get your FREE personalized Zi Wei personality snapshot instantly
               </p>
-              <div className="mt-3 grid gap-2 sm:grid-cols-3">
+              <div className="mt-3 flex gap-2 overflow-x-auto overscroll-x-contain pb-1 [-webkit-overflow-scrolling:touch] sm:grid sm:grid-cols-3 sm:overflow-visible sm:pb-0">
                 <div
                   className={`rounded-sm border px-3 py-2 text-xs font-mono uppercase tracking-widest ${
                     step === 1

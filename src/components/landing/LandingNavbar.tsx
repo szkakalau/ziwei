@@ -8,7 +8,7 @@ type Props = {
 
 export default function LandingNavbar({ formAnchorId }: Props) {
   return (
-    <header className="sticky top-0 z-50 border-b border-white/10 bg-void/55 backdrop-blur-xl">
+    <header className="sticky top-0 z-50 border-b border-white/10 bg-void/55 pt-[env(safe-area-inset-top)] backdrop-blur-xl">
       <div
         className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-gold/35 to-transparent"
         aria-hidden
@@ -24,7 +24,7 @@ export default function LandingNavbar({ formAnchorId }: Props) {
           asChild
           variant="outline"
           size="sm"
-          className="min-h-10 px-3 text-[11px] font-semibold uppercase tracking-wider transition-transform hover:scale-[1.02] sm:min-h-11 sm:px-4 sm:text-xs"
+          className="min-h-11 px-3 text-[11px] font-semibold uppercase tracking-wider transition-transform hover:scale-[1.02] sm:min-h-11 sm:px-4 sm:text-xs"
         >
           <a
             href={`#${formAnchorId}`}
