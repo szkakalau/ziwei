@@ -1,17 +1,10 @@
-import { Suspense } from "react";
-import ReportClient from "./reportClient";
+import LegacyReportNotice from "@/components/LegacyReportNotice";
 
 export default function ReportPage() {
   return (
-    <Suspense
-      fallback={
-        <div className="flex min-h-[calc(100vh-8rem)] items-center justify-center px-6 py-20 font-body text-ink-muted">
-          Loading…
-        </div>
-      }
-    >
-      <ReportClient />
-    </Suspense>
+    <LegacyReportNotice
+      title="This legacy report page is no longer used"
+      body="DestinyBlueprint now delivers paid readings by human-written email instead of generating on-site AI reports. Please continue from the email reading flow or contact support if you need help with an older order."
+    />
   );
 }
-

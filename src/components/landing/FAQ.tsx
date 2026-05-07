@@ -2,23 +2,23 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 
 const faqs = [
   {
-    q: "Is this real astrology, or just AI generated content?",
-    a: "Both. We calculate your chart using the traditional, 1000-year-old Zi Wei Dou Shu system, then our AI translates the complex, ancient chart into clear, human-readable insights you can act on.",
+    q: "Is this a real human reading or an AI-generated message?",
+    a: "Your email reading is delivered by a human after checkout. We still use software to calculate your Zi Wei chart accurately, but the interpretation itself is written and sent by email by a person.",
   },
   {
     q: "Do I need my exact birth time?",
-    a: "The more accurate your birth time, the more precise your chart will be. We recommend using your exact birth time for the most complete and accurate report.",
+    a: "The more accurate your birth time, the more precise your chart will be. We recommend using your exact birth time for the best reading, but you can still order if your time is approximate.",
   },
   {
     q: "Is this scientifically proven?",
     a: "Zi Wei Dou Shu is a traditional Chinese metaphysical system that has been used for centuries. It is not a replacement for professional financial, legal, or mental health advice.",
   },
   {
-    q: "How do I get my full report after purchase?",
-    a: "After you complete your purchase, we'll send your full downloadable PDF report to the email you provide at checkout, within 2-5 minutes.",
+    q: "What do I get after purchase?",
+    a: "After checkout, we email you an order confirmation right away. Your personalized reading is then delivered by email within 24-48 hours and focuses on the question you submitted before payment.",
   },
   {
-    q: "What if I'm not happy with my report?",
+    q: "What if I'm not happy with my reading?",
     a: "We offer a 30-day no-questions-asked money-back guarantee. If your reading doesn't resonate with you, just email us at support@destinyblueprint.xyz and we'll refund you 100%.",
   },
 ] as const;
@@ -43,4 +43,3 @@ export default function FAQ() {
     </section>
   );
 }
-

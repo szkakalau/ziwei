@@ -18,7 +18,6 @@ import {
   type PersonalitySnapshot,
 } from "@/lib/personalitySnapshot";
 import StickyUnlockBar from "@/components/landing/StickyUnlockBar";
-import { startStripeCheckoutFromStored } from "@/lib/startStripeCheckoutFromStored";
 import { track } from "@/lib/analytics";
 
 type StoredBirth = {
@@ -60,6 +59,7 @@ function loadFormCache(): {
   hour: string;
   minute: string;
   location: string;
+  gender: "male" | "female";
 } {
   if (typeof window === "undefined") {
     return {
@@ -70,6 +70,7 @@ function loadFormCache(): {
       hour: "",
       minute: "",
       location: "",
+      gender: "female",
     };
   }
   const raw = localStorage.getItem(STORAGE_KEY);
@@ -82,12 +83,14 @@ function loadFormCache(): {
       hour: "",
       minute: "",
       location: "",
+      gender: "female",
     };
   }
   try {
     const parsed = JSON.parse(raw) as Partial<ReturnType<typeof loadFormCache>>;
     const step: Step =
       parsed.step === 2 || parsed.step === 3 ? parsed.step : 1;
+    const gender: "male" | "female" = parsed.gender === "male" ? "male" : "female";
     return {
       step,
       year: typeof parsed.year === "string" ? parsed.year : "",
@@ -96,6 +99,7 @@ function loadFormCache(): {
       hour: typeof parsed.hour === "string" ? parsed.hour : "",
       minute: typeof parsed.minute === "string" ? parsed.minute : "",
       location: typeof parsed.location === "string" ? parsed.location : "",
+      gender,
     };
   } catch {
     return {
@@ -106,6 +110,7 @@ function loadFormCache(): {
       hour: "",
       minute: "",
       location: "",
+      gender: "female",
     };
   }
 }
@@ -115,8 +120,8 @@ function saveFormCache(next: ReturnType<typeof loadFormCache>) {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
 }
 
-async function geocode(q: string): Promise<string[]> {
-  const res = await fetch(`/api/geocode?q=${encodeURIComponent(q)}`);
+async function geocode(q: string, signal?: AbortSignal): Promise<string[]> {
+  const res = await fetch(`/api/geocode?q=${encodeURIComponent(q)}`, { signal });
   const data = (await res.json()) as
     | { ok: true; results: Array<{ displayName: string }> }
     | { ok: false; error: string };
@@ -134,11 +139,16 @@ async function requestChart(params: {
   | { ok: true; chart: unknown; meta?: unknown }
   | { ok: false; status: number; errorCode: string }
 > {
-  const response = await fetch("/api/birth-chart", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(params),
-  });
+  let response: Response;
+  try {
+    response = await fetch("/api/birth-chart", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(params),
+    });
+  } catch {
+    return { ok: false, status: 0, errorCode: "NETWORK" };
+  }
 
   type ApiOk = { ok: true; chart: unknown; meta?: unknown };
   type ApiErr = { ok: false; error: string };
@@ -232,6 +242,9 @@ function buildStructured(snapshot: PersonalitySnapshot) {
 export default function BirthSnapshotSection() {
   const router = useRouter();
   const resultRef = useRef<HTMLDivElement>(null);
+  const locationLookupTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const locationLookupAbortRef = useRef<AbortController | null>(null);
+  const locationLookupCooldownUntilRef = useRef(0);
   const [snapshot, setSnapshot] = useState<PersonalitySnapshot | null>(null);
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -245,10 +258,12 @@ export default function BirthSnapshotSection() {
   const [hour, setHour] = useState("");
   const [minute, setMinute] = useState("");
   const [location, setLocation] = useState("");
+  const [gender, setGender] = useState<"male" | "female">("female");
   const [unknownTime, setUnknownTime] = useState(false);
 
   const [locationOpen, setLocationOpen] = useState(false);
   const [locationResults, setLocationResults] = useState<string[]>([]);
+  const [locationHint, setLocationHint] = useState<string | null>(null);
 
   useEffect(() => {
     const cached = loadFormCache();
@@ -259,11 +274,12 @@ export default function BirthSnapshotSection() {
     setHour(cached.hour);
     setMinute(cached.minute);
     setLocation(cached.location);
+    setGender(cached.gender);
   }, []);
 
   useEffect(() => {
-    saveFormCache({ step, year, month, day, hour, minute, location });
-  }, [step, year, month, day, hour, minute, location]);
+    saveFormCache({ step, year, month, day, hour, minute, location, gender });
+  }, [step, year, month, day, hour, minute, location, gender]);
 
   useEffect(() => {
     track("form_step_view", { step });
@@ -290,6 +306,15 @@ export default function BirthSnapshotSection() {
     refreshSnapshotFromStorage();
   }, [refreshSnapshotFromStorage]);
 
+  useEffect(() => {
+    return () => {
+      if (locationLookupTimerRef.current) {
+        clearTimeout(locationLookupTimerRef.current);
+      }
+      locationLookupAbortRef.current?.abort();
+    };
+  }, []);
+
   const years = useMemo(() => {
     const now = new Date().getFullYear();
     const arr: number[] = [];
@@ -308,19 +333,53 @@ export default function BirthSnapshotSection() {
   async function updateLocation(next: string) {
     setLocation(next);
     const q = next.trim();
+    setLocationHint(null);
+
+    if (locationLookupTimerRef.current) {
+      clearTimeout(locationLookupTimerRef.current);
+      locationLookupTimerRef.current = null;
+    }
+    locationLookupAbortRef.current?.abort();
+
     if (q.length < 2) {
       setLocationResults([]);
       setLocationOpen(false);
       return;
     }
-    try {
-      const names = await geocode(q);
-      setLocationResults(names);
-      setLocationOpen(names.length > 0);
-    } catch {
+
+    if (Date.now() < locationLookupCooldownUntilRef.current) {
       setLocationResults([]);
       setLocationOpen(false);
+      setLocationHint(
+        "Location suggestions are temporarily unavailable. You can still type your city manually.",
+      );
+      return;
     }
+
+    locationLookupTimerRef.current = setTimeout(async () => {
+      const controller = new AbortController();
+      locationLookupAbortRef.current = controller;
+
+      try {
+        const names = await geocode(q, controller.signal);
+        setLocationResults(names);
+        setLocationOpen(names.length > 0);
+      } catch (error) {
+        if (error instanceof DOMException && error.name === "AbortError") {
+          return;
+        }
+        locationLookupCooldownUntilRef.current = Date.now() + 10000;
+        setLocationResults([]);
+        setLocationOpen(false);
+        setLocationHint(
+          "Location suggestions are temporarily unavailable. You can still type your city manually.",
+        );
+      } finally {
+        if (locationLookupAbortRef.current === controller) {
+          locationLookupAbortRef.current = null;
+        }
+      }
+    }, 250);
   }
 
   async function handleGenerate() {
@@ -352,13 +411,21 @@ export default function BirthSnapshotSection() {
       const res = await requestChart({
         birthDate,
         birthTime,
-        gender: "male",
+        gender,
         location: loc,
         allowFallback: unknownTime,
       });
       if (!res.ok) {
-        setError("Something went wrong. Please try again.");
-        track("form_generate_snapshot_error", { reason: "api_error", status: res.status });
+        const isNetworkError = res.errorCode === "NETWORK" || res.status === 0;
+        setError(
+          isNetworkError
+            ? "We couldn't reach the chart service. Please refresh the page and try again in a moment."
+            : "Something went wrong. Please try again.",
+        );
+        track("form_generate_snapshot_error", {
+          reason: isNetworkError ? "network_error" : "api_error",
+          status: res.status,
+        });
         setPending(false);
         return;
       }
@@ -371,7 +438,7 @@ export default function BirthSnapshotSection() {
       const birthInput: StoredBirth = {
         birthDate,
         birthTime,
-        gender: "male",
+        gender,
         location: loc,
         allowFallback: unknownTime,
       };
@@ -383,7 +450,7 @@ export default function BirthSnapshotSection() {
       setPending(false);
       router.push("/snapshot");
     } catch {
-      setError("Network error. Please try again.");
+      setError("We couldn't reach the chart service. Please refresh the page and try again in a moment.");
       track("form_generate_snapshot_error", { reason: "network_error" });
       setPending(false);
     }
@@ -391,22 +458,9 @@ export default function BirthSnapshotSection() {
 
   const structured = snapshot ? buildStructured(snapshot) : null;
 
-  async function handleUnlock() {
-    setCheckoutError(null);
-    setCheckoutPending(true);
-    track("cta_unlock_full_report_click");
-    try {
-      const result = await startStripeCheckoutFromStored();
-      if (!result.ok) {
-        setCheckoutError(result.message);
-        setCheckoutPending(false);
-        return;
-      }
-      window.location.href = result.url;
-    } catch {
-      setCheckoutError("Network error. Please try again.");
-      setCheckoutPending(false);
-    }
+  async function handleContinueToReading() {
+    track("cta_email_reading_checkout_click", { source: "landing_snapshot" });
+    router.push("/snapshot");
   }
 
   return (
@@ -488,7 +542,7 @@ export default function BirthSnapshotSection() {
                 ) : null}
                 {step === 2 ? (
                   <p className="mt-2 font-body text-sm text-ink-muted">
-                    Exact birth time gives you the most accurate chart, same as our paid report
+                    Exact birth time gives you the most accurate chart for your final email reading
                   </p>
                 ) : null}
                 {step === 3 ? (
@@ -550,6 +604,43 @@ export default function BirthSnapshotSection() {
                         </select>
                       </div>
                     </div>
+                    <div>
+                      <Label>Gender</Label>
+                      <div className="mt-2 grid gap-3 sm:grid-cols-2">
+                        <label
+                          className={`cursor-pointer rounded-sm border p-3 ${
+                            gender === "female"
+                              ? "border-gold/35 bg-white/[0.05]"
+                              : "border-white/10 bg-white/[0.02]"
+                          }`}
+                        >
+                          <input
+                            type="radio"
+                            name="birth-gender"
+                            className="sr-only"
+                            checked={gender === "female"}
+                            onChange={() => setGender("female")}
+                          />
+                          <p className="font-body text-sm text-ink">Female</p>
+                        </label>
+                        <label
+                          className={`cursor-pointer rounded-sm border p-3 ${
+                            gender === "male"
+                              ? "border-gold/35 bg-white/[0.05]"
+                              : "border-white/10 bg-white/[0.02]"
+                          }`}
+                        >
+                          <input
+                            type="radio"
+                            name="birth-gender"
+                            className="sr-only"
+                            checked={gender === "male"}
+                            onChange={() => setGender("male")}
+                          />
+                          <p className="font-body text-sm text-ink">Male</p>
+                        </label>
+                      </div>
+                    </div>
                     <Button
                       type="button"
                       variant="cta"
@@ -590,7 +681,7 @@ export default function BirthSnapshotSection() {
                         </Label>
                         <p className="mt-1 font-body text-xs text-ink-muted">
                           We&apos;ll generate your chart with standard noon time, and note the full
-                          adjustments in your paid report.
+                          approximation notes in your final email reading.
                         </p>
                       </div>
                     </div>
@@ -682,6 +773,12 @@ export default function BirthSnapshotSection() {
                       ) : null}
                     </div>
 
+                    {locationHint ? (
+                      <p className="font-body text-xs text-ink-muted" role="status">
+                        {locationHint}
+                      </p>
+                    ) : null}
+
                     {error ? (
                       <p className="font-body text-sm text-cinnabar" role="alert">
                         {error}
@@ -709,7 +806,7 @@ export default function BirthSnapshotSection() {
                 ★★★★★ &quot;Took 30 seconds, and the free snapshot was scarily accurate&quot; — Early Reader
               </p>
               <p className="mt-2 font-body text-sm text-ink-muted">
-                🛡️ 30-Day Money-Back Guarantee on all full reports
+                🛡️ 30-Day Money-Back Guarantee on all email readings
               </p>
             </div>
           </>
@@ -787,7 +884,7 @@ export default function BirthSnapshotSection() {
 
             <div className="mt-10 rounded-sm border border-white/10 bg-panel/60 p-5 backdrop-blur-sm">
               <p className="font-body text-sm text-ink-muted">
-                Unlock your full 12-palace report, 10-year cycle forecast and more for just $9
+                Continue to your personalized email reading with human delivery in 24-48 hours
               </p>
               <div className="mt-4">
                 <Button
@@ -795,9 +892,9 @@ export default function BirthSnapshotSection() {
                   variant="cta"
                   className="w-full"
                   disabled={checkoutPending}
-                  onClick={() => void handleUnlock()}
+                  onClick={() => void handleContinueToReading()}
                 >
-                  Unlock Full Report Now · 30-Day Guarantee
+                  Continue To Checkout
                 </Button>
               </div>
               {checkoutError ? (
@@ -813,10 +910,9 @@ export default function BirthSnapshotSection() {
       {snapshot ? (
         <StickyUnlockBar
           pending={checkoutPending}
-          onUnlock={() => void handleUnlock()}
+          onContinue={() => void handleContinueToReading()}
         />
       ) : null}
     </section>
   );
 }
-

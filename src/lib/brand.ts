@@ -13,7 +13,7 @@ export function getSupportEmail(): string {
 }
 
 export const DEFAULT_META_DESCRIPTION =
-  "DestinyBlueprint — AI-powered Purple Star (Zi Wei Dou Shu) readings. Free chart preview on-site; unlock the full report when you are ready.";
+  "DestinyBlueprint — Zi Wei Dou Shu email readings by a human astrologer. Start with a free chart snapshot, then upgrade to a personalized email consultation.";
 
-/** Display price for full PDF report (Stripe / marketing). */
-export const FULL_REPORT_PRICE_LABEL = "$9";
+/** Display price for the email reading. */
+export const EMAIL_READING_PRICE_LABEL = "$99";

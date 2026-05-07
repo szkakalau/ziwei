@@ -29,7 +29,7 @@ export default function HowItWorks() {
             aria-hidden
           />
           <h3 className="mt-6 font-display text-xl font-semibold text-ink">
-            2. AI maps your chart
+            2. We prepare your chart
           </h3>
           <p className="mt-2 font-body text-ink-muted">
             Uses classical Purple Star (Zi Wei) placement rules.
@@ -42,10 +42,10 @@ export default function HowItWorks() {
             aria-hidden
           />
           <h3 className="mt-6 font-display text-xl font-semibold text-ink">
-            3. Get your report
+            3. Receive your reading
           </h3>
           <p className="mt-2 font-body text-ink-muted">
-            See an instant preview; upgrade for the full report.
+            Start with a free preview, then upgrade for a human-written email reading.
           </p>
         </div>
       </div>

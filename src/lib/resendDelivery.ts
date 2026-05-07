@@ -1,4 +1,6 @@
 import { Resend } from "resend";
+import { getSupportEmail } from "@/lib/brand";
+import type { DeliveryWindow } from "@/lib/opsAutomation";
 
 function escapeHtml(s: string): string {
   return s
@@ -8,19 +10,41 @@ function escapeHtml(s: string): string {
     .replace(/"/g, "&quot;");
 }
 
-export type SendPaidReportEmailArgs = {
-  to: string;
-  reportUrl: string;
-  pdfUrl: string;
-  /** Full AI report body (plain text). */
-  aiReportText?: string | null;
-};
+function focusAreaLabel(focusArea: string) {
+  switch (focusArea) {
+    case "love":
+      return "Love & relationships";
+    case "career":
+      return "Career";
+    case "wealth":
+      return "Wealth";
+    case "timing":
+      return "Timing";
+    default:
+      return "General reading";
+  }
+}
 
-/**
- * Sends the post-purchase email via Resend.
- * Requires RESEND_API_KEY and RESEND_FROM (verified sender in Resend).
- */
-export async function sendPaidReportViaResend(args: SendPaidReportEmailArgs) {
+function chartSummaryText(summary?: {
+  placeLabel?: string;
+  apparentSolarDate?: string;
+  apparentSolarTime?: string;
+  isApproximate?: boolean;
+  errorCode?: string | null;
+}) {
+  if (!summary) return "Chart summary unavailable.";
+  if (summary.errorCode) {
+    return `Chart could not be prepared automatically. Error: ${summary.errorCode}`;
+  }
+  return [
+    `Chart place: ${summary.placeLabel || "—"}`,
+    `Apparent solar date: ${summary.apparentSolarDate || "—"}`,
+    `Apparent solar time: ${summary.apparentSolarTime || "—"}`,
+    `Approximate chart: ${summary.isApproximate ? "Yes" : "No"}`,
+  ].join("\n");
+}
+
+function getResendClient() {
   const apiKey = process.env.RESEND_API_KEY?.trim();
   const from = process.env.RESEND_FROM?.trim();
 
@@ -33,56 +57,103 @@ export async function sendPaidReportViaResend(args: SendPaidReportEmailArgs) {
     );
   }
 
-  const resend = new Resend(apiKey);
+  return { resend: new Resend(apiKey), from };
+}
 
-  const intro =
-    args.aiReportText && args.aiReportText.length > 0
-      ? "<p>Thanks for your purchase. Your personalized reading is below. You can also open the report on the site or download the PDF.</p>"
-      : "<p>Thanks for your purchase. Your report is ready on the site. We could not attach the AI-written reading this time (see support if needed).</p>";
+function opsChecklistText(window: DeliveryWindow) {
+  return [
+    "Ops checklist:",
+    `1. Confirm the order is queued before ${window.dueAtLabel}.`,
+    "2. Review the customer's question and chart summary.",
+    "3. Write and send the final email reading.",
+    "4. Mark the order done in your own tracker after sending.",
+  ].join("\n");
+}
 
-  const bodyBlock =
-    args.aiReportText && args.aiReportText.length > 0
-      ? `<div style="margin:20px 0;padding:16px;background:#f7f7f8;border-radius:8px;border:1px solid #e5e5e5;">
-           <p style="margin:0 0 8px;font-weight:600;">Your reading</p>
-           <pre style="margin:0;white-space:pre-wrap;font-family:ui-sans-serif,system-ui,sans-serif;font-size:14px;line-height:1.6;color:#222;">${escapeHtml(
-             args.aiReportText,
-           )}</pre>
-         </div>`
-      : "";
-
-  const disclaimer = `
-    <p style="margin:0 0 8px;font-size:13px;color:#444;">
-      This report is generated using traditional Zi Wei Dou Shu astrology and modern software interpretation.
-      It is for <strong>personal insight and entertainment only</strong> — not medical, legal, or financial advice.
-    </p>
-  `;
-
+export async function sendConsultationConfirmationViaResend(args: {
+  to: string;
+  focusArea: string;
+  question: string;
+  deliveryWindow: DeliveryWindow;
+}) {
+  const { resend, from } = getResendClient();
+  const supportEmail = getSupportEmail();
+  const focusLabel = focusAreaLabel(args.focusArea);
   const html = `
     <div style="font-family:ui-sans-serif,system-ui,sans-serif;line-height:1.6;color:#111;">
-      <h2 style="margin:0 0 12px;">Your Zi Wei Destiny Reading ✨</h2>
-      ${disclaimer}
-      <hr style="border:none;border-top:1px solid #e5e5e5;margin:16px 0;" />
-      ${intro}
-      ${bodyBlock}
-      <p style="margin:16px 0 8px;">
-        <a href="${escapeHtml(args.reportUrl)}" style="display:inline-block;padding:12px 16px;background:#c67b00;color:#0b0b0f;text-decoration:none;border-radius:6px;font-weight:600;">
-          Open your report
-        </a>
-      </p>
-      <p style="margin:0 0 16px;">
-        <a href="${escapeHtml(args.pdfUrl)}">Download PDF</a>
-      </p>
-      <hr style="border:none;border-top:1px solid #e5e5e5;margin:20px 0;" />
-      <p style="margin:0;font-size:12px;color:#666;">
-        For personal insight and entertainment only. Not a substitute for professional advice.
-      </p>
+      <h2 style="margin:0 0 12px;">We received your Zi Wei reading order</h2>
+      <p style="margin:0 0 12px;">Thanks for your purchase. Your personalized email reading is now queued.</p>
+      <p style="margin:0 0 8px;"><strong>Ordered at:</strong> ${escapeHtml(args.deliveryWindow.orderedAtLabel)}</p>
+      <p style="margin:0 0 12px;"><strong>Delivery deadline:</strong> ${escapeHtml(args.deliveryWindow.dueAtLabel)}</p>
+      <p style="margin:0 0 8px;"><strong>Focus area:</strong> ${escapeHtml(focusLabel)}</p>
+      <p style="margin:0 0 8px;"><strong>Your question:</strong></p>
+      <div style="margin:0 0 16px;padding:12px 14px;border:1px solid #e5e5e5;border-radius:8px;background:#f7f7f8;white-space:pre-wrap;">${escapeHtml(args.question)}</div>
+      <p style="margin:0 0 12px;">If you need to correct your birth data, email us at <a href="mailto:${escapeHtml(supportEmail)}">${escapeHtml(supportEmail)}</a> as soon as possible.</p>
+      <p style="margin:0;font-size:12px;color:#666;">For personal insight and entertainment only.</p>
+    </div>
+  `;
+  const { error } = await resend.emails.send({
+    from,
+    to: args.to,
+    subject: "We received your Zi Wei reading order",
+    html,
+  });
+
+  if (error) {
+    throw new Error(typeof error === "string" ? error : JSON.stringify(error));
+  }
+}
+
+export async function sendConsultationOrderAlertViaResend(args: {
+  to: string;
+  customerEmail: string;
+  sessionId: string;
+  focusArea: string;
+  question: string;
+  birthDate: string;
+  birthTime: string;
+  location: string;
+  gender: "male" | "female";
+  allowFallback: boolean;
+  deliveryWindow: DeliveryWindow;
+  customerReplyMailto: string;
+  chartSummary?: {
+    placeLabel?: string;
+    apparentSolarDate?: string;
+    apparentSolarTime?: string;
+    isApproximate?: boolean;
+    errorCode?: string | null;
+  };
+}) {
+  const { resend, from } = getResendClient();
+  const focusLabel = focusAreaLabel(args.focusArea);
+  const chartSummary = chartSummaryText(args.chartSummary);
+  const checklist = opsChecklistText(args.deliveryWindow);
+  const html = `
+    <div style="font-family:ui-sans-serif,system-ui,sans-serif;line-height:1.6;color:#111;">
+      <h2 style="margin:0 0 12px;">New Zi Wei consultation order</h2>
+      <p style="margin:0 0 8px;"><strong>Session ID:</strong> ${escapeHtml(args.sessionId)}</p>
+      <p style="margin:0 0 8px;"><strong>Customer email:</strong> ${escapeHtml(args.customerEmail)}</p>
+      <p style="margin:0 0 8px;"><strong>Ordered at:</strong> ${escapeHtml(args.deliveryWindow.orderedAtLabel)}</p>
+      <p style="margin:0 0 16px;"><strong>Due by:</strong> ${escapeHtml(args.deliveryWindow.dueAtLabel)}</p>
+      <p style="margin:0 0 8px;"><strong>Focus area:</strong> ${escapeHtml(focusLabel)}</p>
+      <p style="margin:0 0 8px;"><strong>Question:</strong></p>
+      <div style="margin:0 0 16px;padding:12px 14px;border:1px solid #e5e5e5;border-radius:8px;background:#f7f7f8;white-space:pre-wrap;">${escapeHtml(args.question)}</div>
+      <p style="margin:0 0 8px;"><strong>Birth date:</strong> ${escapeHtml(args.birthDate)}</p>
+      <p style="margin:0 0 8px;"><strong>Birth time:</strong> ${escapeHtml(args.birthTime)}</p>
+      <p style="margin:0 0 8px;"><strong>Gender:</strong> ${escapeHtml(args.gender)}</p>
+      <p style="margin:0 0 8px;"><strong>Location:</strong> ${escapeHtml(args.location)}</p>
+      <p style="margin:0 0 16px;"><strong>Approximate time allowed:</strong> ${args.allowFallback ? "Yes" : "No"}</p>
+      <p style="margin:0 0 12px;"><a href="${escapeHtml(args.customerReplyMailto)}">Open a prefilled reply to the customer</a></p>
+      <pre style="margin:0;padding:12px 14px;border:1px solid #e5e5e5;border-radius:8px;background:#fff;font-family:ui-monospace, SFMono-Regular, monospace;font-size:13px;white-space:pre-wrap;">${escapeHtml(chartSummary)}</pre>
+      <pre style="margin:12px 0 0;padding:12px 14px;border:1px solid #e5e5e5;border-radius:8px;background:#fff;font-family:ui-monospace, SFMono-Regular, monospace;font-size:13px;white-space:pre-wrap;">${escapeHtml(checklist)}</pre>
     </div>
   `;
 
   const { error } = await resend.emails.send({
     from,
     to: args.to,
-    subject: "Your Zi Wei Destiny Reading ✨",
+    subject: `New Zi Wei consultation order · ${focusLabel}`,
     html,
   });
 

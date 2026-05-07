@@ -1,12 +1,22 @@
 import { NextResponse } from "next/server";
 import { headers } from "next/headers";
 import { getStripe } from "@/lib/stripeServer";
-import { getSiteUrl } from "@/lib/site";
-import { sendReportEmail } from "@/lib/email";
-import { sendPaidReportViaResend } from "@/lib/resendDelivery";
+import {
+  sendConsultationConfirmationEmail,
+  sendConsultationOrderAlertEmail,
+} from "@/lib/email";
+import {
+  sendConsultationConfirmationViaResend,
+  sendConsultationOrderAlertViaResend,
+} from "@/lib/resendDelivery";
 import { computeBirthChart } from "@/lib/computeBirthChart";
-import { chartToAiPrompt } from "@/lib/chartToAiPrompt";
-import { generateDeepSeekReport } from "@/lib/deepseekReport";
+import { getSupportEmail } from "@/lib/brand";
+import {
+  buildCustomerReplyMailto,
+  buildDeliveryWindow,
+  getOrderNotificationRecipients,
+  sendOpsWebhook,
+} from "@/lib/opsAutomation";
 
 export const runtime = "nodejs";
 
@@ -53,18 +63,34 @@ export async function POST(request: Request) {
         return NextResponse.json({ ok: true });
       }
 
-      const siteUrl = getSiteUrl().toString();
-      const reportUrl = `${siteUrl}/report?session_id=${encodeURIComponent(session.id)}`;
-      const pdfUrl = `${siteUrl}/api/report/pdf?session_id=${encodeURIComponent(session.id)}`;
-
       const md = session.metadata ?? {};
       const birthDate = md.birthDate ?? "";
       const birthTime = md.birthTime ?? "12:00";
       const location = md.location ?? "";
       const gender = md.gender === "female" ? "female" : "male";
       const allowFallback = md.allowFallback === "true";
+      const focusArea = md.focusArea ?? "general";
+      const question = md.question ?? "";
+      const orderNotificationEmail = getOrderNotificationRecipients().join(", ");
+      const orderedAtIso =
+        typeof event.created === "number"
+          ? new Date(event.created * 1000).toISOString()
+          : new Date().toISOString();
+      const deliveryWindow = buildDeliveryWindow(orderedAtIso);
+      const customerReplyMailto = buildCustomerReplyMailto({
+        customerEmail: email,
+        sessionId: session.id,
+      });
 
-      let aiReportText: string | null = null;
+      let chartSummary:
+        | {
+            placeLabel?: string;
+            apparentSolarDate?: string;
+            apparentSolarTime?: string;
+            isApproximate?: boolean;
+            errorCode?: string | null;
+          }
+        | undefined;
 
       if (birthDate && location) {
         const chartResult = await computeBirthChart({
@@ -76,32 +102,108 @@ export async function POST(request: Request) {
         });
 
         if (chartResult.ok) {
-          const prompt = chartToAiPrompt({
-            meta: chartResult.meta,
-            gender,
-          });
-          try {
-            aiReportText = await generateDeepSeekReport(prompt);
-          } catch {
-            aiReportText = null;
-          }
+          chartSummary = {
+            placeLabel: chartResult.meta.placeLabel,
+            apparentSolarDate: chartResult.meta.apparentSolarDate,
+            apparentSolarTime: chartResult.meta.apparentSolarTime,
+            isApproximate: chartResult.meta.isApproximate,
+            errorCode: null,
+          };
+        } else {
+          chartSummary = {
+            errorCode: chartResult.errorCode,
+          };
         }
       }
 
       const useResend = Boolean(process.env.RESEND_API_KEY?.trim());
       if (useResend) {
         try {
-          await sendPaidReportViaResend({
+          await sendConsultationConfirmationViaResend({
             to: email,
-            reportUrl,
-            pdfUrl,
-            aiReportText,
+            focusArea,
+            question,
+            deliveryWindow,
+          });
+          await sendConsultationOrderAlertViaResend({
+            to: orderNotificationEmail,
+            customerEmail: email,
+            sessionId: session.id,
+            focusArea,
+            question,
+            birthDate,
+            birthTime,
+            location,
+            gender,
+            allowFallback,
+            chartSummary,
+            deliveryWindow,
+            customerReplyMailto,
           });
         } catch {
-          await sendReportEmail({ to: email, reportUrl, pdfUrl });
+          await sendConsultationConfirmationEmail({
+            to: email,
+            focusArea,
+            question,
+            deliveryWindow,
+          });
+          await sendConsultationOrderAlertEmail({
+            to: orderNotificationEmail,
+            customerEmail: email,
+            sessionId: session.id,
+            focusArea,
+            question,
+            birthDate,
+            birthTime,
+            location,
+            gender,
+            allowFallback,
+            chartSummary,
+            deliveryWindow,
+            customerReplyMailto,
+          });
         }
       } else {
-        await sendReportEmail({ to: email, reportUrl, pdfUrl });
+        await sendConsultationConfirmationEmail({
+          to: email,
+          focusArea,
+          question,
+          deliveryWindow,
+        });
+        await sendConsultationOrderAlertEmail({
+          to: orderNotificationEmail,
+          customerEmail: email,
+          sessionId: session.id,
+          focusArea,
+          question,
+          birthDate,
+          birthTime,
+          location,
+          gender,
+          allowFallback,
+          chartSummary,
+          deliveryWindow,
+          customerReplyMailto,
+        });
+      }
+
+      try {
+        await sendOpsWebhook({
+          sessionId: session.id,
+          customerEmail: email,
+          focusArea,
+          question,
+          birthDate,
+          birthTime,
+          location,
+          gender,
+          allowFallback,
+          chartSummary,
+          deliveryWindow,
+          customerReplyMailto,
+        });
+      } catch (error) {
+        console.error("[ops-webhook]", error);
       }
     }
   } catch {

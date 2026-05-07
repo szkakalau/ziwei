@@ -1,11 +1,11 @@
 "use client";
 
 import BirthFormModal from "@/components/BirthFormModal";
-import { FULL_REPORT_PRICE_LABEL } from "@/lib/brand";
+import { EMAIL_READING_PRICE_LABEL } from "@/lib/brand";
 import { CHART_SAVED_EVENT } from "@/lib/chartSavedEvent";
 import { buildPersonalitySnapshot, type PersonalitySnapshot } from "@/lib/personalitySnapshot";
-import { startStripeCheckoutFromStored } from "@/lib/startStripeCheckoutFromStored";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 const LOCKED_LINES = [
@@ -13,7 +13,7 @@ const LOCKED_LINES = [
   "Wealth & Financial Cycles",
   "Major Life Turning Points",
   "10-Year Luck Cycles",
-  "Full Destiny Blueprint (20+ pages)",
+  "Personalized Email Reading",
 ] as const;
 
 function loadChartFromStorage(): unknown | null {
@@ -28,6 +28,7 @@ function loadChartFromStorage(): unknown | null {
 }
 
 export default function FreePersonalitySnapshot() {
+  const router = useRouter();
   const resultRef = useRef<HTMLDivElement>(null);
   const [snapshot, setSnapshot] = useState<PersonalitySnapshot | null>(null);
   const [checkoutPending, setCheckoutPending] = useState(false);
@@ -55,21 +56,10 @@ export default function FreePersonalitySnapshot() {
     return () => window.removeEventListener(CHART_SAVED_EVENT, onChartSaved);
   }, [refreshSnapshotFromStorage]);
 
-  async function handleUnlock() {
+  async function handleContinueToReading() {
     setCheckoutError(null);
     setCheckoutPending(true);
-    try {
-      const result = await startStripeCheckoutFromStored();
-      if (!result.ok) {
-        setCheckoutError(result.message);
-        setCheckoutPending(false);
-        return;
-      }
-      window.location.href = result.url;
-    } catch {
-      setCheckoutError("Network error. Please try again.");
-      setCheckoutPending(false);
-    }
+    router.push("/snapshot");
   }
 
   return (
@@ -105,7 +95,7 @@ export default function FreePersonalitySnapshot() {
         {!snapshot ? (
           <div className="mx-auto mt-12 max-w-lg text-center">
             <p className="font-body text-sm text-ink-muted md:text-base">
-              Enter your birth date to unlock your first insight
+              Enter your birth date to see your first insight
             </p>
             <div className="mt-6 flex justify-center">
               <BirthFormModal
@@ -115,7 +105,7 @@ export default function FreePersonalitySnapshot() {
               />
             </div>
             <p className="mt-5 font-mono text-[11px] text-ink-dim">
-              Full birth time &amp; place give the most accurate Zi Wei chart — same as your paid report.
+              Full birth time and place give the most accurate Zi Wei chart for your email reading.
             </p>
           </div>
         ) : null}
@@ -151,7 +141,7 @@ export default function FreePersonalitySnapshot() {
                     className="shrink-0 rounded-full border border-gold/30 bg-gold/10 px-3 py-1 font-mono text-[10px] uppercase tracking-wider text-gold"
                     aria-hidden
                   >
-                    Sample · ~20% unlocked
+                    Sample · ~20% shown
                   </span>
                 </div>
 
@@ -190,7 +180,7 @@ export default function FreePersonalitySnapshot() {
 
                 <div className="mt-10 rounded-xl border border-white/10 bg-black/40 p-5 sm:p-6">
                   <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-ink-dim">
-                    Locked in full report
+                    Continue to email reading
                   </p>
                   <ul className="mt-4 space-y-2.5 font-body text-sm text-ink-muted">
                     {LOCKED_LINES.map((line) => (
@@ -207,18 +197,18 @@ export default function FreePersonalitySnapshot() {
                     <button
                       type="button"
                       disabled={checkoutPending}
-                      onClick={() => void handleUnlock()}
+                      onClick={() => void handleContinueToReading()}
                       className="btn-cta w-full px-6 py-3.5 text-base disabled:opacity-60 sm:w-auto"
                     >
                       {checkoutPending
-                        ? "Opening secure checkout…"
-                        : `Unlock Full Reading – ${FULL_REPORT_PRICE_LABEL}`}
+                        ? "Opening order form..."
+                        : `Continue To Order - ${EMAIL_READING_PRICE_LABEL}`}
                     </button>
                     <Link
-                      href="/preview"
+                      href="/snapshot"
                       className="text-center font-body text-sm text-gold/90 underline-offset-4 hover:text-gold hover:underline sm:text-left"
                     >
-                      View full chart preview →
+                      Continue to email reading →
                     </Link>
                   </div>
                   {checkoutError ? (

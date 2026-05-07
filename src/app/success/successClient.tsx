@@ -1,11 +1,9 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 
-const REDIRECT_SECONDS = 10;
-const EMAIL_SUBJECT_HINT = "Your Zi Wei Destiny Reading ✨";
+const EMAIL_SUBJECT_HINT = "We received your Zi Wei reading order";
 
 function TrustBlock() {
   return (
@@ -14,15 +12,9 @@ function TrustBlock() {
         What happens now?
       </h3>
       <ul className="mt-4 space-y-2 font-body text-sm leading-relaxed text-ink-muted">
-        <li>• Your birth chart is being calculated from the data you entered.</li>
-        <li>
-          • AI is analyzing your Zi Wei palace structure and major stars (100+
-          star placements in the engine).
-        </li>
-        <li>
-          • A long-form personalized report is being composed and will be sent
-          to your email.
-        </li>
+        <li>• We&apos;ve received your order and your payment has been confirmed.</li>
+        <li>• A human reader will review your chart and the question you submitted.</li>
+        <li>• Your personalized reading will be delivered to your email within 24-48 hours.</li>
       </ul>
     </div>
   );
@@ -33,58 +25,16 @@ function ProgressSteps() {
     <div className="space-y-3 rounded-sm border border-gold/20 bg-void/40 p-6 font-body text-sm text-ink-muted">
       <p className="flex items-center gap-2">
         <span aria-hidden>🪐</span>
-        <span>Calculating your destiny chart</span>
+        <span>Reviewing your birth chart details</span>
       </p>
       <p className="flex items-center gap-2">
         <span aria-hidden>📜</span>
-        <span>Writing your personalized report</span>
+        <span>Preparing your personalized written reading</span>
       </p>
       <p className="flex items-center gap-2">
         <span aria-hidden>📧</span>
-        <span>Delivering to your email</span>
+        <span>Sending your order confirmation and final reading by email</span>
       </p>
-    </div>
-  );
-}
-
-function UpsellBlock() {
-  const upsellUrl = process.env.NEXT_PUBLIC_ANNUAL_FORECAST_PAYMENT_URL?.trim() ?? "";
-
-  return (
-    <div className="rounded-sm border border-jade/30 bg-gradient-to-br from-jade/10 via-void/40 to-gold/10 p-6">
-      <h2 className="font-display text-xl font-semibold text-ink md:text-2xl">
-        🔮 Add your annual forecast
-      </h2>
-      <p className="mt-2 font-body text-sm leading-relaxed text-ink-muted">
-        Discover luck, career, and relationship themes for the next 12 months —
-        best added while you&apos;re already in flow.
-      </p>
-      {upsellUrl ? (
-        <a
-          href={upsellUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="btn-cta mt-4 inline-block px-6 py-3 text-sm"
-        >
-          Add forecast — $19
-        </a>
-      ) : (
-        <div className="mt-4 space-y-2">
-          <p className="font-body text-xs text-ink-dim">
-            Set{" "}
-            <span className="font-mono text-[11px]">
-              NEXT_PUBLIC_ANNUAL_FORECAST_PAYMENT_URL
-            </span>{" "}
-            in Vercel to your $19 Stripe Payment Link or checkout URL.
-          </p>
-          <Link
-            href="/contact"
-            className="inline-block font-body text-sm text-gold underline-offset-2 hover:underline"
-          >
-            Request annual forecast →
-          </Link>
-        </div>
-      )}
     </div>
   );
 }
@@ -92,26 +42,6 @@ function UpsellBlock() {
 export default function SuccessClient() {
   const sp = useSearchParams();
   const sessionId = sp.get("session_id") ?? "";
-  const [secondsLeft, setSecondsLeft] = useState(REDIRECT_SECONDS);
-
-  const reportHref = useMemo(() => {
-    return sessionId
-      ? `/report?session_id=${encodeURIComponent(sessionId)}`
-      : "/report";
-  }, [sessionId]);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setSecondsLeft((s) => Math.max(0, s - 1));
-    }, 1000);
-    const t = setTimeout(() => {
-      window.location.href = reportHref;
-    }, REDIRECT_SECONDS * 1000);
-    return () => {
-      clearInterval(interval);
-      clearTimeout(t);
-    };
-  }, [reportHref]);
 
   return (
     <div className="relative mx-auto flex min-h-[calc(100vh-8rem)] max-w-xl flex-col items-stretch px-6 py-16 md:max-w-2xl md:py-20">
@@ -126,11 +56,11 @@ export default function SuccessClient() {
             Order confirmed
           </p>
           <h1 className="mt-2 font-display text-3xl font-semibold text-ink md:text-4xl">
-            ✨ Thank you — we&apos;re preparing your reading
+            Thank you. Your order is confirmed.
           </h1>
           <p className="mt-3 font-body text-base text-ink-muted md:text-lg">
-            Your Zi Wei destiny reading is being prepared. You can open your
-            report below while we finalize your email delivery.
+            Your Zi Wei email reading is now in our queue. We&apos;ll send a confirmation email
+            right away and deliver the full reading within 24-48 hours.
           </p>
           {sessionId ? (
             <p className="mt-3 font-mono text-[11px] text-ink-dim">
@@ -144,31 +74,31 @@ export default function SuccessClient() {
 
         <TrustBlock />
 
-        <UpsellBlock />
-
         <div className="space-y-2 text-center">
           <p className="font-body text-sm text-ink-muted">
-            Typical delivery: <strong className="text-ink">2–5 minutes</strong>{" "}
+            Typical delivery: <strong className="text-ink">24-48 hours</strong>{" "}
             to your inbox.
           </p>
           <p className="font-body text-sm text-ink-dim">
-            If nothing arrives within 10 minutes, check your spam or promotions
-            folder.
+            If you need to correct your birth data, contact us as soon as possible so we can update
+            your order before delivery.
           </p>
         </div>
 
         <div className="flex flex-col items-stretch gap-3 sm:flex-row sm:justify-center">
           <Link
-            href={reportHref}
+            href="/contact"
             className="btn-cta px-6 py-3.5 text-center text-sm sm:text-base"
           >
-            View my report now →
+            Contact support →
+          </Link>
+          <Link
+            href="/"
+            className="inline-flex items-center justify-center rounded-sm border border-white/10 px-6 py-3.5 text-center text-sm text-ink-muted transition hover:border-gold/20 hover:text-ink sm:text-base"
+          >
+            Back to home
           </Link>
         </div>
-
-        <p className="text-center font-mono text-xs uppercase tracking-widest text-ink-dim">
-          Auto-continue in {secondsLeft}s…
-        </p>
 
         <footer className="border-t border-white/10 pt-6 text-center">
           <p className="font-body text-xs leading-relaxed text-ink-dim">
@@ -176,9 +106,8 @@ export default function SuccessClient() {
             <strong className="text-ink-muted">{EMAIL_SUBJECT_HINT}</strong>
           </p>
           <p className="mt-3 font-body text-[11px] leading-relaxed text-ink-dim">
-            The data you submitted at checkout is what we use for this order. If
-            something looks wrong, contact us from the site before requesting a
-            refund.
+            The birth data and question you submitted at checkout are what we use for this order.
+            If something looks wrong, contact support before the reading is delivered.
           </p>
         </footer>
       </div>

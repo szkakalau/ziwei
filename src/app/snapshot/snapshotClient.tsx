@@ -6,10 +6,11 @@ import { Sparkles, TrendingUp, Shield, ArrowRight } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Label } from "@/components/ui/label";
 import StickyUnlockBar from "@/components/landing/StickyUnlockBar";
 import { buildPersonalitySnapshot, type PersonalitySnapshot } from "@/lib/personalitySnapshot";
 import { startStripeCheckoutFromStored } from "@/lib/startStripeCheckoutFromStored";
-import { FULL_REPORT_PRICE_LABEL } from "@/lib/brand";
+import { EMAIL_READING_PRICE_LABEL } from "@/lib/brand";
 import { track } from "@/lib/analytics";
 
 type StoredBirth = {
@@ -20,9 +21,42 @@ type StoredBirth = {
   allowFallback?: boolean;
 };
 
-const OFFER_STORAGE_KEY = "db_offer_start_at_v1";
-const OFFER_SHOWN_EXIT_KEY = "db_offer_exit_shown_v1";
-const OFFER_DURATION_MS = 15 * 60 * 1000;
+type ConsultationFocus = "general" | "love" | "career" | "wealth" | "timing";
+
+type StoredConsultation = {
+  focusArea: ConsultationFocus;
+  question: string;
+};
+
+const CONSULTATION_STORAGE_KEY = "db_consultation_v1";
+
+const focusOptions: Array<{ value: ConsultationFocus; label: string; help: string }> = [
+  {
+    value: "general",
+    label: "General reading",
+    help: "Best if you want a broad overview of current patterns and next steps.",
+  },
+  {
+    value: "love",
+    label: "Love",
+    help: "Focus on dating, long-term compatibility, emotional patterns, or marriage.",
+  },
+  {
+    value: "career",
+    label: "Career",
+    help: "Focus on work direction, strengths, decision-making, and opportunities.",
+  },
+  {
+    value: "wealth",
+    label: "Wealth",
+    help: "Focus on money habits, earning potential, and timing around finances.",
+  },
+  {
+    value: "timing",
+    label: "Timing",
+    help: "Focus on current life phase, short-term momentum, and what to prioritize.",
+  },
+];
 
 function hashString(s: string): number {
   let h = 0;
@@ -66,34 +100,34 @@ function loadMeta(): { isApproximate?: boolean } | null {
   }
 }
 
-function formatMmSs(ms: number) {
-  const clamped = Math.max(0, ms);
-  const total = Math.floor(clamped / 1000);
-  const mm = Math.floor(total / 60);
-  const ss = total % 60;
-  return `${String(mm).padStart(2, "0")}:${String(ss).padStart(2, "0")}`;
+function loadConsultation(): StoredConsultation {
+  if (typeof window === "undefined") {
+    return { focusArea: "general", question: "" };
+  }
+  const raw = localStorage.getItem(CONSULTATION_STORAGE_KEY);
+  if (!raw) {
+    return { focusArea: "general", question: "" };
+  }
+  try {
+    const parsed = JSON.parse(raw) as Partial<StoredConsultation>;
+    return {
+      focusArea:
+        parsed.focusArea === "love" ||
+        parsed.focusArea === "career" ||
+        parsed.focusArea === "wealth" ||
+        parsed.focusArea === "timing"
+          ? parsed.focusArea
+          : "general",
+      question: typeof parsed.question === "string" ? parsed.question : "",
+    };
+  } catch {
+    return { focusArea: "general", question: "" };
+  }
 }
 
-function getOfferStartAt(): number | null {
-  if (typeof window === "undefined") return null;
-  const raw = localStorage.getItem(OFFER_STORAGE_KEY);
-  if (!raw) return null;
-  const n = Number(raw);
-  return Number.isFinite(n) ? n : null;
-}
-
-function ensureOfferStartAt(): number {
-  const existing = getOfferStartAt();
-  if (existing) return existing;
-  const now = Date.now();
-  localStorage.setItem(OFFER_STORAGE_KEY, String(now));
-  return now;
-}
-
-function offerIsActive(startAt: number, now: number) {
-  if (!Number.isFinite(startAt)) return false;
-  if (startAt > now + 30_000) return false;
-  return now - startAt < OFFER_DURATION_MS;
+function saveConsultation(next: StoredConsultation) {
+  if (typeof window === "undefined") return;
+  localStorage.setItem(CONSULTATION_STORAGE_KEY, JSON.stringify(next));
 }
 
 function buildStructured(snapshot: PersonalitySnapshot) {
@@ -111,15 +145,15 @@ function buildStructured(snapshot: PersonalitySnapshot) {
     },
     {
       title: "Quietly Competitive",
-      body: "You set internal standards and improve steadily—even without external validation. When you commit, your consistency becomes your advantage.",
+      body: "You set internal standards and improve steadily even without external validation. When you commit, your consistency becomes your advantage.",
     },
     {
       title: "Independent & Selective",
-      body: "You prefer a small circle and meaningful commitments over constant social noise. You value quality over quantity—especially with people.",
+      body: "You prefer a small circle and meaningful commitments over constant social noise. You value quality over quantity, especially with people.",
     },
     {
       title: "Practical Optimizer",
-      body: "You instinctively refine systems, habits, and plans until results become predictable. You don't just work hard—you make things work better.",
+      body: "You instinctively refine systems, habits, and plans until results become predictable. You do not just work hard. You make things work better.",
     },
     {
       title: "High Standards",
@@ -140,7 +174,7 @@ function buildStructured(snapshot: PersonalitySnapshot) {
     },
     {
       title: "Protect Your Energy",
-      body: "Your insight works best with boundaries—limit noise, focus on environments that reward depth.",
+      body: "Your insight works best with boundaries. Limit noise and focus on environments that reward depth.",
     },
     {
       title: "Focus Beats Variety",
@@ -148,7 +182,7 @@ function buildStructured(snapshot: PersonalitySnapshot) {
     },
     {
       title: "Ask For Specific Outcomes",
-      body: "You do best when expectations are explicit—define success early to avoid vague friction.",
+      body: "You do best when expectations are explicit. Define success early to avoid vague friction.",
     },
   ];
 
@@ -170,23 +204,12 @@ export default function SnapshotClient() {
   const [birthInput, setBirthInput] = useState<StoredBirth | null>(null);
   const [snapshot, setSnapshot] = useState<PersonalitySnapshot | null>(null);
   const [meta, setMeta] = useState<{ isApproximate?: boolean } | null>(null);
-
+  const [focusArea, setFocusArea] = useState<ConsultationFocus>("general");
+  const [question, setQuestion] = useState("");
   const [checkoutPending, setCheckoutPending] = useState(false);
   const [checkoutError, setCheckoutError] = useState<string | null>(null);
 
-  const [offerStartAt, setOfferStartAt] = useState<number | null>(null);
-  const [now, setNow] = useState(() => Date.now());
-  const [exitOpen, setExitOpen] = useState(false);
-
   const structured = useMemo(() => (snapshot ? buildStructured(snapshot) : null), [snapshot]);
-
-  const offer = useMemo(() => {
-    if (!offerStartAt) return { active: false, remainingMs: 0 };
-    const active = offerIsActive(offerStartAt, now);
-    const remainingMs = active ? Math.max(0, OFFER_DURATION_MS - (now - offerStartAt)) : 0;
-    return { active, remainingMs };
-  }, [offerStartAt, now]);
-
   const shouldShowUnknownTimeModule = Boolean(
     birthInput?.allowFallback || meta?.isApproximate,
   );
@@ -195,36 +218,40 @@ export default function SnapshotClient() {
     const b = loadBirthInput();
     const c = loadChart();
     const m = loadMeta();
+    const consultation = loadConsultation();
     setBirthInput(b);
     setMeta(m);
+    setFocusArea(consultation.focusArea);
+    setQuestion(consultation.question);
     if (c) {
       setSnapshot(buildPersonalitySnapshot(c));
-    }
-    if (typeof window !== "undefined") {
-      setOfferStartAt(ensureOfferStartAt());
     }
     track("snapshot_page_view");
   }, []);
 
   useEffect(() => {
-    const id = window.setInterval(() => setNow(Date.now()), 1000);
-    return () => window.clearInterval(id);
-  }, []);
+    saveConsultation({ focusArea, question });
+  }, [focusArea, question]);
 
   const startCheckout = useCallback(
-    async (source: "main" | "sticky" | "discount" | "exit") => {
+    async (source: "main" | "sticky") => {
+      const trimmedQuestion = question.trim();
+      if (trimmedQuestion.length < 10) {
+        setCheckoutError("Please describe what you want help with in at least 10 characters.");
+        return;
+      }
+
       setCheckoutError(null);
       setCheckoutPending(true);
-      track("cta_unlock_full_report_click", {
+      track("cta_email_reading_checkout_click", {
         source,
-        offer_active: offer.active,
+        focus_area: focusArea,
       });
+
       try {
-        if (typeof window !== "undefined") {
-          sessionStorage.setItem("checkoutOffer", JSON.stringify({ offerStartAt }));
-        }
         const result = await startStripeCheckoutFromStored({
-          offerStartAt: offerStartAt ?? undefined,
+          focusArea,
+          question: trimmedQuestion,
         });
         if (!result.ok) {
           setCheckoutError(result.message);
@@ -237,36 +264,8 @@ export default function SnapshotClient() {
         setCheckoutPending(false);
       }
     },
-    [offer.active, offerStartAt],
+    [focusArea, question],
   );
-
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-    const shown = localStorage.getItem(OFFER_SHOWN_EXIT_KEY) === "true";
-    if (shown) return;
-    if (!offer.active) return;
-
-    const onMouseLeave = (e: MouseEvent) => {
-      if (e.clientY > 0) return;
-      localStorage.setItem(OFFER_SHOWN_EXIT_KEY, "true");
-      track("exit_offer_shown", { trigger: "mouseleave" });
-      setExitOpen(true);
-    };
-    const onVisibility = () => {
-      if (document.visibilityState !== "hidden") return;
-      if (localStorage.getItem(OFFER_SHOWN_EXIT_KEY) === "true") return;
-      localStorage.setItem(OFFER_SHOWN_EXIT_KEY, "true");
-      track("exit_offer_shown", { trigger: "visibilitychange" });
-      setExitOpen(true);
-    };
-
-    window.addEventListener("mouseleave", onMouseLeave);
-    document.addEventListener("visibilitychange", onVisibility);
-    return () => {
-      window.removeEventListener("mouseleave", onMouseLeave);
-      document.removeEventListener("visibilitychange", onVisibility);
-    };
-  }, [offer.active]);
 
   if (!birthInput || !snapshot || !structured) {
     return (
@@ -286,21 +285,20 @@ export default function SnapshotClient() {
     );
   }
 
-  const discountedPriceLabel = "$4.99";
-
   return (
     <>
       <main className="mx-auto max-w-3xl px-4 pb-28 pt-14 sm:px-6">
         <div className="text-center">
           <h1 className="font-display text-3xl font-semibold tracking-tight text-ink md:text-4xl">
-            Your Personalized Zi Wei Dou Shu Personality Snapshot
+            Your Personalized Zi Wei Dou Shu Snapshot
           </h1>
           <p className="mt-3 font-body text-sm text-ink-muted md:text-base">
             Based on your birth data: {birthInput.birthDate} · {birthInput.birthTime} ·{" "}
             {birthInput.location}
           </p>
           <p className="mt-2 font-body text-sm text-ink-muted">
-            Generated at: {new Date().toLocaleString()}
+            This free preview is generated from your chart. Your email reading is delivered by email
+            by a human within 24-48 hours.
           </p>
         </div>
 
@@ -316,10 +314,6 @@ export default function SnapshotClient() {
                   <p className="mt-2 font-body text-sm leading-relaxed text-ink-muted">{t.body}</p>
                 </div>
               ))}
-              <p className="pt-1 font-body text-sm text-ink-muted">
-                This is just a 10% preview of your full personality analysis. Unlock your complete
-                strengths, blind spots, and hidden talents in your full report.
-              </p>
             </CardContent>
           </Card>
 
@@ -339,10 +333,6 @@ export default function SnapshotClient() {
                   </p>
                 </div>
               ))}
-              <p className="md:col-span-3 pt-1 font-body text-sm text-ink-muted">
-                Your full report explains where these strengths come from in your chart—and how to
-                use them in relationships, work, and timing.
-              </p>
             </CardContent>
           </Card>
 
@@ -357,65 +347,78 @@ export default function SnapshotClient() {
                   <p className="mt-2 font-body text-sm leading-relaxed text-ink-muted">{g.body}</p>
                 </div>
               ))}
-              <p className="pt-1 font-body text-sm text-ink-muted">
-                Unlock your full report to see your 12 life palaces line-by-line, plus your 10-year
-                destiny cycles and relationship patterns.
-              </p>
             </CardContent>
           </Card>
         </div>
 
-        <div className="mt-10 rounded-sm border border-white/10 bg-panel/60 p-5 backdrop-blur-sm">
+        <div className="mt-10 rounded-sm border border-gold/20 bg-panel/70 p-5 backdrop-blur-sm">
           <h2 className="font-display text-2xl font-semibold text-ink">
-            What You&apos;ll Unlock In Your Full Report
+            Book Your Personal Email Reading
           </h2>
           <p className="mt-2 font-body text-sm text-ink-muted">
-            Your free snapshot only covers the tip of your Zi Wei chart. Unlock the rest instantly.
+            Tell us what you want help with, then complete checkout. We collect your email securely
+            during payment and send your reading within 24-48 hours.
           </p>
 
-          <div className="mt-5 grid gap-3 sm:grid-cols-2">
-            <div className="rounded-sm border border-white/10 bg-white/[0.03] p-4 font-body text-sm text-ink-muted">
-              ✅ 3 Core Personality Traits
-            </div>
-            <div className="rounded-sm border border-gold/20 bg-white/[0.04] p-4 font-body text-sm text-ink">
-              🔓 Full 12 Life Palaces Line-by-Line Analysis
-            </div>
-
-            <div className="rounded-sm border border-white/10 bg-white/[0.03] p-4 font-body text-sm text-ink-muted">
-              ✅ Partial Strengths Preview
-            </div>
-            <div className="rounded-sm border border-gold/20 bg-white/[0.04] p-4 font-body text-sm text-ink">
-              🔓 Complete Strengths + Blind Spots Deep Dive
-            </div>
-
-            <div className="rounded-sm border border-white/10 bg-white/[0.03] p-4 font-body text-sm text-ink-muted">
-              ✅ Basic Personality Snapshot
-            </div>
-            <div className="rounded-sm border border-gold/20 bg-white/[0.04] p-4 font-body text-sm text-ink">
-              🔓 Full 10-Year Destiny Cycle Forecast
-            </div>
-
-            <div className="rounded-sm border border-white/10 bg-white/[0.03] p-4 font-body text-sm text-ink-muted">
-              ❌ No Relationship Insights
-            </div>
-            <div className="rounded-sm border border-gold/20 bg-white/[0.04] p-4 font-body text-sm text-ink">
-              🔓 Love & Relationship Pattern Full Breakdown
+          <div className="mt-6 space-y-4">
+            <div>
+              <Label>What should we focus on?</Label>
+              <div className="mt-2 grid gap-3 sm:grid-cols-2">
+                {focusOptions.map((option) => (
+                  <label
+                    key={option.value}
+                    className={`cursor-pointer rounded-sm border p-4 transition ${
+                      focusArea === option.value
+                        ? "border-gold/40 bg-white/[0.05]"
+                        : "border-white/10 bg-white/[0.02]"
+                    }`}
+                  >
+                    <input
+                      type="radio"
+                      name="focus-area"
+                      className="sr-only"
+                      checked={focusArea === option.value}
+                      onChange={() => setFocusArea(option.value)}
+                    />
+                    <p className="font-display text-lg font-semibold text-ink">{option.label}</p>
+                    <p className="mt-1 font-body text-sm text-ink-muted">{option.help}</p>
+                  </label>
+                ))}
+              </div>
             </div>
 
-            <div className="rounded-sm border border-white/10 bg-white/[0.03] p-4 font-body text-sm text-ink-muted">
-              ❌ No Career Guidance
-            </div>
-            <div className="rounded-sm border border-gold/20 bg-white/[0.04] p-4 font-body text-sm text-ink">
-              🔓 Career & Wealth Potential Complete Analysis
-            </div>
-
-            <div className="rounded-sm border border-white/10 bg-white/[0.03] p-4 font-body text-sm text-ink-muted">
-              ❌ No Downloadable Report
-            </div>
-            <div className="rounded-sm border border-gold/20 bg-white/[0.04] p-4 font-body text-sm text-ink">
-              🔓 Downloadable Full PDF Report
+            <div>
+              <Label htmlFor="consultation-question">What is your main question?</Label>
+              <textarea
+                id="consultation-question"
+                className="mt-2 min-h-36 w-full rounded-sm border border-white/10 bg-white/[0.03] px-3 py-3 font-body text-sm text-ink outline-none transition placeholder:text-ink-dim focus:border-gold/35"
+                maxLength={500}
+                placeholder="Example: I want clarity on whether I should stay in my current job, and whether the next 6 months are better for changing direction."
+                value={question}
+                onChange={(e) => setQuestion(e.target.value)}
+              />
+              <p className="mt-2 font-body text-xs text-ink-dim">
+                Be as specific as you can. This helps us make the email reading more useful.
+              </p>
             </div>
           </div>
+
+          <div className="mt-6 grid gap-3 sm:grid-cols-2">
+            <div className="rounded-sm border border-white/10 bg-white/[0.03] p-4 font-body text-sm text-ink-muted">
+              Included: personalized reading by email, chart-based explanation, and focused advice
+              around your chosen topic.
+            </div>
+            <div className="rounded-sm border border-white/10 bg-white/[0.03] p-4 font-body text-sm text-ink-muted">
+              Delivery: order confirmation immediately after payment, full reading in 24-48 hours,
+              plus 30-day money-back guarantee.
+            </div>
+          </div>
+
+          {shouldShowUnknownTimeModule ? (
+            <div className="mt-5 rounded-sm border border-gold/20 bg-void/50 p-4 font-body text-sm text-ink-muted">
+              Unknown birth time is okay. We will note any approximation risk in the final reading.
+            </div>
+          ) : null}
 
           <div className="mt-6">
             <Button
@@ -425,11 +428,13 @@ export default function SnapshotClient() {
               disabled={checkoutPending}
               onClick={() => void startCheckout("main")}
             >
-              Unlock My Full Report Now — Only {FULL_REPORT_PRICE_LABEL}
+              {checkoutPending
+                ? "Opening secure checkout..."
+                : `Continue To Checkout — ${EMAIL_READING_PRICE_LABEL}`}
             </Button>
             <p className="mt-3 font-body text-sm text-ink-muted">
-              ✅ 30-Day No-Questions-Asked Money-Back Guarantee · If it doesn&apos;t resonate, we&apos;ll
-              refund you 100%
+              You&apos;ll enter your email securely at Stripe checkout. We use it to send your order
+              confirmation and final reading.
             </p>
           </div>
 
@@ -439,111 +444,13 @@ export default function SnapshotClient() {
             </p>
           ) : null}
         </div>
-
-        {shouldShowUnknownTimeModule ? (
-          <div className="mt-10 rounded-sm border border-gold/20 bg-void/70 p-5">
-            <h3 className="font-display text-xl font-semibold text-ink">We&apos;ve Got You Covered</h3>
-            <p className="mt-2 font-body text-sm text-ink-muted">
-              Your full report includes a complete guide to adjusting your chart for unknown birth
-              times, plus a breakdown of the most likely patterns for your birth date and place.
-              Unlock it now.
-            </p>
-            <div className="mt-4">
-              <Button
-                type="button"
-                variant="cta"
-                className="w-full"
-                disabled={checkoutPending}
-                onClick={() => void startCheckout("main")}
-              >
-                Unlock My Full Report
-              </Button>
-            </div>
-          </div>
-        ) : null}
-
-        <div className="mt-10 rounded-sm border border-white/10 bg-panel/60 p-5 backdrop-blur-sm">
-          <h2 className="font-display text-2xl font-semibold text-ink">
-            Exclusive First-Time User Offer
-          </h2>
-          <p className="mt-2 font-body text-sm text-ink-muted">
-            Unlock your full report within the next 15 minutes, and get 50% OFF — only {discountedPriceLabel}{" "}
-            (regular {FULL_REPORT_PRICE_LABEL})
-          </p>
-          <div className="mt-4 flex items-center justify-between rounded-sm border border-white/10 bg-white/[0.03] p-4">
-            <p className="font-mono text-sm uppercase tracking-widest text-ink-dim">
-              Time left
-            </p>
-            <p className="font-mono text-2xl font-semibold text-ink">
-              {offer.active ? formatMmSs(offer.remainingMs) : "00:00"}
-            </p>
-          </div>
-          <div className="mt-4">
-            <Button
-              type="button"
-              variant="cta"
-              className="w-full"
-              disabled={checkoutPending || !offer.active}
-              onClick={() => void startCheckout("discount")}
-            >
-              {offer.active
-                ? `Claim My 50% OFF Now · Only ${discountedPriceLabel}`
-                : "Offer expired · Unlock full report"}
-            </Button>
-            <p className="mt-3 font-body text-sm text-ink-muted">
-              *Offer expires when the timer hits zero. 30-day money-back guarantee still applies.*
-            </p>
-          </div>
-        </div>
-
-        {exitOpen ? (
-          <div
-            className="fixed inset-0 z-[60] grid place-items-center bg-black/60 px-4"
-            role="dialog"
-            aria-modal="true"
-          >
-            <div className="w-full max-w-lg rounded-sm border border-gold/20 bg-void/95 p-6 shadow-panel">
-              <h3 className="font-display text-2xl font-semibold text-ink">
-                Wait! Don&apos;t Miss Your 50% OFF Offer
-              </h3>
-              <p className="mt-2 font-body text-sm text-ink-muted">
-                Get your full personalized Zi Wei Dou Shu report for only {discountedPriceLabel} (regular{" "}
-                {FULL_REPORT_PRICE_LABEL}) — 30-day money-back guarantee, no questions asked.
-              </p>
-              <div className="mt-6 grid gap-3 sm:grid-cols-2">
-                <Button
-                  type="button"
-                  variant="cta"
-                  disabled={checkoutPending || !offer.active}
-                  onClick={() => {
-                    track("exit_offer_primary_click");
-                    void startCheckout("exit");
-                  }}
-                >
-                  Claim My 50% OFF Now
-                </Button>
-                <Button
-                  type="button"
-                  variant="outline"
-                  onClick={() => {
-                    track("exit_offer_secondary_click");
-                    setExitOpen(false);
-                  }}
-                >
-                  No Thanks, I&apos;ll Pass
-                </Button>
-              </div>
-            </div>
-          </div>
-        ) : null}
       </main>
 
       <StickyUnlockBar
         pending={checkoutPending}
-        onUnlock={() => void startCheckout("sticky")}
-        priceLabel={FULL_REPORT_PRICE_LABEL}
+        onContinue={() => void startCheckout("sticky")}
+        priceLabel={EMAIL_READING_PRICE_LABEL}
       />
     </>
   );
 }
-

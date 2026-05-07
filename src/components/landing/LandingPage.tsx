@@ -19,7 +19,7 @@ export default function LandingPage() {
       <LandingNavbar formAnchorId={FORM_ANCHOR_ID} />
       <Hero formAnchorId={FORM_ANCHOR_ID} />
       <WhyZiWeiBetter />
-      <FreeVsPaidTable unlockHref={`#${FORM_ANCHOR_ID}`} />
+      <FreeVsPaidTable readingHref={`#${FORM_ANCHOR_ID}`} />
       <SeeWhatYouGet />
       <Testimonials />
       <BirthSnapshotSection />
@@ -30,4 +30,3 @@ export default function LandingPage() {
     </main>
   );
 }
-

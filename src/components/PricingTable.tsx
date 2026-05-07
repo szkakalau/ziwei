@@ -15,20 +15,20 @@ const plans = [
     soon: false,
   },
   {
-    name: "Full Destiny Report",
-    price: "$19",
+    name: "Personal Email Reading",
+    price: "$99",
     highlight: true,
     features: [
-      "Long-form Zi Wei reading (AI-assisted)",
-      "PDF download + web report",
-      "Career, wealth, love, and timing themes",
-      "Delivered by email after secure checkout",
+      "Human-written Zi Wei reading",
+      "Focused on your main question",
+      "Love, career, wealth, or timing themes",
+      "Delivered by email within 24-48 hours",
     ],
-    cta: "Get my reading",
+    cta: "Book my reading",
     soon: false,
   },
   {
-    name: "Compatibility Report",
+    name: "Compatibility Reading",
     price: "$19",
     highlight: false,
     features: [

@@ -2,9 +2,9 @@ import Image from "next/image";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
 const highlights = [
-  "Deep Personality Analysis: Uncover your core traits, hidden strengths and growth areas",
-  "Love & Career Insights: Learn your relationship patterns and ideal career paths",
-  "10-Year Cycle Forecast: See exactly when your biggest opportunities will arrive",
+  "Human-written email reading tailored to your chart and main question",
+  "Love, career, wealth, or timing guidance based on your chosen focus",
+  "Clear next-step advice delivered within 24-48 hours",
 ] as const;
 
 export default function SeeWhatYouGet() {
@@ -14,7 +14,7 @@ export default function SeeWhatYouGet() {
         See Exactly What You&apos;ll Get
       </h2>
       <p className="mt-3 text-center font-body text-base text-ink-muted md:text-lg">
-        Your full destiny report is easy to read, deeply detailed, and 100% personalized to your birth chart
+        Your email reading is written by a human and grounded in your Zi Wei chart
       </p>
 
       <div className="mt-12 grid gap-6 md:grid-cols-2 md:items-start">
@@ -41,16 +41,16 @@ export default function SeeWhatYouGet() {
 
         <Card>
           <CardHeader>
-            <CardTitle className="text-xl">Report Preview</CardTitle>
+            <CardTitle className="text-xl">Email Reading Preview</CardTitle>
             <CardDescription>
-              Your full destiny report is deeply detailed and easy to read
+              The type of chart context we use before writing your final email
             </CardDescription>
           </CardHeader>
           <CardContent>
             <div className="overflow-hidden rounded-sm border border-white/10 bg-void/60">
               <Image
                 src="/images/report-preview.jpg"
-                alt="Full destiny report preview screenshot"
+                alt="Zi Wei reading preview screenshot"
                 width={1600}
                 height={1200}
                 className="block aspect-[4/3] w-full object-cover"
@@ -71,4 +71,3 @@ export default function SeeWhatYouGet() {
     </section>
   );
 }
-

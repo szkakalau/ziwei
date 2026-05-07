@@ -34,7 +34,7 @@ const ERROR_COPY: Record<string, string> = {
 type Props = {
   triggerText?: string;
   triggerClassName?: string;
-  /** Default: navigate to /calculating after chart is stored. Use `callback` for inline preview on the same page. */
+  /** Default: navigate to `/snapshot` after chart data is stored. Use `callback` for inline preview on the same page. */
   successBehavior?: "navigate" | "callback";
   /** Optional hook after save when `successBehavior` is `callback` (e.g. extra UI). Chart save also dispatches `CHART_SAVED_EVENT` on `window`. */
   onChartReady?: () => void;
@@ -240,7 +240,7 @@ export default function BirthFormModal({
             onChartReady?.();
             return;
           }
-          router.push("/calculating");
+          router.push("/snapshot");
           return;
         }
 
@@ -288,7 +288,7 @@ export default function BirthFormModal({
         onChartReady?.();
         return;
       }
-      router.push("/calculating");
+      router.push("/snapshot");
     } catch {
       setError(
         "Network error. If you're on a VPN or restricted network, try turning it off and retry.",
@@ -499,7 +499,7 @@ export default function BirthFormModal({
             </p>
           ) : null}
           <p className="font-body text-[11px] text-ink-dim">
-            Free preview first · pay only to unlock the full report · we
+            Free preview first · upgrade later for a human email reading · we
             don&apos;t sell your data.
           </p>
           <button

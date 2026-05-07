@@ -41,8 +41,8 @@ export default function AnnualSuccessPage() {
             What happens now?
           </h3>
           <ul className="mt-4 space-y-2 font-body text-sm leading-relaxed text-ink-muted">
-            <li>• Typical delivery time: 2–5 minutes.</li>
-            <li>• If you don&apos;t receive it within 10 minutes, check spam.</li>
+            <li>• Typical delivery time is confirmed in your email.</li>
+            <li>• If you do not receive an update, check spam and promotions.</li>
             <li>• Need help? Reply to the delivery email or contact support.</li>
           </ul>
         </div>
@@ -77,4 +77,3 @@ export default function AnnualSuccessPage() {
     </main>
   );
 }
-

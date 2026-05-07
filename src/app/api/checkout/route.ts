@@ -11,7 +11,17 @@ type Body = {
   location?: string;
   allowFallback?: boolean;
   offerStartAt?: number;
+  focusArea?: string;
+  question?: string;
 };
+
+const VALID_FOCUS_AREAS = new Set([
+  "general",
+  "love",
+  "career",
+  "wealth",
+  "timing",
+]);
 
 export async function POST(request: Request) {
   try {
@@ -36,10 +46,20 @@ export async function POST(request: Request) {
     const gender = body.gender === "female" ? "female" : "male";
     const allowFallback = body.allowFallback === true;
     const offerStartAt = typeof body.offerStartAt === "number" ? body.offerStartAt : null;
+    const focusAreaRaw = typeof body.focusArea === "string" ? body.focusArea.trim().toLowerCase() : "";
+    const focusArea = VALID_FOCUS_AREAS.has(focusAreaRaw) ? focusAreaRaw : "general";
+    const question = typeof body.question === "string" ? body.question.trim() : "";
 
     if (!birthDate || !birthTime || !location) {
       return NextResponse.json(
         { ok: false, error: "MISSING_FIELDS" },
+        { status: 400 },
+      );
+    }
+
+    if (question.length < 10) {
+      return NextResponse.json(
+        { ok: false, error: "MISSING_CONSULTATION_DETAILS" },
         { status: 400 },
       );
     }
@@ -68,11 +88,13 @@ export async function POST(request: Request) {
         location,
         allowFallback: allowFallback ? "true" : "false",
         offerActive: offerActive ? "true" : "false",
+        focusArea,
+        question: question.slice(0, 500),
       },
       custom_text: {
         submit: {
           message:
-            "You’re purchasing a full Zi Wei Dou Shu destiny report (30+ pages). Instant access after payment.",
+            "You’re booking a human-written Zi Wei Dou Shu email reading. We will send an order confirmation right away and deliver your reading within 24-48 hours.",
         },
       },
     });
@@ -82,4 +104,3 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: false, error: "INTERNAL_ERROR" }, { status: 500 });
   }
 }
-

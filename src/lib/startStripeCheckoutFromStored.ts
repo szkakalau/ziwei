@@ -1,5 +1,5 @@
 /**
- * Start Stripe Checkout using birth data + email already in storage (same contract as /preview).
+ * Start Stripe Checkout using stored birth data from the current email-reading flow.
  */
 
 export type CheckoutStartResult =
@@ -8,6 +8,8 @@ export type CheckoutStartResult =
 
 export async function startStripeCheckoutFromStored(options?: {
   offerStartAt?: number;
+  focusArea?: string;
+  question?: string;
 }): Promise<CheckoutStartResult> {
   const rawBirth =
     typeof window !== "undefined"
@@ -57,6 +59,8 @@ export async function startStripeCheckoutFromStored(options?: {
       allowFallback:
         birthInput.allowFallback === true || meta?.isApproximate === true,
       offerStartAt: options?.offerStartAt,
+      focusArea: options?.focusArea,
+      question: options?.question,
     }),
   });
 
@@ -65,9 +69,13 @@ export async function startStripeCheckoutFromStored(options?: {
     | { ok: false; error: string };
 
   if (!res.ok || !data.ok || !data.url) {
+    const error = !data.ok ? data.error : "";
     return {
       ok: false,
-      message: "We couldn't start checkout. Please try again in a moment.",
+      message:
+        error === "MISSING_CONSULTATION_DETAILS"
+          ? "Please tell us what you want help with before checkout."
+          : "We couldn't start checkout. Please try again in a moment.",
     };
   }
 

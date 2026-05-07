@@ -33,7 +33,7 @@ const mono = IBM_Plex_Mono({
 
 const siteUrl = getSiteUrl();
 
-const defaultTitle = `${BRAND_NAME} | Purple Star Astrology Reading (AI-Powered)`;
+const defaultTitle = `${BRAND_NAME} | Zi Wei Dou Shu Email Reading`;
 
 export const metadata: Metadata = {
   metadataBase: siteUrl,

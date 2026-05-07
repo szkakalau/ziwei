@@ -103,12 +103,12 @@ const CARDS = [
   },
   {
     icon: IconClock,
-    title: "Delivered in minutes",
+    title: "Delivered in 24-48 hours",
     body: (
       <>
-        No waiting weeks for a human astrologer.
+        We confirm your order right away so you know it is in queue.
         <span className="mt-3 block">
-          Your report arrives in your inbox within 2–5 minutes.
+          Your reading arrives in your inbox within 24-48 hours.
         </span>
       </>
     ),

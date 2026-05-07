@@ -13,7 +13,7 @@ const trust = [
   },
   {
     icon: Star,
-    text: "Trusted By 1,000+ Early Astrology Readers",
+    text: "Personalized Human Reading Delivered By Email",
   },
   {
     icon: ShieldCheck,
@@ -46,11 +46,12 @@ export default function Hero({ formAnchorId }: Props) {
       <div className="mx-auto flex min-h-[calc(92svh-3.5rem)] max-w-6xl flex-col justify-center px-4 py-10 sm:min-h-[calc(100svh-4rem)] sm:px-6 sm:py-20">
         <div className="mx-auto w-full max-w-3xl text-center">
           <h1 className="font-display text-[clamp(2.1rem,7.2vw,3.25rem)] font-semibold leading-[1.06] tracking-tight text-ink sm:text-5xl md:text-6xl animate-on-load">
-            The Astrology System Used By Chinese Emperors — Now Powered By AI
+            Ancient Zi Wei Wisdom, Interpreted For You By Email
           </h1>
           <h2 className="mt-5 font-body text-[1.03rem] leading-relaxed text-ink-muted sm:mt-6 sm:text-xl md:text-2xl animate-on-load-delay-1">
-            Discover your Life Palace, 10-year destiny cycles, relationship
-            patterns and hidden strengths with Zi Wei Dou Shu.
+            Start with a free snapshot, then upgrade to a human-crafted Zi Wei
+            Dou Shu reading focused on your love, career, wealth, or timing
+            questions.
           </h2>
 
           <div className="mt-8 grid gap-3 text-left sm:mt-10 sm:grid-cols-3 sm:gap-4">
@@ -77,8 +78,8 @@ export default function Hero({ formAnchorId }: Props) {
               </a>
             </Button>
             <p className="max-w-2xl font-body text-sm text-ink-dim">
-              Full birth time &amp; place give the most accurate Zi Wei chart —
-              same as your paid report.
+              Full birth time and place help us build the most accurate chart for
+              your email reading.
             </p>
           </div>
         </div>
@@ -86,4 +87,3 @@ export default function Hero({ formAnchorId }: Props) {
     </section>
   );
 }
-

@@ -9,8 +9,8 @@ const items = [
   },
   {
     icon: Clock,
-    title: "Delivered In Minutes",
-    body: "No waiting weeks for a human astrologer. Your full report arrives in your inbox within 2-5 minutes after purchase.",
+    title: "Delivered In 24-48 Hours",
+    body: "Your order confirmation arrives right after checkout, and your human-written Zi Wei reading is delivered by email within 24-48 hours.",
   },
   {
     icon: Lock,
@@ -47,4 +47,3 @@ export default function RiskFree() {
     </section>
   );
 }
-

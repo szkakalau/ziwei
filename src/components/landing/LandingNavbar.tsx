@@ -28,13 +28,12 @@ export default function LandingNavbar({ formAnchorId }: Props) {
         >
           <a
             href={`#${formAnchorId}`}
-            onClick={() => track("cta_nav_unlock_click")}
+            onClick={() => track("cta_nav_email_reading_click")}
           >
-            Unlock My Full Report
+            Start My Reading
           </a>
         </Button>
       </div>
     </header>
   );
 }
-
