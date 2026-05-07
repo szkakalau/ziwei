@@ -7,6 +7,7 @@ export type CheckoutStartResult =
   | { ok: false; message: string };
 
 export async function startStripeCheckoutFromStored(options?: {
+  /** Unix ms when the timed offer started; defaults to checkout click so `/api/checkout` can apply `STRIPE_COUPON_50_OFF_ID`. */
   offerStartAt?: number;
   focusArea?: string;
   question?: string;
@@ -58,7 +59,7 @@ export async function startStripeCheckoutFromStored(options?: {
       ...birthInput,
       allowFallback:
         birthInput.allowFallback === true || meta?.isApproximate === true,
-      offerStartAt: options?.offerStartAt,
+      offerStartAt: options?.offerStartAt ?? Date.now(),
       focusArea: options?.focusArea,
       question: options?.question,
     }),
