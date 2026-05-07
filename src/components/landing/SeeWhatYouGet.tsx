@@ -1,4 +1,5 @@
 import Image from "next/image";
+import EmailReadingPreviewSample from "@/components/landing/EmailReadingPreviewSample";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
 const highlights = [
@@ -47,16 +48,7 @@ export default function SeeWhatYouGet() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="overflow-hidden rounded-sm border border-white/10 bg-void/60">
-              <Image
-                src="/images/report-preview.jpg"
-                alt="Zi Wei reading preview screenshot"
-                width={1600}
-                height={1200}
-                className="block aspect-[4/3] w-full object-cover"
-                loading="lazy"
-              />
-            </div>
+            <EmailReadingPreviewSample />
             <ul className="mt-6 space-y-3 font-body text-sm text-ink-muted">
               {highlights.map((h) => (
                 <li key={h} className="flex gap-3">
