@@ -248,8 +248,6 @@ export default function BirthSnapshotSection() {
   const [snapshot, setSnapshot] = useState<PersonalitySnapshot | null>(null);
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [checkoutPending, setCheckoutPending] = useState(false);
-  const [checkoutError, setCheckoutError] = useState<string | null>(null);
 
   const [step, setStep] = useState<Step>(1);
   const [year, setYear] = useState("");
@@ -891,27 +889,18 @@ export default function BirthSnapshotSection() {
                   type="button"
                   variant="cta"
                   className="w-full"
-                  disabled={checkoutPending}
                   onClick={() => void handleContinueToReading()}
                 >
                   Continue To Checkout
                 </Button>
               </div>
-              {checkoutError ? (
-                <p className="mt-4 font-body text-sm text-cinnabar" role="alert">
-                  {checkoutError}
-                </p>
-              ) : null}
             </div>
           </div>
         ) : null}
       </div>
 
       {snapshot ? (
-        <StickyUnlockBar
-          pending={checkoutPending}
-          onContinue={() => void handleContinueToReading()}
-        />
+        <StickyUnlockBar onContinue={() => void handleContinueToReading()} />
       ) : null}
     </section>
   );

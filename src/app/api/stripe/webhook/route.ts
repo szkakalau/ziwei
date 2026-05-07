@@ -10,7 +10,6 @@ import {
   sendConsultationOrderAlertViaResend,
 } from "@/lib/resendDelivery";
 import { computeBirthChart } from "@/lib/computeBirthChart";
-import { getSupportEmail } from "@/lib/brand";
 import {
   buildCustomerReplyMailto,
   buildDeliveryWindow,
