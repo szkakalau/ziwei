@@ -283,6 +283,10 @@ export default function EmailReadingPreviewSample() {
             nothingness that seem like curses become the fuel for forging a unique soul.
           </p>
         </section>
+
+        <p className="mt-6 border-t border-zinc-200 pt-4 font-body text-xs italic leading-relaxed text-zinc-500">
+          The above is only about 30% of the total content.
+        </p>
       </article>
     </div>
   );
