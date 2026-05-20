@@ -15,18 +15,23 @@ const FORM_ANCHOR_ID = "birth-form";
 
 export default function LandingPage() {
   return (
-    <main>
-      <LandingNavbar formAnchorId={FORM_ANCHOR_ID} />
-      <Hero formAnchorId={FORM_ANCHOR_ID} />
-      <WhyZiWeiBetter />
-      <FreeVsPaidTable readingHref={`#${FORM_ANCHOR_ID}`} />
-      <SeeWhatYouGet />
-      <Testimonials />
-      <BirthSnapshotSection />
-
-      <RiskFree />
-      <FAQ />
-      <LandingFooter />
+    <main className="relative">
+      <div
+        className="pointer-events-none fixed inset-0 z-0 bg-grid-fine bg-grid opacity-[0.35]"
+        aria-hidden
+      />
+      <div className="relative z-10">
+        <LandingNavbar formAnchorId={FORM_ANCHOR_ID} />
+        <Hero formAnchorId={FORM_ANCHOR_ID} />
+        <WhyZiWeiBetter />
+        <FreeVsPaidTable readingHref={`#${FORM_ANCHOR_ID}`} />
+        <SeeWhatYouGet />
+        <Testimonials />
+        <BirthSnapshotSection />
+        <RiskFree />
+        <FAQ />
+        <LandingFooter />
+      </div>
     </main>
   );
 }

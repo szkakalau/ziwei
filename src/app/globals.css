@@ -3,31 +3,41 @@
 @tailwind utilities;
 
 :root {
-  --background: #07090d;
-  --foreground: #e8e4dc;
-  --cinnabar: #c9543c;
-  --gold: #c9a75e;
-  --jade: #3d9b84;
+  /* OKLCH — warm void, ivory ink, vermillion primary, antique gold accent */
+  --color-void: oklch(0.13 0.032 258);
+  --color-mist: oklch(0.17 0.028 258);
+  --color-panel: oklch(0.2 0.03 258 / 0.78);
+  --color-ink: oklch(0.93 0.022 88);
+  --color-ink-muted: oklch(0.72 0.024 88);
+  --color-ink-dim: oklch(0.52 0.02 88);
+  --color-cinnabar: oklch(0.58 0.19 32);
+  --color-cinnabar-deep: oklch(0.44 0.15 32);
+  --color-cinnabar-glow: oklch(0.58 0.19 32 / 0.35);
+  --color-gold: oklch(0.74 0.12 78);
+  --color-gold-dim: oklch(0.74 0.12 78 / 0.14);
+  --color-jade: oklch(0.62 0.1 168);
+  --color-jade-dim: oklch(0.62 0.1 168 / 0.2);
+
+  --background: var(--color-void);
+  --foreground: var(--color-ink);
+  --landing-diagonal: oklch(0.74 0.12 78 / 0.12);
 }
 
 html {
   scroll-behavior: smooth;
 }
 
-/* Avoid accidental horizontal scroll from effects/shadows */
 html,
 body {
   max-width: 100%;
   overflow-x: clip;
 }
 
-/* Better tap behavior on mobile */
 button,
 a {
   -webkit-tap-highlight-color: transparent;
 }
 
-/* Prevent iOS Safari zoom on focus for inputs below 16px */
 @media (max-width: 640px) {
   input.input-ink,
   select.input-ink,
@@ -39,34 +49,52 @@ a {
 body {
   color: var(--foreground);
   background-color: var(--background);
-  background-image: radial-gradient(
-      ellipse 120% 80% at 50% -25%,
-      rgba(61, 155, 132, 0.11),
-      transparent 50%
+  background-image:
+    radial-gradient(
+      ellipse 120% 80% at 8% -20%,
+      oklch(0.62 0.1 168 / 0.14),
+      transparent 52%
     ),
     radial-gradient(
-      ellipse 70% 50% at 95% 35%,
-      rgba(201, 84, 60, 0.07),
-      transparent 45%
+      ellipse 70% 55% at 98% 28%,
+      oklch(0.58 0.19 32 / 0.09),
+      transparent 48%
     ),
-    linear-gradient(180deg, #07090d 0%, #0a0f12 45%, #07090d 100%);
+    linear-gradient(
+      168deg,
+      var(--color-void) 0%,
+      oklch(0.15 0.03 258) 42%,
+      var(--color-void) 100%
+    );
   min-height: 100vh;
 }
 
-/* Subtle film grain */
 body::before {
   content: "";
   position: fixed;
   inset: 0;
   pointer-events: none;
   z-index: 9999;
-  opacity: 0.035;
+  opacity: 0.04;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+
+  .landing-diagonal-flow {
+    background: linear-gradient(
+      135deg,
+      transparent 0%,
+      var(--landing-diagonal) 48%,
+      transparent 48.5%
+    );
+  }
+
+  .landing-section-clip {
+    clip-path: polygon(0 4%, 100% 0, 100% 96%, 0 100%);
   }
 
   .opacity-0-animate {
@@ -91,6 +119,21 @@ body::before {
     animation: fadeUp 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.32s forwards;
     opacity: 0;
   }
+
+  .animate-reveal-stagger > * {
+    animation: fadeUp 0.75s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    opacity: 0;
+  }
+
+  .animate-reveal-stagger > *:nth-child(1) {
+    animation-delay: 0.05s;
+  }
+  .animate-reveal-stagger > *:nth-child(2) {
+    animation-delay: 0.15s;
+  }
+  .animate-reveal-stagger > *:nth-child(3) {
+    animation-delay: 0.25s;
+  }
 }
 
 @keyframes fadeUp {
@@ -106,25 +149,26 @@ body::before {
 
 @layer components {
   .btn-cta {
-    @apply relative inline-flex items-center justify-center overflow-hidden rounded-sm px-8 py-4 font-body text-lg font-semibold tracking-wide text-void transition-all duration-300;
+    @apply relative inline-flex items-center justify-center overflow-hidden rounded-sm px-8 py-4 font-body text-lg font-semibold tracking-wide transition-all duration-300;
+    color: oklch(0.16 0.03 258);
     background: linear-gradient(
-      145deg,
-      #e8d5a8 0%,
-      var(--gold) 35%,
-      #c9543c 100%
+      148deg,
+      oklch(0.88 0.06 88) 0%,
+      var(--color-gold) 38%,
+      var(--color-cinnabar) 100%
     );
     box-shadow:
-      0 0 0 1px rgba(201, 167, 94, 0.35),
-      0 12px 40px -8px rgba(201, 84, 60, 0.45),
-      inset 0 1px 0 rgba(255, 255, 255, 0.25);
+      0 0 0 1px oklch(0.74 0.12 78 / 0.4),
+      0 14px 40px -10px var(--color-cinnabar-glow),
+      inset 0 1px 0 oklch(0.98 0.02 88 / 0.35);
   }
 
   .btn-cta:hover {
     @apply -translate-y-0.5;
     box-shadow:
-      0 0 0 1px rgba(201, 167, 94, 0.5),
-      0 18px 48px -8px rgba(201, 84, 60, 0.55),
-      inset 0 1px 0 rgba(255, 255, 255, 0.3);
+      0 0 0 1px oklch(0.74 0.12 78 / 0.55),
+      0 20px 48px -10px oklch(0.58 0.19 32 / 0.5),
+      inset 0 1px 0 oklch(0.98 0.02 88 / 0.4);
   }
 
   .btn-cta:active {
@@ -142,9 +186,16 @@ body::before {
   .link-gold {
     @apply text-gold transition-colors hover:text-gold/80;
   }
+
+  .landing-kicker {
+    @apply font-mono text-[10px] uppercase tracking-[0.32em] text-gold;
+  }
+
+  .landing-headline {
+    @apply font-display text-balance font-semibold leading-[1.05] tracking-tight text-ink;
+  }
 }
 
-/* date/time inputs on dark UI */
 input[type="date"],
 input[type="time"],
 select {

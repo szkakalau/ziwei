@@ -1,7 +1,16 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { Sparkles, TrendingUp, Shield, ArrowRight } from "lucide-react";
+import {
+  Sparkles,
+  TrendingUp,
+  Shield,
+  ArrowRight,
+  ListChecks,
+  Lock,
+  Star,
+  ShieldCheck,
+} from "lucide-react";
 import { useRouter } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
@@ -464,7 +473,7 @@ export default function BirthSnapshotSection() {
   return (
     <section
       id="birth-form"
-      className="relative scroll-mt-28 border-y border-white/10 bg-gradient-to-b from-void/40 via-mist/25 to-void/30 py-20 md:py-28"
+      className="relative scroll-mt-28 border-y border-white/10 bg-gradient-to-b from-void/50 via-mist/30 to-void/40 py-20 md:py-28"
     >
       <div className="mx-auto max-w-3xl px-4 pb-24 sm:px-6">
         {!snapshot ? (
@@ -479,8 +488,12 @@ export default function BirthSnapshotSection() {
             </div>
 
             <div className="sticky top-14 z-30 mt-8 rounded-sm border border-gold/20 bg-void/70 p-3.5 backdrop-blur-md sm:top-20 sm:p-4">
-              <p className="font-body text-sm text-ink-muted">
-                ✅ Fill in 3 steps → Get your FREE personalized Zi Wei personality snapshot instantly
+              <p className="flex items-start gap-2 font-body text-sm text-ink-muted">
+                <ListChecks className="mt-0.5 h-4 w-4 shrink-0 text-jade" aria-hidden />
+                <span>
+                  Fill in 3 steps → Get your FREE personalized Zi Wei personality snapshot
+                  instantly
+                </span>
               </p>
               <div className="mt-3 flex gap-2 overflow-x-auto overscroll-x-contain pb-1 [-webkit-overflow-scrolling:touch] sm:grid sm:grid-cols-3 sm:overflow-visible sm:pb-0">
                 <div
@@ -511,8 +524,11 @@ export default function BirthSnapshotSection() {
                   Step 3: Birth Place
                 </div>
               </div>
-              <p className="mt-3 font-body text-sm text-ink-muted">
-                🔒 100% Private · No signup required · We never share your birth data
+              <p className="mt-3 flex items-start gap-2 font-body text-sm text-ink-muted">
+                <Lock className="mt-0.5 h-4 w-4 shrink-0 text-gold" aria-hidden />
+                <span>
+                  100% Private · No signup required · We never share your birth data
+                </span>
               </p>
             </div>
 
@@ -799,12 +815,21 @@ export default function BirthSnapshotSection() {
               </CardContent>
             </Card>
 
-            <div className="mt-6 rounded-sm border border-white/10 bg-void/60 p-4 backdrop-blur-sm">
-              <p className="font-body text-sm text-ink-muted">
-                ★★★★★ &quot;Took 30 seconds, and the free snapshot was scarily accurate&quot; — Early Reader
+            <div className="mt-6 space-y-3 rounded-sm border border-white/10 bg-void/60 p-4 backdrop-blur-sm">
+              <p className="flex items-start gap-2 font-body text-sm text-ink-muted">
+                <span className="inline-flex shrink-0 gap-0.5 text-gold" aria-hidden>
+                  {Array.from({ length: 5 }).map((_, i) => (
+                    <Star key={i} className="h-3 w-3 fill-gold/70" />
+                  ))}
+                </span>
+                <span>
+                  &quot;Took 30 seconds, and the free snapshot was scarily accurate&quot; — Early
+                  Reader
+                </span>
               </p>
-              <p className="mt-2 font-body text-sm text-ink-muted">
-                🛡️ 30-Day Money-Back Guarantee on all email readings
+              <p className="flex items-start gap-2 font-body text-sm text-ink-muted">
+                <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-jade" aria-hidden />
+                <span>30-Day Money-Back Guarantee on all email readings</span>
               </p>
             </div>
           </>

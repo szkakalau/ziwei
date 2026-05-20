@@ -1,23 +1,18 @@
 import type { Metadata, Viewport } from "next";
-import {
-  Cormorant_Garamond,
-  Lora,
-  IBM_Plex_Mono,
-} from "next/font/google";
+import { Fraunces, Source_Serif_4, IBM_Plex_Mono } from "next/font/google";
 import Script from "next/script";
 import LayoutChrome from "@/components/LayoutChrome";
 import { BRAND_NAME, DEFAULT_META_DESCRIPTION } from "@/lib/brand";
 import { getSiteUrl } from "@/lib/site";
 import "./globals.css";
 
-const display = Cormorant_Garamond({
+const display = Fraunces({
   subsets: ["latin"],
   variable: "--font-display",
-  weight: ["400", "600", "700"],
   display: "swap",
 });
 
-const body = Lora({
+const body = Source_Serif_4({
   subsets: ["latin"],
   variable: "--font-body",
   weight: ["400", "600"],
@@ -60,7 +55,7 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#07090d",
+  themeColor: "oklch(0.13 0.032 258)",
 };
 
 export default function RootLayout({
