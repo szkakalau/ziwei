@@ -63,6 +63,12 @@ export async function POST(request: Request) {
       }
 
       const md = session.metadata ?? {};
+
+      // 只处理紫微斗数的订单（有birthDate字段），跳过其他业务的付款事件
+      if (!md.birthDate) {
+        return NextResponse.json({ ok: true });
+      }
+
       const birthDate = md.birthDate ?? "";
       const birthTime = md.birthTime ?? "12:00";
       const location = md.location ?? "";
