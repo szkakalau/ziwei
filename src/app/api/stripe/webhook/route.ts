@@ -1,39 +1,10 @@
 import { NextResponse } from "next/server";
 import { headers } from "next/headers";
-import { getStripe } from "@/lib/stripeServer";
-import {
-  sendConsultationConfirmationEmail,
-  sendConsultationOrderAlertEmail,
-} from "@/lib/email";
-import {
-  sendConsultationConfirmationViaResend,
-  sendConsultationOrderAlertViaResend,
-} from "@/lib/resendDelivery";
-import { computeBirthChart } from "@/lib/computeBirthChart";
-import {
-  buildCustomerReplyMailto,
-  buildDeliveryWindow,
-  getOrderNotificationRecipients,
-  sendOpsWebhook,
-} from "@/lib/opsAutomation";
 
 export const runtime = "nodejs";
 
-type CheckoutSessionLike = {
-  id: string;
-  customer_details?: { email?: string | null } | null;
-  customer_email?: string | null;
-  metadata?: Record<string, string> | null;
-};
-
-function sessionEmail(session: CheckoutSessionLike): string {
-  const a = session.customer_details?.email?.trim();
-  if (a) return a;
-  const b = session.customer_email?.trim();
-  return b ?? "";
-}
-
 export async function POST(request: Request) {
+  const { getStripe } = await import("@/lib/stripeServer");
   const stripe = getStripe();
   const sig = (await headers()).get("stripe-signature");
   const secret = process.env.STRIPE_WEBHOOK_SECRET;
@@ -55,163 +26,48 @@ export async function POST(request: Request) {
   }
 
   try {
-    if (event.type === "checkout.session.completed") {
-      const session = event.data.object as CheckoutSessionLike;
-      const email = sessionEmail(session);
-      if (!email) {
-        return NextResponse.json({ ok: true });
-      }
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const obj = event.data.object as any;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const evt = event as any;
 
-      const md = session.metadata ?? {};
-
-      // 只处理紫微斗数的订单（有birthDate字段），跳过其他业务的付款事件
-      if (!md.birthDate) {
-        return NextResponse.json({ ok: true });
-      }
-
-      const birthDate = md.birthDate ?? "";
-      const birthTime = md.birthTime ?? "12:00";
-      const location = md.location ?? "";
-      const gender = md.gender === "female" ? "female" : "male";
-      const allowFallback = md.allowFallback === "true";
-      const focusArea = md.focusArea ?? "general";
-      const question = md.question ?? "";
-      const orderNotificationEmail = getOrderNotificationRecipients().join(", ");
-      const orderedAtIso =
-        typeof event.created === "number"
-          ? new Date(event.created * 1000).toISOString()
-          : new Date().toISOString();
-      const deliveryWindow = buildDeliveryWindow(orderedAtIso);
-      const customerReplyMailto = buildCustomerReplyMailto({
-        customerEmail: email,
-        sessionId: session.id,
-      });
-
-      let chartSummary:
-        | {
-            placeLabel?: string;
-            apparentSolarDate?: string;
-            apparentSolarTime?: string;
-            isApproximate?: boolean;
-            errorCode?: string | null;
+    switch (evt.type) {
+      case "checkout.session.completed": {
+        if (obj.mode === "subscription") {
+          const userId = obj.metadata?.userId ?? null;
+          if (userId) {
+            const customerId = typeof obj.customer === "string" ? obj.customer : null;
+            const { updateSubscription } = await import("@/lib/db");
+            await updateSubscription(userId, {
+              status: "trial",
+              stripeCustomerId: customerId ?? undefined,
+            });
           }
-        | undefined;
-
-      if (birthDate && location) {
-        const chartResult = await computeBirthChart({
-          birthDate,
-          birthTime,
-          gender,
-          location,
-          allowFallback,
-        });
-
-        if (chartResult.ok) {
-          chartSummary = {
-            placeLabel: chartResult.meta.placeLabel,
-            apparentSolarDate: chartResult.meta.apparentSolarDate,
-            apparentSolarTime: chartResult.meta.apparentSolarTime,
-            isApproximate: chartResult.meta.isApproximate,
-            errorCode: null,
-          };
-        } else {
-          chartSummary = {
-            errorCode: chartResult.errorCode,
-          };
         }
+        break;
       }
 
-      const useResend = Boolean(process.env.RESEND_API_KEY?.trim());
-      if (useResend) {
-        try {
-          await sendConsultationConfirmationViaResend({
-            to: email,
-            focusArea,
-            question,
-            deliveryWindow,
-          });
-          await sendConsultationOrderAlertViaResend({
-            to: orderNotificationEmail,
-            customerEmail: email,
-            sessionId: session.id,
-            focusArea,
-            question,
-            birthDate,
-            birthTime,
-            location,
-            gender,
-            allowFallback,
-            chartSummary,
-            deliveryWindow,
-            customerReplyMailto,
-          });
-        } catch {
-          await sendConsultationConfirmationEmail({
-            to: email,
-            focusArea,
-            question,
-            deliveryWindow,
-          });
-          await sendConsultationOrderAlertEmail({
-            to: orderNotificationEmail,
-            customerEmail: email,
-            sessionId: session.id,
-            focusArea,
-            question,
-            birthDate,
-            birthTime,
-            location,
-            gender,
-            allowFallback,
-            chartSummary,
-            deliveryWindow,
-            customerReplyMailto,
-          });
+      case "customer.subscription.created":
+      case "customer.subscription.updated": {
+        const userId = obj.metadata?.userId ?? null;
+        if (userId && obj.status) {
+          const { updateSubscription } = await import("@/lib/db");
+          await updateSubscription(userId, { status: obj.status });
         }
-      } else {
-        await sendConsultationConfirmationEmail({
-          to: email,
-          focusArea,
-          question,
-          deliveryWindow,
-        });
-        await sendConsultationOrderAlertEmail({
-          to: orderNotificationEmail,
-          customerEmail: email,
-          sessionId: session.id,
-          focusArea,
-          question,
-          birthDate,
-          birthTime,
-          location,
-          gender,
-          allowFallback,
-          chartSummary,
-          deliveryWindow,
-          customerReplyMailto,
-        });
+        break;
       }
 
-      try {
-        await sendOpsWebhook({
-          sessionId: session.id,
-          customerEmail: email,
-          focusArea,
-          question,
-          birthDate,
-          birthTime,
-          location,
-          gender,
-          allowFallback,
-          chartSummary,
-          deliveryWindow,
-          customerReplyMailto,
-        });
-      } catch (error) {
-        console.error("[ops-webhook]", error);
+      case "customer.subscription.deleted": {
+        const userId = obj.metadata?.userId ?? null;
+        if (userId) {
+          const { updateSubscription } = await import("@/lib/db");
+          await updateSubscription(userId, { status: "cancelled" });
+        }
+        break;
       }
     }
-  } catch {
+  } catch (err) {
+    console.error("[stripe-webhook]", err);
     return NextResponse.json({ ok: false, error: "WEBHOOK_HANDLER_ERROR" }, { status: 500 });
   }
 
