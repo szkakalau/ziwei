@@ -78,6 +78,9 @@ export default function DailyPage() {
         if (horoscopeData?.ok) setData(horoscopeData);
         if (chartData?.ok) setChartPalaces(chartData.chart?.palaces ?? []);
         if (streakData?.ok) setStreak(streakData.streak ?? 0);
+
+        // Bump streak on daily visit
+        fetch("/api/streak", { method: "POST" }).catch(() => {});
       })
       .catch(() => setError("Today's stars are taking longer than usual."))
       .finally(() => setLoading(false));

@@ -22,18 +22,21 @@ export async function sendDailyPush(params: {
   // Email fallback
   if (process.env.RESEND_API_KEY) {
     try {
-      // Fall back to Resend — the existing delivery module handles email
-      const resend = await import("@/lib/resendDelivery");
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const send = (resend as any).sendConsultationConfirmationViaResend;
-      if (send) {
-        const { horoscopePreview } = params;
-        await send({
-          to: "fallback@example.com",
-          focusArea: "general",
-          question: horoscopePreview,
-          deliveryWindow: { label: "Today", iso: new Date().toISOString() },
-        });
+      // Fall back to email — look up user's email
+      const { getUserById } = await import("@/lib/db");
+      const user = await getUserById(params.userId);
+      if (user?.email) {
+        const resend = await import("@/lib/resendDelivery");
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const send = (resend as any).sendConsultationConfirmationViaResend;
+        if (send) {
+          await send({
+            to: user.email,
+            focusArea: "general",
+            question: params.horoscopePreview,
+            deliveryWindow: { label: "Today", iso: new Date().toISOString() },
+          }).catch(() => {});
+        }
       }
       return { success: true, channel: "email" };
     } catch {

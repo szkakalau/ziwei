@@ -55,6 +55,14 @@ export async function GET(request: Request) {
             transitSummary: result.transitSummary,
             highlightedStars: result.highlightedStars,
           });
+
+          // Send push notification
+          const { sendDailyPush } = await import("@/lib/pushService");
+          await sendDailyPush({
+            userId: user.id,
+            horoscopePreview: result.text.slice(0, 120),
+            date: today,
+          }).catch(() => {});
         }),
       );
 

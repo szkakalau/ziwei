@@ -47,7 +47,21 @@ export async function POST(request: Request) {
         break;
       }
 
-      case "customer.subscription.created":
+      case "customer.subscription.created": {
+        const userId = obj.metadata?.userId ?? null;
+        if (userId && obj.status) {
+          const { updateSubscription } = await import("@/lib/db");
+          const trialEnd = obj.trial_end
+            ? new Date((obj.trial_end as number) * 1000).toISOString()
+            : undefined;
+          await updateSubscription(userId, {
+            status: obj.status,
+            trialEndsAt: trialEnd,
+          });
+        }
+        break;
+      }
+
       case "customer.subscription.updated": {
         const userId = obj.metadata?.userId ?? null;
         if (userId && obj.status) {
