@@ -17,11 +17,12 @@ export async function computeOrGetCachedChart(params: {
   // Check cache
   const user = await getUserById(params.userId);
   if (user?.chart_data) {
-    try {
-      return user.chart_data as ChartLike;
-    } catch {
-      // Corrupted cache — recompute
+    // Verify chart data is a valid object with palaces
+    const cached = user.chart_data as Record<string, unknown> | null;
+    if (cached && typeof cached === "object" && Array.isArray(cached.palaces)) {
+      return cached as unknown as ChartLike;
     }
+    // Corrupted or invalid cache — recompute below
   }
 
   // Dynamically import computeBirthChart (heavy, node-only)

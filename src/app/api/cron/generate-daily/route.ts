@@ -72,8 +72,9 @@ export async function GET(request: Request) {
 
     return NextResponse.json({ ok: true, generated, failed, total: users.length });
   } catch (err) {
+    console.error("[cron] generation failed:", err);
     return NextResponse.json(
-      { ok: false, error: "CRON_FAILED", message: String(err) },
+      { ok: false, error: "CRON_FAILED" },
       { status: 500 },
     );
   }

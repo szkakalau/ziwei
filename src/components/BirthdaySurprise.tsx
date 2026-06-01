@@ -21,9 +21,10 @@ export function BirthdaySurprise({ birthDate, streak }: BirthdaySurpriseProps) {
     today.getDate() === birth.getDate();
 
   // Also show "birthday week" — 3 days before and after
-  const dayDiff = Math.abs(today.getDate() - birth.getDate());
-  const isBirthdayWeek =
-    today.getMonth() === birth.getMonth() && dayDiff <= 3 && dayDiff >= 0;
+  const thisYearBirthday = new Date(today.getFullYear(), birth.getMonth(), birth.getDate());
+  const diffMs = Math.abs(today.getTime() - thisYearBirthday.getTime());
+  const dayDiff = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+  const isBirthdayWeek = dayDiff <= 3;
 
   if (!isBirthday && !isBirthdayWeek) return null;
 

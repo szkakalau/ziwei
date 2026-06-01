@@ -28,7 +28,14 @@ export default function CompatibilityPage() {
     );
   }
 
-  if (!authOk) return null;
+  if (!authOk) {
+    return (
+      <main className="min-h-screen bg-[#0a0a0f] text-white px-5 py-8 max-w-lg mx-auto text-center">
+        <p className="text-white/40 text-sm">Please log in to use compatibility.</p>
+        <a href="/daily" className="text-amber-400/60 text-sm mt-4 inline-block">← Go to horoscope</a>
+      </main>
+    );
+  }
 
   return (
     <main className="min-h-screen bg-[#0a0a0f] text-white px-5 pt-8 pb-24 max-w-lg mx-auto">

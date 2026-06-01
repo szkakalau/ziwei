@@ -33,7 +33,7 @@ export default function YearlyPage() {
         <p className="text-white/25 text-xs">This takes about 20 seconds. Worth the wait.</p>
         <div className="mt-8 space-y-3">
           {[1,2,3,4,5].map(i => (
-            <div key={i} className="h-4 bg-white/[0.03] rounded animate-pulse" style={{ width: `${60 + Math.random() * 30}%` }} />
+            <div key={i} className="h-4 bg-white/[0.03] rounded animate-pulse" style={{ width: `${60 + i * 8}%` }} />
           ))}
         </div>
       </main>
@@ -51,7 +51,14 @@ export default function YearlyPage() {
     );
   }
 
-  if (!reading) return null;
+  if (!reading) {
+    return (
+      <main className="min-h-screen bg-[#0a0a0f] text-white px-5 py-8 max-w-lg mx-auto text-center">
+        <p className="text-white/40 text-sm">No reading available. Please try again.</p>
+        <a href="/daily" className="text-amber-400/60 text-sm mt-4 inline-block">← Back to horoscope</a>
+      </main>
+    );
+  }
 
   // Parse sections by ### headings
   const sections = reading.split("###").filter(Boolean).map((s) => {
