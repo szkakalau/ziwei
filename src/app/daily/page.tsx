@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Share2, Eye, ArrowRight } from "lucide-react";
+import { Share2, Eye, ArrowRight, Calendar } from "lucide-react";
 import { StreakBadge } from "@/components/StreakBadge";
 import { ChartCanvas } from "@/components/ChartCanvas";
 import { ShareCard } from "@/components/ShareCard";
@@ -381,6 +381,16 @@ export default function DailyPage() {
       <CompatibilityCheck />
 
       <div className="flex flex-wrap gap-3 mb-6">
+        <Link
+          href="/yearly"
+          className="flex items-center gap-2 px-5 py-3 rounded-xl
+                     border border-amber-500/15 text-amber-300/70 text-sm
+                     hover:border-amber-500/30 hover:text-amber-200 transition-colors"
+        >
+          <Calendar className="h-4 w-4" />
+          Yearly Forecast
+        </Link>
+
         <button
           onClick={handleShare}
           className="flex items-center gap-2 px-5 py-3 rounded-xl
