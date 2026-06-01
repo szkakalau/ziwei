@@ -69,6 +69,7 @@ export function ShareCard({ horoscopeText, highlightedStars, date, streak }: Sha
     const maxWidth = 800;
 
     for (const word of words) {
+      if (y > 1280) break; // Overflow guard — stop rendering beyond canvas
       const testLine = line ? `${line} ${word}` : word;
       const metrics = ctx.measureText(testLine);
       if (metrics.width > maxWidth && line) {
@@ -79,7 +80,7 @@ export function ShareCard({ horoscopeText, highlightedStars, date, streak }: Sha
         line = testLine;
       }
     }
-    if (line) ctx.fillText(line, 540, y);
+    if (line && y <= 1280) ctx.fillText(line, 540, y);
 
     // Stars section
     y += 80;
