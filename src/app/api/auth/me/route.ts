@@ -15,6 +15,7 @@ export async function GET() {
       user: {
         id: user.id,
         email: user.email,
+        birthDate: user.birth_date,
         subscriptionStatus: user.subscription_status,
         trialEndsAt: user.trial_ends_at,
       },

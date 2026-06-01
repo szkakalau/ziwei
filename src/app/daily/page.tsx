@@ -8,6 +8,7 @@ import { ShareCard } from "@/components/ShareCard";
 import { AskZiwei } from "@/components/AskZiwei";
 import { CompatibilityCheck } from "@/components/CompatibilityCheck";
 import { useOneSignal, PushPrompt } from "@/components/PushSetup";
+import { BirthdaySurprise } from "@/components/BirthdaySurprise";
 import Link from "next/link";
 
 interface HoroscopeData {
@@ -34,6 +35,7 @@ export default function DailyPage() {
   const [authError, setAuthError] = useState<string | null>(null);
   const [authMode, setAuthMode] = useState<"login" | "register">("register");
   const [userId, setUserId] = useState<string | undefined>();
+  const [userBirthDate, setUserBirthDate] = useState<string | undefined>();
 
   const onesignalAppId = process.env.NEXT_PUBLIC_ONESIGNAL_APP_ID || "";
   const { pushState, requestPush } = useOneSignal(onesignalAppId, userId);
@@ -46,6 +48,7 @@ export default function DailyPage() {
         if (!d.ok) { setAuthStatus("unauthenticated"); return; }
 
         if (d.user?.id) setUserId(d.user.id);
+        if (d.user?.birthDate) setUserBirthDate(d.user.birthDate);
 
         const status = d.user?.subscriptionStatus;
         if (!status || status === "cancelled" || status === "expired") {
@@ -326,6 +329,11 @@ export default function DailyPage() {
         <p className="text-amber-200/60 text-sm font-medium">{dateLabel}</p>
         <StreakBadge />
       </div>
+
+      {/* Birthday Surprise (only renders on birthday or birthday week) */}
+      {userBirthDate && (
+        <BirthdaySurprise birthDate={userBirthDate} streak={streak} />
+      )}
 
       {/* Push notification prompt */}
       {pushState !== "loading" && pushState !== "unsupported" && (
