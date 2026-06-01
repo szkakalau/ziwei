@@ -218,6 +218,27 @@ export default function FreePersonalitySnapshot() {
                   ) : null}
                 </div>
 
+                {/* NEW: Daily Horoscope CTA */}
+                <div className="mt-6 rounded-xl border border-amber-500/20 bg-amber-500/[0.03] p-5 sm:p-6">
+                  <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-amber-300/70">
+                    🌅 Daily horoscope
+                  </p>
+                  <p className="mt-2 font-body text-sm text-ink-muted">
+                    Get a personalized Zi Wei horoscope every morning based on your chart.
+                    7-day free trial, then $4.99/month.
+                  </p>
+                  <div className="mt-4">
+                    <Link
+                      href="/daily"
+                      className="inline-flex items-center gap-2 rounded-xl bg-amber-500/15 px-5 py-3
+                                 text-sm font-medium text-amber-300 border border-amber-500/20
+                                 hover:bg-amber-500/25 transition-colors"
+                    >
+                      Get Your Daily Horoscope →
+                    </Link>
+                  </div>
+                </div>
+
                 <div className="mt-8 flex flex-col items-stretch gap-4 border-t border-white/10 pt-6 sm:flex-row sm:items-center sm:justify-between">
                   <p className="font-body text-sm text-ink-dim">
                     Want a different birth profile? Generate again — your snapshot updates instantly.
