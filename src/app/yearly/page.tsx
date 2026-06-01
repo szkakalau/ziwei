@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Calendar, Sparkles, ArrowLeft } from "lucide-react";
+import { AppNav } from "@/components/AppNav";
 import Link from "next/link";
 
 export default function YearlyPage() {
@@ -111,6 +112,8 @@ export default function YearlyPage() {
           DestinyBlueprint — Zi Wei Dou Shu
         </p>
       </div>
+
+      <AppNav />
     </main>
   );
 }

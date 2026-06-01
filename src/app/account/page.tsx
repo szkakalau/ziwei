@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { User, CreditCard, Calendar, LogOut, AlertCircle } from "lucide-react";
+import { AppNav } from "@/components/AppNav";
 import Link from "next/link";
 
 interface AccountInfo {
@@ -183,6 +184,8 @@ export default function AccountPage() {
       >
         ← Back to horoscope
       </Link>
+
+      <AppNav />
     </main>
   );
 }

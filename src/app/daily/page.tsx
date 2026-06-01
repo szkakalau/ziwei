@@ -9,6 +9,7 @@ import { AskZiwei } from "@/components/AskZiwei";
 import { CompatibilityCheck } from "@/components/CompatibilityCheck";
 import { useOneSignal, PushPrompt } from "@/components/PushSetup";
 import { BirthdaySurprise } from "@/components/BirthdaySurprise";
+import { AppNav } from "@/components/AppNav";
 import Link from "next/link";
 
 interface HoroscopeData {
@@ -427,9 +428,11 @@ export default function DailyPage() {
         </section>
       )}
 
-      <p className="text-white/15 text-[11px] mt-12 text-center">
+      <p className="text-white/15 text-[11px] mt-12 text-center mb-20">
         DestinyBlueprint — Zi Wei Dou Shu Daily
       </p>
+
+      <AppNav />
     </main>
   );
 }
