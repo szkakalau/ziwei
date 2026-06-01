@@ -32,6 +32,9 @@ export async function POST() {
     } else {
       const customer = await stripe.customers.create({ email: user.email });
       customerId = customer.id;
+      // Persist immediately so billing portal works even if webhook is delayed
+      const { updateSubscription } = await import("@/lib/db");
+      await updateSubscription(user.id, { status: user.subscription_status ?? "free", stripeCustomerId: customerId });
     }
 
     const session = await stripe.checkout.sessions.create({

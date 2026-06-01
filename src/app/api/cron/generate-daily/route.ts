@@ -36,7 +36,10 @@ export async function GET(request: Request) {
 
       const results = await Promise.allSettled(
         batch.map(async (user) => {
-          if (!user.birth_place || !user.chart_data) return;
+          if (!user.birth_place || !user.chart_data) { return; }
+          // Skip users without valid chart data
+          const cd = user.chart_data as Record<string, unknown> | null;
+          if (!cd || typeof cd !== "object" || !Array.isArray(cd.palaces)) { return; }
 
           const bp = user.birth_place as { lat: number; lng: number; tz: string };
           const chart = await computeChartFromStored({

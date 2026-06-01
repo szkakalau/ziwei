@@ -85,12 +85,31 @@ export async function POST() {
 
     const chartSummary = summarizeChart(user.chart_data);
     const year = new Date().getFullYear();
+
+    // Cache check: reuse today's cached yearly reading if already generated
+    const { getHoroscope } = await import("@/lib/db");
+    const cacheKey = `${year}-yearly`;
+    const cached = await getHoroscope(user.id, cacheKey);
+    if (cached) {
+      return NextResponse.json({ ok: true, reading: cached.horoscope_text, year, cached: true });
+    }
+
     const prompt = `Write a comprehensive annual Zi Wei Dou Shu reading for ${year}.
 
 USER'S BIRTH CHART:
 ${chartSummary}`;
 
     const reading = await callAI(YEARLY_SYSTEM_PROMPT, prompt);
+
+    // Cache the yearly reading for the rest of the year
+    const { upsertHoroscope } = await import("@/lib/db");
+    await upsertHoroscope({
+      userId: user.id,
+      date: cacheKey,
+      horoscopeText: reading,
+      transitSummary: `Annual reading for ${year}`,
+      highlightedStars: [],
+    }).catch(() => {}); // Non-critical cache write
 
     return NextResponse.json({ ok: true, reading, year });
   } catch {
