@@ -1,8 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Share2 } from "lucide-react";
+import { Share2, Eye } from "lucide-react";
 import { StreakBadge } from "@/components/StreakBadge";
+import { ChartCanvas } from "@/components/ChartCanvas";
+import { ShareCard } from "@/components/ShareCard";
 import { useRouter } from "next/navigation";
 
 interface HoroscopeData {
@@ -17,15 +19,28 @@ export default function DailyPage() {
   const [data, setData] = useState<HoroscopeData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [showChart, setShowChart] = useState(false);
+  const [chartPalaces, setChartPalaces] = useState<Array<{name?: string; majorStars?: Array<{name?: string}>; minorStars?: Array<{name?: string}>}>>([]);
+  const [streak, setStreak] = useState(0);
 
   useEffect(() => {
-    fetch("/api/generate-daily", { method: "POST" })
-      .then(async (r) => {
-        if (r.status === 401) { router.push("/#free-personality-snapshot"); return null; }
-        if (!r.ok) throw new Error("Failed to load");
-        return r.json();
+    Promise.all([
+      fetch("/api/generate-daily", { method: "POST" }),
+      fetch("/api/chart"),
+      fetch("/api/streak"),
+    ])
+      .then(async ([horoscopeRes, chartRes, streakRes]) => {
+        if (horoscopeRes.status === 401) { router.push("/#free-personality-snapshot"); return; }
+        const horoscopeData = horoscopeRes.ok ? await horoscopeRes.json() : null;
+        const chartData = chartRes.ok ? await chartRes.json() : null;
+        const streakData = streakRes.ok ? await streakRes.json() : null;
+
+        if (horoscopeData?.ok) setData(horoscopeData);
+        if (chartData?.ok) setChartPalaces(chartData.chart?.palaces ?? []);
+        if (streakData?.ok) setStreak(streakData.streak ?? 0);
+
+        if (!horoscopeData?.ok && !horoscopeRes.ok) throw new Error("Failed to load");
       })
-      .then((d) => { if (d) setData(d); })
       .catch(() => setError("Today's stars are taking longer than usual. Please try again."))
       .finally(() => setLoading(false));
   }, [router]);
@@ -165,7 +180,7 @@ export default function DailyPage() {
       )}
 
       {/* Actions */}
-      <div className="flex gap-3">
+      <div className="flex flex-wrap gap-3 mb-6">
         <button
           onClick={handleShare}
           className="flex items-center gap-2 px-5 py-3 rounded-xl
@@ -173,9 +188,35 @@ export default function DailyPage() {
                      hover:border-white/15 hover:text-white/80 transition-colors"
         >
           <Share2 className="h-4 w-4" />
-          Share your horoscope
+          Share
         </button>
+
+        <ShareCard
+          horoscopeText={data.horoscope}
+          highlightedStars={data.highlightedStars}
+          date={dateLabel}
+          streak={streak}
+        />
+
+        {chartPalaces.length > 0 && (
+          <button
+            onClick={() => setShowChart(!showChart)}
+            className="flex items-center gap-2 px-5 py-3 rounded-xl
+                       border border-white/[0.08] text-white/60 text-sm
+                       hover:border-white/15 hover:text-white/80 transition-colors"
+          >
+            <Eye className="h-4 w-4" />
+            {showChart ? "Hide Chart" : "View Your Chart"}
+          </button>
+        )}
       </div>
+
+      {/* Chart Visualization (toggle) */}
+      {showChart && chartPalaces.length > 0 && (
+        <section className="mb-8 rounded-2xl bg-white/[0.02] border border-white/[0.04] p-4">
+          <ChartCanvas palaces={chartPalaces} />
+        </section>
+      )}
 
       {/* Attribution */}
       <p className="text-white/15 text-[11px] mt-12 text-center">
