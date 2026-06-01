@@ -3,14 +3,14 @@
  * Feels personalized without calling an LLM on the marketing page.
  */
 
-type PalaceLike = {
+export type PalaceLike = {
   name?: string;
   majorStars?: Array<{ name?: string }>;
   minorStars?: Array<{ name?: string }>;
   adjectiveStars?: Array<{ name?: string }>;
 };
 
-type ChartLike = {
+export type ChartLike = {
   palaces?: PalaceLike[];
 };
 
