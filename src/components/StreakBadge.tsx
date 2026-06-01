@@ -1,35 +1,14 @@
 "use client";
 
-import { Flame } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { getAchievement, getNextAchievement } from "@/lib/achievements";
 
 interface StreakBadgeProps {
-  userId?: string;
+  streak: number;
 }
 
-export function StreakBadge({ userId }: StreakBadgeProps) {
-  const [streak, setStreak] = useState(0);
-  const [loading, setLoading] = useState(true);
+export function StreakBadge({ streak }: StreakBadgeProps) {
   const [showAchievement, setShowAchievement] = useState(false);
-
-  useEffect(() => {
-    if (!userId) { setLoading(false); return; }
-    fetch(`/api/streak`)
-      .then((r) => r.json())
-      .then((d) => { if (d.ok) setStreak(d.streak); })
-      .catch(() => {})
-      .finally(() => setLoading(false));
-  }, [userId]);
-
-  if (loading) {
-    return (
-      <div className="flex items-center gap-1.5 text-sm text-muted-foreground animate-pulse">
-        <Flame className="h-4 w-4" />
-        <span>...</span>
-      </div>
-    );
-  }
 
   const achievement = getAchievement(streak);
   const next = getNextAchievement(streak);
@@ -64,7 +43,7 @@ export function StreakBadge({ userId }: StreakBadgeProps) {
 
           {!next && (
             <div className="mt-3 pt-3 border-t border-white/[0.06]">
-              <p className="text-amber-300/50 text-xs">🏆 All achievements unlocked!</p>
+              <p className="text-amber-300/50 text-xs">All achievements unlocked!</p>
             </div>
           )}
         </div>

@@ -54,7 +54,7 @@ export function useOneSignal(appId: string, userId?: string) {
         window.OneSignal.init({
           appId,
           notifyButton: { enable: false },
-          allowLocalhostAsSecureOrigin: true,
+          allowLocalhostAsSecureOrigin: process.env.NODE_ENV !== "production",
         });
 
         window.OneSignal.on("subscriptionChange", (isSubscribed: unknown) => {

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { MessageCircle, Send } from "lucide-react";
 
 interface Message {
@@ -20,15 +20,18 @@ export function AskZiwei() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const endRef = useRef<HTMLDivElement>(null);
+  const sendingRef = useRef(false);
 
   useEffect(() => {
     endRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
-  const handleSend = async (text?: string) => {
+  const handleSend = useCallback(async (text?: string) => {
+    if (sendingRef.current) return;
     const question = (text ?? input).trim();
-    if (!question || loading) return;
+    if (!question) return;
 
+    sendingRef.current = true;
     setMessages((prev) => [...prev, { role: "user", content: question }]);
     setInput("");
     setLoading(true);
@@ -51,8 +54,9 @@ export function AskZiwei() {
       setError("Network error. Please try again.");
     } finally {
       setLoading(false);
+      sendingRef.current = false;
     }
-  };
+  }, [input, loading]);
 
   return (
     <section className="mb-8">

@@ -64,22 +64,23 @@ export default function DailyPage() {
   useEffect(() => {
     if (authStatus !== "ok") { setLoading(false); return; }
 
-    Promise.all([
+    Promise.allSettled([
       fetch("/api/generate-daily", { method: "POST" }),
       fetch("/api/chart"),
       fetch("/api/streak"),
     ])
-      .then(async ([horoscopeRes, chartRes, streakRes]) => {
-        if (horoscopeRes.status === 400) { setAuthStatus("no_chart"); return; }
-        const horoscopeData = horoscopeRes.ok ? await horoscopeRes.json() : null;
-        const chartData = chartRes.ok ? await chartRes.json() : null;
-        const streakData = streakRes.ok ? await streakRes.json() : null;
-
-        if (horoscopeData?.ok) setData(horoscopeData);
-        if (chartData?.ok) setChartPalaces(chartData.chart?.palaces ?? []);
-        if (streakData?.ok) setStreak(streakData.streak ?? 0);
-
-        // Bump streak on daily visit
+      .then(async (results) => {
+        const [h, c, s] = results;
+        if (h.status === "fulfilled") {
+          if (h.value.status === 400) { setAuthStatus("no_chart"); return; }
+          if (h.value.ok) { const d = await h.value.json(); if (d.ok) setData(d); }
+        }
+        if (c.status === "fulfilled" && c.value.ok) {
+          const d = await c.value.json(); if (d.ok) setChartPalaces(d.chart?.palaces ?? []);
+        }
+        if (s.status === "fulfilled" && s.value.ok) {
+          const d = await s.value.json(); if (d.ok) setStreak(d.streak ?? 0);
+        }
         fetch("/api/streak", { method: "POST" }).catch(() => {});
       })
       .catch(() => setError("Today's stars are taking longer than usual."))
@@ -179,7 +180,7 @@ export default function DailyPage() {
           />
           <input
             type="password"
-            placeholder="Password (min 8 characters)"
+            placeholder={authMode === "login" ? "Password" : "Password (min 8 characters)"}
             value={authMode === "login" ? loginPassword : signupPassword}
             onChange={(e) => authMode === "login"
               ? setLoginPassword(e.target.value)
@@ -341,7 +342,7 @@ export default function DailyPage() {
     <main className="min-h-screen bg-[#0a0a0f] text-white px-5 py-8 max-w-lg mx-auto">
       <div className="flex items-center justify-between mb-4">
         <p className="text-amber-200/60 text-sm font-medium">{dateLabel}</p>
-        <StreakBadge />
+        <StreakBadge streak={streak} />
       </div>
 
       {/* Birthday Surprise (only renders on birthday or birthday week) */}
