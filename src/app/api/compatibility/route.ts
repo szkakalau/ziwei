@@ -125,6 +125,10 @@ export async function POST(request: Request) {
       );
     }
 
+    if (body.gender !== undefined && body.gender !== "male" && body.gender !== "female") {
+      return NextResponse.json({ ok: false, error: "INVALID_GENDER" }, { status: 400 });
+    }
+
     // Compute the other person's chart
     const { computeBirthChart } = await import("@/lib/computeBirthChart");
     const otherResult = await computeBirthChart({

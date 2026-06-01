@@ -190,9 +190,11 @@ export async function updateStreak(
   }
 
   const lastDate = row.last_check_date as string;
-  const yesterday = new Date(today);
-  yesterday.setDate(yesterday.getDate() - 1);
-  const yesterdayStr = yesterday.toISOString().slice(0, 10);
+  // String-based yesterday calculation (avoids timezone bugs with Date objects)
+  const todayDate = new Date(today + "T12:00:00");
+  const yesterdayDate = new Date(todayDate);
+  yesterdayDate.setDate(yesterdayDate.getDate() - 1);
+  const yesterdayStr = yesterdayDate.toISOString().slice(0, 10);
 
   if (lastDate === today) {
     return row.current_streak as number;

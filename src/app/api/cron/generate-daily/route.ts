@@ -66,8 +66,10 @@ export async function GET(request: Request) {
         }),
       );
 
-      generated += results.filter((r) => r.status === "fulfilled").length;
-      failed += results.filter((r) => r.status === "rejected").length;
+      for (const r of results) {
+        if (r.status === "fulfilled") generated++;
+        else { failed++; console.error("[cron] user generation failed:", r.reason); }
+      }
     }
 
     return NextResponse.json({ ok: true, generated, failed, total: users.length });
