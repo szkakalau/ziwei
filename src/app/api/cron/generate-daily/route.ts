@@ -6,11 +6,12 @@ export const maxDuration = 60;
 
 export async function GET(request: Request) {
   const cronSecret = process.env.CRON_SECRET;
-  if (cronSecret) {
-    const headerSecret = request.headers.get("authorization")?.replace("Bearer ", "") ?? "";
-    if (headerSecret !== cronSecret) {
-      return NextResponse.json({ ok: false, error: "UNAUTHORIZED" }, { status: 401 });
-    }
+  if (!cronSecret) {
+    return NextResponse.json({ ok: false, error: "NOT_CONFIGURED" }, { status: 500 });
+  }
+  const headerSecret = request.headers.get("authorization")?.replace("Bearer ", "") ?? "";
+  if (headerSecret !== cronSecret) {
+    return NextResponse.json({ ok: false, error: "UNAUTHORIZED" }, { status: 401 });
   }
 
   try {
@@ -39,8 +40,8 @@ export async function GET(request: Request) {
 
           const bp = user.birth_place as { lat: number; lng: number; tz: string };
           const chart = await computeChartFromStored({
-            birthDate: "1990-01-01",
-            birthTime: "12:00",
+            birthDate: user.birth_date ?? "1990-01-01",
+            birthTime: user.birth_time ?? "12:00",
             location: `${bp.lat},${bp.lng}`,
             allowFallback: true,
           });

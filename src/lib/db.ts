@@ -154,11 +154,11 @@ export async function updateSubscription(
 }
 
 /** Get all active (trial or paid) users — for cron batch generation. */
-export async function getActiveUsers(): Promise<Array<{ id: string; birth_place: unknown; chart_data: unknown }>> {
+export async function getActiveUsers(): Promise<Array<{ id: string; birth_date: string | null; birth_time: string | null; birth_place: unknown; chart_data: unknown }>> {
   return sql`
-    SELECT id, birth_place, chart_data FROM users
+    SELECT id, birth_date, birth_time, birth_place, chart_data FROM users
     WHERE subscription_status IN ('trial', 'active')
-  ` as unknown as Promise<Array<{ id: string; birth_place: unknown; chart_data: unknown }>>;
+  ` as unknown as Promise<Array<{ id: string; birth_date: string | null; birth_time: string | null; birth_place: unknown; chart_data: unknown }>>;
 }
 
 /** Update (or create) a user's streak. Returns the new current_streak. */
