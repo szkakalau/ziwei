@@ -27,6 +27,12 @@ export async function POST(request: Request) {
       return NextResponse.json({ ok: false, error: "MISSING_CHART_DATA" }, { status: 400 });
     }
 
+    // Validate chartData shape
+    const cd = body.chartData as Record<string, unknown>;
+    if (!cd || typeof cd !== "object" || !Array.isArray(cd.palaces)) {
+      return NextResponse.json({ ok: false, error: "INVALID_CHART_DATA" }, { status: 400 });
+    }
+
     const { updateUserChart } = await import("@/lib/db");
     await updateUserChart(user.id, {
       birthDate: body.birthDate ?? user.birth_date ?? "",

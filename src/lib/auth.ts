@@ -50,9 +50,17 @@ export async function getCurrentUser() {
 }
 
 /** Register a new user. Returns the user or throws on duplicate email. */
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 export async function registerUser(email: string, password: string) {
-  if (password.length < 8) {
-    throw new AuthError("Password must be at least 8 characters", "WEAK_PASSWORD");
+  if (!EMAIL_RE.test(email) || email.length > 254) {
+    throw new AuthError("Invalid email address", "INVALID_EMAIL");
+  }
+  if (password.length < 10) {
+    throw new AuthError("Password must be at least 10 characters", "WEAK_PASSWORD");
+  }
+  if (!/[A-Z]/.test(password) || !/[a-z]/.test(password) || !/[0-9]/.test(password)) {
+    throw new AuthError("Password must include uppercase, lowercase, and a number", "WEAK_PASSWORD");
   }
 
   // Strip + aliases to prevent trial abuse (user+1@mail.com, user+2@mail.com, etc.)
@@ -80,6 +88,8 @@ export async function loginUser(email: string, password: string) {
   const normalizedEmail = email.toLowerCase().trim().replace(/\+[^@]*@/, "@");
   const user = await getUserByEmail(normalizedEmail);
   if (!user) {
+    // Constant-time defense: run bcrypt anyway to prevent timing-based email enumeration
+    await bcrypt.compare(password, "$2a$12$abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ12");
     throw new AuthError("Invalid email or password", "INVALID_CREDENTIALS");
   }
 

@@ -9,9 +9,7 @@ export async function POST() {
     await logoutUser();
     return NextResponse.json({ ok: true });
   } catch (err) {
-    if (process.env.NODE_ENV === "production" && String(err).includes("cookies")) {
-      return NextResponse.json({ ok: true }); // Build-time, no cookies available
-    }
-    return NextResponse.json({ ok: false, error: "INTERNAL_ERROR" }, { status: 500 });
+    console.error("[logout]", err);
+    return NextResponse.json({ ok: false, error: "LOGOUT_FAILED" }, { status: 500 });
   }
 }

@@ -62,6 +62,10 @@ export async function POST() {
       highlightedStars: result.highlightedStars,
     });
 
+    // Send push notification for this horoscope
+    const { sendDailyPush } = await import("@/lib/pushService");
+    sendDailyPush({ userId: user.id, horoscopePreview: result.text.slice(0, 120), date: today }).catch(() => {});
+
     return NextResponse.json({
       ok: true,
       horoscope: result.text,

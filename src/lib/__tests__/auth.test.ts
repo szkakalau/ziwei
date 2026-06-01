@@ -37,7 +37,10 @@ vi.mock("iron-session", () => {
 describe("Auth (unit)", () => {
   it("registerUser rejects weak passwords", async () => {
     const { registerUser } = await import("@/lib/auth");
-    await expect(registerUser("test@test.com", "123")).rejects.toThrow("Password must be at least 8 characters");
+    await expect(registerUser("test@test.com", "123")).rejects.toThrow("Password must be at least 10 characters");
+
+    // Also reject missing complexity
+    await expect(registerUser("test@test.com", "abcdefghij")).rejects.toThrow("uppercase");
   });
 
   it("registerUser rejects duplicate emails", async () => {
@@ -52,12 +55,12 @@ describe("Auth (unit)", () => {
     } as any);
 
     const { registerUser } = await import("@/lib/auth");
-    await expect(registerUser("test@test.com", "password123")).rejects.toThrow("Email already registered");
+    await expect(registerUser("test@test.com", "Password123")).rejects.toThrow("Email already registered");
   });
 
   it("loginUser returns user on valid credentials", async () => {
     const bcrypt = await import("bcryptjs");
-    const hash = await bcrypt.hash("password123", 1);
+    const hash = await bcrypt.hash("Password123", 1);
     const db = await import("@/lib/db");
     vi.spyOn(db, "getUserByEmail").mockResolvedValueOnce({
       id: "user-1", email: "test@test.com", password_hash: hash,
@@ -68,7 +71,7 @@ describe("Auth (unit)", () => {
     } as any);
 
     const { loginUser } = await import("@/lib/auth");
-    const user = await loginUser("test@test.com", "password123");
+    const user = await loginUser("test@test.com", "Password123");
     expect(user.email).toBe("test@test.com");
   });
 });

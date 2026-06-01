@@ -76,8 +76,9 @@ export async function POST(request: Request) {
       }
 
       case "customer.subscription.updated": {
+        const VALID_STATUSES = new Set(["trial", "active", "past_due", "unpaid", "canceled", "incomplete", "incomplete_expired"]);
         const userId = obj.metadata?.userId ?? null;
-        if (userId && obj.status) {
+        if (userId && obj.status && VALID_STATUSES.has(obj.status)) {
           const { updateSubscription } = await import("@/lib/db");
           await updateSubscription(userId, { status: obj.status });
         }
