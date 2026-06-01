@@ -27,6 +27,17 @@ function loadChartFromStorage(): unknown | null {
   }
 }
 
+function loadChartMetaFromStorage(): { timezone: string; latitude: number; longitude: number; birthTime: string } | null {
+  if (typeof window === "undefined") return null;
+  const raw = sessionStorage.getItem("userChartMeta");
+  if (!raw) return null;
+  try {
+    return JSON.parse(raw) as { timezone: string; latitude: number; longitude: number; birthTime: string };
+  } catch {
+    return null;
+  }
+}
+
 export default function FreePersonalitySnapshot() {
   const router = useRouter();
   const resultRef = useRef<HTMLDivElement>(null);
@@ -38,6 +49,20 @@ export default function FreePersonalitySnapshot() {
     const chart = loadChartFromStorage();
     if (chart) {
       setSnapshot(buildPersonalitySnapshot(chart));
+
+      // Persist chart to DB if user is authenticated
+      const meta = loadChartMetaFromStorage();
+      fetch("/api/chart", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          birthDate: sessionStorage.getItem("userBirthDate") ?? undefined,
+          birthTime: meta?.birthTime ?? "12:00",
+          birthPlace: meta ? { lat: meta.latitude, lng: meta.longitude, tz: meta.timezone } : undefined,
+          chartData: chart,
+        }),
+      }).catch(() => {}); // Silently ignore if not authenticated
+
       requestAnimationFrame(() => {
         resultRef.current?.scrollIntoView({ behavior: "smooth", block: "nearest" });
       });
