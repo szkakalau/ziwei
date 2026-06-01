@@ -25,6 +25,19 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: false, error: "INVALID_SIGNATURE" }, { status: 400 });
   }
 
+  // Idempotency: skip duplicate events
+  const { sql } = await import("@/lib/db");
+  const existing = await sql`
+    SELECT id FROM stripe_events WHERE event_id = ${event.id} LIMIT 1
+  `.catch(() => []);
+  if (existing.length > 0) {
+    return NextResponse.json({ ok: true }); // Already processed
+  }
+  await sql`
+    INSERT INTO stripe_events (event_id, event_type, created_at)
+    VALUES (${event.id}, ${event.type}, now())
+  `.catch(() => {}); // Best-effort — don't fail if table doesn't exist
+
   try {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const obj = event.data.object as any;

@@ -107,15 +107,22 @@ export default function DailyPage() {
     }
   };
 
+  const [trialError, setTrialError] = useState<string | null>(null);
+
   const handleStartTrial = async () => {
+    setTrialError(null);
     try {
       const r = await fetch("/api/checkout", { method: "POST" });
       const d = await r.json();
       if (d.ok && d.url) {
         window.location.href = d.url;
+      } else if (d.error === "NOT_AUTHENTICATED") {
+        setAuthStatus("unauthenticated");
+      } else {
+        setTrialError("Could not start trial. Please try again.");
       }
     } catch {
-      // Checkout failed silently
+      setTrialError("Network error. Please try again later.");
     }
   };
 
@@ -260,6 +267,9 @@ export default function DailyPage() {
             Start 7-Day Free Trial
           </button>
           <p className="text-white/25 text-xs">Then $4.99/month. Cancel anytime.</p>
+          {trialError && (
+            <p className="text-red-400/70 text-xs mt-3">{trialError}</p>
+          )}
         </div>
       </main>
     );

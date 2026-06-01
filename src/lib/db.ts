@@ -44,6 +44,14 @@ export async function initDatabase(): Promise<void> {
   `;
 
   await sql`
+    CREATE TABLE IF NOT EXISTS stripe_events (
+      event_id TEXT PRIMARY KEY,
+      event_type TEXT NOT NULL,
+      created_at TIMESTAMPTZ DEFAULT now()
+    )
+  `;
+
+  await sql`
     CREATE TABLE IF NOT EXISTS streaks (
       user_id TEXT PRIMARY KEY REFERENCES users(id) ON DELETE CASCADE,
       current_streak INTEGER DEFAULT 0,
