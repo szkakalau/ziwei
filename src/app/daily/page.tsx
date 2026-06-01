@@ -7,6 +7,7 @@ import { ChartCanvas } from "@/components/ChartCanvas";
 import { ShareCard } from "@/components/ShareCard";
 import { AskZiwei } from "@/components/AskZiwei";
 import { CompatibilityCheck } from "@/components/CompatibilityCheck";
+import { useOneSignal, PushPrompt } from "@/components/PushSetup";
 import Link from "next/link";
 
 interface HoroscopeData {
@@ -32,6 +33,10 @@ export default function DailyPage() {
   const [loginPassword, setLoginPassword] = useState("");
   const [authError, setAuthError] = useState<string | null>(null);
   const [authMode, setAuthMode] = useState<"login" | "register">("register");
+  const [userId, setUserId] = useState<string | undefined>();
+
+  const onesignalAppId = process.env.NEXT_PUBLIC_ONESIGNAL_APP_ID || "";
+  const { pushState, requestPush } = useOneSignal(onesignalAppId, userId);
 
   useEffect(() => {
     fetch("/api/auth/me")
@@ -39,6 +44,8 @@ export default function DailyPage() {
         if (r.status === 401) { setAuthStatus("unauthenticated"); return; }
         const d = await r.json();
         if (!d.ok) { setAuthStatus("unauthenticated"); return; }
+
+        if (d.user?.id) setUserId(d.user.id);
 
         const status = d.user?.subscriptionStatus;
         if (!status || status === "cancelled" || status === "expired") {
@@ -315,10 +322,17 @@ export default function DailyPage() {
   // SUCCESS
   return (
     <main className="min-h-screen bg-[#0a0a0f] text-white px-5 py-8 max-w-lg mx-auto">
-      <div className="flex items-center justify-between mb-8">
+      <div className="flex items-center justify-between mb-4">
         <p className="text-amber-200/60 text-sm font-medium">{dateLabel}</p>
         <StreakBadge />
       </div>
+
+      {/* Push notification prompt */}
+      {pushState !== "loading" && pushState !== "unsupported" && (
+        <div className="mb-6">
+          <PushPrompt pushState={pushState} onEnable={requestPush} />
+        </div>
+      )}
 
       <div className="rounded-2xl bg-gradient-to-b from-white/[0.04] to-white/[0.01]
                       border border-amber-500/10 p-6 mb-8">
