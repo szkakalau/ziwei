@@ -13,7 +13,7 @@ export async function initDatabase(): Promise<void> {
       birth_time TEXT,
       birth_place JSONB,
       chart_data JSONB,
-      subscription_status TEXT DEFAULT 'trial',
+      subscription_status TEXT DEFAULT 'free',
       trial_ends_at TIMESTAMPTZ,
       stripe_customer_id TEXT,
       created_at TIMESTAMPTZ DEFAULT now()
@@ -101,7 +101,9 @@ export async function getUserByEmail(email: string) {
 /** Get user by id. */
 export async function getUserById(id: string) {
   const rows = await sql`
-    SELECT * FROM users WHERE id = ${id} LIMIT 1
+    SELECT id, email, birth_date, birth_time, birth_place, chart_data,
+           subscription_status, trial_ends_at, stripe_customer_id, created_at
+    FROM users WHERE id = ${id} LIMIT 1
   `;
   return rows[0] ?? null;
 }

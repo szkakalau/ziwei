@@ -4,11 +4,14 @@ import { describe, it, expect, vi } from "vitest";
 vi.mock("@neondatabase/serverless", () => ({
   neon: () => async (strings: TemplateStringsArray) => {
     const query = strings.join("?");
-    if (query.includes("SELECT * FROM users WHERE email")) return [];
+    if (query.includes("FROM users WHERE email")) return [];
     if (query.includes("INSERT INTO users")) return [{ id: "test-id", email: "test@example.com" }];
     return [];
   },
 }));
+
+// Set SESSION_SECRET for tests
+process.env.SESSION_SECRET = "test-secret-key-for-unit-tests-32chars";
 
 // Mock next/headers
 vi.mock("next/headers", () => ({
@@ -43,9 +46,10 @@ describe("Auth (unit)", () => {
     vi.spyOn(db, "getUserByEmail").mockResolvedValueOnce({
       id: "existing", email: "test@test.com", password_hash: "hash",
       birth_date: null, birth_time: null, birth_place: null, chart_data: null,
-      subscription_status: "trial", trial_ends_at: null, stripe_customer_id: null,
+      subscription_status: "free", trial_ends_at: null, stripe_customer_id: null,
       created_at: new Date().toISOString(),
-    });
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } as any);
 
     const { registerUser } = await import("@/lib/auth");
     await expect(registerUser("test@test.com", "password123")).rejects.toThrow("Email already registered");
@@ -58,9 +62,10 @@ describe("Auth (unit)", () => {
     vi.spyOn(db, "getUserByEmail").mockResolvedValueOnce({
       id: "user-1", email: "test@test.com", password_hash: hash,
       birth_date: null, birth_time: null, birth_place: null, chart_data: null,
-      subscription_status: "trial", trial_ends_at: null, stripe_customer_id: null,
+      subscription_status: "free", trial_ends_at: null, stripe_customer_id: null,
       created_at: new Date().toISOString(),
-    });
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } as any);
 
     const { loginUser } = await import("@/lib/auth");
     const user = await loginUser("test@test.com", "password123");

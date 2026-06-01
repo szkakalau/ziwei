@@ -12,6 +12,13 @@ export async function POST() {
       return NextResponse.json({ ok: false, error: "NOT_AUTHENTICATED" }, { status: 401 });
     }
 
+    const { checkSubscription } = await import("@/lib/subscriptionGuard");
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const subError = checkSubscription(user as any);
+    if (subError) {
+      return NextResponse.json({ ok: false, error: subError.error }, { status: subError.status });
+    }
+
     if (!user.birth_place || !user.chart_data) {
       return NextResponse.json(
         { ok: false, error: "CHART_NOT_FOUND", message: "Please complete your birth chart first" },

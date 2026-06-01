@@ -8,12 +8,12 @@ export interface SessionData {
 }
 
 const SESSION_PASSWORD = process.env.SESSION_SECRET;
-if (!SESSION_PASSWORD && process.env.NODE_ENV === "production") {
-  throw new Error("SESSION_SECRET environment variable is required in production");
+if (!SESSION_PASSWORD) {
+  throw new Error("SESSION_SECRET environment variable is required");
 }
 
 const sessionOptions = {
-  password: SESSION_PASSWORD || "dev-secret-do-not-use-in-production-32chars",
+  password: SESSION_PASSWORD,
   cookieName: "destinyblueprint-session",
   cookieOptions: {
     secure: process.env.NODE_ENV === "production",
