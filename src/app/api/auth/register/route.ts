@@ -4,6 +4,14 @@ export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 export async function POST(request: Request) {
+  // Rate limit: 3 registrations per minute per IP
+  const { checkRateLimit, getClientIp } = await import("@/lib/rateLimit");
+  const ip = getClientIp(request);
+  const rl = checkRateLimit(`register:${ip}`, { windowMs: 60_000, maxRequests: 3 });
+  if (!rl.allowed) {
+    return Response.json({ ok: false, error: "RATE_LIMITED", message: "Too many registrations. Please try again later." }, { status: 429, headers: { "Retry-After": String(Math.ceil((rl.resetAt - Date.now()) / 1000)) } });
+  }
+
   try {
     let body: { email?: string; password?: string };
     try {

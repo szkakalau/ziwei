@@ -55,17 +55,19 @@ export async function registerUser(email: string, password: string) {
     throw new AuthError("Password must be at least 8 characters", "WEAK_PASSWORD");
   }
 
-  const existing = await getUserByEmail(email.toLowerCase().trim());
+  // Strip + aliases to prevent trial abuse (user+1@mail.com, user+2@mail.com, etc.)
+  const normalizedEmail = email.toLowerCase().trim().replace(/\+[^@]*@/, "@");
+  const existing = await getUserByEmail(normalizedEmail);
+
   if (existing) {
     throw new AuthError("Email already registered", "DUPLICATE_EMAIL");
   }
 
   const hash = await bcrypt.hash(password, 12);
   const user = await createUser({
-    email: email.toLowerCase().trim(),
+    email: normalizedEmail,
     passwordHash: hash,
   });
-
   const session = await getSession();
   session.userId = user.id;
   await session.save();
@@ -75,7 +77,8 @@ export async function registerUser(email: string, password: string) {
 
 /** Log in an existing user. Returns the user or throws on invalid credentials. */
 export async function loginUser(email: string, password: string) {
-  const user = await getUserByEmail(email.toLowerCase().trim());
+  const normalizedEmail = email.toLowerCase().trim().replace(/\+[^@]*@/, "@");
+  const user = await getUserByEmail(normalizedEmail);
   if (!user) {
     throw new AuthError("Invalid email or password", "INVALID_CREDENTIALS");
   }

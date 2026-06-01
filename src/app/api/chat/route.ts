@@ -58,6 +58,16 @@ export async function POST(request: Request) {
       return NextResponse.json({ ok: false, error: "NOT_AUTHENTICATED" }, { status: 401 });
     }
 
+    // Rate limit: 10 chat requests per minute per user
+    const { checkRateLimit, LIMITS } = await import("@/lib/rateLimit");
+    const rl = checkRateLimit(`chat:${user.id}`, LIMITS.ai);
+    if (!rl.allowed) {
+      return NextResponse.json(
+        { ok: false, error: "RATE_LIMITED", message: "Too many questions. Take a breath and try again." },
+        { status: 429, headers: { "Retry-After": String(Math.ceil((rl.resetAt - Date.now()) / 1000)) } },
+      );
+    }
+
     const { checkSubscription } = await import("@/lib/subscriptionGuard");
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const subError = checkSubscription(user as any);

@@ -4,6 +4,15 @@ export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 export async function POST(request: Request) {
+  // Rate limit: 5 attempts per minute per IP
+  const { checkRateLimit, getClientIp, LIMITS, rateLimitResponse } = await import("@/lib/rateLimit");
+  const ip = getClientIp(request);
+  const rl = checkRateLimit(`login:${ip}`, LIMITS.auth);
+  if (!rl.allowed) {
+    const resp = rateLimitResponse(rl.resetAt);
+    return Response.json({ ok: false, error: resp.error, message: resp.message, retryAfter: resp.retryAfter }, { status: 429, headers: { "Retry-After": String(resp.retryAfter) } });
+  }
+
   try {
     let body: { email?: string; password?: string };
     try {
