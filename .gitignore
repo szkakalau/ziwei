@@ -39,3 +39,6 @@ next-env.d.ts
 /public/output/*.pdf
 # Ad-hoc script output at repo root
 /output/
+
+.vercel
+.env*.local

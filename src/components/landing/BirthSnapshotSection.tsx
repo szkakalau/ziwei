@@ -10,6 +10,8 @@ import {
   Lock,
   Star,
   ShieldCheck,
+  Sun,
+  Clock,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 
@@ -55,6 +57,41 @@ function loadChartFromStorage(): unknown | null {
   if (!raw) return null;
   try {
     return JSON.parse(raw) as unknown;
+  } catch {
+    return null;
+  }
+}
+
+type ChartMeta = {
+  timezone: string;
+  latitude: number;
+  longitude: number;
+  placeLabel: string;
+  apparentSolarDate: string;
+  apparentSolarTime: string;
+  isApproximate?: boolean;
+};
+
+function loadChartMeta(): ChartMeta | null {
+  if (typeof window === "undefined") return null;
+  const raw = sessionStorage.getItem("userChartMeta");
+  if (!raw) return null;
+  try {
+    const parsed = JSON.parse(raw) as Partial<ChartMeta>;
+    if (!parsed.apparentSolarDate || !parsed.apparentSolarTime) return null;
+    return parsed as ChartMeta;
+  } catch {
+    return null;
+  }
+}
+
+function loadBirthInput(): StoredBirth | null {
+  if (typeof window === "undefined") return null;
+  const raw =
+    sessionStorage.getItem("userBirthInput") ?? localStorage.getItem("userBirthInput");
+  if (!raw) return null;
+  try {
+    return JSON.parse(raw) as StoredBirth;
   } catch {
     return null;
   }
@@ -255,6 +292,8 @@ export default function BirthSnapshotSection() {
   const locationLookupAbortRef = useRef<AbortController | null>(null);
   const locationLookupCooldownUntilRef = useRef(0);
   const [snapshot, setSnapshot] = useState<PersonalitySnapshot | null>(null);
+  const [meta, setMeta] = useState<ChartMeta | null>(null);
+  const [birthInput, setBirthInput] = useState<StoredBirth | null>(null);
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -301,6 +340,10 @@ export default function BirthSnapshotSection() {
 
   const refreshSnapshotFromStorage = useCallback(() => {
     const chart = loadChartFromStorage();
+    const m = loadChartMeta();
+    const b = loadBirthInput();
+    setMeta(m);
+    setBirthInput(b);
     if (chart) {
       setSnapshot(buildPersonalitySnapshot(chart));
       requestAnimationFrame(() => {
@@ -844,6 +887,27 @@ export default function BirthSnapshotSection() {
               <p className="mt-3 font-body text-base text-ink-muted md:text-lg">
                 Based on your Zi Wei Dou Shu birth chart
               </p>
+              {meta && !meta.isApproximate && birthInput ? (
+                <div className="mt-4 mx-auto inline-flex items-center gap-2 rounded-sm border border-gold/25 bg-gold/[0.04] px-4 py-2.5">
+                  <Clock className="h-4 w-4 shrink-0 text-gold/70" aria-hidden />
+                  <span className="font-body text-sm text-ink-muted">
+                    {birthInput.birthDate} {birthInput.birthTime} (local clock)
+                  </span>
+                  <ArrowRight className="h-3.5 w-3.5 shrink-0 text-gold/50" aria-hidden />
+                  <Sun className="h-4 w-4 shrink-0 text-gold" aria-hidden />
+                  <span className="font-body text-sm font-semibold text-ink">
+                    {meta.apparentSolarDate} {meta.apparentSolarTime} (true solar time)
+                  </span>
+                </div>
+              ) : null}
+              {meta?.isApproximate ? (
+                <div className="mt-4 mx-auto inline-flex items-center gap-2 rounded-sm border border-gold/20 bg-gold/[0.03] px-4 py-2.5">
+                  <Clock className="h-4 w-4 shrink-0 text-gold/50" aria-hidden />
+                  <span className="font-body text-sm text-ink-muted">
+                    {birthInput?.birthDate ?? "—"} {birthInput?.birthTime ?? "—"} (local clock · approximate chart, no true-solar correction)
+                  </span>
+                </div>
+              ) : null}
             </div>
 
             <div className="mt-10 grid gap-6">

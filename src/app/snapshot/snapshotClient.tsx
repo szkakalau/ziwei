@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Sparkles, TrendingUp, Shield, ArrowRight } from "lucide-react";
+import { Sparkles, TrendingUp, Shield, ArrowRight, Sun, Clock } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -89,12 +89,24 @@ function loadChart(): unknown | null {
   }
 }
 
-function loadMeta(): { isApproximate?: boolean } | null {
+type ChartMeta = {
+  timezone: string;
+  latitude: number;
+  longitude: number;
+  placeLabel: string;
+  apparentSolarDate: string;
+  apparentSolarTime: string;
+  isApproximate?: boolean;
+};
+
+function loadMeta(): ChartMeta | null {
   if (typeof window === "undefined") return null;
   const raw = sessionStorage.getItem("userChartMeta");
   if (!raw) return null;
   try {
-    return JSON.parse(raw) as { isApproximate?: boolean };
+    const parsed = JSON.parse(raw) as Partial<ChartMeta>;
+    if (!parsed.apparentSolarDate || !parsed.apparentSolarTime) return null;
+    return parsed as ChartMeta;
   } catch {
     return null;
   }
@@ -203,7 +215,7 @@ export default function SnapshotClient() {
   const router = useRouter();
   const [birthInput, setBirthInput] = useState<StoredBirth | null>(null);
   const [snapshot, setSnapshot] = useState<PersonalitySnapshot | null>(null);
-  const [meta, setMeta] = useState<{ isApproximate?: boolean } | null>(null);
+  const [meta, setMeta] = useState<ChartMeta | null>(null);
   const [focusArea, setFocusArea] = useState<ConsultationFocus>("general");
   const [question, setQuestion] = useState("");
   const [checkoutPending, setCheckoutPending] = useState(false);
@@ -296,6 +308,27 @@ export default function SnapshotClient() {
             Based on your birth data: {birthInput.birthDate} · {birthInput.birthTime} ·{" "}
             {birthInput.location}
           </p>
+          {meta && !meta.isApproximate ? (
+            <div className="mt-4 mx-auto inline-flex items-center gap-2 rounded-sm border border-gold/25 bg-gold/[0.04] px-4 py-2.5">
+              <Clock className="h-4 w-4 shrink-0 text-gold/70" aria-hidden />
+              <span className="font-body text-sm text-ink-muted">
+                {birthInput.birthDate} {birthInput.birthTime} (local clock)
+              </span>
+              <ArrowRight className="h-3.5 w-3.5 shrink-0 text-gold/50" aria-hidden />
+              <Sun className="h-4 w-4 shrink-0 text-gold" aria-hidden />
+              <span className="font-body text-sm font-semibold text-ink">
+                {meta.apparentSolarDate} {meta.apparentSolarTime} (true solar time)
+              </span>
+            </div>
+          ) : null}
+          {meta?.isApproximate ? (
+            <div className="mt-4 mx-auto inline-flex items-center gap-2 rounded-sm border border-gold/20 bg-gold/[0.03] px-4 py-2.5">
+              <Clock className="h-4 w-4 shrink-0 text-gold/50" aria-hidden />
+              <span className="font-body text-sm text-ink-muted">
+                {birthInput.birthDate} {birthInput.birthTime} (local clock · approximate chart, no true-solar correction)
+              </span>
+            </div>
+          ) : null}
           <p className="mt-2 font-body text-sm text-ink-muted">
             This free preview is generated from your chart. Your email reading is delivered by email
             by a human within 24-48 hours.
