@@ -27,6 +27,17 @@ function loadChartFromStorage(): unknown | null {
   }
 }
 
+function loadChartMetaFromStorage(): { timezone: string; latitude: number; longitude: number; birthTime: string } | null {
+  if (typeof window === "undefined") return null;
+  const raw = sessionStorage.getItem("userChartMeta");
+  if (!raw) return null;
+  try {
+    return JSON.parse(raw) as { timezone: string; latitude: number; longitude: number; birthTime: string };
+  } catch {
+    return null;
+  }
+}
+
 export default function FreePersonalitySnapshot() {
   const router = useRouter();
   const resultRef = useRef<HTMLDivElement>(null);
@@ -38,6 +49,20 @@ export default function FreePersonalitySnapshot() {
     const chart = loadChartFromStorage();
     if (chart) {
       setSnapshot(buildPersonalitySnapshot(chart));
+
+      // Persist chart to DB if user is authenticated
+      const meta = loadChartMetaFromStorage();
+      fetch("/api/chart", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          birthDate: sessionStorage.getItem("userBirthDate") ?? undefined,
+          birthTime: meta?.birthTime ?? "12:00",
+          birthPlace: meta ? { lat: meta.latitude, lng: meta.longitude, tz: meta.timezone } : undefined,
+          chartData: chart,
+        }),
+      }).catch(() => {}); // Silently ignore if not authenticated
+
       requestAnimationFrame(() => {
         resultRef.current?.scrollIntoView({ behavior: "smooth", block: "nearest" });
       });
@@ -216,6 +241,27 @@ export default function FreePersonalitySnapshot() {
                       {checkoutError}
                     </p>
                   ) : null}
+                </div>
+
+                {/* NEW: Daily Horoscope CTA */}
+                <div className="mt-6 rounded-xl border border-amber-500/20 bg-amber-500/[0.03] p-5 sm:p-6">
+                  <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-amber-300/70">
+                    🌅 Daily horoscope
+                  </p>
+                  <p className="mt-2 font-body text-sm text-ink-muted">
+                    Get a personalized Zi Wei horoscope every morning based on your chart.
+                    7-day free trial, then $4.99/month.
+                  </p>
+                  <div className="mt-4">
+                    <Link
+                      href="/daily"
+                      className="inline-flex items-center gap-2 rounded-xl bg-amber-500/15 px-5 py-3
+                                 text-sm font-medium text-amber-300 border border-amber-500/20
+                                 hover:bg-amber-500/25 transition-colors"
+                    >
+                      Get Your Daily Horoscope →
+                    </Link>
+                  </div>
                 </div>
 
                 <div className="mt-8 flex flex-col items-stretch gap-4 border-t border-white/10 pt-6 sm:flex-row sm:items-center sm:justify-between">
