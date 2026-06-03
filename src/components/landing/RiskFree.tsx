@@ -20,7 +20,7 @@ const items = [
 
 export default function RiskFree() {
   return (
-    <section className="relative overflow-hidden px-4 py-24 sm:px-6 md:py-32">
+    <section className="relative overflow-hidden px-4 py-16 sm:px-6 sm:py-24 md:py-32">
       {/* Background: subtle diagonal accent */}
       <div
         className="pointer-events-none absolute right-0 top-0 h-72 w-72 -translate-y-1/2 translate-x-1/3 rounded-full border border-jade/[0.08] bg-jade/[0.02]"
@@ -34,7 +34,7 @@ export default function RiskFree() {
             <ShieldCheck className="h-3.5 w-3.5 text-jade/70" aria-hidden />
             <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-jade">Risk-Free Trial</span>
           </div>
-          <h2 className="landing-headline mt-5 text-3xl md:text-4xl lg:text-5xl">
+          <h2 className="landing-headline mt-4 text-2xl sm:text-3xl md:text-4xl lg:text-5xl">
             Try everything for 7 days.
             <br />
             <span className="text-ink-muted">If it doesn&apos;t{" "}</span>
@@ -46,7 +46,7 @@ export default function RiskFree() {
         </div>
 
         {/* Cards — symmetric 3-column grid */}
-        <div className="mt-16 grid gap-6 sm:grid-cols-3">
+        <div className="mt-10 grid gap-4 sm:mt-16 sm:gap-6 sm:grid-cols-3">
           {items.map((item) => (
             <div
               key={item.title}
@@ -64,7 +64,7 @@ export default function RiskFree() {
         </div>
 
         {/* Bottom assurance */}
-        <div className="mt-12 flex items-center gap-3 rounded-sm border border-gold/[0.12] bg-gold/[0.03] px-5 py-4 backdrop-blur-sm md:mx-auto md:max-w-xl">
+        <div className="mt-8 flex items-center gap-3 rounded-sm border border-gold/[0.12] bg-gold/[0.03] px-4 py-3 backdrop-blur-sm sm:mt-12 sm:px-5 sm:py-4 md:mx-auto md:max-w-xl">
           <BadgeCheck className="h-5 w-5 shrink-0 text-gold/70" aria-hidden />
           <p className="font-body text-sm leading-relaxed text-ink-muted">
             <span className="font-semibold text-ink">The guarantee is simple:</span>{" "}

@@ -522,7 +522,7 @@ export default function BirthSnapshotSection() {
         {!snapshot ? (
           <>
             <div className="text-center">
-              <h2 className="font-display text-3xl font-semibold tracking-tight text-ink md:text-4xl">
+              <h2 className="font-display text-2xl font-semibold tracking-tight text-ink sm:text-3xl md:text-4xl">
                 Get Your Free Personality Snapshot — No Signup Required
               </h2>
               <p className="mt-3 font-body text-base text-ink-muted md:text-lg">
@@ -881,7 +881,7 @@ export default function BirthSnapshotSection() {
         {snapshot && structured ? (
           <div ref={resultRef} className="mt-8">
             <div className="text-center">
-              <h2 className="font-display text-3xl font-semibold tracking-tight text-ink md:text-4xl">
+              <h2 className="font-display text-2xl font-semibold tracking-tight text-ink sm:text-3xl md:text-4xl">
                 Your Personalized Personality Snapshot
               </h2>
               <p className="mt-3 font-body text-base text-ink-muted md:text-lg">

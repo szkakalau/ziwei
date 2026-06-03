@@ -39,7 +39,7 @@ const premiumFeatures = [
 
 export default function FreeVsPaidTable({ readingHref }: Props) {
   return (
-    <section className="relative overflow-hidden px-4 py-24 sm:px-6 md:py-32">
+    <section className="relative overflow-hidden px-4 py-16 sm:px-6 sm:py-24 md:py-32">
       {/* Background */}
       <div
         className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_50%_0%,oklch(0.74_0.12_78/0.04),transparent_50%)]"
@@ -55,7 +55,7 @@ export default function FreeVsPaidTable({ readingHref }: Props) {
               Simple Pricing
             </span>
           </div>
-          <h2 className="landing-headline mt-5 text-3xl md:text-4xl lg:text-5xl">
+          <h2 className="landing-headline mt-4 text-2xl sm:text-3xl md:text-4xl lg:text-5xl">
             Free to start.
             <br />
             <span className="bg-gradient-to-r from-gold to-cinnabar bg-clip-text text-transparent">
@@ -69,10 +69,10 @@ export default function FreeVsPaidTable({ readingHref }: Props) {
         </div>
 
         {/* Two-column cards */}
-        <div className="mt-14 grid gap-6 lg:grid-cols-2 lg:gap-8">
+        <div className="mt-10 grid gap-4 sm:mt-14 sm:gap-6 lg:grid-cols-2 lg:gap-8">
           {/* FREE */}
           <article className="flex flex-col rounded-sm border border-white/[0.08] bg-panel/70 shadow-panel backdrop-blur-sm">
-            <div className="border-b border-white/[0.07] px-6 py-6 sm:px-8">
+            <div className="border-b border-white/[0.07] px-5 py-5 sm:px-8 sm:py-6">
               <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-ink-dim">
                 Free Snapshot
               </p>
@@ -83,8 +83,8 @@ export default function FreeVsPaidTable({ readingHref }: Props) {
                 No credit card. No signup. Instant.
               </p>
             </div>
-            <div className="flex-1 px-6 py-5 sm:px-8">
-              <ul className="space-y-3">
+            <div className="flex-1 px-5 py-4 sm:px-8 sm:py-5">
+              <ul className="space-y-2.5 sm:space-y-3">
                 {freeFeatures.map((f) => (
                   <li key={f.label} className="flex items-start gap-3">
                     {f.available ? (
@@ -99,10 +99,10 @@ export default function FreeVsPaidTable({ readingHref }: Props) {
                 ))}
               </ul>
             </div>
-            <div className="px-6 pb-6 sm:px-8">
+            <div className="px-5 pb-5 sm:px-8 sm:pb-6">
               <a
                 href={readingHref}
-                className="flex w-full items-center justify-center gap-2 rounded-sm border border-white/[0.12] bg-white/[0.03] py-3 font-mono text-sm font-semibold uppercase tracking-wide text-ink-muted transition-all hover:border-gold/30 hover:text-ink"
+                className="flex w-full items-center justify-center gap-2 rounded-sm border border-white/[0.12] bg-white/[0.03] py-2.5 font-mono text-xs font-semibold uppercase tracking-wide text-ink-muted transition-all hover:border-gold/30 hover:text-ink sm:py-3 sm:text-sm"
               >
                 Get Free Snapshot
                 <ArrowRight className="h-4 w-4" aria-hidden />
@@ -119,23 +119,23 @@ export default function FreeVsPaidTable({ readingHref }: Props) {
               </span>
             </div>
 
-            <div className="border-b border-gold/[0.15] px-6 py-6 sm:px-8">
+            <div className="border-b border-gold/[0.15] px-5 py-5 sm:px-8 sm:py-6">
               <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-gold/80">
                 DestinyBlueprint Premium
               </p>
               <div className="mt-2 flex items-baseline gap-2">
-                <span className="font-display text-4xl font-semibold text-ink">
+                <span className="font-display text-3xl font-semibold text-ink sm:text-4xl">
                   $4.99
                 </span>
-                <span className="font-body text-base text-ink-muted">/month</span>
+                <span className="font-body text-sm text-ink-muted sm:text-base">/month</span>
               </div>
-              <p className="mt-1 font-body text-sm text-ink-muted">
+              <p className="mt-1 font-body text-xs text-ink-muted sm:text-sm">
                 7-day free trial. Cancel anytime.
               </p>
             </div>
 
-            <div className="flex-1 px-6 py-5 sm:px-8">
-              <ul className="space-y-3">
+            <div className="flex-1 px-5 py-4 sm:px-8 sm:py-5">
+              <ul className="space-y-2.5 sm:space-y-3">
                 {premiumFeatures.map((f) => (
                   <li key={f.label} className="flex items-start gap-3">
                     <f.icon className="mt-0.5 h-4 w-4 shrink-0 text-gold" aria-hidden />
@@ -147,15 +147,15 @@ export default function FreeVsPaidTable({ readingHref }: Props) {
               </ul>
             </div>
 
-            <div className="px-6 pb-8 sm:px-8">
+            <div className="px-5 pb-6 sm:px-8 sm:pb-8">
               <Link
                 href="/daily"
-                className="flex w-full items-center justify-center gap-2 rounded-sm bg-gradient-to-br from-cinnabar to-cinnabar-deep py-3.5 font-mono text-sm font-semibold uppercase tracking-wide text-ink shadow-[0_0_32px_-8px_rgba(201,84,60,0.45)] transition-all hover:brightness-110"
+                className="flex w-full items-center justify-center gap-2 rounded-sm bg-gradient-to-br from-cinnabar to-cinnabar-deep py-3 font-mono text-xs font-semibold uppercase tracking-wide text-ink shadow-[0_0_32px_-8px_rgba(201,84,60,0.45)] transition-all hover:brightness-110 sm:py-3.5 sm:text-sm"
               >
                 Start 7-Day Free Trial
                 <ArrowRight className="h-4 w-4" aria-hidden />
               </Link>
-              <p className="mt-3 text-center font-body text-xs text-ink-dim">
+              <p className="mt-2 text-center font-body text-xs text-ink-dim sm:mt-3">
                 No charge until your trial ends. Cancel with one click.
               </p>
             </div>

@@ -50,7 +50,7 @@ const accentColors = {
 
 export default function WhyZiWeiBetter() {
   return (
-    <section className="relative overflow-hidden px-4 py-24 sm:px-6 md:py-32">
+    <section className="relative overflow-hidden px-4 py-16 sm:px-6 sm:py-24 md:py-32">
       {/* Diagonal accent lines */}
       <div
         className="pointer-events-none absolute left-0 top-[15%] h-px w-[140%] -rotate-[3deg] bg-gradient-to-r from-transparent via-gold/20 to-transparent"
@@ -93,7 +93,7 @@ export default function WhyZiWeiBetter() {
             <span className="h-px w-8 bg-gradient-to-r from-gold/60 to-transparent" aria-hidden />
             <p className="landing-kicker">Why Zi Wei Dou Shu</p>
           </div>
-          <h2 className="landing-headline mt-4 text-3xl md:text-4xl lg:text-5xl">
+          <h2 className="landing-headline mt-4 text-2xl sm:text-3xl md:text-4xl lg:text-5xl">
             Your sun sign is a{" "}
             <span className="relative">
               postcard
@@ -117,7 +117,7 @@ export default function WhyZiWeiBetter() {
         </div>
 
         {/* Cards grid — symmetric 2x2 */}
-        <div className="relative mt-16 grid gap-5 sm:grid-cols-2">
+        <div className="relative mt-12 grid gap-4 sm:mt-16 sm:gap-5 sm:grid-cols-2">
           {cards.map((c, idx) => {
             const colors = accentColors[c.accent];
             return (
@@ -134,7 +134,7 @@ export default function WhyZiWeiBetter() {
                   <div className={`absolute -left-2 -top-2 h-6 w-6 rotate-45 ${c.accent === "cinnabar" ? "bg-cinnabar/20" : c.accent === "gold" ? "bg-gold/20" : "bg-jade/20"}`} />
                 </div>
 
-                <div className="p-6 sm:p-7">
+                <div className="p-5 sm:p-7">
                   {/* Icon + number */}
                   <div className="flex items-start justify-between">
                     <span className={`inline-flex h-12 w-12 items-center justify-center rounded-sm border ${colors.border} ${colors.bg}`}>
@@ -160,7 +160,7 @@ export default function WhyZiWeiBetter() {
         </div>
 
         {/* Bottom insight */}
-        <div className="mt-14 flex items-start gap-4 rounded-sm border border-gold/15 bg-gold/[0.03] p-5 backdrop-blur-sm mx-auto max-w-2xl">
+        <div className="mt-10 flex items-start gap-3 rounded-sm border border-gold/15 bg-gold/[0.03] p-4 backdrop-blur-sm mx-auto max-w-2xl sm:mt-14 sm:gap-4 sm:p-5">
           <Binary className="mt-0.5 h-5 w-5 shrink-0 text-gold/60" aria-hidden />
           <p className="font-body text-sm leading-relaxed text-ink-muted">
             <span className="font-semibold text-ink">The math matters.</span>{" "}

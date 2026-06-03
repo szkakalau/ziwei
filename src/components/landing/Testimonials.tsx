@@ -57,7 +57,7 @@ const realFeatures = [
 
 export default function Testimonials() {
   return (
-    <section className="relative overflow-hidden px-4 py-24 sm:px-6 md:py-32">
+    <section className="relative overflow-hidden px-4 py-16 sm:px-6 sm:py-24 md:py-32">
       {/* Background: subtle radial glow */}
       <div
         className="pointer-events-none absolute left-1/2 top-1/2 h-[700px] w-[700px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,oklch(0.74_0.12_78/0.05),transparent_55%)]"
@@ -71,7 +71,7 @@ export default function Testimonials() {
             <Zap className="h-3.5 w-3.5 text-gold/70" aria-hidden />
             <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-ink-dim">How It Works</span>
           </div>
-          <h2 className="landing-headline mt-5 text-3xl md:text-4xl lg:text-5xl">
+          <h2 className="landing-headline mt-4 text-2xl sm:text-3xl md:text-4xl lg:text-5xl">
             From birth chart
             <br />
             <span className="bg-gradient-to-r from-gold to-cinnabar bg-clip-text text-transparent">
@@ -95,7 +95,7 @@ export default function Testimonials() {
                 <span className="inline-flex h-12 w-12 items-center justify-center rounded-sm border border-gold/20 bg-gold/[0.06]">
                   <s.icon className="h-5 w-5 text-gold" aria-hidden />
                 </span>
-                <span className="font-display text-3xl font-semibold text-ink-dim/20">{s.step}</span>
+                <span className="font-display text-2xl font-semibold text-ink-dim/20 sm:text-3xl">{s.step}</span>
               </div>
               <h3 className="mt-5 font-display text-lg font-semibold text-ink">{s.title}</h3>
               <p className="mt-2 font-body text-sm leading-relaxed text-ink-muted">{s.body}</p>
@@ -110,7 +110,7 @@ export default function Testimonials() {
               <Gift className="h-3.5 w-3.5 text-gold/70" aria-hidden />
               <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-ink-dim">Everything Included</span>
             </div>
-            <h3 className="mt-4 font-display text-2xl font-semibold text-ink md:text-3xl">
+            <h3 className="mt-3 font-display text-xl font-semibold text-ink sm:text-2xl md:text-3xl">
               One subscription. Every feature.
             </h3>
           </div>

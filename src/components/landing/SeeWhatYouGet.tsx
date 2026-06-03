@@ -27,7 +27,7 @@ const features = [
 
 export default function SeeWhatYouGet() {
   return (
-    <section className="relative overflow-hidden px-4 py-24 sm:px-6 md:py-32">
+    <section className="relative overflow-hidden px-4 py-16 sm:px-6 sm:py-24 md:py-32">
       {/* Background: subtle radial glow */}
       <div
         className="pointer-events-none absolute left-1/2 top-1/2 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,oklch(0.74_0.12_78/0.06),transparent_60%)]"
@@ -41,7 +41,7 @@ export default function SeeWhatYouGet() {
             <Bell className="h-3.5 w-3.5 text-gold/70" aria-hidden />
             <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-ink-dim">What You Get</span>
           </div>
-          <h2 className="landing-headline mt-5 text-3xl md:text-4xl lg:text-5xl">
+          <h2 className="landing-headline mt-4 text-2xl sm:text-3xl md:text-4xl lg:text-5xl">
             One subscription.
             <br />
             <span className="bg-gradient-to-r from-gold to-cinnabar bg-clip-text text-transparent">
@@ -55,7 +55,7 @@ export default function SeeWhatYouGet() {
         </div>
 
         {/* Feature grid */}
-        <div className="mt-16 grid gap-5 sm:grid-cols-2">
+        <div className="mt-12 grid gap-4 sm:mt-16 sm:gap-5 sm:grid-cols-2">
           {features.map((f) => (
             <article
               key={f.label}
@@ -71,10 +71,10 @@ export default function SeeWhatYouGet() {
         </div>
 
         {/* Preview cards — side by side */}
-        <div className="mt-16 grid gap-6 lg:grid-cols-2">
+        <div className="mt-12 grid gap-4 sm:mt-16 sm:gap-6 lg:grid-cols-2">
           {/* Chart preview card */}
           <article className="rounded-sm border border-white/[0.08] bg-panel/80 shadow-panel backdrop-blur-md">
-            <div className="flex items-start gap-4 border-b border-white/[0.07] px-6 py-5">
+            <div className="flex items-start gap-3 border-b border-white/[0.07] px-4 py-4 sm:gap-4 sm:px-6 sm:py-5">
               <span className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-sm border border-jade/25 bg-jade/[0.08]">
                 <Sparkles className="h-5 w-5 text-jade" aria-hidden />
               </span>
@@ -87,7 +87,7 @@ export default function SeeWhatYouGet() {
                 </p>
               </div>
             </div>
-            <div className="p-5">
+            <div className="p-4 sm:p-5">
               <div className="overflow-hidden rounded-sm border border-white/[0.06] bg-void/60">
                 <Image
                   src="/images/destiny-chart-preview.jpg"
@@ -103,7 +103,7 @@ export default function SeeWhatYouGet() {
 
           {/* Email reading preview card */}
           <article className="rounded-sm border border-gold/25 bg-gradient-to-br from-gold/[0.06] via-panel/90 to-cinnabar/[0.04] shadow-glow backdrop-blur-md">
-            <div className="flex items-start gap-4 border-b border-gold/[0.15] px-6 py-5">
+            <div className="flex items-start gap-3 border-b border-gold/[0.15] px-4 py-4 sm:gap-4 sm:px-6 sm:py-5">
               <span className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-sm border border-gold/30 bg-gold/[0.08]">
                 <FileText className="h-5 w-5 text-gold" aria-hidden />
               </span>
@@ -117,7 +117,7 @@ export default function SeeWhatYouGet() {
               </div>
             </div>
 
-            <div className="px-5 pb-5 pt-4">
+            <div className="px-4 pb-4 pt-3 sm:px-5 sm:pb-5 sm:pt-4">
               <EmailReadingPreviewSample />
 
               <div className="mt-5 space-y-3 border-t border-white/[0.07] pt-5">

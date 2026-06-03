@@ -156,15 +156,15 @@ export default function Hero({ formAnchorId }: Props) {
         aria-hidden
       />
 
-      <div className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-24 lg:min-h-[calc(100svh-4rem)] lg:flex lg:items-center lg:py-32">
+      <div className="relative mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-24 lg:min-h-[calc(100svh-4rem)] lg:flex lg:items-center lg:py-32">
         <div className="relative z-10 w-full">
           {/* Top label row */}
-          <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
-            <p className="inline-flex items-center gap-2 rounded-full border border-gold/25 bg-gold/[0.04] px-4 py-1.5 font-mono text-[11px] uppercase tracking-[0.28em] text-gold backdrop-blur-sm animate-on-load">
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-2 sm:gap-x-6">
+            <p className="inline-flex items-center gap-1.5 rounded-full border border-gold/25 bg-gold/[0.04] px-3 py-1 font-mono text-[10px] uppercase tracking-[0.24em] text-gold backdrop-blur-sm animate-on-load sm:gap-2 sm:px-4 sm:py-1.5 sm:text-[11px] sm:tracking-[0.28em]">
               <Crosshair className="h-3 w-3" aria-hidden />
               Not Western Astrology
             </p>
-            <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-ink-dim animate-on-load-delay-1">
+            <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-dim animate-on-load-delay-1 sm:text-[11px] sm:tracking-[0.22em]">
               Ancient Chinese Imperial System · 1,000+ Years
             </p>
           </div>
@@ -172,7 +172,7 @@ export default function Hero({ formAnchorId }: Props) {
           {/* Main headline */}
           <h1
             ref={titleRef}
-            className="landing-headline mt-8 max-w-4xl text-[clamp(2.5rem,7vw,4.75rem)] animate-on-load-delay-1"
+            className="landing-headline mt-8 max-w-4xl text-[clamp(2rem,7vw,4.75rem)] animate-on-load-delay-1"
           >
             Your destiny, mapped by the{" "}
             <span className="relative whitespace-nowrap">
@@ -188,7 +188,7 @@ export default function Hero({ formAnchorId }: Props) {
           </h1>
 
           {/* Subheadline — key differentiation */}
-          <p className="mt-6 max-w-2xl font-body text-lg leading-relaxed text-ink-muted animate-on-load-delay-2 md:text-xl">
+          <p className="mt-6 max-w-2xl font-body text-base leading-relaxed text-ink-muted animate-on-load-delay-2 sm:text-lg md:text-xl">
             Zi Wei Dou Shu uses your{" "}
             <span className="font-semibold text-ink">exact birth time, location, and 100+ stars</span>
             {" "}— not just your sun sign. Get a{" "}
@@ -216,7 +216,7 @@ export default function Hero({ formAnchorId }: Props) {
           </div>
 
           {/* CTA buttons */}
-          <div className="mt-10 flex flex-col items-start gap-4 sm:flex-row sm:items-center animate-on-load-delay-3">
+          <div className="mt-8 flex flex-col items-start gap-3 sm:mt-10 sm:flex-row sm:items-center sm:gap-4 animate-on-load-delay-3">
             <Button asChild variant="cta" size="lg" className="group w-full sm:w-auto">
               <a
                 href={`#${formAnchorId}`}
@@ -232,7 +232,7 @@ export default function Hero({ formAnchorId }: Props) {
           </div>
 
           {/* Bottom stat strip */}
-          <div className="mt-16 flex flex-wrap gap-x-10 gap-y-4 border-t border-white/[0.06] pt-8 animate-on-load-delay-3">
+          <div className="mt-12 flex flex-wrap gap-x-6 gap-y-4 border-t border-white/[0.06] pt-6 animate-on-load-delay-3 sm:mt-16 sm:gap-x-10 sm:pt-8">
             {[
               { value: "100+", label: "Stars in your chart" },
               { value: "12", label: "Life palaces analyzed" },
@@ -240,7 +240,7 @@ export default function Hero({ formAnchorId }: Props) {
               { value: "24-48h", label: "Human reading included" },
             ].map((stat) => (
               <div key={stat.label}>
-                <p className="font-display text-2xl font-semibold tracking-tight text-ink md:text-3xl">
+                <p className="font-display text-xl font-semibold tracking-tight text-ink sm:text-2xl md:text-3xl">
                   {stat.value}
                 </p>
                 <p className="mt-0.5 font-mono text-[10px] uppercase tracking-[0.2em] text-ink-dim">
