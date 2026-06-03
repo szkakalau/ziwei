@@ -1,119 +1,148 @@
-import { Star, Quote } from "lucide-react";
+import { ClipboardCheck, Sparkles, Zap, Star, MessageCircle, Heart, Calendar, Gift, Flame, Mail, ArrowRight } from "lucide-react";
+import Link from "next/link";
 
-const testimonials = [
+const steps = [
   {
-    name: "Sarah K.",
-    role: "Early Reader",
-    quote:
-      "I've tried Co-Star, The Pattern, and every astrology app out there. This was the first time a reading actually described me — not my sun sign, me. The 10-year cycle section was eerily accurate about my career timeline.",
-    layout: "lg:col-span-7 lg:row-span-2",
-    offset: "",
+    step: "01",
+    icon: ClipboardCheck,
+    title: "Enter your birth details",
+    body: "Date, time, and place. Takes 30 seconds. No signup required — we compute your Zi Wei Dou Shu chart with true solar time correction.",
   },
   {
-    name: "Michael R.",
-    role: "Beta Tester",
-    quote:
-      "I was skeptical about 'Chinese astrology' at first. But the level of detail blew me away. The relationship section explained exactly why my past relationships failed and what I need to look for. It felt like someone had read my life.",
-    layout: "lg:col-span-5",
-    offset: "lg:-mt-12 lg:translate-x-6",
+    step: "02",
+    icon: Sparkles,
+    title: "Get your free personality snapshot",
+    body: "Instantly see your core traits, key strengths, and growth areas — deterministically mapped from your unique chart of 100+ stars across 12 life palaces.",
   },
   {
-    name: "Emma L.",
-    role: "Western Astrology Fan",
-    quote:
-      "I didn't expect Chinese astrology to be this specific. The chart uses your exact birth time and location — it's not just 'you're a Scorpio.' The personality snapshot alone was worth it, and the email reading went even deeper.",
-    layout: "lg:col-span-5 lg:col-start-8",
-    offset: "lg:-mt-8",
+    step: "03",
+    icon: Zap,
+    title: "Unlock everything with a 7-day free trial",
+    body: "Daily AI horoscopes, AI chat, compatibility checks, yearly forecasts, birthday surprises, push notifications, and a one-time human-written email reading — all for $4.99/month after the trial.",
   },
 ] as const;
 
-function Stars() {
-  return (
-    <div className="flex gap-0.5 text-gold" aria-label="5 out of 5 stars">
-      {Array.from({ length: 5 }).map((_, i) => (
-        <Star key={i} className="h-3.5 w-3.5 fill-gold/80" aria-hidden />
-      ))}
-    </div>
-  );
-}
-
-function Avatar({ name }: { name: string }) {
-  const letter = name.trim().slice(0, 1).toUpperCase();
-  return (
-    <div
-      className="flex h-11 w-11 items-center justify-center rounded-full border border-white/[0.1] bg-gradient-to-br from-gold/[0.12] to-jade/[0.08] font-display text-base text-ink"
-      aria-hidden
-    >
-      {letter}
-    </div>
-  );
-}
+const realFeatures = [
+  {
+    icon: Star,
+    label: "Daily AI Horoscope",
+    body: "Every morning, a personalized reading based on your chart and the day's transits. DeepSeek-powered with OpenAI fallback.",
+  },
+  {
+    icon: MessageCircle,
+    label: "Ask Ziwei Chat",
+    body: "Ask anything about your chart, stars, or life direction. The AI has full context of your 12 palaces and star placements.",
+  },
+  {
+    icon: Heart,
+    label: "Compatibility Check",
+    body: "Compare your chart with a partner, friend, or crush. See how your stars interact across palaces.",
+  },
+  {
+    icon: Calendar,
+    label: "Yearly Forecast + PDF",
+    body: "A full annual reading covering career, love, health, and wealth. Download as PDF to reference anytime.",
+  },
+  {
+    icon: Mail,
+    label: "Human-Written Email Reading",
+    body: "One-time deep analysis by a real Zi Wei practitioner. Delivered within 24-48 hours of subscribing.",
+  },
+  {
+    icon: Flame,
+    label: "Streaks & Achievements",
+    body: "Track your daily check-ins. Earn achievements as you deepen your practice with the stars.",
+  },
+] as const;
 
 export default function Testimonials() {
   return (
-    <section className="relative overflow-hidden border-y border-white/[0.07] bg-mist/40 py-24 backdrop-blur-sm md:py-32">
-      {/* Decorative quote marks */}
+    <section className="relative overflow-hidden px-4 py-24 sm:px-6 md:py-32">
+      {/* Background: subtle radial glow */}
       <div
-        className="pointer-events-none absolute -left-4 top-8 select-none font-display text-[16rem] leading-none text-gold/[0.04] md:-left-8 md:text-[20rem]"
+        className="pointer-events-none absolute left-1/2 top-1/2 h-[700px] w-[700px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,oklch(0.74_0.12_78/0.05),transparent_55%)]"
         aria-hidden
-      >
-        &ldquo;
-      </div>
-      <div
-        className="pointer-events-none absolute -right-4 bottom-0 select-none font-display text-[12rem] leading-none text-gold/[0.03] md:text-[16rem]"
-        aria-hidden
-      >
-        &rdquo;
-      </div>
+      />
 
-      <div className="relative mx-auto max-w-7xl px-4 sm:px-6">
+      <div className="relative mx-auto max-w-6xl">
         {/* Header */}
-        <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-          <div className="max-w-lg">
-            <p className="landing-kicker">Testimonials</p>
-            <h2 className="landing-headline mt-2 text-3xl md:text-4xl">
-              Readers who switched from
-              Western astrology
-            </h2>
+        <div className="text-center">
+          <div className="inline-flex items-center gap-2 rounded-full border border-white/[0.08] bg-white/[0.03] px-4 py-1.5 backdrop-blur-sm">
+            <Zap className="h-3.5 w-3.5 text-gold/70" aria-hidden />
+            <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-ink-dim">How It Works</span>
           </div>
-          <div className="flex items-center gap-3 md:pb-2">
-            <Stars />
-            <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-ink-dim">
-              5.0 from early readers
+          <h2 className="landing-headline mt-5 text-3xl md:text-4xl lg:text-5xl">
+            From birth chart
+            <br />
+            <span className="bg-gradient-to-r from-gold to-cinnabar bg-clip-text text-transparent">
+              to daily guidance
             </span>
+            {" "}in 3 steps.
+          </h2>
+          <p className="mt-4 mx-auto max-w-xl font-body text-base leading-relaxed text-ink-muted">
+            No AI generates your birth chart — we use iztro, an open-source Zi Wei Dou Shu computation library, with true solar time correction via the equation of time.
+          </p>
+        </div>
+
+        {/* 3-step flow */}
+        <div className="mt-16 grid gap-6 md:grid-cols-3">
+          {steps.map((s) => (
+            <article
+              key={s.step}
+              className="relative flex flex-col rounded-sm border border-white/[0.08] bg-panel/80 p-6 shadow-panel backdrop-blur-md transition-all duration-300 hover:border-gold/20"
+            >
+              <div className="flex items-start justify-between">
+                <span className="inline-flex h-12 w-12 items-center justify-center rounded-sm border border-gold/20 bg-gold/[0.06]">
+                  <s.icon className="h-5 w-5 text-gold" aria-hidden />
+                </span>
+                <span className="font-display text-3xl font-semibold text-ink-dim/20">{s.step}</span>
+              </div>
+              <h3 className="mt-5 font-display text-lg font-semibold text-ink">{s.title}</h3>
+              <p className="mt-2 font-body text-sm leading-relaxed text-ink-muted">{s.body}</p>
+            </article>
+          ))}
+        </div>
+
+        {/* Features grid */}
+        <div className="mt-20">
+          <div className="text-center">
+            <div className="inline-flex items-center gap-2 rounded-full border border-white/[0.08] bg-white/[0.03] px-4 py-1.5 backdrop-blur-sm">
+              <Gift className="h-3.5 w-3.5 text-gold/70" aria-hidden />
+              <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-ink-dim">Everything Included</span>
+            </div>
+            <h3 className="mt-4 font-display text-2xl font-semibold text-ink md:text-3xl">
+              One subscription. Every feature.
+            </h3>
+          </div>
+
+          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {realFeatures.map((f) => (
+              <div
+                key={f.label}
+                className="flex flex-col rounded-sm border border-white/[0.07] bg-panel/60 p-5 backdrop-blur-sm transition-all duration-200 hover:border-gold/[0.15]"
+              >
+                <span className="inline-flex h-9 w-9 items-center justify-center rounded-sm border border-gold/[0.15] bg-gold/[0.04]">
+                  <f.icon className="h-4 w-4 text-gold/80" aria-hidden />
+                </span>
+                <h4 className="mt-3 font-display text-base font-semibold text-ink">{f.label}</h4>
+                <p className="mt-1.5 font-body text-sm leading-relaxed text-ink-muted">{f.body}</p>
+              </div>
+            ))}
           </div>
         </div>
 
-        {/* Testimonial cards — magazine editorial layout */}
-        <div className="mt-12 grid gap-5 lg:grid-cols-12 lg:gap-6">
-          {testimonials.map((t) => (
-            <blockquote
-              key={t.name}
-              className={`group relative rounded-sm border border-white/[0.08] bg-panel/80 p-6 shadow-panel backdrop-blur-md transition-all duration-500 hover:border-white/[0.14] sm:p-7 ${t.layout} ${t.offset}`}
-            >
-              {/* Quote icon */}
-              <Quote
-                className="absolute right-5 top-5 h-8 w-8 text-gold/[0.08] transition-colors duration-500 group-hover:text-gold/[0.15]"
-                aria-hidden
-              />
-
-              <Stars />
-              <p className="mt-5 font-body text-sm leading-relaxed text-ink-muted md:text-base">
-                &ldquo;{t.quote}&rdquo;
-              </p>
-              <footer className="mt-6 flex items-center gap-4 border-t border-white/[0.07] pt-5">
-                <Avatar name={t.name} />
-                <div>
-                  <cite className="block font-display text-base not-italic text-ink">
-                    {t.name}
-                  </cite>
-                  <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-ink-dim">
-                    {t.role}
-                  </span>
-                </div>
-              </footer>
-            </blockquote>
-          ))}
+        {/* Bottom CTA */}
+        <div className="mt-16 text-center">
+          <Link
+            href="/daily"
+            className="inline-flex items-center gap-2 rounded-sm bg-gradient-to-br from-cinnabar to-cinnabar-deep px-8 py-4 font-mono text-sm font-semibold uppercase tracking-wide text-ink shadow-[0_0_32px_-8px_rgba(201,84,60,0.45)] transition-all hover:brightness-110"
+          >
+            Start 7-Day Free Trial
+            <ArrowRight className="h-4 w-4" aria-hidden />
+          </Link>
+          <p className="mt-3 font-body text-sm text-ink-dim">
+            $4.99/month after trial. Cancel anytime.
+          </p>
         </div>
       </div>
     </section>

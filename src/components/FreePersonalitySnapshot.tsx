@@ -12,7 +12,7 @@ const LOCKED_LINES = [
   "Love & Relationships",
   "Wealth & Financial Cycles",
   "Major Life Turning Points",
-  "10-Year Luck Cycles",
+  "Yearly Forecast & Timing",
   "Personalized Email Reading",
 ] as const;
 

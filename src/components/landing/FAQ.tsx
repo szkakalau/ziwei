@@ -69,8 +69,8 @@ export default function FAQ() {
               Don&apos;t see your question?{" "}
               <a href="mailto:support@destinyblueprint.xyz" className="link-gold">
                 Email us
-              </a>{" "}
-              — we respond within a few hours.
+              </a>
+              {" "}— we&apos;ll get back to you.
             </p>
           </div>
         </div>
@@ -104,8 +104,8 @@ export default function FAQ() {
             We&apos;re happy to help. Email{" "}
             <a href="mailto:support@destinyblueprint.xyz" className="link-gold">
               support@destinyblueprint.xyz
-            </a>{" "}
-            and we&apos;ll get back to you within a few hours.
+            </a>
+            {" "}and we&apos;ll get back to you.
           </p>
         </div>
       </div>

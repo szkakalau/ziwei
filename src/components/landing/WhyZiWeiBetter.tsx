@@ -10,8 +10,8 @@ const cards = [
   },
   {
     icon: CalendarRange,
-    title: "See Your 10-Year Destiny Cycles",
-    body: "Zi Wei doesn't stop at 'who you are.' It maps your luck, opportunities, and risks across decade-long cycles — so you know when to move and when to wait. No other astrology system offers this temporal resolution.",
+    title: "Daily AI Horoscopes Based on Your Chart",
+    body: "Every morning, an AI reads your chart against the day's transits and writes a personalized horoscope. Unlike mass horoscopes that address 1/12th of the population, yours is computed from your unique star placements.",
     accent: "gold" as const,
     span: "lg:col-span-5",
   },
@@ -168,9 +168,8 @@ export default function WhyZiWeiBetter() {
           <Binary className="mt-0.5 h-5 w-5 shrink-0 text-gold/60" aria-hidden />
           <p className="font-body text-sm leading-relaxed text-ink-muted">
             <span className="font-semibold text-ink">The math matters.</span>{" "}
-            A Zi Wei chart has 12 palaces × 100+ stars × 10-year cycles × 4 transformations =
-            over <span className="font-semibold text-gold">48,000 possible combinations</span>{" "}
-            before you even account for birth time precision. Your sun sign has exactly 12.
+            A Zi Wei chart maps 12 palaces × 100+ stars × your exact birth time and geographic location.
+            The result is a chart unique to you — not one of 12 archetypes like a sun sign.
           </p>
         </div>
       </div>
