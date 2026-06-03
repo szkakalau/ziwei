@@ -12,9 +12,10 @@ function getSql() {
 
 // Every export calls getSql() internally, so the connection is only created
 // when a DB function is actually invoked — not at import time.
+// The target must be callable so the Proxy's apply trap fires for sql`...` syntax.
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const sql: any = new Proxy(
-  {},
+  (() => {}) as unknown as Record<string | symbol, unknown>,
   {
     get(_t, prop) {
       const client = getSql();
