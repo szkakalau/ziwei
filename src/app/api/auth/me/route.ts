@@ -20,7 +20,24 @@ export async function GET() {
         trialEndsAt: user.trial_ends_at,
       },
     });
-  } catch {
+  } catch (err) {
+    // Distinguish infrastructure failures from unknown errors.
+    // AuthError with known codes → 503 (service misconfigured / unavailable).
+    // Everything else → 500 (unexpected).
+    const isAuthError =
+      err != null &&
+      typeof err === "object" &&
+      "code" in err &&
+      typeof (err as { code: unknown }).code === "string";
+    if (isAuthError) {
+      const code = (err as { code: string }).code;
+      if (code === "SESSION_MISCONFIGURED") {
+        return NextResponse.json(
+          { ok: false, error: "AUTH_MISCONFIGURED" },
+          { status: 503 },
+        );
+      }
+    }
     return NextResponse.json({ ok: false, error: "INTERNAL_ERROR" }, { status: 500 });
   }
 }

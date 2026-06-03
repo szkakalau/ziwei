@@ -96,7 +96,7 @@ export async function computeBirthChart(
   let geo;
   try {
     geo = await geocodeLocation(input.location);
-  } catch (_e) {
+  } catch {
     // Always fall back to local-clock when geocoding is unavailable.
     // The service being down should never block chart generation.
     const chart = buildChartFromLocalClock({

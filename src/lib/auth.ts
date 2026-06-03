@@ -7,13 +7,26 @@ export interface SessionData {
   userId?: string;
 }
 
-const SESSION_PASSWORD = process.env.SESSION_SECRET;
-if (!SESSION_PASSWORD) {
-  throw new Error("SESSION_SECRET environment variable is required");
+function getSessionPassword(): string {
+  const secret = process.env.SESSION_SECRET;
+  if (!secret) {
+    throw new AuthError("SESSION_SECRET environment variable is required", "SESSION_MISCONFIGURED");
+  }
+  return secret;
 }
 
-const sessionOptions = {
-  password: SESSION_PASSWORD,
+function getSessionOptions(): {
+  password: string;
+  cookieName: string;
+  cookieOptions: {
+    secure: boolean;
+    httpOnly: boolean;
+    sameSite: "lax";
+    maxAge: number;
+  };
+} {
+  return {
+    password: getSessionPassword(),
   cookieName: "destinyblueprint-session",
   cookieOptions: {
     secure: process.env.NODE_ENV === "production",
@@ -22,6 +35,7 @@ const sessionOptions = {
     maxAge: 60 * 60 * 24 * 30, // 30 days
   },
 };
+}
 
 let _buildSession: SessionData | null = null;
 
@@ -29,7 +43,7 @@ let _buildSession: SessionData | null = null;
 async function getSession() {
   try {
     const cookieStore = await cookies();
-    return getIronSession<SessionData>(cookieStore, sessionOptions);
+    return getIronSession<SessionData>(cookieStore, getSessionOptions());
   } catch {
     // Build-time: cookies() not available. Return a mock.
     if (!_buildSession) _buildSession = {};

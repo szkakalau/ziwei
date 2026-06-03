@@ -1,6 +1,31 @@
 import { neon } from "@neondatabase/serverless";
 
-const sql = neon(process.env.DATABASE_URL!);
+function getSql() {
+  const url = process.env.DATABASE_URL;
+  if (!url) {
+    throw new Error(
+      "DATABASE_URL environment variable is required for database operations",
+    );
+  }
+  return neon(url);
+}
+
+// Every export calls getSql() internally, so the connection is only created
+// when a DB function is actually invoked — not at import time.
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const sql: any = new Proxy(
+  {},
+  {
+    get(_t, prop) {
+      const client = getSql();
+      return (client as unknown as Record<string | symbol, unknown>)[prop];
+    },
+    apply(_t, _thisArg, args) {
+      const client = getSql();
+      return (client as (...a: unknown[]) => unknown)(...args);
+    },
+  },
+);
 
 /** Initialize database tables (idempotent — uses IF NOT EXISTS). */
 export async function initDatabase(): Promise<void> {
