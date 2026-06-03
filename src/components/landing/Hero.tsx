@@ -191,9 +191,10 @@ export default function Hero({ formAnchorId }: Props) {
           <p className="mt-6 max-w-2xl font-body text-lg leading-relaxed text-ink-muted animate-on-load-delay-2 md:text-xl">
             Zi Wei Dou Shu uses your{" "}
             <span className="font-semibold text-ink">exact birth time, location, and 100+ stars</span>
-            {" "}— not just your sun sign. Start with a{" "}
+            {" "}— not just your sun sign. Get a{" "}
             <span className="font-semibold text-gold">free personality snapshot</span>
-            {" "}in 30 seconds, or get a human-written email reading delivered within 48 hours.
+            {" "}in 30 seconds, book a <span className="font-semibold text-ink">$99 human-written email reading</span>
+            , or subscribe for <span className="font-semibold text-ink">$4.99/month daily AI horoscopes</span>.
           </p>
 
           {/* Three proof points — reimagined as horizontal pill badges */}
