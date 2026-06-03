@@ -76,8 +76,8 @@ function CircleMotif({ className = "" }: { className?: string }) {
       {/* 12 sectors — the ZWDS palace divisions */}
       {Array.from({ length: 12 }).map((_, i) => {
         const angle = (i * 30 - 90) * (Math.PI / 180);
-        const x2 = 200 + 185 * Math.cos(angle);
-        const y2 = 200 + 185 * Math.sin(angle);
+        const x2 = Math.round((200 + 185 * Math.cos(angle)) * 1e6) / 1e6;
+        const y2 = Math.round((200 + 185 * Math.sin(angle)) * 1e6) / 1e6;
         return (
           <line
             key={i}
