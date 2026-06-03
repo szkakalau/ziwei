@@ -3,31 +3,27 @@ import { CalendarRange, Crown, Sun, Compass, Binary } from "lucide-react";
 const cards = [
   {
     icon: Sun,
-    title: "Your Sun Sign is Just 1 Star.\nYour Zi Wei Chart Has 100+.",
-    body: "Western astrology uses only your birth date — one data point. Zi Wei Dou Shu maps your exact birth time, geographic location, and over 100 celestial bodies to create a chart so detailed it fills 12 life palaces. The difference in precision is astronomical.",
+    title: "Your Sun Sign is Just 1 Star. Your Zi Wei Chart Has 100+.",
+    body: "Western astrology uses only your birth date — one data point. Zi Wei Dou Shu maps your exact birth time, geographic location, and over 100 celestial bodies to create a chart so detailed it fills 12 life palaces.",
     accent: "cinnabar" as const,
-    span: "lg:col-span-7 lg:row-span-2",
   },
   {
     icon: CalendarRange,
     title: "Daily AI Horoscopes Based on Your Chart",
     body: "Every morning, an AI reads your chart against the day's transits and writes a personalized horoscope. Unlike mass horoscopes that address 1/12th of the population, yours is computed from your unique star placements.",
     accent: "gold" as const,
-    span: "lg:col-span-5",
   },
   {
     icon: Crown,
     title: "Imperial Precision, Not Mass-Market Generic",
-    body: "Zi Wei Dou Shu was the exclusive tool of Chinese emperors and generals for over a millennium. It was never meant for newspaper horoscopes — it was designed for life-or-death decisions. We've brought that same rigor to your email reading.",
+    body: "Zi Wei Dou Shu was the exclusive tool of Chinese emperors and generals for over a millennium. It was never meant for newspaper horoscopes — it was designed for real decisions. We apply that same rigor to every reading.",
     accent: "jade" as const,
-    span: "lg:col-span-5 lg:col-start-8",
   },
   {
     icon: Compass,
     title: "Apparent Solar Time Correction",
-    body: "We don't just use your clock time. We geocode your birthplace, look up the IANA timezone, and apply the equation of time to calculate your true apparent solar time — the actual astronomical position of the sun at your birth. This is what makes the chart genuinely yours.",
+    body: "We geocode your birthplace, look up the IANA timezone, and apply the equation of time to calculate your true apparent solar time — the actual astronomical position of the sun at your birth. This precision is what makes your chart genuinely yours.",
     accent: "gold" as const,
-    span: "lg:col-span-7 lg:col-start-6 lg:-mt-8",
   },
 ] as const;
 
@@ -120,14 +116,14 @@ export default function WhyZiWeiBetter() {
           </p>
         </div>
 
-        {/* Cards grid — intentionally asymmetric */}
-        <div className="relative mt-16 grid gap-4 lg:grid-cols-12 lg:gap-5">
+        {/* Cards grid — symmetric 2x2 */}
+        <div className="relative mt-16 grid gap-5 sm:grid-cols-2">
           {cards.map((c, idx) => {
             const colors = accentColors[c.accent];
             return (
               <article
                 key={c.title}
-                className={`group relative rounded-sm border ${colors.border} ${colors.bg} ${colors.glow} ${c.span} backdrop-blur-sm transition-all duration-500 hover:-translate-y-1 hover:border-opacity-40`}
+                className={`group relative rounded-sm border ${colors.border} ${colors.bg} ${colors.glow} backdrop-blur-sm transition-all duration-300 hover:-translate-y-1`}
                 style={{ animationDelay: `${idx * 0.1}s` }}
               >
                 {/* Accent corner */}
@@ -164,7 +160,7 @@ export default function WhyZiWeiBetter() {
         </div>
 
         {/* Bottom insight */}
-        <div className="mt-14 flex items-start gap-4 rounded-sm border border-gold/15 bg-gold/[0.03] p-5 backdrop-blur-sm md:ml-4 md:max-w-2xl">
+        <div className="mt-14 flex items-start gap-4 rounded-sm border border-gold/15 bg-gold/[0.03] p-5 backdrop-blur-sm mx-auto max-w-2xl">
           <Binary className="mt-0.5 h-5 w-5 shrink-0 text-gold/60" aria-hidden />
           <p className="font-body text-sm leading-relaxed text-ink-muted">
             <span className="font-semibold text-ink">The math matters.</span>{" "}

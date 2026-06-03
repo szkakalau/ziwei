@@ -70,10 +70,10 @@ export default function SeeWhatYouGet() {
           ))}
         </div>
 
-        {/* Preview cards — layered overlap */}
-        <div className="relative mt-16 lg:mt-20">
+        {/* Preview cards — side by side */}
+        <div className="mt-16 grid gap-6 lg:grid-cols-2">
           {/* Chart preview card */}
-          <article className="relative z-10 mx-auto max-w-2xl rounded-sm border border-white/[0.08] bg-panel/80 shadow-panel backdrop-blur-md lg:mx-0 lg:w-[56%]">
+          <article className="rounded-sm border border-white/[0.08] bg-panel/80 shadow-panel backdrop-blur-md">
             <div className="flex items-start gap-4 border-b border-white/[0.07] px-6 py-5">
               <span className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-sm border border-jade/25 bg-jade/[0.08]">
                 <Sparkles className="h-5 w-5 text-jade" aria-hidden />
@@ -101,8 +101,8 @@ export default function SeeWhatYouGet() {
             </div>
           </article>
 
-          {/* Email reading preview card — offset and overlapping */}
-          <article className="relative z-20 mx-auto mt-6 max-w-2xl rounded-sm border border-gold/25 bg-gradient-to-br from-gold/[0.06] via-panel/90 to-cinnabar/[0.04] shadow-glow backdrop-blur-md lg:absolute lg:right-0 lg:top-16 lg:mt-0 lg:w-[52%]">
+          {/* Email reading preview card */}
+          <article className="rounded-sm border border-gold/25 bg-gradient-to-br from-gold/[0.06] via-panel/90 to-cinnabar/[0.04] shadow-glow backdrop-blur-md">
             <div className="flex items-start gap-4 border-b border-gold/[0.15] px-6 py-5">
               <span className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-sm border border-gold/30 bg-gold/[0.08]">
                 <FileText className="h-5 w-5 text-gold" aria-hidden />
@@ -120,7 +120,6 @@ export default function SeeWhatYouGet() {
             <div className="px-5 pb-5 pt-4">
               <EmailReadingPreviewSample />
 
-              {/* Info note */}
               <div className="mt-5 space-y-3 border-t border-white/[0.07] pt-5">
                 <div className="flex items-start gap-3">
                   <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rotate-45 bg-cinnabar" aria-hidden />
@@ -142,7 +141,6 @@ export default function SeeWhatYouGet() {
                 </div>
               </div>
 
-              {/* Teaser arrow */}
               <div className="mt-5 flex items-center gap-2 text-gold/60">
                 <ArrowRight className="h-4 w-4" aria-hidden />
                 <span className="font-mono text-[10px] uppercase tracking-[0.2em]">

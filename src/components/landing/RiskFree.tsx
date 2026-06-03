@@ -45,38 +45,22 @@ export default function RiskFree() {
           </h2>
         </div>
 
-        {/* Timeline-style cards */}
-        <div className="relative mt-16">
-          {/* Vertical connector line */}
-          <div
-            className="absolute left-6 top-0 hidden h-full w-px bg-gradient-to-b from-gold/40 via-cinnabar/20 to-transparent md:block"
-            aria-hidden
-          />
-
-          <div className="flex flex-col gap-8">
-            {items.map((item, idx) => (
-              <div
-                key={item.title}
-                className={`relative flex flex-col gap-5 rounded-sm border border-white/[0.08] bg-panel/80 p-6 shadow-panel backdrop-blur-md transition-all duration-300 hover:border-white/[0.14] md:flex-row md:items-start md:gap-6 md:p-7 ${
-                  idx === 1 ? "md:ml-16 md:max-w-2xl" : idx === 2 ? "md:ml-32 md:max-w-xl" : "md:max-w-2xl"
-                }`}
-              >
-                {/* Icon — positioned on the timeline on desktop */}
-                <div className="relative md:absolute md:-left-8 md:top-7">
-                  <span className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-gold/25 bg-void shadow-[0_0_20px_-4px_oklch(0.74_0.12_78/0.15)]">
-                    <item.icon className="h-5 w-5 text-gold" aria-hidden />
-                  </span>
-                </div>
-
-                <div className="md:pl-6">
-                  <h3 className="font-display text-xl font-semibold text-ink">{item.title}</h3>
-                  <p className="mt-2 font-body text-sm leading-relaxed text-ink-muted">
-                    {item.body}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
+        {/* Cards — symmetric 3-column grid */}
+        <div className="mt-16 grid gap-6 sm:grid-cols-3">
+          {items.map((item) => (
+            <div
+              key={item.title}
+              className="flex flex-col items-center rounded-sm border border-white/[0.08] bg-panel/80 p-6 shadow-panel backdrop-blur-md text-center transition-all duration-300 hover:border-white/[0.14]"
+            >
+              <span className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-gold/25 bg-void shadow-[0_0_20px_-4px_oklch(0.74_0.12_78/0.15)]">
+                <item.icon className="h-5 w-5 text-gold" aria-hidden />
+              </span>
+              <h3 className="mt-5 font-display text-lg font-semibold text-ink">{item.title}</h3>
+              <p className="mt-2 font-body text-sm leading-relaxed text-ink-muted">
+                {item.body}
+              </p>
+            </div>
+          ))}
         </div>
 
         {/* Bottom assurance */}
