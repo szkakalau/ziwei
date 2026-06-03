@@ -147,6 +147,23 @@ body::before {
   }
 }
 
+@keyframes starPulse {
+  0%, 100% { opacity: 0.15; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(1.8); }
+}
+
+@keyframes floatSlow {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  33% { transform: translateY(-6px) rotate(0.5deg); }
+  66% { transform: translateY(3px) rotate(-0.3deg); }
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
 @layer components {
   .btn-cta {
     @apply relative inline-flex items-center justify-center overflow-hidden rounded-sm px-8 py-4 font-body text-lg font-semibold tracking-wide transition-all duration-300;
