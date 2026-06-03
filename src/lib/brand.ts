@@ -13,7 +13,8 @@ export function getSupportEmail(): string {
 }
 
 export const DEFAULT_META_DESCRIPTION =
-  "DestinyBlueprint — Zi Wei Dou Shu email readings by a human astrologer. Start with a free chart snapshot, then upgrade to a personalized email consultation.";
+  "DestinyBlueprint — Daily Zi Wei Dou Shu horoscopes powered by AI. Start with a free birth chart snapshot, then unlock daily readings, compatibility, yearly forecasts, and a human-written email consultation with a 7-day free trial.";
 
-/** Display price for the email reading. */
-export const EMAIL_READING_PRICE_LABEL = "$99";
+/** Display price for the subscription (used in CTA buttons). */
+export const SUBSCRIPTION_PRICE_LABEL = "$4.99/mo";
+export const SUBSCRIPTION_TRIAL_LABEL = "7-day free trial";

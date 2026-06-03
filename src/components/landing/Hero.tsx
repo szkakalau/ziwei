@@ -193,8 +193,9 @@ export default function Hero({ formAnchorId }: Props) {
             <span className="font-semibold text-ink">exact birth time, location, and 100+ stars</span>
             {" "}— not just your sun sign. Get a{" "}
             <span className="font-semibold text-gold">free personality snapshot</span>
-            {" "}in 30 seconds, book a <span className="font-semibold text-ink">$99 human-written email reading</span>
-            , or subscribe for <span className="font-semibold text-ink">$4.99/month daily AI horoscopes</span>.
+            {" "}in 30 seconds, then unlock everything with a{" "}
+            <span className="font-semibold text-ink">7-day free trial</span>{" "}
+            (<span className="text-ink-muted">$4.99/month after</span>).
           </p>
 
           {/* Three proof points — reimagined as horizontal pill badges */}
@@ -202,7 +203,7 @@ export default function Hero({ formAnchorId }: Props) {
             {[
               { icon: Star, text: "100+ Celestial Stars Mapped" },
               { icon: Sparkles, text: "Free Snapshot · No Signup" },
-              { icon: ShieldCheck, text: "30-Day Money-Back Guarantee" },
+              { icon: ShieldCheck, text: "7-Day Free Trial · Cancel Anytime" },
             ].map((item) => (
               <span
                 key={item.text}
@@ -236,7 +237,7 @@ export default function Hero({ formAnchorId }: Props) {
               { value: "100+", label: "Stars in your chart" },
               { value: "12", label: "Life palaces analyzed" },
               { value: "1,000+", label: "Years of refinement" },
-              { value: "24-48h", label: "Human-written delivery" },
+              { value: "24-48h", label: "Human reading included" },
             ].map((stat) => (
               <div key={stat.label}>
                 <p className="font-display text-2xl font-semibold tracking-tight text-ink md:text-3xl">

@@ -22,7 +22,7 @@ export default function LandingFooter() {
             </Link>
             <p className="mt-3 font-body text-sm leading-relaxed text-ink-dim">
               Ancient Zi Wei Dou Shu astrology, delivered with modern precision.
-              Human-written email readings based on your unique birth chart.
+              Daily AI horoscopes and human-written email readings based on your unique birth chart.
             </p>
             <p className="mt-3 font-mono text-[10px] uppercase tracking-[0.2em] text-ink-dim">
               © {new Date().getFullYear()} DestinyBlueprint. All rights reserved.

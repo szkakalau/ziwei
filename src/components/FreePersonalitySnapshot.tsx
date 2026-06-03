@@ -1,7 +1,7 @@
 "use client";
 
 import BirthFormModal from "@/components/BirthFormModal";
-import { EMAIL_READING_PRICE_LABEL } from "@/lib/brand";
+import { SUBSCRIPTION_PRICE_LABEL } from "@/lib/brand";
 import { CHART_SAVED_EVENT } from "@/lib/chartSavedEvent";
 import { buildPersonalitySnapshot, type PersonalitySnapshot } from "@/lib/personalitySnapshot";
 import Link from "next/link";
@@ -205,7 +205,7 @@ export default function FreePersonalitySnapshot() {
 
                 <div className="mt-10 rounded-xl border border-white/10 bg-black/40 p-5 sm:p-6">
                   <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-ink-dim">
-                    Continue to email reading
+                    Unlock with subscription
                   </p>
                   <ul className="mt-4 space-y-2.5 font-body text-sm text-ink-muted">
                     {LOCKED_LINES.map((line) => (
@@ -227,13 +227,13 @@ export default function FreePersonalitySnapshot() {
                     >
                       {checkoutPending
                         ? "Opening order form..."
-                        : `Continue To Order - ${EMAIL_READING_PRICE_LABEL}`}
+                        : `Start 7-Day Free Trial - ${SUBSCRIPTION_PRICE_LABEL}`}
                     </button>
                     <Link
                       href="/snapshot"
                       className="text-center font-body text-sm text-gold/90 underline-offset-4 hover:text-gold hover:underline sm:text-left"
                     >
-                      Continue to email reading →
+                      Choose your reading focus →
                     </Link>
                   </div>
                   {checkoutError ? (

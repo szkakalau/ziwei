@@ -10,7 +10,7 @@ import { Label } from "@/components/ui/label";
 import StickyUnlockBar from "@/components/landing/StickyUnlockBar";
 import { buildPersonalitySnapshot, type PersonalitySnapshot } from "@/lib/personalitySnapshot";
 import { startStripeCheckoutFromStored } from "@/lib/startStripeCheckoutFromStored";
-import { EMAIL_READING_PRICE_LABEL } from "@/lib/brand";
+import { SUBSCRIPTION_PRICE_LABEL } from "@/lib/brand";
 import { track } from "@/lib/analytics";
 
 type StoredBirth = {
@@ -330,8 +330,8 @@ export default function SnapshotClient() {
             </div>
           ) : null}
           <p className="mt-2 font-body text-sm text-ink-muted">
-            This free preview is generated from your chart. Your email reading is delivered by email
-            by a human within 24-48 hours.
+            This free preview is generated from your chart. Subscribe to unlock daily AI horoscopes
+            and a one-time human-written email reading delivered within 24-48 hours.
           </p>
         </div>
 
@@ -386,11 +386,10 @@ export default function SnapshotClient() {
 
         <div className="mt-10 rounded-sm border border-gold/20 bg-panel/70 p-5 backdrop-blur-sm">
           <h2 className="font-display text-2xl font-semibold text-ink">
-            Book Your Personal Email Reading
+            Start Your 7-Day Free Trial
           </h2>
           <p className="mt-2 font-body text-sm text-ink-muted">
-            Tell us what you want help with, then complete checkout. We collect your email securely
-            during payment and send your reading within 24-48 hours.
+            Tell us what you want help with, then start your free trial. You&apos;ll get daily AI horoscopes and a human-written email reading within 24-48 hours. Cancel anytime before the trial ends and you won&apos;t be charged.
           </p>
 
           <div className="mt-6 space-y-4">
@@ -438,12 +437,10 @@ export default function SnapshotClient() {
 
           <div className="mt-6 grid gap-3 sm:grid-cols-2">
             <div className="rounded-sm border border-white/10 bg-white/[0.03] p-4 font-body text-sm text-ink-muted">
-              Included: personalized reading by email, chart-based explanation, and focused advice
-              around your chosen topic.
+              Included: human-written email reading, daily AI horoscopes, AI chat, compatibility check, yearly forecast PDF, birthday surprises, and streak tracking — all for $4.99/month.
             </div>
             <div className="rounded-sm border border-white/10 bg-white/[0.03] p-4 font-body text-sm text-ink-muted">
-              Delivery: order confirmation immediately after payment, full reading in 24-48 hours,
-              plus 30-day money-back guarantee.
+              Risk-free: 7-day free trial. You won&apos;t be charged until the trial ends. Cancel anytime from your account page. Human reading delivered within 24-48 hours of subscribing.
             </div>
           </div>
 
@@ -463,11 +460,11 @@ export default function SnapshotClient() {
             >
               {checkoutPending
                 ? "Opening secure checkout..."
-                : `Continue To Checkout — ${EMAIL_READING_PRICE_LABEL}`}
+                : `Start 7-Day Free Trial — ${SUBSCRIPTION_PRICE_LABEL}`}
             </Button>
             <p className="mt-3 font-body text-sm text-ink-muted">
-              You&apos;ll enter your email securely at Stripe checkout. We use it to send your order
-              confirmation and final reading.
+              You&apos;ll enter your email securely at Stripe checkout. $4.99/month after your 7-day trial.
+              Cancel anytime.
             </p>
           </div>
 
@@ -482,7 +479,7 @@ export default function SnapshotClient() {
       <StickyUnlockBar
         pending={checkoutPending}
         onContinue={() => void startCheckout("sticky")}
-        priceLabel={EMAIL_READING_PRICE_LABEL}
+        priceLabel={SUBSCRIPTION_PRICE_LABEL}
       />
     </>
   );

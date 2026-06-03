@@ -3,18 +3,18 @@ import { BadgeCheck, Clock, Lock, ShieldCheck } from "lucide-react";
 const items = [
   {
     icon: ShieldCheck,
-    title: "30-Day Money-Back Guarantee",
-    body: "If your reading doesn't resonate with you, just email us and we'll refund 100% — no questions, no hoops, no hassle.",
+    title: "7-Day Free Trial — No Charge Upfront",
+    body: "Start your subscription and explore everything risk-free for 7 days. If it's not for you, cancel before the trial ends and you'll never be charged a cent.",
   },
   {
     icon: Clock,
-    title: "Delivered Within 24-48 Hours",
-    body: "You'll receive an order confirmation immediately after checkout. Your human-written Zi Wei reading arrives by email within 24-48 hours.",
+    title: "Human Reading Delivered Within 24-48 Hours",
+    body: "You'll receive an order confirmation immediately after subscribing. Your human-written Zi Wei email reading arrives within 24-48 hours to the email you provide at checkout.",
   },
   {
     icon: Lock,
     title: "Secure, Private Checkout",
-    body: "All payments processed by Stripe. Your birth data is encrypted and never shared. We delete it on request.",
+    body: "All payments processed by Stripe. Your birth data is encrypted and never shared. Cancel anytime from your account page with one click.",
   },
 ] as const;
 
@@ -32,16 +32,16 @@ export default function RiskFree() {
         <div className="text-center">
           <div className="inline-flex items-center gap-2 rounded-full border border-jade/[0.15] bg-jade/[0.04] px-4 py-1.5 backdrop-blur-sm">
             <ShieldCheck className="h-3.5 w-3.5 text-jade/70" aria-hidden />
-            <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-jade">Risk-Free Guarantee</span>
+            <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-jade">Risk-Free Trial</span>
           </div>
           <h2 className="landing-headline mt-5 text-3xl md:text-4xl lg:text-5xl">
-            You have nothing to lose.
+            Try everything for 7 days.
             <br />
-            <span className="text-ink-muted">Except maybe a{" "}</span>
+            <span className="text-ink-muted">If it doesn&apos;t{" "}</span>
             <span className="bg-gradient-to-r from-jade to-gold bg-clip-text text-transparent">
-              wrong assumption
+              change your perspective
             </span>
-            {" "}about yourself.
+            , cancel and walk away.
           </h2>
         </div>
 
@@ -84,8 +84,9 @@ export default function RiskFree() {
           <BadgeCheck className="h-5 w-5 shrink-0 text-gold/70" aria-hidden />
           <p className="font-body text-sm leading-relaxed text-ink-muted">
             <span className="font-semibold text-ink">The guarantee is simple:</span>{" "}
-            If you don&apos;t feel your reading was worth every dollar, we refund it.
-            We&apos;ve done this for hundreds of readers.
+            You get 7 full days to explore everything — daily horoscopes, AI chat, compatibility,
+            yearly forecast, and your human-written email reading. If you&apos;re not convinced,
+            cancel before the trial ends. No charges. No hassle.
           </p>
         </div>
       </div>

@@ -1,264 +1,173 @@
-import { Check, X, ArrowRight, Sparkles, FileText, Sun, ShieldCheck, Clock } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { track } from "@/lib/analytics";
 import Link from "next/link";
+import { Check, Minus, Sparkles, Star, MessageCircle, Heart, Calendar, Gift, Flame, Bell, Mail, ArrowRight } from "lucide-react";
 
-type Props = {
-  onBookClick?: () => void;
-  readingHref?: string;
-};
-
-const emailReadingRows = [
-  { label: "Core Personality Snapshot & Traits", free: "yes", paid: "yes" },
-  { label: "Personality Strengths & Blind Spots", free: "partial", paid: "yes" },
-  { label: "12 Life Palaces Full Breakdown", free: "no", paid: "yes-line" },
-  { label: "10-Year Destiny Cycle Timeline", free: "no", paid: "yes-forecast" },
-  { label: "Love & Relationship Pattern Insights", free: "no", paid: "yes" },
-  { label: "Career & Wealth Potential Analysis", free: "no", paid: "yes" },
-  { label: "Hidden Talents & Growth Opportunities", free: "no", paid: "yes" },
-  { label: "Personalized Email Delivery", free: "no", paid: "yes-inbox" },
-  { label: "30-Day Money-Back Guarantee", free: "dash", paid: "yes-coverage" },
-] as const;
-
-const subscriptionRows = [
-  "Daily AI-powered Zi Wei horoscope",
-  "Interactive birth chart with 12 palaces",
-  "AI Chat — Ask Ziwei about your chart",
-  "Compatibility check with another person",
-  "Yearly forecast + downloadable PDF",
-  "Birthday surprise reading",
-  "Streak tracking & push notifications",
-  "7-day free trial — cancel anytime",
-] as const;
-
-function FreeCell({ state }: { state: "yes" | "no" | "partial" | "dash" }) {
-  if (state === "yes") {
-    return (
-      <span className="shrink-0 text-jade">
-        <Check className="h-3.5 w-3.5" aria-label="Included" />
-      </span>
-    );
-  }
-  if (state === "partial") {
-    return (
-      <span className="shrink-0 font-body text-[11px] text-ink-dim">Partial</span>
-    );
-  }
-  if (state === "dash") {
-    return <span className="shrink-0 font-mono text-xs text-ink-dim">—</span>;
-  }
-  return (
-    <span className="shrink-0 text-ink-dim">
-      <X className="h-3.5 w-3.5" aria-label="Not included" />
-    </span>
-  );
+interface Props {
+  readingHref: string;
 }
 
-function PaidValue({ state }: { state: "yes" | "yes-inbox" | "yes-line" | "yes-forecast" | "yes-coverage" }) {
-  const label =
-    state === "yes-inbox"
-      ? "Email in 24–48h"
-      : state === "yes-line"
-        ? "Human-written"
-        : state === "yes-forecast"
-          ? "Timing advice"
-          : state === "yes-coverage"
-            ? "30-day"
-            : "Included";
-  return (
-    <span className="inline-flex items-center gap-1 shrink-0 font-body text-[11px] text-jade">
-      <Check className="h-3 w-3" aria-hidden />
-      {label}
-    </span>
-  );
-}
+const freeFeatures = [
+  { label: "Interactive 12-Palace Birth Chart", available: true },
+  { label: "Core Personality Traits & Strengths", available: true },
+  { label: "Growth Areas & Blind Spots", available: true },
+  { label: "True Solar Time Correction", available: true },
+  { label: "No signup required", available: true },
+  { label: "Daily AI Horoscope", available: false },
+  { label: "AI Chat — Ask Ziwei About Your Chart", available: false },
+  { label: "Compatibility Check (Two-Person)", available: false },
+  { label: "Yearly Forecast + Downloadable PDF", available: false },
+  { label: "Birthday Surprise Reading", available: false },
+  { label: "Streak Tracking & Achievements", available: false },
+  { label: "Human-Written Email Reading", available: false },
+  { label: "Cancel Anytime", available: false },
+] as const;
 
-export default function FreeVsPaidTable({ onBookClick, readingHref }: Props) {
+const premiumFeatures = [
+  { label: "Interactive 12-Palace Birth Chart", icon: Star },
+  { label: "Core Personality Traits & Strengths", icon: Sparkles },
+  { label: "Growth Areas & Blind Spots", icon: Sparkles },
+  { label: "True Solar Time Correction", icon: Star },
+  { label: "No signup required for snapshot", icon: Star },
+  { label: "Daily AI Horoscope", icon: Sparkles },
+  { label: "AI Chat — Ask Ziwei About Your Chart", icon: MessageCircle },
+  { label: "Compatibility Check (Two-Person)", icon: Heart },
+  { label: "Yearly Forecast + Downloadable PDF", icon: Calendar },
+  { label: "Birthday Surprise Reading", icon: Gift },
+  { label: "Streak Tracking & Achievements", icon: Flame },
+  { label: "Human-Written Email Reading", icon: Mail },
+  { label: "Cancel Anytime", icon: Bell },
+] as const;
+
+export default function FreeVsPaidTable({ readingHref }: Props) {
   return (
-    <section className="relative overflow-hidden border-y border-white/[0.07] bg-mist/40 py-24 backdrop-blur-sm md:py-32">
-      {/* Background accent */}
+    <section className="relative overflow-hidden px-4 py-24 sm:px-6 md:py-32">
+      {/* Background */}
       <div
-        className="pointer-events-none absolute right-0 top-0 h-96 w-96 translate-x-1/2 -translate-y-1/2 rounded-full border border-gold/10 bg-gold/[0.02]"
-        aria-hidden
-      />
-      <div
-        className="pointer-events-none absolute -left-20 bottom-10 h-64 w-64 rounded-full border border-jade/10 bg-jade/[0.02]"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_50%_0%,oklch(0.74_0.12_78/0.04),transparent_50%)]"
         aria-hidden
       />
 
-      <div className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+      <div className="relative mx-auto max-w-5xl">
         {/* Header */}
         <div className="text-center">
-          <p className="landing-kicker">Pricing</p>
-          <h2 className="landing-headline mt-3 text-3xl md:text-4xl lg:text-5xl">
-            Start free. Go deeper with{" "}
-            <span className="bg-gradient-to-r from-gold to-cinnabar bg-clip-text text-transparent">
-              $99
+          <div className="inline-flex items-center gap-2 rounded-full border border-gold/[0.15] bg-gold/[0.04] px-4 py-1.5 backdrop-blur-sm">
+            <Sparkles className="h-3.5 w-3.5 text-gold/70" aria-hidden />
+            <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-gold/80">
+              Simple Pricing
             </span>
-            .<br />
-            <span className="text-ink-muted">Or subscribe for daily guidance.</span>
+          </div>
+          <h2 className="landing-headline mt-5 text-3xl md:text-4xl lg:text-5xl">
+            Free to start.
+            <br />
+            <span className="bg-gradient-to-r from-gold to-cinnabar bg-clip-text text-transparent">
+              $4.99/month
+            </span>
+            {" "}to go deeper.
           </h2>
           <p className="mt-4 mx-auto max-w-xl font-body text-base leading-relaxed text-ink-muted">
-            Three ways to use Zi Wei Dou Shu — from a free instant snapshot to daily AI horoscopes.
+            One plan. Everything included. 7-day free trial — no charge until you decide to stay.
           </p>
         </div>
 
-        {/* Three-column cards */}
-        <div className="mt-14 grid gap-6 lg:grid-cols-3 lg:gap-5">
-          {/* ===== FREE ===== */}
-          <div className="group relative flex flex-col rounded-sm border border-white/[0.08] bg-panel/70 p-6 backdrop-blur-md transition-all duration-300 hover:border-white/[0.14] sm:p-7">
-            <div>
-              <span className="inline-flex h-10 w-10 items-center justify-center rounded-sm border border-white/[0.1] bg-white/[0.04]">
-                <Sparkles className="h-5 w-5 text-ink-dim" aria-hidden />
+        {/* Two-column cards */}
+        <div className="mt-14 grid gap-6 lg:grid-cols-2 lg:gap-8">
+          {/* FREE */}
+          <article className="flex flex-col rounded-sm border border-white/[0.08] bg-panel/70 shadow-panel backdrop-blur-sm">
+            <div className="border-b border-white/[0.07] px-6 py-6 sm:px-8">
+              <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-ink-dim">
+                Free Snapshot
+              </p>
+              <p className="mt-2 font-display text-4xl font-semibold text-ink">
+                $0
+              </p>
+              <p className="mt-1 font-body text-sm text-ink-muted">
+                No credit card. No signup. Instant.
+              </p>
+            </div>
+            <div className="flex-1 px-6 py-5 sm:px-8">
+              <ul className="space-y-3">
+                {freeFeatures.map((f) => (
+                  <li key={f.label} className="flex items-start gap-3">
+                    {f.available ? (
+                      <Check className="mt-0.5 h-4 w-4 shrink-0 text-jade" aria-hidden />
+                    ) : (
+                      <Minus className="mt-0.5 h-4 w-4 shrink-0 text-ink-dim/40" aria-hidden />
+                    )}
+                    <span className={`font-body text-sm leading-relaxed ${f.available ? "text-ink-muted" : "text-ink-dim/40"}`}>
+                      {f.label}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="px-6 pb-6 sm:px-8">
+              <a
+                href={readingHref}
+                className="flex w-full items-center justify-center gap-2 rounded-sm border border-white/[0.12] bg-white/[0.03] py-3 font-mono text-sm font-semibold uppercase tracking-wide text-ink-muted transition-all hover:border-gold/30 hover:text-ink"
+              >
+                Get Free Snapshot
+                <ArrowRight className="h-4 w-4" aria-hidden />
+              </a>
+            </div>
+          </article>
+
+          {/* PREMIUM */}
+          <article className="relative flex flex-col rounded-sm border border-gold/40 bg-gradient-to-br from-gold/[0.06] via-panel/90 to-cinnabar/[0.04] shadow-glow backdrop-blur-sm ring-1 ring-gold/20">
+            {/* "Most Popular" badge */}
+            <div className="absolute -top-3 left-1/2 -translate-x-1/2">
+              <span className="inline-block rounded-full border border-gold/30 bg-gold/15 px-4 py-1 font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-gold">
+                Most Popular
               </span>
-              <p className="mt-4 font-display text-xl font-semibold text-ink">Free Snapshot</p>
-              <p className="mt-0.5 font-mono text-[10px] uppercase tracking-[0.22em] text-ink-dim">
-                No signup · Instant
+            </div>
+
+            <div className="border-b border-gold/[0.15] px-6 py-6 sm:px-8">
+              <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-gold/80">
+                DestinyBlueprint Premium
               </p>
-              <div className="mt-3 flex items-baseline gap-1">
-                <span className="font-display text-4xl font-semibold text-ink">$0</span>
-                <span className="font-body text-sm text-ink-dim">forever</span>
+              <div className="mt-2 flex items-baseline gap-2">
+                <span className="font-display text-4xl font-semibold text-ink">
+                  $4.99
+                </span>
+                <span className="font-body text-base text-ink-muted">/month</span>
               </div>
-            </div>
-
-            <ul className="mt-7 flex-1 space-y-2.5 border-t border-white/[0.06] pt-5">
-              {emailReadingRows.map((r) => (
-                <li key={r.label} className="flex items-center justify-between gap-2">
-                  <span className="font-body text-xs text-ink-muted">{r.label}</span>
-                  <FreeCell state={r.free} />
-                </li>
-              ))}
-            </ul>
-
-            <div className="mt-6">
-              <Button asChild variant="cta" size="lg" className="w-full">
-                <a
-                  href="#birth-form"
-                  onClick={() => track("cta_pricing_free_snapshot_click")}
-                >
-                  Get Free Snapshot
-                </a>
-              </Button>
-            </div>
-          </div>
-
-          {/* ===== $99 EMAIL READING ===== */}
-          <div className="group relative flex flex-col rounded-sm border border-gold/30 bg-gradient-to-br from-gold/[0.06] via-panel/80 to-cinnabar/[0.04] p-6 shadow-glow backdrop-blur-md transition-all duration-300 hover:border-gold/40 sm:p-7 lg:-translate-y-3">
-            <div className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full border border-gold/30 bg-void px-4 py-1 font-mono text-[10px] uppercase tracking-[0.22em] text-gold backdrop-blur-md">
-              Most Popular
-            </div>
-
-            <div>
-              <span className="inline-flex h-10 w-10 items-center justify-center rounded-sm border border-gold/30 bg-gold/[0.08]">
-                <FileText className="h-5 w-5 text-gold" aria-hidden />
-              </span>
-              <p className="mt-4 font-display text-xl font-semibold text-ink">Email Reading</p>
-              <p className="mt-0.5 font-mono text-[10px] uppercase tracking-[0.22em] text-gold">
-                Human-written · 24–48h
-              </p>
-              <div className="mt-3 flex items-baseline gap-1">
-                <span className="font-display text-4xl font-semibold text-ink">$99</span>
-                <span className="font-body text-sm text-ink-muted">one-time</span>
-              </div>
-            </div>
-
-            <ul className="mt-7 flex-1 space-y-2.5 border-t border-gold/[0.1] pt-5">
-              {emailReadingRows.map((r) => (
-                <li key={r.label} className="flex items-center justify-between gap-2">
-                  <span className="font-body text-xs text-ink">{r.label}</span>
-                  <PaidValue state={r.paid} />
-                </li>
-              ))}
-            </ul>
-
-            <div className="mt-6 space-y-3">
-              {readingHref ? (
-                <Button asChild variant="cta" size="lg" className="w-full group/btn">
-                  <a
-                    href={readingHref}
-                    onClick={() => track("cta_table_email_reading_click")}
-                  >
-                    Get My Email Reading
-                    <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover/btn:translate-x-0.5" aria-hidden />
-                  </a>
-                </Button>
-              ) : (
-                <Button
-                  type="button"
-                  variant="cta"
-                  size="lg"
-                  className="w-full group/btn"
-                  onClick={() => {
-                    track("cta_table_email_reading_click");
-                    onBookClick?.();
-                  }}
-                >
-                  Get My Email Reading
-                  <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover/btn:translate-x-0.5" aria-hidden />
-                </Button>
-              )}
-              <div className="flex items-start gap-2 rounded-sm border border-gold/[0.1] bg-gold/[0.03] p-2.5">
-                <ShieldCheck className="mt-0.5 h-3.5 w-3.5 shrink-0 text-gold/70" aria-hidden />
-                <p className="font-body text-[11px] leading-relaxed text-ink-muted">
-                  30-day money-back guarantee. No questions asked.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* ===== $4.99/MO SUBSCRIPTION ===== */}
-          <div className="group relative flex flex-col rounded-sm border border-amber-500/20 bg-gradient-to-br from-amber-500/[0.04] via-panel/70 to-amber-500/[0.02] p-6 backdrop-blur-md transition-all duration-300 hover:border-amber-500/30 sm:p-7">
-            <div>
-              <span className="inline-flex h-10 w-10 items-center justify-center rounded-sm border border-amber-500/25 bg-amber-500/[0.06]">
-                <Sun className="h-5 w-5 text-amber-400" aria-hidden />
-              </span>
-              <p className="mt-4 font-display text-xl font-semibold text-ink">Daily Horoscope</p>
-              <p className="mt-0.5 font-mono text-[10px] uppercase tracking-[0.22em] text-amber-400">
-                AI-powered · Every morning
-              </p>
-              <div className="mt-3 flex items-baseline gap-1">
-                <span className="font-display text-4xl font-semibold text-ink">$4.99</span>
-                <span className="font-body text-sm text-ink-dim">/month</span>
-              </div>
-              <p className="mt-1 font-body text-xs text-ink-dim">
-                7-day free trial · Cancel anytime
+              <p className="mt-1 font-body text-sm text-ink-muted">
+                7-day free trial. Cancel anytime.
               </p>
             </div>
 
-            <ul className="mt-7 flex-1 space-y-2.5 border-t border-amber-500/[0.08] pt-5">
-              {subscriptionRows.map((row) => (
-                <li key={row} className="flex items-start gap-2">
-                  <Check className="mt-0.5 h-3.5 w-3.5 shrink-0 text-amber-400" aria-hidden />
-                  <span className="font-body text-xs text-ink-muted">{row}</span>
-                </li>
-              ))}
-            </ul>
+            <div className="flex-1 px-6 py-5 sm:px-8">
+              <ul className="space-y-3">
+                {premiumFeatures.map((f) => (
+                  <li key={f.label} className="flex items-start gap-3">
+                    <f.icon className="mt-0.5 h-4 w-4 shrink-0 text-gold" aria-hidden />
+                    <span className="font-body text-sm leading-relaxed text-ink">
+                      {f.label}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
 
-            <div className="mt-6 space-y-3">
+            <div className="px-6 pb-8 sm:px-8">
               <Link
                 href="/daily"
-                className="inline-flex w-full items-center justify-center gap-2 rounded-sm border border-amber-500/25 bg-amber-500/[0.1] px-6 py-3 font-body text-sm font-semibold text-amber-300 transition-all hover:bg-amber-500/[0.18] hover:border-amber-500/40"
-                onClick={() => track("cta_pricing_subscription_click")}
+                className="flex w-full items-center justify-center gap-2 rounded-sm bg-gradient-to-br from-cinnabar to-cinnabar-deep py-3.5 font-mono text-sm font-semibold uppercase tracking-wide text-ink shadow-[0_0_32px_-8px_rgba(201,84,60,0.45)] transition-all hover:brightness-110"
               >
-                Start Free Trial
+                Start 7-Day Free Trial
                 <ArrowRight className="h-4 w-4" aria-hidden />
               </Link>
-              <div className="flex items-start gap-2 rounded-sm border border-amber-500/[0.08] bg-amber-500/[0.02] p-2.5">
-                <Clock className="mt-0.5 h-3.5 w-3.5 shrink-0 text-amber-400/70" aria-hidden />
-                <p className="font-body text-[11px] leading-relaxed text-ink-muted">
-                  7-day free trial. Cancel anytime from the billing portal.
-                </p>
-              </div>
+              <p className="mt-3 text-center font-body text-xs text-ink-dim">
+                No charge until your trial ends. Cancel with one click.
+              </p>
             </div>
-          </div>
+          </article>
         </div>
 
-        {/* Bottom note */}
-        <div className="mt-10 flex items-center gap-3 rounded-sm border border-white/[0.06] bg-white/[0.02] px-5 py-4 backdrop-blur-sm md:mx-auto md:max-w-2xl">
-          <Clock className="h-5 w-5 shrink-0 text-ink-dim" aria-hidden />
+        {/* Bottom guarantee */}
+        <div className="mt-10 flex items-center gap-3 rounded-sm border border-jade/[0.15] bg-jade/[0.03] px-5 py-4 backdrop-blur-sm md:mx-auto md:max-w-xl">
+          <Check className="h-5 w-5 shrink-0 text-jade" aria-hidden />
           <p className="font-body text-sm leading-relaxed text-ink-muted">
-            <span className="font-semibold text-ink">After email reading purchase:</span>{" "}
-            Order confirmation immediately. Human-written reading delivered by email within 24–48 hours.
+            <span className="font-semibold text-ink">Everything in one plan.</span>{" "}
+            Daily horoscopes, AI chat, compatibility, yearly forecast, birthday surprises, push notifications, streak tracking, and a human-written email reading — all included with your subscription. No upgrades. No add-ons.
           </p>
         </div>
       </div>

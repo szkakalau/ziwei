@@ -1,12 +1,28 @@
 import Image from "next/image";
-import { FileText, Sparkles, ArrowRight, Mail } from "lucide-react";
+import { FileText, Sparkles, ArrowRight, Star, MessageCircle, Calendar, Bell } from "lucide-react";
 import EmailReadingPreviewSample from "@/components/landing/EmailReadingPreviewSample";
 
-const highlights = [
-  "Human-written reading grounded in your full Zi Wei Dou Shu chart",
-  "Choose your focus: love, career, wealth, or life timing",
-  "Clear, actionable guidance delivered by email within 24-48 hours",
-  "Every reading references your specific stars and palaces by name",
+const features = [
+  {
+    icon: Star,
+    label: "Daily AI Horoscope",
+    body: "Every morning, a personalized Zi Wei Dou Shu horoscope written by AI based on your chart and the day's transits.",
+  },
+  {
+    icon: MessageCircle,
+    label: "Ask Ziwei Chat",
+    body: "Ask questions about your chart, life decisions, or specific stars — the AI understands your full birth chart.",
+  },
+  {
+    icon: Calendar,
+    label: "Yearly Forecast + PDF",
+    body: "A comprehensive annual reading covering career, love, health, and wealth, downloadable as a PDF.",
+  },
+  {
+    icon: FileText,
+    label: "Human-Written Email Reading",
+    body: "A one-time deep reading by a real Zi Wei practitioner, delivered to your inbox within 24-48 hours of subscribing.",
+  },
 ] as const;
 
 export default function SeeWhatYouGet() {
@@ -22,22 +38,36 @@ export default function SeeWhatYouGet() {
         {/* Header */}
         <div className="text-center">
           <div className="inline-flex items-center gap-2 rounded-full border border-white/[0.08] bg-white/[0.03] px-4 py-1.5 backdrop-blur-sm">
-            <Mail className="h-3.5 w-3.5 text-gold/70" aria-hidden />
-            <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-ink-dim">What You Receive</span>
+            <Bell className="h-3.5 w-3.5 text-gold/70" aria-hidden />
+            <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-ink-dim">What You Get</span>
           </div>
           <h2 className="landing-headline mt-5 text-3xl md:text-4xl lg:text-5xl">
-            Your chart.{" "}
-            <span className="text-ink-muted">Your stars.</span>
+            One subscription.
             <br />
             <span className="bg-gradient-to-r from-gold to-cinnabar bg-clip-text text-transparent">
-              Your story
+              Everything you need
             </span>
-            , written by a human.
+            {" "}to know yourself.
           </h2>
           <p className="mt-4 mx-auto max-w-xl font-body text-base leading-relaxed text-ink-muted">
-            We don&apos;t send templated paragraphs. Your Zi Wei reader examines your specific
-            chart and writes a personalized email based on what they find.
+            No tiered plans. No locked features behind higher prices. One $4.99/month subscription includes every tool and reading we offer.
           </p>
+        </div>
+
+        {/* Feature grid */}
+        <div className="mt-16 grid gap-5 sm:grid-cols-2">
+          {features.map((f) => (
+            <article
+              key={f.label}
+              className="rounded-sm border border-white/[0.08] bg-panel/80 p-6 shadow-panel backdrop-blur-md transition-all duration-300 hover:border-gold/20"
+            >
+              <span className="inline-flex h-10 w-10 items-center justify-center rounded-sm border border-gold/20 bg-gold/[0.06]">
+                <f.icon className="h-5 w-5 text-gold" aria-hidden />
+              </span>
+              <h3 className="mt-4 font-display text-lg font-semibold text-ink">{f.label}</h3>
+              <p className="mt-2 font-body text-sm leading-relaxed text-ink-muted">{f.body}</p>
+            </article>
+          ))}
         </div>
 
         {/* Preview cards — layered overlap */}
@@ -53,7 +83,7 @@ export default function SeeWhatYouGet() {
                   Your Zi Wei Birth Chart
                 </h3>
                 <p className="mt-0.5 font-body text-sm text-ink-muted">
-                  The full 12-palace chart that forms the foundation of your reading
+                  The full 12-palace chart — included free, no signup required
                 </p>
               </div>
             </div>
@@ -79,10 +109,10 @@ export default function SeeWhatYouGet() {
               </span>
               <div>
                 <h3 className="font-display text-xl font-semibold text-ink">
-                  Your Email Reading
+                  Your Human-Written Email Reading
                 </h3>
                 <p className="mt-0.5 font-body text-sm text-ink-muted">
-                  Personalized, human-written, and delivered in 24-48 hours
+                  Included with your subscription · Delivered in 24-48 hours
                 </p>
               </div>
             </div>
@@ -92,12 +122,24 @@ export default function SeeWhatYouGet() {
 
               {/* Info note */}
               <div className="mt-5 space-y-3 border-t border-white/[0.07] pt-5">
-                {highlights.map((h) => (
-                  <div key={h} className="flex items-start gap-3">
-                    <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rotate-45 bg-cinnabar" aria-hidden />
-                    <span className="font-body text-sm leading-relaxed text-ink-muted">{h}</span>
-                  </div>
-                ))}
+                <div className="flex items-start gap-3">
+                  <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rotate-45 bg-cinnabar" aria-hidden />
+                  <span className="font-body text-sm leading-relaxed text-ink-muted">
+                    Human-written reading grounded in your full Zi Wei Dou Shu chart
+                  </span>
+                </div>
+                <div className="flex items-start gap-3">
+                  <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rotate-45 bg-cinnabar" aria-hidden />
+                  <span className="font-body text-sm leading-relaxed text-ink-muted">
+                    Choose your focus: love, career, wealth, or life timing
+                  </span>
+                </div>
+                <div className="flex items-start gap-3">
+                  <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rotate-45 bg-cinnabar" aria-hidden />
+                  <span className="font-body text-sm leading-relaxed text-ink-muted">
+                    Your specific stars and palaces referenced by name
+                  </span>
+                </div>
               </div>
 
               {/* Teaser arrow */}

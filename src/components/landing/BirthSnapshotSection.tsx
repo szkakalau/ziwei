@@ -872,7 +872,7 @@ export default function BirthSnapshotSection() {
               </p>
               <p className="flex items-start gap-2 font-body text-sm text-ink-muted">
                 <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-jade" aria-hidden />
-                <span>30-Day Money-Back Guarantee on all email readings</span>
+                <span>7-Day Free Trial · Cancel Anytime</span>
               </p>
             </div>
           </>

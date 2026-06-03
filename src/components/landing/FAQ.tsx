@@ -12,20 +12,20 @@ const faqs = [
     a: "Zi Wei Dou Shu (Purple Star Astrology) is an ancient Chinese system that maps over 100 stars across 12 life palaces using your exact birth time and location. It's fundamentally more detailed than Western sun-sign astrology — instead of one reading for 1/12th of the population, your chart is unique to you.",
   },
   {
-    q: "Is this a human reading or AI-generated?",
-    a: "Your $99 email reading is written by a real human Zi Wei practitioner. We use software to compute your chart accurately (including apparent solar time correction), but the interpretation, writing, and delivery are all done by a person within 24-48 hours.",
+    q: "Is this AI or human-powered?",
+    a: "Both. Your subscription includes daily AI-generated horoscopes (personalized to your chart), plus a one-time human-written email reading delivered within 24-48 hours when you first subscribe. The AI handles daily insights; the human handles the deep, comprehensive reading.",
   },
   {
     q: "Do I need my exact birth time?",
     a: "The more accurate your birth time, the more precise your chart. If you know your exact time, great. If you only know approximately (e.g., 'morning' or 'afternoon'), you can still order — we'll note the approximation. If you don't know at all, we can still generate a chart using noon, but the precision will be reduced.",
   },
   {
-    q: "What's the difference between the free snapshot and the paid reading?",
-    a: "The free snapshot gives you a preview of your personality based on your Zi Wei chart — core traits, strengths, and growth areas. The paid $99 email reading is a full human-written analysis covering your 12 life palaces, 10-year destiny cycles, love, career, wealth, and hidden talents, with personalized timing advice.",
+    q: "What's the difference between the free snapshot and the subscription?",
+    a: "The free snapshot gives you a preview of your personality — core traits, strengths, and growth areas based on your Zi Wei chart. The $4.99/month subscription unlocks everything: daily AI horoscopes, AI chat about your chart, compatibility checks, yearly forecast with PDF download, birthday surprises, streak tracking, push notifications, and a one-time human-written email reading covering your 12 life palaces, destiny cycles, love, career, wealth, and hidden talents.",
   },
   {
-    q: "What if I'm not satisfied with my reading?",
-    a: "We offer a 30-day no-questions-asked money-back guarantee. If your reading doesn't resonate, email us at support@destinyblueprint.xyz and we'll refund 100% of your payment. We've built our reputation on this guarantee.",
+    q: "What if I'm not satisfied?",
+    a: "You have a 7-day free trial — if you cancel before it ends, you're never charged. After that, you can cancel anytime from your account page and won't be billed again. If the human-written email reading doesn't resonate, email us at support@destinyblueprint.xyz for a refund.",
   },
   {
     q: "Is this scientifically validated?",
