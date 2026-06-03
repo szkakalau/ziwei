@@ -14,45 +14,55 @@ const rows: Array<{
   free: CellState;
   paid: "yes" | "yes-inbox" | "yes-line" | "yes-forecast" | "yes-coverage";
 }> = [
-  { label: "Full Birth Chart with 100+ Stars", free: "partial", paid: "yes" },
-  { label: "12 Life Palaces Breakdown", free: "no", paid: "yes-line" },
-  { label: "10-Year Destiny Cycle Map", free: "no", paid: "yes-forecast" },
-  { label: "Love & Relationship Analysis", free: "no", paid: "yes" },
-  { label: "Career & Wealth Trajectory", free: "no", paid: "yes" },
-  { label: "Hidden Strengths & Blind Spots", free: "partial", paid: "yes" },
-  { label: "Personalized Human Email Delivery", free: "no", paid: "yes-inbox" },
+  { label: "Core Personality Snapshot & Traits", free: "yes", paid: "yes" },
+  { label: "Personality Strengths & Blind Spots", free: "partial", paid: "yes" },
+  { label: "12 Life Palaces Full Breakdown", free: "no", paid: "yes-line" },
+  { label: "10-Year Destiny Cycle Timeline", free: "no", paid: "yes-forecast" },
+  { label: "Love & Relationship Pattern Insights", free: "no", paid: "yes" },
+  { label: "Career & Wealth Potential Analysis", free: "no", paid: "yes" },
+  { label: "Hidden Talents & Growth Opportunities", free: "no", paid: "yes" },
+  { label: "Personalized Email Delivery", free: "no", paid: "yes-inbox" },
   { label: "30-Day Money-Back Guarantee", free: "dash", paid: "yes-coverage" },
 ];
 
 function FreeCell({ state }: { state: CellState }) {
   if (state === "yes") {
-    return <Check className="h-4 w-4 text-jade" aria-label="Included" />;
+    return (
+      <span className="inline-flex items-center gap-1.5 font-body text-xs text-jade">
+        <Check className="h-3.5 w-3.5" aria-hidden />
+        Full Access
+      </span>
+    );
   }
   if (state === "partial") {
     return (
       <span className="inline-flex items-center gap-1.5 font-body text-xs text-ink-dim">
-        <span className="h-1.5 w-1.5 rounded-full bg-gold/60" aria-hidden />
-        Preview
+        <X className="h-3.5 w-3.5" aria-hidden />
+        Partial Preview
       </span>
     );
   }
   if (state === "dash") {
-    return <span className="font-mono text-xs text-ink-dim">—</span>;
+    return <span className="font-body text-sm text-ink-dim">—</span>;
   }
-  return <X className="h-4 w-4 text-ink-dim" aria-label="Not included" />;
+  return (
+    <span className="inline-flex items-center gap-1.5 font-body text-xs text-ink-dim">
+      <X className="h-3.5 w-3.5" aria-hidden />
+    </span>
+  );
 }
 
 function PaidValue({ state }: { state: "yes" | "yes-inbox" | "yes-line" | "yes-forecast" | "yes-coverage" }) {
   const label =
     state === "yes-inbox"
-      ? "Email in 24-48h"
+      ? "Delivered By Email In 24-48 Hours"
       : state === "yes-line"
-        ? "Human-written"
+        ? "Human-Written Reading"
         : state === "yes-forecast"
-          ? "With timing advice"
+          ? "Focused Advice & Timing Guidance"
           : state === "yes-coverage"
-            ? "No questions asked"
-            : "Included";
+            ? "30-Day Guarantee"
+            : "Full Access";
   return (
     <span className="inline-flex items-center gap-1.5 font-body text-xs text-jade">
       <Check className="h-3.5 w-3.5" aria-hidden />
@@ -87,7 +97,7 @@ export default function FreeVsPaidTable({ onBookClick, readingHref }: Props) {
             {" "}for the real thing.
           </h2>
           <p className="mt-4 mx-auto max-w-xl font-body text-base leading-relaxed text-ink-muted">
-            Start with a free, AI-generated personality snapshot. Upgrade to a human-written
+            Start with a free, chart-generated personality snapshot. Upgrade to a human-written
             reading delivered by email — backed by a 30-day guarantee.
           </p>
         </div>
