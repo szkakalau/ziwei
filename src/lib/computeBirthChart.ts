@@ -2,7 +2,7 @@ import { find as findTimezones1970 } from "geo-tz";
 import { find as findTimezonesAll } from "geo-tz/all";
 import { DateTime, FixedOffsetZone } from "luxon";
 import { apparentSolarFromUtcInstant } from "@/lib/apparentSolar";
-import { GeocodeUnavailableError, geocodeLocation } from "@/lib/geocode";
+import { geocodeLocation } from "@/lib/geocode";
 import {
   buildChartFromApparentSolar,
   buildChartFromLocalClock,
@@ -96,51 +96,27 @@ export async function computeBirthChart(
   let geo;
   try {
     geo = await geocodeLocation(input.location);
-  } catch (e) {
-    if (e instanceof GeocodeUnavailableError) {
-      if (input.allowFallback) {
-        const chart = buildChartFromLocalClock({
-          birthDate: input.birthDate,
-          birthTime: input.birthTime?.trim() || "12:00",
-          gender: input.gender,
-        });
-        return {
-          ok: true,
-          chart: sanitizeChartForEnglishSiteSafe(chart),
-          meta: {
-            timezone: "Approximate",
-            latitude: 0,
-            longitude: 0,
-            placeLabel: input.location || "Unknown",
-            apparentSolarDate: input.birthDate,
-            apparentSolarTime: input.birthTime?.trim() || "12:00",
-            isApproximate: true,
-          },
-        };
-      }
-      return { ok: false, errorCode: "GEOCODE_UNAVAILABLE" };
-    }
-    if (input.allowFallback) {
-      const chart = buildChartFromLocalClock({
-        birthDate: input.birthDate,
-        birthTime: input.birthTime?.trim() || "12:00",
-        gender: input.gender,
-      });
-      return {
-        ok: true,
-        chart: sanitizeChartForEnglishSiteSafe(chart),
-        meta: {
-          timezone: "Approximate",
-          latitude: 0,
-          longitude: 0,
-          placeLabel: input.location || "Unknown",
-          apparentSolarDate: input.birthDate,
-          apparentSolarTime: input.birthTime?.trim() || "12:00",
-          isApproximate: true,
-        },
-      };
-    }
-    return { ok: false, errorCode: "GEOCODE_UNAVAILABLE" };
+  } catch (_e) {
+    // Always fall back to local-clock when geocoding is unavailable.
+    // The service being down should never block chart generation.
+    const chart = buildChartFromLocalClock({
+      birthDate: input.birthDate,
+      birthTime: input.birthTime?.trim() || "12:00",
+      gender: input.gender,
+    });
+    return {
+      ok: true,
+      chart: sanitizeChartForEnglishSiteSafe(chart),
+      meta: {
+        timezone: "Approximate",
+        latitude: 0,
+        longitude: 0,
+        placeLabel: input.location || "Unknown",
+        apparentSolarDate: input.birthDate,
+        apparentSolarTime: input.birthTime?.trim() || "12:00",
+        isApproximate: true,
+      },
+    };
   }
   if (!geo) {
     return { ok: false, errorCode: "LOCATION_NOT_FOUND" };
