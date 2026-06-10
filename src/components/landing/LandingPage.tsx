@@ -3,14 +3,14 @@
 import { useEffect, useRef } from "react";
 import Hero from "@/components/landing/Hero";
 import LandingNavbar from "@/components/landing/LandingNavbar";
+import BirthSnapshotSection from "@/components/landing/BirthSnapshotSection";
+import ProductShowcase from "@/components/landing/ProductShowcase";
 import WhyZiWeiBetter from "@/components/landing/WhyZiWeiBetter";
 import FreeVsPaidTable from "@/components/landing/FreeVsPaidTable";
-import SeeWhatYouGet from "@/components/landing/SeeWhatYouGet";
 import Testimonials from "@/components/landing/Testimonials";
 import RiskFree from "@/components/landing/RiskFree";
 import FAQ from "@/components/landing/FAQ";
 import LandingFooter from "@/components/landing/LandingFooter";
-import BirthSnapshotSection from "@/components/landing/BirthSnapshotSection";
 
 const FORM_ANCHOR_ID = "birth-form";
 
@@ -18,7 +18,6 @@ export default function LandingPage() {
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Register entrance animation observer for sections
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -43,7 +42,7 @@ export default function LandingPage() {
         aria-hidden
       />
 
-      {/* Subtle ambient gradient */}
+      {/* Ambient gradients */}
       <div
         className="pointer-events-none fixed inset-0 z-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-10%,oklch(0.74_0.12_78/0.04),transparent_50%),radial-gradient(ellipse_40%_40%_at_100%_50%,oklch(0.58_0.19_32/0.03),transparent_50%)]"
         aria-hidden
@@ -52,32 +51,39 @@ export default function LandingPage() {
       <div className="relative z-10">
         <LandingNavbar formAnchorId={FORM_ANCHOR_ID} />
 
+        {/* 1. Hero — value-first, CTA + preview */}
         <Hero formAnchorId={FORM_ANCHOR_ID} />
 
+        {/* 2. Birth Form — conversion engine, no scrolling needed */}
+        <div data-reveal-section>
+          <BirthSnapshotSection />
+        </div>
+
+        {/* 3. Product Showcase — visual previews of every feature */}
+        <div data-reveal-section>
+          <ProductShowcase />
+        </div>
+
+        {/* 4. Why Zi Wei — credibility & education (after the user has seen what they get) */}
         <div data-reveal-section>
           <WhyZiWeiBetter />
         </div>
 
+        {/* 5. Pricing — simple, one plan */}
         <div data-reveal-section>
           <FreeVsPaidTable readingHref={`#${FORM_ANCHOR_ID}`} />
         </div>
 
-        <div data-reveal-section>
-          <SeeWhatYouGet />
-        </div>
-
+        {/* 6. Social Proof */}
         <div data-reveal-section>
           <Testimonials />
-        </div>
-
-        <div data-reveal-section>
-          <BirthSnapshotSection />
         </div>
 
         <div data-reveal-section>
           <RiskFree />
         </div>
 
+        {/* 7. FAQ */}
         <div data-reveal-section>
           <FAQ />
         </div>

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { Sparkles, Star, ShieldCheck, ArrowRight, Compass } from "lucide-react";
+import { Sparkles, Star, Sun, ArrowRight, Compass } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { track } from "@/lib/analytics";
 
@@ -229,86 +229,105 @@ export default function Hero({ formAnchorId }: Props) {
           <div className="flex flex-wrap items-center gap-x-4 gap-y-2 sm:gap-x-6">
             <p className="inline-flex items-center gap-1.5 rounded-full border border-gold/20 bg-gold/[0.05] px-3 py-1 font-mono text-[10px] uppercase tracking-[0.24em] text-gold backdrop-blur-sm animate-on-load sm:gap-2 sm:px-4 sm:py-1.5 sm:text-[11px] sm:tracking-[0.28em]">
               <Compass className="h-3 w-3" aria-hidden />
-              Imperial Astrology
+              Not 1 of 12 Sun Signs
             </p>
             <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-dim animate-on-load-delay-1 sm:text-[11px] sm:tracking-[0.22em]">
-              1,000+ Years · 100+ Celestial Stars
+              100+ Stars · Exact Birth Time · True Solar Time
             </p>
           </div>
 
-          {/* Main headline */}
-          <h1 className="landing-headline mt-8 max-w-4xl text-[clamp(2.25rem,7vw,5rem)] animate-on-load-delay-1">
-            The stars that guided{" "}
+          {/* Main headline — value-first */}
+          <h1 className="landing-headline mt-8 max-w-3xl text-[clamp(2rem,6vw,4.25rem)] animate-on-load-delay-1">
+            A daily horoscope{" "}
             <span className="relative whitespace-nowrap">
               <span className="relative z-10 bg-gradient-to-r from-gold via-gold/90 to-cinnabar bg-clip-text text-transparent bg-[length:200%_200%] animate-gradient-shift">
-                Chinese emperors
+                written for you
               </span>
               <span
                 className="absolute -inset-x-3 -bottom-1 -top-1 -z-0 rounded-sm bg-gold/6 blur-md"
                 aria-hidden
               />
             </span>
-            <br />
-            now reveal{" "}
-            <span className="relative whitespace-nowrap">
-              <span className="relative z-10 bg-gradient-to-r from-star via-star/80 to-gold bg-clip-text text-transparent">
-                your path
-              </span>
-            </span>
-            .
+            ,<br />
+            not 1/12th of the planet.
           </h1>
 
-          {/* Subheadline */}
-          <p className="mt-6 max-w-2xl font-body text-base leading-relaxed text-ink-muted animate-on-load-delay-2 sm:text-lg md:text-xl">
+          {/* Subheadline — what makes it different */}
+          <p className="mt-5 max-w-xl font-body text-base leading-relaxed text-ink-muted animate-on-load-delay-2 sm:text-lg">
             Zi Wei Dou Shu maps{" "}
-            <span className="font-semibold text-ink">your exact birth time, location, and 100+ stars</span>
-            {" "}— not just your sun sign. Get a{" "}
-            <span className="font-semibold text-gold">free personality snapshot</span>
-            {" "}in 30 seconds, then unlock daily AI horoscopes with a{" "}
-            <span className="font-semibold text-ink">7-day free trial</span>
-            {" "}(<span className="text-ink-muted">$4.99/month</span>).
+            <span className="font-semibold text-ink">100+ stars to your exact birth time and location</span>
+            . Every morning you get a personalized reading based on YOUR chart —
+            not a generic paragraph written for millions of people who happen to
+            share your birth month.
           </p>
 
-          {/* Proof points — cosmic pill cards */}
-          <div className="mt-8 flex flex-wrap gap-3 animate-on-load-delay-3">
-            {[
-              { icon: Star, text: "100+ Celestial Stars Mapped" },
-              { icon: Sparkles, text: "Free Snapshot · No Signup" },
-              { icon: ShieldCheck, text: "7-Day Trial · Cancel Anytime" },
-            ].map((item) => (
-              <span
-                key={item.text}
-                className="inline-flex items-center gap-2 rounded-sm border border-gold/[0.10] bg-void/50 px-4 py-2.5 backdrop-blur-sm"
-              >
-                <item.icon className="h-4 w-4 shrink-0 text-gold/70" aria-hidden />
-                <span className="font-body text-sm text-ink-muted">{item.text}</span>
-              </span>
-            ))}
-          </div>
+          {/* CTA + Preview side by side */}
+          <div className="mt-8 flex flex-col gap-6 animate-on-load-delay-3 lg:flex-row lg:items-start lg:gap-10">
+            {/* CTA column */}
+            <div className="shrink-0">
+              <Button asChild variant="cta" size="lg" className="group w-full sm:w-auto">
+                <a
+                  href={`#${formAnchorId}`}
+                  onClick={() => track("cta_hero_get_snapshot_click")}
+                >
+                  Get My Free Snapshot
+                  <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-0.5" aria-hidden />
+                </a>
+              </Button>
+              <p className="mt-3 font-body text-sm text-ink-dim">
+                30 seconds · No signup · 100% private
+              </p>
+            </div>
 
-          {/* CTA */}
-          <div className="mt-8 flex flex-col items-start gap-3 sm:mt-10 sm:flex-row sm:items-center sm:gap-4 animate-on-load-delay-3">
-            <Button asChild variant="cta" size="lg" className="group w-full sm:w-auto">
-              <a
-                href={`#${formAnchorId}`}
-                onClick={() => track("cta_hero_get_snapshot_click")}
-              >
-                Reveal My Cosmic Blueprint
-                <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-0.5" aria-hidden />
-              </a>
-            </Button>
-            <p className="max-w-xs font-body text-sm text-ink-dim">
-              30 seconds · 100% private · No signup
-            </p>
+            {/* Preview card — shows what you get */}
+            <div className="min-w-0 flex-1 max-w-md">
+              <div className="card-cosmic overflow-hidden text-left">
+                <div className="flex items-center gap-2 border-b border-gold/[0.08] px-4 py-2.5">
+                  <Sparkles className="h-3.5 w-3.5 text-gold/60" />
+                  <span className="font-mono text-[10px] uppercase tracking-wider text-gold/60">
+                    Your Daily Horoscope
+                  </span>
+                  <span className="ml-auto font-mono text-[9px] text-ink-dim">
+                    Sample Preview
+                  </span>
+                </div>
+                <div className="px-4 py-3">
+                  <div className="flex items-center gap-1.5 mb-2">
+                    <Sun className="h-3 w-3 text-gold/50" />
+                    <span className="font-mono text-[10px] text-ink-dim">
+                      Wednesday, June 10
+                    </span>
+                  </div>
+                  <p className="font-body text-[13px] leading-relaxed text-ink-muted">
+                    Your <span className="font-semibold text-gold/80">Career Palace</span> is
+                    activated today. A conversation about direction or ambition may
+                    surface — what people reveal matters more than what they say.
+                    <span className="font-semibold text-star/80"> Tian Ji</span> in
+                    your Travel Palace suggests movement within 72 hours.
+                  </p>
+                  <div className="mt-2.5 flex flex-wrap gap-1">
+                    {["Zi Wei", "Tian Fu", "Wu Qu"].map((s) => (
+                      <span
+                        key={s}
+                        className="inline-flex items-center gap-0.5 rounded-sm border border-gold/[0.08] bg-gold/[0.03] px-1.5 py-0.5 font-mono text-[9px] text-gold/60"
+                      >
+                        <Star className="h-2 w-2" />
+                        {s}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
 
           {/* Stats strip */}
-          <div className="mt-12 flex flex-wrap gap-x-6 gap-y-4 border-t border-gold/[0.08] pt-6 animate-on-load-delay-3 sm:mt-16 sm:gap-x-10 sm:pt-8">
+          <div className="mt-10 flex flex-wrap gap-x-6 gap-y-4 border-t border-gold/[0.08] pt-6 animate-on-load-delay-3 sm:mt-14 sm:gap-x-10 sm:pt-8">
             {[
               { value: "100+", label: "Stars in your chart" },
-              { value: "12", label: "Life palaces analyzed" },
-              { value: "1,000+", label: "Years of refinement" },
-              { value: "24-48h", label: "Human reading included" },
+              { value: "Daily", label: "AI horoscopes" },
+              { value: "24-48h", label: "Human reading delivery" },
+              { value: "$4.99", label: "Per month after trial" },
             ].map((stat) => (
               <div key={stat.label} className="group">
                 <p className="font-display text-xl font-semibold tracking-tight text-ink transition-colors group-hover:text-gold sm:text-2xl md:text-3xl">
