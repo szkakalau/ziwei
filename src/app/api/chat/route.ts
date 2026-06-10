@@ -98,6 +98,9 @@ export async function POST(request: Request) {
     let answer: string;
     try {
       const result = await callAiWithFallback({ messages, maxTokens: 500, temperature: 0.8, timeoutMs: 20_000 });
+      if (!result.text || result.text.trim().length === 0) {
+        throw new Error("Empty AI response");
+      }
       answer = result.text;
     } catch {
       return NextResponse.json(

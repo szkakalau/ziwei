@@ -73,11 +73,17 @@ export async function POST() {
     const chartSummary = summarizeChart(user.chart_data);
     const year = new Date().getFullYear();
 
-    // Cache check: reuse cached yearly reading if already generated this year
+    // Cache check: reuse cached yearly reading if already generated this year.
+    // Use a valid date (YYYY-01-01) because the horoscope table casts to ::date.
+    const cacheKey = `${year}-01-01`;
     const { getHoroscope } = await import("@/lib/db");
-    const cacheKey = `${year}-yearly`;
-    const cached = await getHoroscope(user.id, cacheKey);
-    if (cached) {
+    let cached = null;
+    try {
+      cached = await getHoroscope(user.id, cacheKey);
+    } catch {
+      // Cache miss due to DB error — generate fresh
+    }
+    if (cached && cached.horoscope_text) {
       return NextResponse.json({ ok: true, reading: cached.horoscope_text, year, cached: true });
     }
 

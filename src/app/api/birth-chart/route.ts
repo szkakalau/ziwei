@@ -4,6 +4,17 @@ import { computeBirthChart } from "@/lib/computeBirthChart";
 export const runtime = "nodejs";
 
 export async function POST(request: Request) {
+  // Rate limit: 10 chart computations per minute per IP (unauthenticated endpoint)
+  const { checkRateLimit, getClientIp } = await import("@/lib/rateLimit");
+  const ip = getClientIp(request);
+  const rl = checkRateLimit(`birth-chart:${ip}`, { windowMs: 60_000, maxRequests: 10 });
+  if (!rl.allowed) {
+    return NextResponse.json(
+      { ok: false, error: "RATE_LIMITED", retryAfter: Math.ceil((rl.resetAt - Date.now()) / 1000) },
+      { status: 429, headers: { "Retry-After": String(Math.ceil((rl.resetAt - Date.now()) / 1000)) } },
+    );
+  }
+
   try {
     let body: unknown;
     try {
