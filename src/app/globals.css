@@ -3,26 +3,46 @@
 @tailwind utilities;
 
 :root {
-  /* OKLCH — warm void, ivory ink, vermillion primary, antique gold accent */
-  --color-void: oklch(0.13 0.032 258);
-  --color-mist: oklch(0.17 0.028 258);
-  --color-panel: oklch(0.2 0.03 258 / 0.78);
-  --color-ink: oklch(0.93 0.022 88);
-  --color-ink-muted: oklch(0.72 0.024 88);
-  --color-ink-dim: oklch(0.52 0.02 88);
-  --color-cinnabar: oklch(0.58 0.19 32);
-  --color-cinnabar-deep: oklch(0.44 0.15 32);
-  --color-cinnabar-glow: oklch(0.58 0.19 32 / 0.35);
-  --color-gold: oklch(0.74 0.12 78);
-  --color-gold-dim: oklch(0.74 0.12 78 / 0.14);
-  --color-jade: oklch(0.62 0.1 168);
-  --color-jade-dim: oklch(0.62 0.1 168 / 0.2);
+  /* ── Maximalist Cosmic Palette ── */
+  /* Deep space void — near-black with cool undertone */
+  --color-void: oklch(0.09 0.04 260);
+  /* Nebula mist — deep violet-blue for depth layers */
+  --color-mist: oklch(0.14 0.05 270);
+  /* Panel surfaces — translucent cosmic glass */
+  --color-panel: oklch(0.17 0.035 265 / 0.72);
+
+  /* Ink family — warm starlight on dark stone */
+  --color-ink: oklch(0.94 0.024 90);
+  --color-ink-muted: oklch(0.73 0.026 90);
+  --color-ink-dim: oklch(0.50 0.022 90);
+
+  /* Cinnabar — imperial vermillion seal paste, more intense */
+  --color-cinnabar: oklch(0.56 0.22 30);
+  --color-cinnabar-deep: oklch(0.42 0.16 30);
+  --color-cinnabar-glow: oklch(0.56 0.22 30 / 0.38);
+
+  /* Gold — imperial gold leaf, richer */
+  --color-gold: oklch(0.80 0.14 82);
+  --color-gold-dim: oklch(0.80 0.14 82 / 0.15);
+
+  /* Jade — celestial jade, brighter for contrast */
+  --color-jade: oklch(0.60 0.12 170);
+  --color-jade-dim: oklch(0.60 0.12 170 / 0.22);
+
+  /* New: Celestial Blue — bright star reference */
+  --color-star: oklch(0.52 0.18 250);
+  --color-star-dim: oklch(0.52 0.18 250 / 0.18);
+
+  /* New: Nebula purple — for depth atmosphere */
+  --color-nebula: oklch(0.28 0.08 310);
+  --color-nebula-dim: oklch(0.28 0.08 310 / 0.25);
 
   --background: var(--color-void);
   --foreground: var(--color-ink);
-  --landing-diagonal: oklch(0.74 0.12 78 / 0.12);
+  --landing-diagonal: oklch(0.80 0.14 82 / 0.10);
 }
 
+/* ── Base ── */
 html {
   scroll-behavior: smooth;
 }
@@ -46,39 +66,165 @@ a {
   }
 }
 
+/* ── Deep Space Body Background ── */
 body {
   color: var(--foreground);
   background-color: var(--background);
+  /* Multi-layer cosmic gradient: nebula edges, star core, deep void */
   background-image:
+    /* Bright star cluster top-left */
     radial-gradient(
-      ellipse 120% 80% at 8% -20%,
-      oklch(0.62 0.1 168 / 0.14),
-      transparent 52%
+      ellipse 55% 35% at 12% 8%,
+      oklch(0.52 0.18 250 / 0.10),
+      transparent 55%
     ),
+    /* Warm nebula right side */
     radial-gradient(
-      ellipse 70% 55% at 98% 28%,
-      oklch(0.58 0.19 32 / 0.09),
-      transparent 48%
+      ellipse 60% 45% at 92% 22%,
+      oklch(0.28 0.08 310 / 0.16),
+      transparent 50%
     ),
+    /* Gold nebula bottom-left */
+    radial-gradient(
+      ellipse 50% 40% at 15% 85%,
+      oklch(0.80 0.14 82 / 0.05),
+      transparent 50%
+    ),
+    /* Deep void base */
     linear-gradient(
-      168deg,
+      175deg,
       var(--color-void) 0%,
-      oklch(0.15 0.03 258) 42%,
+      oklch(0.11 0.045 262) 38%,
+      oklch(0.10 0.05 268) 72%,
       var(--color-void) 100%
     );
   min-height: 100vh;
 }
 
+/* ── Multi-layer noise texture ── */
 body::before {
   content: "";
   position: fixed;
   inset: 0;
   pointer-events: none;
   z-index: 9999;
-  opacity: 0.04;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
+/* ── Star field layer (via pseudo-element on a wrapper if used) ── */
+.cosmic-stars {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.cosmic-stars::before {
+  content: "";
+  position: absolute;
+  inset: -50%;
+  background-image:
+    radial-gradient(1px 1px at 10% 15%, oklch(0.94 0.024 90 / 0.9), transparent),
+    radial-gradient(1px 1px at 22% 8%, oklch(0.80 0.14 82 / 0.7), transparent),
+    radial-gradient(1.5px 1.5px at 35% 22%, oklch(0.52 0.18 250 / 0.8), transparent),
+    radial-gradient(1px 1px at 48% 12%, oklch(0.94 0.024 90 / 0.6), transparent),
+    radial-gradient(1px 1px at 55% 28%, oklch(0.80 0.14 82 / 0.5), transparent),
+    radial-gradient(2px 2px at 62% 8%, oklch(0.94 0.024 90 / 0.85), transparent),
+    radial-gradient(1px 1px at 70% 18%, oklch(0.52 0.18 250 / 0.7), transparent),
+    radial-gradient(1.5px 1.5px at 78% 5%, oklch(0.94 0.024 90 / 0.55), transparent),
+    radial-gradient(1px 1px at 85% 25%, oklch(0.80 0.14 82 / 0.65), transparent),
+    radial-gradient(1px 1px at 92% 10%, oklch(0.94 0.024 90 / 0.5), transparent),
+    radial-gradient(1px 1px at 5% 35%, oklch(0.52 0.18 250 / 0.55), transparent),
+    radial-gradient(1.5px 1.5px at 18% 42%, oklch(0.94 0.024 90 / 0.7), transparent),
+    radial-gradient(1px 1px at 28% 32%, oklch(0.80 0.14 82 / 0.45), transparent),
+    radial-gradient(1px 1px at 40% 38%, oklch(0.94 0.024 90 / 0.6), transparent),
+    radial-gradient(2px 2px at 58% 34%, oklch(0.52 0.18 250 / 0.75), transparent),
+    radial-gradient(1px 1px at 68% 40%, oklch(0.94 0.024 90 / 0.5), transparent),
+    radial-gradient(1px 1px at 82% 36%, oklch(0.80 0.14 82 / 0.55), transparent),
+    radial-gradient(1px 1px at 95% 42%, oklch(0.94 0.024 90 / 0.4), transparent),
+    radial-gradient(1px 1px at 8% 55%, oklch(0.52 0.18 250 / 0.5), transparent),
+    radial-gradient(1.5px 1.5px at 25% 50%, oklch(0.94 0.024 90 / 0.65), transparent),
+    radial-gradient(1px 1px at 45% 56%, oklch(0.80 0.14 82 / 0.4), transparent),
+    radial-gradient(1px 1px at 60% 48%, oklch(0.94 0.024 90 / 0.55), transparent),
+    radial-gradient(1px 1px at 75% 58%, oklch(0.52 0.18 250 / 0.6), transparent),
+    radial-gradient(2px 2px at 88% 52%, oklch(0.94 0.024 90 / 0.7), transparent),
+    radial-gradient(1px 1px at 12% 68%, oklch(0.80 0.14 82 / 0.5), transparent),
+    radial-gradient(1px 1px at 32% 64%, oklch(0.94 0.024 90 / 0.45), transparent),
+    radial-gradient(1px 1px at 52% 72%, oklch(0.52 0.18 250 / 0.55), transparent),
+    radial-gradient(1.5px 1.5px at 68% 66%, oklch(0.94 0.024 90 / 0.6), transparent),
+    radial-gradient(1px 1px at 82% 70%, oklch(0.80 0.14 82 / 0.45), transparent),
+    radial-gradient(1px 1px at 20% 80%, oklch(0.94 0.024 90 / 0.5), transparent),
+    radial-gradient(1px 1px at 42% 78%, oklch(0.52 0.18 250 / 0.4), transparent),
+    radial-gradient(1px 1px at 65% 82%, oklch(0.94 0.024 90 / 0.55), transparent),
+    radial-gradient(2px 2px at 80% 86%, oklch(0.80 0.14 82 / 0.6), transparent),
+    radial-gradient(1px 1px at 90% 78%, oklch(0.94 0.024 90 / 0.4), transparent),
+    radial-gradient(1px 1px at 35% 90%, oklch(0.52 0.18 250 / 0.5), transparent),
+    radial-gradient(1px 1px at 55% 88%, oklch(0.94 0.024 90 / 0.45), transparent);
+  animation: starDrift 120s linear infinite;
+}
+
+/* ── Orbital line grid (decorative) ── */
+.cosmic-orbital {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  opacity: 0.06;
+}
+
+.cosmic-orbital::before {
+  content: "";
+  position: absolute;
+  inset: -20%;
+  background-image:
+    /* Horizontal celestial lines */
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 58px,
+      oklch(0.80 0.14 82 / 0.3) 58px,
+      oklch(0.80 0.14 82 / 0.3) 59px
+    ),
+    /* Vertical celestial lines */
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 58px,
+      oklch(0.80 0.14 82 / 0.3) 58px,
+      oklch(0.80 0.14 82 / 0.3) 59px
+    );
+  mask-image: radial-gradient(ellipse 70% 50% at 50% 40%, black 30%, transparent 70%);
+}
+
+/* ── Section divider with constellation motif ── */
+.cosmic-divider {
+  position: relative;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    oklch(0.80 0.14 82 / 0.15) 20%,
+    oklch(0.52 0.18 250 / 0.25) 50%,
+    oklch(0.80 0.14 82 / 0.15) 80%,
+    transparent 100%
+  );
+}
+
+.cosmic-divider::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: oklch(0.80 0.14 82 / 0.6);
+  box-shadow: 0 0 12px 4px oklch(0.80 0.14 82 / 0.3);
+}
+
+/* ── Utility classes ── */
 @layer utilities {
   .text-balance {
     text-wrap: balance;
@@ -97,6 +243,53 @@ body::before {
     clip-path: polygon(0 4%, 100% 0, 100% 96%, 0 100%);
   }
 
+  /* Cosmic glass — translucent panel with starfield feel */
+  .cosmic-glass {
+    background: oklch(0.14 0.04 265 / 0.55);
+    backdrop-filter: blur(20px);
+    border: 1px solid oklch(0.80 0.14 82 / 0.10);
+  }
+
+  .cosmic-glass-light {
+    background: oklch(0.17 0.035 265 / 0.45);
+    backdrop-filter: blur(16px);
+    border: 1px solid oklch(0.80 0.14 82 / 0.08);
+  }
+
+  /* Gold leaf texture for CTAs */
+  .gold-leaf {
+    background:
+      linear-gradient(
+        148deg,
+        oklch(0.90 0.07 90) 0%,
+        var(--color-gold) 35%,
+        oklch(0.68 0.18 70) 65%,
+        var(--color-cinnabar) 100%
+      );
+    box-shadow:
+      0 0 0 1px oklch(0.80 0.14 82 / 0.35),
+      0 16px 48px -12px var(--color-cinnabar-glow),
+      0 0 80px -20px oklch(0.80 0.14 82 / 0.15),
+      inset 0 1px 0 oklch(0.98 0.02 90 / 0.3);
+  }
+
+  .gold-leaf:hover {
+    box-shadow:
+      0 0 0 1px oklch(0.80 0.14 82 / 0.5),
+      0 22px 56px -12px oklch(0.56 0.22 30 / 0.55),
+      0 0 100px -20px oklch(0.80 0.14 82 / 0.25),
+      inset 0 1px 0 oklch(0.98 0.02 90 / 0.35);
+  }
+
+  /* Nebula glow ring */
+  .nebula-ring {
+    box-shadow:
+      0 0 0 1px oklch(0.28 0.08 310 / 0.25),
+      0 0 40px -8px oklch(0.28 0.08 310 / 0.3),
+      inset 0 1px 0 oklch(0.94 0.024 90 / 0.05);
+  }
+
+  /* Animation utilities */
   .opacity-0-animate {
     opacity: 0;
   }
@@ -125,17 +318,15 @@ body::before {
     opacity: 0;
   }
 
-  .animate-reveal-stagger > *:nth-child(1) {
-    animation-delay: 0.05s;
-  }
-  .animate-reveal-stagger > *:nth-child(2) {
-    animation-delay: 0.15s;
-  }
-  .animate-reveal-stagger > *:nth-child(3) {
-    animation-delay: 0.25s;
-  }
+  .animate-reveal-stagger > *:nth-child(1) { animation-delay: 0.05s; }
+  .animate-reveal-stagger > *:nth-child(2) { animation-delay: 0.15s; }
+  .animate-reveal-stagger > *:nth-child(3) { animation-delay: 0.25s; }
+  .animate-reveal-stagger > *:nth-child(4) { animation-delay: 0.35s; }
+  .animate-reveal-stagger > *:nth-child(5) { animation-delay: 0.45s; }
+  .animate-reveal-stagger > *:nth-child(6) { animation-delay: 0.55s; }
 }
 
+/* ── Keyframes ── */
 @keyframes fadeUp {
   from {
     opacity: 0;
@@ -149,13 +340,32 @@ body::before {
 
 @keyframes starPulse {
   0%, 100% { opacity: 0.15; transform: scale(1); }
-  50% { opacity: 0.7; transform: scale(1.8); }
+  50% { opacity: 0.8; transform: scale(1.6); }
 }
 
-@keyframes floatSlow {
-  0%, 100% { transform: translateY(0) rotate(0deg); }
-  33% { transform: translateY(-6px) rotate(0.5deg); }
-  66% { transform: translateY(3px) rotate(-0.3deg); }
+@keyframes starDrift {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  25% { transform: translate(-0.5%, 0.3%) rotate(0.5deg); }
+  50% { transform: translate(0.2%, -0.2%) rotate(0deg); }
+  75% { transform: translate(0.5%, 0.1%) rotate(-0.5deg); }
+  100% { transform: translate(0, 0) rotate(0deg); }
+}
+
+@keyframes orbitalRotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes nebulaBreathe {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(1.05); }
+}
+
+@keyframes cosmicFloat {
+  0%, 100% { transform: translateY(0) translateX(0); }
+  25% { transform: translateY(-8px) translateX(3px); }
+  50% { transform: translateY(-2px) translateX(-2px); }
+  75% { transform: translateY(-10px) translateX(-4px); }
 }
 
 @keyframes gradientShift {
@@ -164,28 +374,66 @@ body::before {
   100% { background-position: 0% 50%; }
 }
 
+@keyframes constellationDraw {
+  from { stroke-dashoffset: 1000; }
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes shimmer {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.9; }
+}
+
+@keyframes accordion-down {
+  from { height: 0; }
+  to { height: var(--radix-accordion-content-height); }
+}
+
+@keyframes accordion-up {
+  from { height: var(--radix-accordion-content-height); }
+  to { height: 0; }
+}
+
+@keyframes orbitPulse {
+  0%, 100% {
+    box-shadow: 0 0 20px -5px oklch(0.52 0.18 250 / 0.3),
+                0 0 40px -10px oklch(0.80 0.14 82 / 0.15);
+  }
+  50% {
+    box-shadow: 0 0 30px -3px oklch(0.52 0.18 250 / 0.5),
+                0 0 60px -8px oklch(0.80 0.14 82 / 0.25);
+  }
+}
+
+/* ── Component Classes ── */
 @layer components {
+  /* Primary CTA — gold leaf gradient */
   .btn-cta {
     @apply relative inline-flex items-center justify-center overflow-hidden rounded-sm px-8 py-4 font-body text-lg font-semibold tracking-wide transition-all duration-300;
-    color: oklch(0.16 0.03 258);
+    color: oklch(0.14 0.04 265);
     background: linear-gradient(
       148deg,
-      oklch(0.88 0.06 88) 0%,
-      var(--color-gold) 38%,
+      oklch(0.90 0.07 90) 0%,
+      var(--color-gold) 35%,
+      oklch(0.68 0.18 70) 65%,
       var(--color-cinnabar) 100%
     );
+    background-size: 200% 200%;
+    animation: gradientShift 6s ease infinite;
     box-shadow:
-      0 0 0 1px oklch(0.74 0.12 78 / 0.4),
-      0 14px 40px -10px var(--color-cinnabar-glow),
-      inset 0 1px 0 oklch(0.98 0.02 88 / 0.35);
+      0 0 0 1px oklch(0.80 0.14 82 / 0.4),
+      0 16px 48px -12px var(--color-cinnabar-glow),
+      0 0 80px -20px oklch(0.80 0.14 82 / 0.2),
+      inset 0 1px 0 oklch(0.98 0.02 90 / 0.35);
   }
 
   .btn-cta:hover {
     @apply -translate-y-0.5;
     box-shadow:
-      0 0 0 1px oklch(0.74 0.12 78 / 0.55),
-      0 20px 48px -10px oklch(0.58 0.19 32 / 0.5),
-      inset 0 1px 0 oklch(0.98 0.02 88 / 0.4);
+      0 0 0 1px oklch(0.80 0.14 82 / 0.55),
+      0 22px 56px -10px oklch(0.56 0.22 30 / 0.55),
+      0 0 100px -15px oklch(0.80 0.14 82 / 0.3),
+      inset 0 1px 0 oklch(0.98 0.02 90 / 0.4);
   }
 
   .btn-cta:active {
@@ -194,16 +442,44 @@ body::before {
 
   .btn-cta:disabled {
     @apply translate-y-0 cursor-not-allowed opacity-50;
+    animation: none;
   }
 
+  /* Secondary button — cosmic glass */
+  .btn-cosmic {
+    @apply relative inline-flex items-center justify-center rounded-sm border px-6 py-3 font-body text-sm font-medium transition-all duration-300;
+    border-color: oklch(0.80 0.14 82 / 0.15);
+    background: oklch(0.15 0.04 265 / 0.5);
+    color: var(--color-ink-muted);
+    backdrop-filter: blur(12px);
+  }
+
+  .btn-cosmic:hover {
+    border-color: oklch(0.80 0.14 82 / 0.3);
+    background: oklch(0.18 0.045 265 / 0.6);
+    color: var(--color-ink);
+    box-shadow: 0 0 30px -8px oklch(0.80 0.14 82 / 0.08);
+  }
+
+  /* Form inputs */
   .input-ink {
-    @apply w-full rounded-sm border border-white/10 bg-void/60 px-3 py-3 font-body text-ink placeholder:text-ink-dim backdrop-blur-sm transition-colors focus:border-gold/40 focus:outline-none focus:ring-1 focus:ring-gold/30;
+    @apply w-full rounded-sm border bg-void/60 px-3 py-3 font-body text-ink placeholder:text-ink-dim backdrop-blur-sm transition-colors;
+    border-color: oklch(0.80 0.14 82 / 0.10);
   }
 
+  .input-ink:focus {
+    @apply outline-none;
+    border-color: oklch(0.80 0.14 82 / 0.35);
+    box-shadow: 0 0 0 1px oklch(0.80 0.14 82 / 0.2),
+                0 0 20px -5px oklch(0.80 0.14 82 / 0.08);
+  }
+
+  /* Links */
   .link-gold {
     @apply text-gold transition-colors hover:text-gold/80;
   }
 
+  /* Typography */
   .landing-kicker {
     @apply font-mono text-[10px] uppercase tracking-[0.32em] text-gold;
   }
@@ -211,8 +487,25 @@ body::before {
   .landing-headline {
     @apply font-display text-balance font-semibold leading-[1.05] tracking-tight text-ink;
   }
+
+  /* Cosmic card */
+  .card-cosmic {
+    @apply rounded-sm border overflow-hidden;
+    border-color: oklch(0.80 0.14 82 / 0.10);
+    background: oklch(0.13 0.035 265 / 0.55);
+    backdrop-filter: blur(16px);
+  }
+
+  .card-cosmic-highlight {
+    @apply rounded-sm border overflow-hidden;
+    border-color: oklch(0.80 0.14 82 / 0.20);
+    background: oklch(0.15 0.04 268 / 0.6);
+    backdrop-filter: blur(16px);
+    box-shadow: 0 0 40px -12px oklch(0.80 0.14 82 / 0.06);
+  }
 }
 
+/* Dark scheme for native inputs */
 input[type="date"],
 input[type="time"],
 select {
