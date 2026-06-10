@@ -40,30 +40,6 @@ function summarizeChart(chart: unknown): string {
     .join("\n");
 }
 
-async function callAI(system: string, user: string): Promise<string> {
-  const providers = [
-    { name: "DeepSeek", url: "https://api.deepseek.com/chat/completions", key: process.env.DEEPSEEK_API_KEY, model: "deepseek-chat" },
-    { name: "OpenAI", url: "https://api.openai.com/v1/chat/completions", key: process.env.OPENAI_API_KEY, model: "gpt-4o-mini" },
-  ];
-
-  for (const p of providers) {
-    if (!p.key) continue;
-    try {
-      const res = await fetch(p.url, {
-        method: "POST",
-        headers: { "Content-Type": "application/json", Authorization: `Bearer ${p.key}` },
-        body: JSON.stringify({ model: p.model, messages: [{ role: "system", content: system }, { role: "user", content: user }], max_tokens: 1500, temperature: 0.8 }),
-        signal: AbortSignal.timeout(35_000),
-      });
-      if (res.ok) {
-        const json = await res.json();
-        return (json.choices?.[0]?.message?.content ?? "").trim();
-      }
-    } catch { continue; }
-  }
-  throw new Error("All AI providers unavailable");
-}
-
 export async function POST() {
   try {
     const { getCurrentUser } = await import("@/lib/auth");
@@ -72,11 +48,22 @@ export async function POST() {
       return NextResponse.json({ ok: false, error: "NOT_AUTHENTICATED" }, { status: 401 });
     }
 
-    if (!user.subscription_status || (user.subscription_status !== "trial" && user.subscription_status !== "active")) {
+    // Rate limit: 3 yearly readings per user per hour (expensive AI call)
+    const { checkRateLimit } = await import("@/lib/rateLimit");
+    const rl = checkRateLimit(`yearly:${user.id}`, { windowMs: 3_600_000, maxRequests: 3 });
+    if (!rl.allowed) {
       return NextResponse.json(
-        { ok: false, error: "SUBSCRIPTION_REQUIRED", message: "Active subscription required for yearly reading" },
-        { status: 402 },
+        { ok: false, error: "RATE_LIMITED", retryAfter: Math.ceil((rl.resetAt - Date.now()) / 1000) },
+        { status: 429, headers: { "Retry-After": String(Math.ceil((rl.resetAt - Date.now()) / 1000)) } },
       );
+    }
+
+    // Use shared subscription guard (includes trial expiry check)
+    const { checkSubscription } = await import("@/lib/subscriptionGuard");
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const subError = checkSubscription(user as any);
+    if (subError) {
+      return NextResponse.json({ ok: false, error: subError.error }, { status: subError.status });
     }
 
     if (!user.chart_data) {
@@ -86,7 +73,7 @@ export async function POST() {
     const chartSummary = summarizeChart(user.chart_data);
     const year = new Date().getFullYear();
 
-    // Cache check: reuse today's cached yearly reading if already generated
+    // Cache check: reuse cached yearly reading if already generated this year
     const { getHoroscope } = await import("@/lib/db");
     const cacheKey = `${year}-yearly`;
     const cached = await getHoroscope(user.id, cacheKey);
@@ -94,14 +81,19 @@ export async function POST() {
       return NextResponse.json({ ok: true, reading: cached.horoscope_text, year, cached: true });
     }
 
-    const prompt = `Write a comprehensive annual Zi Wei Dou Shu reading for ${year}.
+    // Use shared AI provider with automatic fallback
+    const { callAiWithFallback } = await import("@/lib/aiProviders");
+    const { text: reading } = await callAiWithFallback({
+      messages: [
+        { role: "system", content: YEARLY_SYSTEM_PROMPT },
+        { role: "user", content: `Write a comprehensive annual Zi Wei Dou Shu reading for ${year}.\n\nUSER'S BIRTH CHART:\n${chartSummary}` },
+      ],
+      maxTokens: 1500,
+      temperature: 0.8,
+      timeoutMs: 35_000,
+    });
 
-USER'S BIRTH CHART:
-${chartSummary}`;
-
-    const reading = await callAI(YEARLY_SYSTEM_PROMPT, prompt);
-
-    // Cache the yearly reading for the rest of the year
+    // Cache the yearly reading
     const { upsertHoroscope } = await import("@/lib/db");
     await upsertHoroscope({
       userId: user.id,
@@ -109,7 +101,7 @@ ${chartSummary}`;
       horoscopeText: reading,
       transitSummary: `Annual reading for ${year}`,
       highlightedStars: [],
-    }).catch(() => {}); // Non-critical cache write
+    }).catch(() => {});
 
     return NextResponse.json({ ok: true, reading, year });
   } catch {

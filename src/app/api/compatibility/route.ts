@@ -19,62 +19,6 @@ what palace they're in. Cover:
 Write 150-250 words. Be warm, honest, and grounded in their actual chart data.
 End with one actionable insight.`;
 
-async function callAI(prompt: string): Promise<string> {
-  // Try DeepSeek first
-  if (process.env.DEEPSEEK_API_KEY) {
-    try {
-      const res = await fetch("https://api.deepseek.com/chat/completions", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${process.env.DEEPSEEK_API_KEY}`,
-        },
-        body: JSON.stringify({
-          model: "deepseek-chat",
-          messages: [
-            { role: "system", content: COMPAT_SYSTEM_PROMPT },
-            { role: "user", content: prompt },
-          ],
-          max_tokens: 600,
-          temperature: 0.8,
-        }),
-        signal: AbortSignal.timeout(25_000),
-      });
-      if (res.ok) {
-        const json = await res.json();
-        return (json.choices?.[0]?.message?.content ?? "").trim();
-      }
-    } catch { /* fall through */ }
-  }
-
-  // Try OpenAI
-  if (process.env.OPENAI_API_KEY) {
-    const res = await fetch("https://api.openai.com/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
-      },
-      body: JSON.stringify({
-        model: "gpt-4o-mini",
-        messages: [
-          { role: "system", content: COMPAT_SYSTEM_PROMPT },
-          { role: "user", content: prompt },
-        ],
-        max_tokens: 600,
-        temperature: 0.8,
-      }),
-      signal: AbortSignal.timeout(25_000),
-    });
-    if (res.ok) {
-      const json = await res.json();
-      return (json.choices?.[0]?.message?.content ?? "").trim();
-    }
-  }
-
-  throw new Error("All AI providers unavailable");
-}
-
 function summarizePalace(p: {
   name?: string;
   majorStars?: Array<{ name?: string }>;
@@ -93,6 +37,16 @@ export async function POST(request: Request) {
     const user = await getCurrentUser();
     if (!user) {
       return NextResponse.json({ ok: false, error: "NOT_AUTHENTICATED" }, { status: 401 });
+    }
+
+    // Rate limit: 5 compatibility checks per user per hour
+    const { checkRateLimit } = await import("@/lib/rateLimit");
+    const rl = checkRateLimit(`compat:${user.id}`, { windowMs: 3_600_000, maxRequests: 5 });
+    if (!rl.allowed) {
+      return NextResponse.json(
+        { ok: false, error: "RATE_LIMITED", retryAfter: Math.ceil((rl.resetAt - Date.now()) / 1000) },
+        { status: 429, headers: { "Retry-After": String(Math.ceil((rl.resetAt - Date.now()) / 1000)) } },
+      );
     }
 
     const { checkSubscription } = await import("@/lib/subscriptionGuard");
@@ -154,8 +108,8 @@ export async function POST(request: Request) {
         minorStars?: Array<{ name?: string }>;
       }>;
     };
-
     const mySummary = (myChart.palaces ?? []).map(summarizePalace).join("\n");
+
     const otherChart = otherResult.chart as {
       palaces?: Array<{
         name?: string;
@@ -165,15 +119,16 @@ export async function POST(request: Request) {
     };
     const otherSummary = (otherChart.palaces ?? []).map(summarizePalace).join("\n");
 
-    const prompt = `PERSON A'S CHART:
-${mySummary}
-
-PERSON B'S CHART:
-${otherSummary}
-
-Analyze the compatibility between these two charts. Be specific and reference actual stars and palace placements.`;
-
-    const analysis = await callAI(prompt);
+    // Use shared AI provider with automatic fallback
+    const { callAiWithFallback } = await import("@/lib/aiProviders");
+    const { text: analysis } = await callAiWithFallback({
+      messages: [
+        { role: "system", content: COMPAT_SYSTEM_PROMPT },
+        { role: "user", content: `PERSON A'S CHART:\n${mySummary}\n\nPERSON B'S CHART:\n${otherSummary}\n\nAnalyze the compatibility between these two charts. Be specific and reference actual stars and palace placements.` },
+      ],
+      maxTokens: 600,
+      temperature: 0.8,
+    });
 
     return NextResponse.json({
       ok: true,

@@ -17,53 +17,6 @@ This is their special day. Write 200-300 words covering:
 Be warm, celebratory, and grounded in their actual chart. Make them feel seen.
 End with: "May the stars guide your {age}th year."`;
 
-async function callAI(systemPrompt: string, userPrompt: string): Promise<string> {
-  const providers = [
-    {
-      name: "DeepSeek",
-      url: "https://api.deepseek.com/chat/completions",
-      key: process.env.DEEPSEEK_API_KEY,
-      model: "deepseek-chat",
-    },
-    {
-      name: "OpenAI",
-      url: "https://api.openai.com/v1/chat/completions",
-      key: process.env.OPENAI_API_KEY,
-      model: "gpt-4o-mini",
-    },
-  ];
-
-  for (const p of providers) {
-    if (!p.key) continue;
-    try {
-      const res = await fetch(p.url, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${p.key}`,
-        },
-        body: JSON.stringify({
-          model: p.model,
-          messages: [
-            { role: "system", content: systemPrompt },
-            { role: "user", content: userPrompt },
-          ],
-          max_tokens: 800,
-          temperature: 0.9,
-        }),
-        signal: AbortSignal.timeout(25_000),
-      });
-      if (res.ok) {
-        const json = await res.json();
-        return (json.choices?.[0]?.message?.content ?? "").trim();
-      }
-    } catch {
-      continue;
-    }
-  }
-  throw new Error("All AI providers unavailable");
-}
-
 function summarizeChart(chart: {
   palaces?: Array<{
     name?: string;
@@ -90,6 +43,16 @@ export async function POST() {
       return NextResponse.json({ ok: false, error: "NOT_AUTHENTICATED" }, { status: 401 });
     }
 
+    // Rate limit: 2 birthday readings per user per day
+    const { checkRateLimit } = await import("@/lib/rateLimit");
+    const rl = checkRateLimit(`birthday:${user.id}`, { windowMs: 86_400_000, maxRequests: 2 });
+    if (!rl.allowed) {
+      return NextResponse.json(
+        { ok: false, error: "RATE_LIMITED", retryAfter: Math.ceil((rl.resetAt - Date.now()) / 1000) },
+        { status: 429, headers: { "Retry-After": String(Math.ceil((rl.resetAt - Date.now()) / 1000)) } },
+      );
+    }
+
     const { checkSubscription } = await import("@/lib/subscriptionGuard");
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const subError = checkSubscription(user as any);
@@ -112,14 +75,16 @@ export async function POST() {
     };
 
     const chartSummary = summarizeChart(chart);
-    const userPrompt = `Today is this person's ${age}th birthday!
 
-THEIR BIRTH CHART:
-${chartSummary}
-
-Write a beautiful birthday annual reading for them.`;
-
-    const reading = await callAI(BIRTHDAY_PROMPT, userPrompt);
+    const { callAiWithFallback } = await import("@/lib/aiProviders");
+    const { text: reading } = await callAiWithFallback({
+      messages: [
+        { role: "system", content: BIRTHDAY_PROMPT },
+        { role: "user", content: `Today is this person's ${age}th birthday!\n\nTHEIR BIRTH CHART:\n${chartSummary}\n\nWrite a beautiful birthday annual reading for them.` },
+      ],
+      maxTokens: 800,
+      temperature: 0.9,
+    });
 
     return NextResponse.json({ ok: true, reading });
   } catch {

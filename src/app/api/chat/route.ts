@@ -20,36 +20,6 @@ function buildChatMessages(chartSummary: string, question: string) {
   ];
 }
 
-async function askDeepSeek(messages: Array<{ role: string; content: string }>): Promise<string> {
-  const res = await fetch("https://api.deepseek.com/chat/completions", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${process.env.DEEPSEEK_API_KEY}`,
-    },
-    body: JSON.stringify({ model: "deepseek-chat", messages, max_tokens: 500, temperature: 0.8 }),
-    signal: AbortSignal.timeout(20_000),
-  });
-  if (!res.ok) throw new Error(`DeepSeek: ${res.status}`);
-  const json = await res.json();
-  return (json.choices?.[0]?.message?.content ?? "").trim();
-}
-
-async function askOpenAI(messages: Array<{ role: string; content: string }>): Promise<string> {
-  const res = await fetch("https://api.openai.com/v1/chat/completions", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
-    },
-    body: JSON.stringify({ model: "gpt-4o-mini", messages, max_tokens: 500, temperature: 0.8 }),
-    signal: AbortSignal.timeout(20_000),
-  });
-  if (!res.ok) throw new Error(`OpenAI: ${res.status}`);
-  const json = await res.json();
-  return (json.choices?.[0]?.message?.content ?? "").trim();
-}
-
 export async function POST(request: Request) {
   try {
     const { getCurrentUser } = await import("@/lib/auth");
@@ -123,18 +93,17 @@ export async function POST(request: Request) {
 
     const messages = buildChatMessages(chartSummary, question);
 
+    // Use shared AI provider with automatic fallback
+    const { callAiWithFallback } = await import("@/lib/aiProviders");
     let answer: string;
     try {
-      answer = await askDeepSeek(messages);
+      const result = await callAiWithFallback({ messages, maxTokens: 500, temperature: 0.8, timeoutMs: 20_000 });
+      answer = result.text;
     } catch {
-      try {
-        answer = await askOpenAI(messages);
-      } catch {
-        return NextResponse.json(
-          { ok: false, error: "AI_UNAVAILABLE", message: "The stars are not answering right now. Try again later." },
-          { status: 503 },
-        );
-      }
+      return NextResponse.json(
+        { ok: false, error: "AI_UNAVAILABLE", message: "The stars are not answering right now. Try again later." },
+        { status: 503 },
+      );
     }
 
     return NextResponse.json({ ok: true, answer });
