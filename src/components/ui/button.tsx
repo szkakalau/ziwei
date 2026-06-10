@@ -13,8 +13,9 @@ const buttonVariants = cva(
           "bg-ink text-void shadow hover:bg-ink/90",
         cta: "btn-cta",
         outline:
-          "border border-white/15 bg-white/5 text-ink hover:border-gold/35 hover:bg-white/10",
-        ghost: "text-ink hover:bg-white/5",
+          "border border-gold/[0.12] bg-gold/[0.03] text-ink-muted hover:border-gold/30 hover:bg-gold/[0.06] hover:text-ink",
+        ghost: "text-ink-muted hover:bg-gold/[0.04] hover:text-ink",
+        cosmic: "btn-cosmic",
       },
       size: {
         default: "h-11 px-4 py-2",
