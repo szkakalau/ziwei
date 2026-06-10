@@ -5,26 +5,26 @@ import { CalendarRange, Crown, Sun, Compass, Binary } from "lucide-react";
 const cards = [
   {
     icon: Sun,
-    title: "Your Sun Sign is Just 1 Star.\nYour Zi Wei Chart Has 100+.",
-    body: "Western astrology uses only your birth date — one data point. Zi Wei Dou Shu maps your exact birth time, geographic location, and over 100 celestial bodies to create a chart so detailed it fills 12 life palaces.",
+    title: "See all 100+ stars that\nactually shape your personality",
+    body: "Western sun signs use 1 data point and produce 12 archetypes. Your Zi Wei chart maps 100+ stars to your exact birth time and location — giving you a reading as unique as your fingerprint.",
     accent: "cinnabar" as const,
   },
   {
     icon: CalendarRange,
-    title: "Daily AI Horoscopes\nBased on Your Chart",
-    body: "Every morning, an AI reads your chart against the day's transits and writes a personalized horoscope. Unlike mass horoscopes that address 1/12th of the population, yours is computed from your unique star placements.",
+    title: "Wake up to a horoscope\nwritten for YOUR chart, every day",
+    body: "Not a mass paragraph for 1/12th of humanity. Every morning, AI reads YOUR star placements against the day's transits. You get specific star names, palace references, and timing that reflects your real chart.",
     accent: "star" as const,
   },
   {
     icon: Crown,
-    title: "Imperial Precision,\nNot Mass-Market Generic",
-    body: "Zi Wei Dou Shu was the exclusive tool of Chinese emperors and generals for over a millennium. It was never meant for newspaper horoscopes — it was designed for real decisions. We apply that same rigor to every reading.",
+    title: "1,000 years of refinement.\nApplied to your life today.",
+    body: "Zi Wei Dou Shu was the decision-making tool of Chinese emperors and generals. We apply that same imperial-level rigor — combining ancient star science with modern AI to give you actionable daily guidance.",
     accent: "gold" as const,
   },
   {
     icon: Compass,
-    title: "Apparent Solar Time\nCorrection",
-    body: "We geocode your birthplace, look up the IANA timezone, and apply the equation of time to calculate your true apparent solar time — the actual astronomical position of the sun at your birth. This precision is what makes your chart genuinely yours.",
+    title: "Your chart is computed to\nthe minute you were born",
+    body: "We geocode your birthplace, correct for timezone, and apply the equation of time to calculate your true apparent solar time. This precision means your chart is genuinely yours — not an approximation.",
     accent: "jade" as const,
   },
 ] as const;

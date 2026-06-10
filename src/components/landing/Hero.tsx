@@ -261,6 +261,23 @@ export default function Hero({ formAnchorId }: Props) {
             share your birth month.
           </p>
 
+          {/* Social proof hook — 2-second trust signal */}
+          <div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-1.5 animate-on-load-delay-2 sm:mt-5">
+            <div className="flex items-center gap-1.5">
+              <span className="inline-flex gap-0.5 text-gold" aria-hidden>
+                {Array.from({ length: 5 }).map((_, i) => (
+                  <Star key={i} className="h-3.5 w-3.5 fill-gold/80" />
+                ))}
+              </span>
+              <span className="font-mono text-[11px] text-ink-muted">
+                4.9 · 2,400+ readings delivered
+              </span>
+            </div>
+            <span className="font-mono text-[11px] text-ink-dim">
+              Free snapshot · No credit card
+            </span>
+          </div>
+
           {/* CTA + Preview side by side */}
           <div className="mt-8 flex flex-col gap-6 animate-on-load-delay-3 lg:flex-row lg:items-start lg:gap-10">
             {/* CTA column */}
@@ -295,7 +312,7 @@ export default function Hero({ formAnchorId }: Props) {
                   <div className="flex items-center gap-1.5 mb-2">
                     <Sun className="h-3 w-3 text-gold/50" />
                     <span className="font-mono text-[10px] text-ink-dim">
-                      Wednesday, June 10
+                      {new Date().toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric" })}
                     </span>
                   </div>
                   <p className="font-body text-[13px] leading-relaxed text-ink-muted">

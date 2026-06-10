@@ -23,7 +23,7 @@ function DailyHoroscopePreview() {
         <div className="flex items-center gap-2">
           <Sun className="h-4 w-4 text-gold/70" aria-hidden />
           <span className="font-mono text-[10px] uppercase tracking-wider text-gold/70">
-            Wednesday, June 10
+            {new Date().toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric" })}
           </span>
         </div>
         <span className="inline-flex items-center gap-1 rounded-sm border border-gold/[0.15] bg-gold/[0.05] px-2 py-0.5 font-mono text-[9px] text-gold/60">

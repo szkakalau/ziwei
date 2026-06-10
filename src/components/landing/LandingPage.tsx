@@ -5,11 +5,13 @@ import Hero from "@/components/landing/Hero";
 import LandingNavbar from "@/components/landing/LandingNavbar";
 import BirthSnapshotSection from "@/components/landing/BirthSnapshotSection";
 import ProductShowcase from "@/components/landing/ProductShowcase";
+import TrustBar from "@/components/landing/TrustBar";
 import WhyZiWeiBetter from "@/components/landing/WhyZiWeiBetter";
 import FreeVsPaidTable from "@/components/landing/FreeVsPaidTable";
 import Testimonials from "@/components/landing/Testimonials";
 import RiskFree from "@/components/landing/RiskFree";
 import FAQ from "@/components/landing/FAQ";
+import EmailCapture from "@/components/landing/EmailCapture";
 import LandingFooter from "@/components/landing/LandingFooter";
 
 const FORM_ANCHOR_ID = "birth-form";
@@ -54,17 +56,20 @@ export default function LandingPage() {
         {/* 1. Hero — value-first, CTA + preview */}
         <Hero formAnchorId={FORM_ANCHOR_ID} />
 
-        {/* 2. Birth Form — conversion engine, no scrolling needed */}
-        <div data-reveal-section>
-          <BirthSnapshotSection />
-        </div>
+        {/* Trust bar — social proof + urgency between Hero and content */}
+        <TrustBar />
 
-        {/* 3. Product Showcase — visual previews of every feature */}
+        {/* 2. Product Showcase — let users see the product before being asked for data */}
         <div data-reveal-section>
           <ProductShowcase />
         </div>
 
-        {/* 4. Why Zi Wei — credibility & education (after the user has seen what they get) */}
+        {/* 3. Birth Form — after users know what they're getting */}
+        <div data-reveal-section>
+          <BirthSnapshotSection />
+        </div>
+
+        {/* 4. Why Zi Wei — credibility reinforcement after the product demo */}
         <div data-reveal-section>
           <WhyZiWeiBetter />
         </div>
@@ -86,6 +91,11 @@ export default function LandingPage() {
         {/* 7. FAQ */}
         <div data-reveal-section>
           <FAQ />
+        </div>
+
+        {/* 8. Email Capture — exit intent for visitors who didn't convert */}
+        <div data-reveal-section>
+          <EmailCapture />
         </div>
 
         <LandingFooter />

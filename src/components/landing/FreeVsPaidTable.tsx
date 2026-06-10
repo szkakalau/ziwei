@@ -1,26 +1,17 @@
 "use client";
 
 import Link from "next/link";
-import { Check, Minus, Sparkles, Star, MessageCircle, Heart, Calendar, Gift, Flame, Bell, Mail, ArrowRight } from "lucide-react";
+import { Check, Sparkles, Star, MessageCircle, Heart, Calendar, Gift, Flame, Bell, Mail, ArrowRight } from "lucide-react";
 
 interface Props {
   readingHref: string;
 }
 
 const freeFeatures = [
-  { label: "Interactive 12-Palace Birth Chart", available: true },
-  { label: "Core Personality Traits & Strengths", available: true },
-  { label: "Growth Areas & Blind Spots", available: true },
-  { label: "True Solar Time Correction", available: true },
-  { label: "No signup required", available: true },
-  { label: "Daily AI Horoscope", available: false },
-  { label: "AI Chat — Ask Ziwei About Your Chart", available: false },
-  { label: "Compatibility Check (Two-Person)", available: false },
-  { label: "Yearly Forecast + Downloadable PDF", available: false },
-  { label: "Birthday Surprise Reading", available: false },
-  { label: "Streak Tracking & Achievements", available: false },
-  { label: "Human-Written Email Reading", available: false },
-  { label: "Cancel Anytime", available: false },
+  { label: "Personalized birth chart (100+ stars, 12 palaces)", available: true },
+  { label: "Core personality traits & hidden strengths", available: true },
+  { label: "True solar time geocoding", available: true },
+  { label: "No credit card. No signup. Instant.", available: true },
 ] as const;
 
 const premiumFeatures = [
@@ -89,17 +80,21 @@ export default function FreeVsPaidTable({ readingHref }: Props) {
               <ul className="space-y-2.5 sm:space-y-3">
                 {freeFeatures.map((f) => (
                   <li key={f.label} className="flex items-start gap-3">
-                    {f.available ? (
-                      <Check className="mt-0.5 h-4 w-4 shrink-0 text-jade" aria-hidden />
-                    ) : (
-                      <Minus className="mt-0.5 h-4 w-4 shrink-0 text-ink-dim/30" aria-hidden />
-                    )}
-                    <span className={`font-body text-sm leading-relaxed ${f.available ? "text-ink-muted" : "text-ink-dim/30"}`}>
+                    <Check className="mt-0.5 h-4 w-4 shrink-0 text-jade" aria-hidden />
+                    <span className="font-body text-sm leading-relaxed text-ink-muted">
                       {f.label}
                     </span>
                   </li>
                 ))}
               </ul>
+              <div className="mt-4 border-t border-gold/[0.06] pt-4">
+                <p className="font-body text-xs text-ink-dim">
+                  Everything below is{" "}
+                  <span className="font-semibold text-gold">Premium only</span> —
+                  daily horoscopes, AI chat, compatibility, yearly forecast PDF,
+                  birthday surprises, streaks, and human-written email reading.
+                </p>
+              </div>
             </div>
             <div className="px-5 pb-5 sm:px-8 sm:pb-6">
               <a
