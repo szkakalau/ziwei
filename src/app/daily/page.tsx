@@ -151,88 +151,79 @@ export default function DailyPage() {
     }
   };
 
-  // AUTH GATE: Not authenticated
+  // ── AUTH GATE: Not authenticated ──
   if (authStatus === "unauthenticated") {
     return (
-      <main className="min-h-screen bg-[#0a0a0f] text-white px-5 py-8 max-w-lg mx-auto">
-        <p className="text-amber-200/60 text-sm mb-8 text-center">{dateLabel}</p>
+      <main className="min-h-screen px-5 py-8 max-w-lg mx-auto">
+        <p className="text-gold/60 text-sm mb-8 text-center">{dateLabel}</p>
 
-        <div className="rounded-2xl bg-white/[0.03] border border-white/[0.06] p-6 mb-4">
-          <h2 className="text-white/80 text-lg font-semibold mb-1">
+        <div className="card-cosmic p-6 mb-4">
+          <h2 className="text-ink/80 text-lg font-semibold mb-1">
             {authMode === "register" ? "Start your free trial" : "Welcome back"}
           </h2>
-          <p className="text-white/40 text-sm mb-6">
+          <p className="text-ink-dim text-sm mb-6">
             {authMode === "register"
               ? "7 days free, then $4.99/month. Cancel anytime."
               : "Log in to see today's horoscope."}
           </p>
 
           <input
-            type="email"
-            placeholder="Email"
+            type="email" placeholder="Email"
             value={authMode === "login" ? loginEmail : signupEmail}
             onChange={(e) => authMode === "login"
-              ? setLoginEmail(e.target.value)
-              : setSignupEmail(e.target.value)}
-            className="w-full px-4 py-3 rounded-xl bg-white/[0.05] border border-white/[0.08]
-                       text-white/90 text-sm placeholder:text-white/20 mb-3
-                       focus:outline-none focus:border-amber-500/30"
+              ? setLoginEmail(e.target.value) : setSignupEmail(e.target.value)}
+            className="input-ink mb-3"
           />
           <input
             type="password"
-            placeholder={authMode === "login" ? "Password" : "Password (min 8 characters)"}
+            placeholder={authMode === "login" ? "Password" : "Password (min 10 characters)"}
             value={authMode === "login" ? loginPassword : signupPassword}
             onChange={(e) => authMode === "login"
-              ? setLoginPassword(e.target.value)
-              : setSignupPassword(e.target.value)}
+              ? setLoginPassword(e.target.value) : setSignupPassword(e.target.value)}
             onKeyDown={(e) => { if (e.key === "Enter") handleAuth(authMode); }}
-            className="w-full px-4 py-3 rounded-xl bg-white/[0.05] border border-white/[0.08]
-                       text-white/90 text-sm placeholder:text-white/20 mb-4
-                       focus:outline-none focus:border-amber-500/30"
+            className="input-ink mb-4"
           />
 
           {authError && (
-            <p className="text-red-400/80 text-xs mb-4">{authError}</p>
+            <p className="text-cinnabar/80 text-xs mb-4">{authError}</p>
           )}
 
           <button
             onClick={() => handleAuth(authMode)}
-            className="w-full py-3 rounded-xl bg-amber-500/15 text-amber-300 text-sm font-medium
-                       border border-amber-500/20 hover:bg-amber-500/25 transition-colors mb-3"
+            className="w-full py-3 rounded-sm bg-gold/[0.08] text-gold text-sm font-medium
+                       border border-gold/15 hover:bg-gold/[0.14] transition-colors mb-3"
           >
-            {authMode === "register" ? "Start Free Trial" : "Log In"}
+            {authMode === "register" ? "Start 7-Day Free Trial" : "Log In"}
           </button>
 
           <button
             onClick={() => { setAuthMode(authMode === "login" ? "register" : "login"); setAuthError(null); }}
-            className="w-full text-center text-white/30 text-xs hover:text-white/50 transition-colors"
+            className="w-full text-center text-ink-dim text-xs hover:text-ink-muted transition-colors"
           >
             {authMode === "register" ? "Already have an account? Log in" : "New here? Create an account"}
           </button>
         </div>
 
-        <p className="text-white/15 text-[11px] text-center mt-8">
+        <p className="text-ink-dim/30 text-[11px] text-center mt-8">
           DestinyBlueprint — Zi Wei Dou Shu Daily
         </p>
       </main>
     );
   }
 
-  // NO CHART: User authenticated but needs birth chart
+  // ── NO CHART ──
   if (authStatus === "no_chart") {
     return (
-      <main className="min-h-screen bg-[#0a0a0f] text-white px-5 py-8 max-w-lg mx-auto">
-        <p className="text-amber-200/60 text-sm mb-8 text-center">{dateLabel}</p>
-        <div className="rounded-2xl bg-white/[0.03] border border-white/[0.06] p-8 text-center">
-          <h2 className="text-white/80 text-lg font-semibold mb-2">Set up your birth chart</h2>
-          <p className="text-white/40 text-sm mb-6">
+      <main className="min-h-screen px-5 py-8 max-w-lg mx-auto">
+        <p className="text-gold/60 text-sm mb-8 text-center">{dateLabel}</p>
+        <div className="card-cosmic p-8 text-center">
+          <h2 className="text-ink/80 text-lg font-semibold mb-2">Set up your birth chart</h2>
+          <p className="text-ink-dim text-sm mb-6">
             Enter your birth details to generate your personalized Zi Wei Dou Shu chart.
           </p>
           <Link
             href="/#free-personality-snapshot"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl
-                       bg-amber-500/15 text-amber-300 text-sm font-medium
-                       border border-amber-500/20 hover:bg-amber-500/25 transition-colors"
+            className="btn-cosmic inline-flex items-center gap-2"
           >
             Enter Birth Details <ArrowRight className="h-4 w-4" />
           </Link>
@@ -241,20 +232,19 @@ export default function DailyPage() {
     );
   }
 
-  // NO SUBSCRIPTION: Authenticated with chart, no active subscription
+  // ── NO SUBSCRIPTION ──
   if (authStatus === "no_subscription") {
     return (
-      <main className="min-h-screen bg-[#0a0a0f] text-white px-5 py-8 max-w-lg mx-auto">
-        <p className="text-amber-200/60 text-sm mb-8 text-center">{dateLabel}</p>
-        <div className="rounded-2xl bg-gradient-to-b from-white/[0.04] to-white/[0.01]
-                        border border-amber-500/10 p-8 text-center">
-          <h2 className="text-white/80 text-lg font-semibold mb-2">
+      <main className="min-h-screen px-5 py-8 max-w-lg mx-auto">
+        <p className="text-gold/60 text-sm mb-8 text-center">{dateLabel}</p>
+        <div className="card-cosmic-highlight p-8 text-center">
+          <h2 className="text-ink/80 text-lg font-semibold mb-2">
             Get your daily horoscope
           </h2>
-          <p className="text-white/40 text-sm mb-2">
+          <p className="text-ink-dim text-sm mb-2">
             Personalized Zi Wei Dou Shu horoscopes every morning
           </p>
-          <ul className="text-left text-white/50 text-sm space-y-1.5 mb-6 mx-auto max-w-xs">
+          <ul className="text-left text-ink-muted text-sm space-y-1.5 mb-6 mx-auto max-w-xs">
             <li>✨ Daily AI-powered horoscopes</li>
             <li>🔮 Interactive birth chart</li>
             <li>📤 Share with friends</li>
@@ -262,49 +252,48 @@ export default function DailyPage() {
           </ul>
           <button
             onClick={handleStartTrial}
-            className="w-full py-3 rounded-xl bg-amber-500/15 text-amber-300 text-sm font-medium
-                       border border-amber-500/20 hover:bg-amber-500/25 transition-colors mb-2"
+            className="w-full py-3 rounded-sm bg-gold/[0.08] text-gold text-sm font-medium
+                       border border-gold/15 hover:bg-gold/[0.14] transition-colors mb-2"
           >
             Start 7-Day Free Trial
           </button>
-          <p className="text-white/25 text-xs">Then $4.99/month. Cancel anytime.</p>
+          <p className="text-ink-dim/40 text-xs">Then $4.99/month. Cancel anytime.</p>
           {trialError && (
-            <p className="text-red-400/70 text-xs mt-3">{trialError}</p>
+            <p className="text-cinnabar/70 text-xs mt-3">{trialError}</p>
           )}
         </div>
       </main>
     );
   }
 
-  // LOADING
+  // ── LOADING ──
   if (loading) {
     return (
-      <main className="min-h-screen bg-[#0a0a0f] text-white px-5 py-8 max-w-lg mx-auto">
+      <main className="min-h-screen px-5 py-8 max-w-lg mx-auto">
         <div className="flex items-center justify-between mb-8">
-          <div className="h-5 w-32 bg-white/5 rounded animate-pulse" />
-          <div className="h-4 w-16 bg-white/5 rounded animate-pulse" />
+          <div className="h-5 w-32 bg-gold/[0.06] rounded animate-pulse" />
+          <div className="h-4 w-16 bg-gold/[0.04] rounded animate-pulse" />
         </div>
-        <div className="rounded-2xl bg-white/[0.03] border border-white/[0.06] p-6 space-y-4">
-          <div className="h-4 bg-white/5 rounded w-3/4 animate-pulse" />
-          <div className="h-3 bg-white/5 rounded w-full animate-pulse" />
-          <div className="h-3 bg-white/5 rounded w-5/6 animate-pulse" />
-          <div className="h-3 bg-white/5 rounded w-4/5 animate-pulse" />
+        <div className="card-cosmic p-6 space-y-4">
+          <div className="h-4 bg-gold/[0.05] rounded w-3/4 animate-pulse" />
+          <div className="h-3 bg-gold/[0.04] rounded w-full animate-pulse" />
+          <div className="h-3 bg-gold/[0.04] rounded w-5/6 animate-pulse" />
+          <div className="h-3 bg-gold/[0.04] rounded w-4/5 animate-pulse" />
         </div>
       </main>
     );
   }
 
-  // ERROR
+  // ── ERROR ──
   if (error) {
     return (
-      <main className="min-h-screen bg-[#0a0a0f] text-white px-5 py-8 max-w-lg mx-auto">
-        <p className="text-amber-200/60 text-sm mb-2">{dateLabel}</p>
-        <div className="rounded-2xl bg-white/[0.03] border border-amber-500/10 p-8 text-center">
-          <p className="text-white/60 text-base mb-4">{error}</p>
+      <main className="min-h-screen px-5 py-8 max-w-lg mx-auto">
+        <p className="text-gold/60 text-sm mb-2">{dateLabel}</p>
+        <div className="card-cosmic p-8 text-center">
+          <p className="text-ink-muted text-base mb-4">{error}</p>
           <button
             onClick={() => window.location.reload()}
-            className="px-5 py-2.5 rounded-xl bg-amber-500/15 text-amber-300 text-sm font-medium
-                       hover:bg-amber-500/25 transition-colors"
+            className="btn-cosmic"
           >
             Try again
           </button>
@@ -313,22 +302,21 @@ export default function DailyPage() {
     );
   }
 
-  // EMPTY
+  // ── EMPTY ──
   if (!data?.horoscope) {
     return (
-      <main className="min-h-screen bg-[#0a0a0f] text-white px-5 py-8 max-w-lg mx-auto">
-        <p className="text-amber-200/60 text-sm mb-2">{dateLabel}</p>
-        <div className="rounded-2xl bg-white/[0.03] border border-white/[0.06] p-8 text-center">
-          <p className="text-white/70 text-base mb-2">
+      <main className="min-h-screen px-5 py-8 max-w-lg mx-auto">
+        <p className="text-gold/60 text-sm mb-2">{dateLabel}</p>
+        <div className="card-cosmic p-8 text-center">
+          <p className="text-ink-muted text-base mb-2">
             Your first horoscope is being written...
           </p>
-          <p className="text-white/40 text-sm">
+          <p className="text-ink-dim text-sm">
             While you wait, explore your birth chart.
           </p>
           <button
             onClick={() => window.location.reload()}
-            className="mt-5 px-5 py-2.5 rounded-xl bg-white/5 text-white/50 text-sm
-                       hover:bg-white/10 transition-colors"
+            className="mt-5 btn-cosmic"
           >
             Refresh
           </button>
@@ -337,15 +325,15 @@ export default function DailyPage() {
     );
   }
 
-  // SUCCESS
+  // ── SUCCESS ──
   return (
-    <main className="min-h-screen bg-[#0a0a0f] text-white px-5 py-8 max-w-lg mx-auto">
+    <main className="min-h-screen px-5 py-8 max-w-lg mx-auto">
       <div className="flex items-center justify-between mb-4">
-        <p className="text-amber-200/60 text-sm font-medium">{dateLabel}</p>
+        <p className="text-gold/70 text-sm font-medium">{dateLabel}</p>
         <StreakBadge streak={streak} />
       </div>
 
-      {/* Birthday Surprise (only renders on birthday or birthday week) */}
+      {/* Birthday Surprise */}
       {userBirthDate && (
         <BirthdaySurprise birthDate={userBirthDate} streak={streak} />
       )}
@@ -357,32 +345,32 @@ export default function DailyPage() {
         </div>
       )}
 
-      <div className="rounded-2xl bg-gradient-to-b from-white/[0.04] to-white/[0.01]
-                      border border-amber-500/10 p-6 mb-8">
-        <p className="text-white/90 text-[17px] leading-relaxed whitespace-pre-line">
+      {/* Horoscope card */}
+      <div className="card-cosmic-highlight p-6 mb-8">
+        <p className="text-ink/90 text-[17px] leading-relaxed whitespace-pre-line">
           {data.horoscope}
         </p>
         {data.source && data.source !== "cached" && (
-          <p className="text-white/20 text-[11px] mt-4">
+          <p className="text-ink-dim/30 text-[11px] mt-4">
             Generated via {data.source === "template" ? "template" : "AI"}
           </p>
         )}
       </div>
 
+      {/* Today's Stars */}
       {data.highlightedStars.length > 0 && (
         <section className="mb-8">
-          <h2 className="text-white/40 text-xs uppercase tracking-wider mb-3 font-medium">
+          <h2 className="text-ink-dim text-xs uppercase tracking-wider mb-3 font-medium">
             Today&apos;s Stars
           </h2>
           <div className="space-y-2">
             {data.highlightedStars.map((star) => (
               <div
                 key={star}
-                className="flex items-center gap-3 rounded-xl bg-white/[0.02] px-4 py-3
-                           border border-white/[0.04]"
+                className="flex items-center gap-3 rounded-sm bg-gold/[0.03] px-4 py-3 border border-gold/[0.06]"
               >
-                <span className="w-1.5 h-1.5 rounded-full bg-amber-400/60" />
-                <span className="text-white/70 text-sm">{star}</span>
+                <span className="w-1.5 h-1.5 rounded-full bg-gold/60" />
+                <span className="text-ink-muted text-sm">{star}</span>
               </div>
             ))}
           </div>
@@ -395,12 +383,11 @@ export default function DailyPage() {
       {/* Compatibility Check */}
       <CompatibilityCheck />
 
+      {/* Actions */}
       <div className="flex flex-wrap gap-3 mb-6">
         <Link
           href="/yearly"
-          className="flex items-center gap-2 px-5 py-3 rounded-xl
-                     border border-amber-500/15 text-amber-300/70 text-sm
-                     hover:border-amber-500/30 hover:text-amber-200 transition-colors"
+          className="btn-cosmic inline-flex items-center gap-2"
         >
           <Calendar className="h-4 w-4" />
           Yearly Forecast
@@ -408,9 +395,7 @@ export default function DailyPage() {
 
         <button
           onClick={handleShare}
-          className="flex items-center gap-2 px-5 py-3 rounded-xl
-                     border border-white/[0.08] text-white/60 text-sm
-                     hover:border-white/15 hover:text-white/80 transition-colors"
+          className="btn-cosmic inline-flex items-center gap-2"
         >
           <Share2 className="h-4 w-4" />
           Share
@@ -426,9 +411,7 @@ export default function DailyPage() {
         {chartPalaces.length > 0 && (
           <button
             onClick={() => setShowChart(!showChart)}
-            className="flex items-center gap-2 px-5 py-3 rounded-xl
-                       border border-white/[0.08] text-white/60 text-sm
-                       hover:border-white/15 hover:text-white/80 transition-colors"
+            className="btn-cosmic inline-flex items-center gap-2"
           >
             <Eye className="h-4 w-4" />
             {showChart ? "Hide Chart" : "View Your Chart"}
@@ -437,12 +420,12 @@ export default function DailyPage() {
       </div>
 
       {showChart && chartPalaces.length > 0 && (
-        <section className="mb-8 rounded-2xl bg-white/[0.02] border border-white/[0.04] p-4">
+        <section className="mb-8 card-cosmic p-4">
           <ChartCanvas palaces={chartPalaces} />
         </section>
       )}
 
-      <p className="text-white/15 text-[11px] mt-12 text-center mb-20">
+      <p className="text-ink-dim/20 text-[11px] mt-12 text-center mb-20">
         DestinyBlueprint — Zi Wei Dou Shu Daily
       </p>
 

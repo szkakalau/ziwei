@@ -1,12 +1,14 @@
+"use client";
+
 import Link from "next/link";
 import { Mail, Compass } from "lucide-react";
 
 export default function LandingFooter() {
   return (
-    <footer className="relative border-t border-white/[0.07] bg-mist/50">
-      {/* Top accent */}
+    <footer className="relative border-t border-gold/[0.06] bg-mist/60">
+      {/* Top accent — cosmic gradient */}
       <div
-        className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-jade/25 to-transparent"
+        className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-star/20 via-gold/15 to-transparent"
         aria-hidden
       />
       <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6">
@@ -34,46 +36,40 @@ export default function LandingFooter() {
             <div>
               <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-ink-dim">Pages</p>
               <ul className="mt-3 space-y-2">
-                <li>
-                  <Link href="/#top" className="font-body text-sm text-ink-muted transition-colors hover:text-gold">
-                    Home
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/about" className="font-body text-sm text-ink-muted transition-colors hover:text-gold">
-                    About
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/blog" className="font-body text-sm text-ink-muted transition-colors hover:text-gold">
-                    Blog
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/pricing" className="font-body text-sm text-ink-muted transition-colors hover:text-gold">
-                    Pricing
-                  </Link>
-                </li>
+                {[
+                  ["Home", "/#top"],
+                  ["About", "/about"],
+                  ["Blog", "/blog"],
+                  ["Pricing", "/pricing"],
+                ].map(([label, href]) => (
+                  <li key={label}>
+                    <Link
+                      href={href}
+                      className="font-body text-sm text-ink-muted transition-colors hover:text-gold"
+                    >
+                      {label}
+                    </Link>
+                  </li>
+                ))}
               </ul>
             </div>
             <div>
               <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-ink-dim">Legal</p>
               <ul className="mt-3 space-y-2">
-                <li>
-                  <Link href="/privacy" className="font-body text-sm text-ink-muted transition-colors hover:text-gold">
-                    Privacy Policy
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/terms" className="font-body text-sm text-ink-muted transition-colors hover:text-gold">
-                    Terms of Service
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/contact" className="font-body text-sm text-ink-muted transition-colors hover:text-gold">
-                    Contact
-                  </Link>
-                </li>
+                {[
+                  ["Privacy Policy", "/privacy"],
+                  ["Terms of Service", "/terms"],
+                  ["Contact", "/contact"],
+                ].map(([label, href]) => (
+                  <li key={label}>
+                    <Link
+                      href={href}
+                      className="font-body text-sm text-ink-muted transition-colors hover:text-gold"
+                    >
+                      {label}
+                    </Link>
+                  </li>
+                ))}
               </ul>
             </div>
           </div>

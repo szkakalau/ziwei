@@ -15,8 +15,8 @@ export function AppNav() {
   ];
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-50 bg-[#0a0a0f]/95 backdrop-blur-xl
-                    border-t border-white/[0.06] safe-area-bottom">
+    <nav className="fixed bottom-0 left-0 right-0 z-50 bg-void/80 backdrop-blur-2xl border-t border-gold/[0.05] safe-area-bottom">
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-gold/20 to-transparent" />
       <div className="flex items-center justify-around max-w-lg mx-auto h-16">
         {links.map(({ href, label, icon: Icon }) => {
           const active = pathname === href;
@@ -24,12 +24,11 @@ export function AppNav() {
             <Link
               key={href}
               href={href}
-              className={`flex flex-col items-center gap-0.5 px-3 py-1.5 min-w-[64px]
-                          transition-colors ${
-                            active
-                              ? "text-amber-300/90"
-                              : "text-white/30 hover:text-white/50"
-                          }`}
+              className={`flex flex-col items-center gap-0.5 px-3 py-1.5 min-w-[64px] transition-colors ${
+                active
+                  ? "text-gold"
+                  : "text-ink-dim hover:text-ink-muted"
+              }`}
             >
               <Icon className="h-5 w-5" />
               <span className="text-[10px] font-medium tracking-wide">{label}</span>

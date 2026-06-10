@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import { Check, Minus, Sparkles, Star, MessageCircle, Heart, Calendar, Gift, Flame, Bell, Mail, ArrowRight } from "lucide-react";
 
@@ -40,16 +42,16 @@ const premiumFeatures = [
 export default function FreeVsPaidTable({ readingHref }: Props) {
   return (
     <section className="relative overflow-hidden px-4 py-16 sm:px-6 sm:py-24 md:py-32">
-      {/* Background */}
+      {/* Cosmic nebula background */}
       <div
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_50%_0%,oklch(0.74_0.12_78/0.04),transparent_50%)]"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_50%_0%,oklch(0.80_0.14_82/0.04),transparent_55%),radial-gradient(ellipse_40%_35%_at_80%_60%,oklch(0.28_0.08_310/0.06),transparent_50%)]"
         aria-hidden
       />
 
       <div className="relative mx-auto max-w-5xl">
         {/* Header */}
         <div className="text-center">
-          <div className="inline-flex items-center gap-2 rounded-full border border-gold/[0.15] bg-gold/[0.04] px-4 py-1.5 backdrop-blur-sm">
+          <div className="inline-flex items-center gap-2 rounded-full border border-gold/[0.12] bg-gold/[0.04] px-4 py-1.5 backdrop-blur-sm">
             <Sparkles className="h-3.5 w-3.5 text-gold/70" aria-hidden />
             <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-gold/80">
               Simple Pricing
@@ -58,7 +60,7 @@ export default function FreeVsPaidTable({ readingHref }: Props) {
           <h2 className="landing-headline mt-4 text-2xl sm:text-3xl md:text-4xl lg:text-5xl">
             Free to start.
             <br />
-            <span className="bg-gradient-to-r from-gold to-cinnabar bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-gold to-cinnabar bg-clip-text text-transparent bg-[length:200%_200%] animate-gradient-shift">
               $4.99/month
             </span>
             {" "}to go deeper.
@@ -71,8 +73,8 @@ export default function FreeVsPaidTable({ readingHref }: Props) {
         {/* Two-column cards */}
         <div className="mt-10 grid gap-4 sm:mt-14 sm:gap-6 lg:grid-cols-2 lg:gap-8">
           {/* FREE */}
-          <article className="flex flex-col rounded-sm border border-white/[0.08] bg-panel/70 shadow-panel backdrop-blur-sm">
-            <div className="border-b border-white/[0.07] px-5 py-5 sm:px-8 sm:py-6">
+          <article className="flex flex-col rounded-sm border border-gold/[0.08] bg-gradient-to-b from-void/70 to-mist/50 backdrop-blur-sm">
+            <div className="border-b border-gold/[0.06] px-5 py-5 sm:px-8 sm:py-6">
               <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-ink-dim">
                 Free Snapshot
               </p>
@@ -90,9 +92,9 @@ export default function FreeVsPaidTable({ readingHref }: Props) {
                     {f.available ? (
                       <Check className="mt-0.5 h-4 w-4 shrink-0 text-jade" aria-hidden />
                     ) : (
-                      <Minus className="mt-0.5 h-4 w-4 shrink-0 text-ink-dim/40" aria-hidden />
+                      <Minus className="mt-0.5 h-4 w-4 shrink-0 text-ink-dim/30" aria-hidden />
                     )}
-                    <span className={`font-body text-sm leading-relaxed ${f.available ? "text-ink-muted" : "text-ink-dim/40"}`}>
+                    <span className={`font-body text-sm leading-relaxed ${f.available ? "text-ink-muted" : "text-ink-dim/30"}`}>
                       {f.label}
                     </span>
                   </li>
@@ -102,7 +104,7 @@ export default function FreeVsPaidTable({ readingHref }: Props) {
             <div className="px-5 pb-5 sm:px-8 sm:pb-6">
               <a
                 href={readingHref}
-                className="flex w-full items-center justify-center gap-2 rounded-sm border border-white/[0.12] bg-white/[0.03] py-2.5 font-mono text-xs font-semibold uppercase tracking-wide text-ink-muted transition-all hover:border-gold/30 hover:text-ink sm:py-3 sm:text-sm"
+                className="flex w-full items-center justify-center gap-2 rounded-sm border border-gold/[0.12] bg-gold/[0.03] py-2.5 font-mono text-xs font-semibold uppercase tracking-wide text-ink-muted transition-all hover:border-gold/30 hover:bg-gold/[0.06] hover:text-ink sm:py-3 sm:text-sm"
               >
                 Get Free Snapshot
                 <ArrowRight className="h-4 w-4" aria-hidden />
@@ -111,7 +113,7 @@ export default function FreeVsPaidTable({ readingHref }: Props) {
           </article>
 
           {/* PREMIUM */}
-          <article className="relative flex flex-col rounded-sm border border-gold/40 bg-gradient-to-br from-gold/[0.06] via-panel/90 to-cinnabar/[0.04] shadow-glow backdrop-blur-sm ring-1 ring-gold/20">
+          <article className="relative flex flex-col rounded-sm border border-gold/25 bg-gradient-to-br from-gold/[0.05] via-panel/80 to-star/[0.03] shadow-glow backdrop-blur-sm">
             {/* "Most Popular" badge */}
             <div className="absolute -top-3 left-1/2 -translate-x-1/2">
               <span className="inline-block rounded-full border border-gold/30 bg-gold/15 px-4 py-1 font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-gold">
@@ -119,7 +121,7 @@ export default function FreeVsPaidTable({ readingHref }: Props) {
               </span>
             </div>
 
-            <div className="border-b border-gold/[0.15] px-5 py-5 sm:px-8 sm:py-6">
+            <div className="border-b border-gold/[0.12] px-5 py-5 sm:px-8 sm:py-6">
               <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-gold/80">
                 DestinyBlueprint Premium
               </p>
@@ -150,7 +152,7 @@ export default function FreeVsPaidTable({ readingHref }: Props) {
             <div className="px-5 pb-6 sm:px-8 sm:pb-8">
               <Link
                 href="/daily"
-                className="flex w-full items-center justify-center gap-2 rounded-sm bg-gradient-to-br from-cinnabar to-cinnabar-deep py-3 font-mono text-xs font-semibold uppercase tracking-wide text-ink shadow-[0_0_32px_-8px_rgba(201,84,60,0.45)] transition-all hover:brightness-110 sm:py-3.5 sm:text-sm"
+                className="gold-leaf flex w-full items-center justify-center gap-2 rounded-sm py-3 font-mono text-xs font-semibold uppercase tracking-wide text-ink transition-all hover:brightness-110 sm:py-3.5 sm:text-sm"
               >
                 Start 7-Day Free Trial
                 <ArrowRight className="h-4 w-4" aria-hidden />
@@ -163,7 +165,7 @@ export default function FreeVsPaidTable({ readingHref }: Props) {
         </div>
 
         {/* Bottom guarantee */}
-        <div className="mt-10 flex items-center gap-3 rounded-sm border border-jade/[0.15] bg-jade/[0.03] px-5 py-4 backdrop-blur-sm md:mx-auto md:max-w-xl">
+        <div className="mt-10 flex items-center gap-3 rounded-sm border border-jade/[0.12] bg-jade/[0.03] px-5 py-4 backdrop-blur-sm md:mx-auto md:max-w-xl">
           <Check className="h-5 w-5 shrink-0 text-jade" aria-hidden />
           <p className="font-body text-sm leading-relaxed text-ink-muted">
             <span className="font-semibold text-ink">Everything in one plan.</span>{" "}

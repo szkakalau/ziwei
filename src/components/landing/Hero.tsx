@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { Sparkles, Star, ShieldCheck, ArrowRight, Crosshair } from "lucide-react";
+import { Sparkles, Star, ShieldCheck, ArrowRight, Compass } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { track } from "@/lib/analytics";
 
@@ -9,106 +9,183 @@ type Props = {
   formAnchorId: string;
 };
 
-type StarParticle = {
-  id: number;
-  x: number;
-  y: number;
-  size: number;
-  opacity: number;
-  delay: number;
-  duration: number;
-};
-
-function StarField() {
-  const [stars, setStars] = useState<StarParticle[]>([]);
+/* ── Multi-layer star field with parallax ── */
+function CosmicStarField({ scrollY }: { scrollY: number }) {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
-    const generated: StarParticle[] = [];
-    for (let i = 0; i < 60; i++) {
-      generated.push({
-        id: i,
-        x: Math.random() * 100,
-        y: Math.random() * 100,
-        size: Math.random() * 2 + 0.5,
-        opacity: Math.random() * 0.6 + 0.2,
-        delay: Math.random() * 4,
-        duration: Math.random() * 3 + 2,
-      });
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    const dpr = window.devicePixelRatio || 1;
+    canvas.width = canvas.offsetWidth * dpr;
+    canvas.height = canvas.offsetHeight * dpr;
+    ctx.scale(dpr, dpr);
+
+    // Generate star layers
+    const layers = [
+      { stars: 120, speed: 0.15, size: 0.6, opacity: 0.8, color: "255 255 255" },
+      { stars: 80, speed: 0.25, size: 1.0, opacity: 0.6, color: "212 175 55" },
+      { stars: 40, speed: 0.10, size: 1.4, opacity: 0.7, color: "100 180 255" },
+      { stars: 25, speed: 0.35, size: 1.8, opacity: 0.5, color: "255 255 255" },
+    ];
+
+    const allStars = layers.flatMap((layer) =>
+      Array.from({ length: layer.stars }, () => ({
+        x: Math.random() * canvas.offsetWidth,
+        y: Math.random() * canvas.offsetHeight,
+        r: (Math.random() * 0.8 + 0.4) * layer.size,
+        speed: layer.speed,
+        color: layer.color,
+        opacity: (Math.random() * 0.5 + 0.3) * layer.opacity,
+        twinkleSpeed: Math.random() * 0.02 + 0.005,
+        twinkleOffset: Math.random() * Math.PI * 2,
+      })),
+    );
+
+    let frame = 0;
+    let raf: number;
+
+    function draw() {
+      frame++;
+      ctx!.clearRect(0, 0, canvas!.offsetWidth, canvas!.offsetHeight);
+
+      for (const star of allStars) {
+        const parallaxY = star.y - scrollY * star.speed;
+        const wrappedY = ((parallaxY % (canvas!.offsetHeight + 40)) + canvas!.offsetHeight + 40) % (canvas!.offsetHeight + 40) - 20;
+        const twinkle = Math.sin(frame * star.twinkleSpeed + star.twinkleOffset) * 0.3 + 0.7;
+
+        ctx!.beginPath();
+        ctx!.arc(star.x, wrappedY, star.r, 0, Math.PI * 2);
+        ctx!.fillStyle = `rgb(${star.color} / ${star.opacity * twinkle})`;
+        ctx!.fill();
+
+        // Brighter stars get a glow
+        if (star.r > 1.2) {
+          ctx!.beginPath();
+          ctx!.arc(star.x, wrappedY, star.r * 2.5, 0, Math.PI * 2);
+          ctx!.fillStyle = `rgb(${star.color} / ${star.opacity * twinkle * 0.12})`;
+          ctx!.fill();
+        }
+      }
+
+      raf = requestAnimationFrame(draw);
     }
-    setStars(generated);
-  }, []);
+
+    draw();
+    return () => cancelAnimationFrame(raf);
+  }, [scrollY]);
 
   return (
-    <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden>
-      {stars.map((s) => (
-        <div
-          key={s.id}
-          className="absolute rounded-full bg-gold"
-          style={{
-            left: `${s.x}%`,
-            top: `${s.y}%`,
-            width: `${s.size}px`,
-            height: `${s.size}px`,
-            opacity: s.opacity,
-            animation: `starPulse ${s.duration}s ease-in-out ${s.delay}s infinite`,
-          }}
-        />
-      ))}
+    <canvas
+      ref={canvasRef}
+      className="pointer-events-none absolute inset-0 h-full w-full"
+      aria-hidden
+    />
+  );
+}
+
+/* ── Orbital Ring ── */
+function OrbitalRing({ scrollY }: { scrollY: number }) {
+  const rotation = scrollY * 0.03;
+  const scale = Math.max(0.75, 1 - scrollY * 0.0005);
+  const opacity = Math.max(0.04, 0.14 - scrollY * 0.0003);
+
+  return (
+    <div
+      className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[55%]"
+      style={{ transform: `translate(-50%, -55%) scale(${scale}) rotate(${rotation}deg)`, opacity }}
+      aria-hidden
+    >
+      <svg
+        viewBox="0 0 500 500"
+        className="h-[min(95vw,750px)] w-[min(95vw,750px)]"
+        fill="none"
+      >
+        {/* Outer ring */}
+        <circle cx="250" cy="250" r="235" stroke="oklch(0.80 0.14 82 / 0.25)" strokeWidth="0.4" />
+        {/* Middle ring */}
+        <circle cx="250" cy="250" r="185" stroke="oklch(0.52 0.18 250 / 0.18)" strokeWidth="0.3" />
+        {/* Inner ring */}
+        <circle cx="250" cy="250" r="120" stroke="oklch(0.80 0.14 82 / 0.2)" strokeWidth="0.5" />
+        {/* 12 palace divisions */}
+        {Array.from({ length: 12 }).map((_, i) => {
+          const angle = (i * 30 - 90) * (Math.PI / 180);
+          const x2 = Math.round((250 + 232 * Math.cos(angle)) * 1e4) / 1e4;
+          const y2 = Math.round((250 + 232 * Math.sin(angle)) * 1e4) / 1e4;
+          return (
+            <line
+              key={i}
+              x1="250" y1="250"
+              x2={x2} y2={y2}
+              stroke="oklch(0.80 0.14 82 / 0.12)"
+              strokeWidth="0.3"
+            />
+          );
+        })}
+        {/* Center star */}
+        <circle cx="250" cy="250" r="5" fill="oklch(0.80 0.14 82 / 0.5)" />
+        <circle cx="250" cy="250" r="12" fill="oklch(0.80 0.14 82 / 0.08)" />
+        {/* Bright stars at cardinal points */}
+        {[0, 90, 180, 270].map((deg) => {
+          const rad = (deg * Math.PI) / 180;
+          const cx = 250 + 185 * Math.cos(rad);
+          const cy = 250 + 185 * Math.sin(rad);
+          return (
+            <circle key={deg} cx={cx} cy={cy} r="1.8" fill="oklch(0.94 0.024 90 / 0.6)">
+              <animate attributeName="opacity" values="0.3;0.8;0.3" dur="3s" repeatCount="indefinite" />
+            </circle>
+          );
+        })}
+      </svg>
     </div>
   );
 }
 
-function CircleMotif({ className = "" }: { className?: string }) {
+/* ── Constellation Lines ── */
+function ConstellationLines() {
+  const paths = [
+    "M80,60 L140,90 L190,70 L240,100",
+    "M60,140 L110,120 L160,150 L210,130",
+    "M100,200 L150,180 L200,210 L250,190 L300,220",
+  ];
+
   return (
     <svg
-      viewBox="0 0 400 400"
-      className={className}
-      fill="none"
+      className="pointer-events-none absolute inset-0 h-full w-full"
+      viewBox="0 0 400 300"
+      preserveAspectRatio="xMidYMid slice"
       aria-hidden
     >
-      {/* Outer ring */}
-      <circle
-        cx="200" cy="200" r="190"
-        stroke="currentColor"
-        strokeWidth="0.5"
-        opacity="0.15"
-      />
-      {/* 12 sectors — the ZWDS palace divisions */}
-      {Array.from({ length: 12 }).map((_, i) => {
-        const angle = (i * 30 - 90) * (Math.PI / 180);
-        const x2 = Math.round((200 + 185 * Math.cos(angle)) * 1e6) / 1e6;
-        const y2 = Math.round((200 + 185 * Math.sin(angle)) * 1e6) / 1e6;
-        return (
-          <line
-            key={i}
-            x1="200" y1="200"
-            x2={x2} y2={y2}
-            stroke="currentColor"
-            strokeWidth="0.4"
-            opacity="0.08"
-          />
-        );
-      })}
-      {/* Inner ring */}
-      <circle
-        cx="200" cy="200" r="80"
-        stroke="currentColor"
-        strokeWidth="0.6"
-        opacity="0.12"
-      />
-      {/* Center dot */}
-      <circle
-        cx="200" cy="200" r="4"
-        fill="currentColor"
-        opacity="0.3"
-      />
+      {paths.map((d, i) => (
+        <path
+          key={i}
+          d={d}
+          stroke="oklch(0.52 0.18 250 / 0.12)"
+          strokeWidth="0.5"
+          fill="none"
+          strokeDasharray="1000"
+          strokeDashoffset="1000"
+          style={{ animation: `constellationDraw 2s ease-out ${1 + i * 0.4}s forwards` }}
+        />
+      ))}
+      {/* Star nodes on path intersections */}
+      {[[80,60],[140,90],[190,70],[240,100],[60,140],[110,120],[160,150],[210,130],[100,200],[150,180],[200,210],[250,190],[300,220]].map(([cx, cy], i) => (
+        <circle
+          key={i}
+          cx={cx} cy={cy}
+          r="1.2"
+          fill="oklch(0.52 0.18 250 / 0.5)"
+          style={{ animation: `fadeUp 0.6s ease-out ${1.2 + i * 0.08}s both` }}
+        />
+      ))}
     </svg>
   );
 }
 
 export default function Hero({ formAnchorId }: Props) {
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const titleRef = useRef<HTMLHeadingElement>(null);
   const [scrollY, setScrollY] = useState(0);
 
   useEffect(() => {
@@ -117,42 +194,32 @@ export default function Hero({ formAnchorId }: Props) {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const motifScale = Math.max(0.85, 1 - scrollY * 0.0004);
-  const motifOpacity = Math.max(0.08, 0.25 - scrollY * 0.0005);
-
   return (
     <section
       id="top"
-      ref={scrollRef}
-      className="relative isolate overflow-hidden border-b border-white/[0.07]"
+      className="relative isolate overflow-hidden border-b border-white/[0.05]"
     >
-      {/* Star field background */}
-      <StarField />
+      {/* Multi-layer cosmic background */}
+      <CosmicStarField scrollY={scrollY} />
 
-      {/* Massive celestial circle motif */}
-      <div
-        className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[55%]"
-        style={{
-          transform: `translate(-50%, -55%) scale(${motifScale})`,
-          opacity: motifOpacity,
-        }}
-        aria-hidden
-      >
-        <CircleMotif className="h-[min(90vw,700px)] w-[min(90vw,700px)] text-gold" />
+      {/* Orbital ring */}
+      <OrbitalRing scrollY={scrollY} />
+
+      {/* Constellation overlay */}
+      <div className="pointer-events-none absolute inset-0 opacity-[0.35]" aria-hidden>
+        <ConstellationLines />
       </div>
 
-      {/* Ambient light gradients */}
-      <div
-        className="pointer-events-none absolute inset-0"
-        aria-hidden
-      >
-        <div className="absolute left-0 top-0 h-[60%] w-full bg-[radial-gradient(ellipse_70%_55%_at_50%_0%,oklch(0.74_0.12_78/0.1),transparent_60%)]" />
-        <div className="absolute bottom-0 right-0 h-[50%] w-[60%] bg-[radial-gradient(ellipse_60%_50%_at_100%_100%,oklch(0.58_0.19_32/0.06),transparent_60%)]" />
+      {/* Nebula glow blobs */}
+      <div className="pointer-events-none absolute inset-0" aria-hidden>
+        <div className="absolute -left-32 top-0 h-[70%] w-[70%] bg-[radial-gradient(ellipse_60%_50%_at_40%_20%,oklch(0.52_0.18_250/0.09),transparent_60%)] animate-nebula-breathe" />
+        <div className="absolute -right-20 bottom-0 h-[60%] w-[55%] bg-[radial-gradient(ellipse_50%_45%_at_70%_80%,oklch(0.28_0.08_310/0.10),transparent_55%)] animate-nebula-breathe" style={{ animationDelay: "-4s" }} />
+        <div className="absolute left-1/3 top-1/2 h-[40%] w-[45%] bg-[radial-gradient(ellipse_50%_40%_at_50%_50%,oklch(0.80_0.14_82/0.04),transparent_55%)] animate-nebula-breathe" style={{ animationDelay: "-6s" }} />
       </div>
 
       {/* Fine grid overlay */}
       <div
-        className="pointer-events-none absolute inset-0 bg-grid-fine bg-grid opacity-[0.2]"
+        className="pointer-events-none absolute inset-0 bg-grid-fine bg-grid opacity-[0.18]"
         aria-hidden
       />
 
@@ -160,54 +227,58 @@ export default function Hero({ formAnchorId }: Props) {
         <div className="relative z-10 w-full">
           {/* Top label row */}
           <div className="flex flex-wrap items-center gap-x-4 gap-y-2 sm:gap-x-6">
-            <p className="inline-flex items-center gap-1.5 rounded-full border border-gold/25 bg-gold/[0.04] px-3 py-1 font-mono text-[10px] uppercase tracking-[0.24em] text-gold backdrop-blur-sm animate-on-load sm:gap-2 sm:px-4 sm:py-1.5 sm:text-[11px] sm:tracking-[0.28em]">
-              <Crosshair className="h-3 w-3" aria-hidden />
-              Not Western Astrology
+            <p className="inline-flex items-center gap-1.5 rounded-full border border-gold/20 bg-gold/[0.05] px-3 py-1 font-mono text-[10px] uppercase tracking-[0.24em] text-gold backdrop-blur-sm animate-on-load sm:gap-2 sm:px-4 sm:py-1.5 sm:text-[11px] sm:tracking-[0.28em]">
+              <Compass className="h-3 w-3" aria-hidden />
+              Imperial Astrology
             </p>
             <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-dim animate-on-load-delay-1 sm:text-[11px] sm:tracking-[0.22em]">
-              Ancient Chinese Imperial System · 1,000+ Years
+              1,000+ Years · 100+ Celestial Stars
             </p>
           </div>
 
           {/* Main headline */}
-          <h1
-            ref={titleRef}
-            className="landing-headline mt-8 max-w-4xl text-[clamp(2rem,7vw,4.75rem)] animate-on-load-delay-1"
-          >
-            Your destiny, mapped by the{" "}
+          <h1 className="landing-headline mt-8 max-w-4xl text-[clamp(2.25rem,7vw,5rem)] animate-on-load-delay-1">
+            The stars that guided{" "}
             <span className="relative whitespace-nowrap">
-              <span className="relative z-10 bg-gradient-to-r from-gold via-gold/90 to-cinnabar bg-clip-text text-transparent">
-                same stars
+              <span className="relative z-10 bg-gradient-to-r from-gold via-gold/90 to-cinnabar bg-clip-text text-transparent bg-[length:200%_200%] animate-gradient-shift">
+                Chinese emperors
               </span>
               <span
-                className="absolute -inset-x-3 -bottom-1 -top-1 -z-0 rounded-sm bg-gold/8 blur-sm"
+                className="absolute -inset-x-3 -bottom-1 -top-1 -z-0 rounded-sm bg-gold/6 blur-md"
                 aria-hidden
               />
             </span>
-            {" "}that guided Chinese emperors.
+            <br />
+            now reveal{" "}
+            <span className="relative whitespace-nowrap">
+              <span className="relative z-10 bg-gradient-to-r from-star via-star/80 to-gold bg-clip-text text-transparent">
+                your path
+              </span>
+            </span>
+            .
           </h1>
 
-          {/* Subheadline — key differentiation */}
+          {/* Subheadline */}
           <p className="mt-6 max-w-2xl font-body text-base leading-relaxed text-ink-muted animate-on-load-delay-2 sm:text-lg md:text-xl">
-            Zi Wei Dou Shu uses your{" "}
-            <span className="font-semibold text-ink">exact birth time, location, and 100+ stars</span>
+            Zi Wei Dou Shu maps{" "}
+            <span className="font-semibold text-ink">your exact birth time, location, and 100+ stars</span>
             {" "}— not just your sun sign. Get a{" "}
             <span className="font-semibold text-gold">free personality snapshot</span>
-            {" "}in 30 seconds, then unlock everything with a{" "}
-            <span className="font-semibold text-ink">7-day free trial</span>{" "}
-            (<span className="text-ink-muted">$4.99/month after</span>).
+            {" "}in 30 seconds, then unlock daily AI horoscopes with a{" "}
+            <span className="font-semibold text-ink">7-day free trial</span>
+            {" "}(<span className="text-ink-muted">$4.99/month</span>).
           </p>
 
-          {/* Three proof points — reimagined as horizontal pill badges */}
+          {/* Proof points — cosmic pill cards */}
           <div className="mt-8 flex flex-wrap gap-3 animate-on-load-delay-3">
             {[
               { icon: Star, text: "100+ Celestial Stars Mapped" },
               { icon: Sparkles, text: "Free Snapshot · No Signup" },
-              { icon: ShieldCheck, text: "7-Day Free Trial · Cancel Anytime" },
+              { icon: ShieldCheck, text: "7-Day Trial · Cancel Anytime" },
             ].map((item) => (
               <span
                 key={item.text}
-                className="inline-flex items-center gap-2 rounded-sm border border-white/[0.08] bg-white/[0.03] px-4 py-2.5 backdrop-blur-sm"
+                className="inline-flex items-center gap-2 rounded-sm border border-gold/[0.10] bg-void/50 px-4 py-2.5 backdrop-blur-sm"
               >
                 <item.icon className="h-4 w-4 shrink-0 text-gold/70" aria-hidden />
                 <span className="font-body text-sm text-ink-muted">{item.text}</span>
@@ -215,32 +286,32 @@ export default function Hero({ formAnchorId }: Props) {
             ))}
           </div>
 
-          {/* CTA buttons */}
+          {/* CTA */}
           <div className="mt-8 flex flex-col items-start gap-3 sm:mt-10 sm:flex-row sm:items-center sm:gap-4 animate-on-load-delay-3">
             <Button asChild variant="cta" size="lg" className="group w-full sm:w-auto">
               <a
                 href={`#${formAnchorId}`}
                 onClick={() => track("cta_hero_get_snapshot_click")}
               >
-                Get My Free Snapshot
+                Reveal My Cosmic Blueprint
                 <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-0.5" aria-hidden />
               </a>
             </Button>
             <p className="max-w-xs font-body text-sm text-ink-dim">
-              Takes 30 seconds · 100% private · No signup required
+              30 seconds · 100% private · No signup
             </p>
           </div>
 
-          {/* Bottom stat strip */}
-          <div className="mt-12 flex flex-wrap gap-x-6 gap-y-4 border-t border-white/[0.06] pt-6 animate-on-load-delay-3 sm:mt-16 sm:gap-x-10 sm:pt-8">
+          {/* Stats strip */}
+          <div className="mt-12 flex flex-wrap gap-x-6 gap-y-4 border-t border-gold/[0.08] pt-6 animate-on-load-delay-3 sm:mt-16 sm:gap-x-10 sm:pt-8">
             {[
               { value: "100+", label: "Stars in your chart" },
               { value: "12", label: "Life palaces analyzed" },
               { value: "1,000+", label: "Years of refinement" },
               { value: "24-48h", label: "Human reading included" },
             ].map((stat) => (
-              <div key={stat.label}>
-                <p className="font-display text-xl font-semibold tracking-tight text-ink sm:text-2xl md:text-3xl">
+              <div key={stat.label} className="group">
+                <p className="font-display text-xl font-semibold tracking-tight text-ink transition-colors group-hover:text-gold sm:text-2xl md:text-3xl">
                   {stat.value}
                 </p>
                 <p className="mt-0.5 font-mono text-[10px] uppercase tracking-[0.2em] text-ink-dim">
