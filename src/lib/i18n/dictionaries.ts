@@ -6,9 +6,7 @@ export const LOCALES: { key: Locale; label: string; flag: string }[] = [
   { key: "fr", label: "Français", flag: "🇫🇷" },
 ];
 
-type Dict = Record<string, string>;
-
-const en: Dict = {
+const en = {
   "nav.today": "Today",
   "nav.yearly": "Yearly",
   "nav.match": "Match",
@@ -59,6 +57,8 @@ const en: Dict = {
   "auth.alreadyHave": "Already have an account? Log in",
   "auth.newHere": "New here? Create an account",
 };
+
+type Dict = typeof en;
 
 const es: Dict = {
   "nav.today": "Hoy",
@@ -166,6 +166,6 @@ const fr: Dict = {
 
 const dictionaries: Record<Locale, Dict> = { en, es, fr };
 
-export function getDictionary(locale: Locale): Dict {
+export function getDictionary(locale: Locale): Record<string, string> {
   return dictionaries[locale] ?? dictionaries.en;
 }

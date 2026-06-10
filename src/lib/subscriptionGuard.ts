@@ -20,9 +20,9 @@ export function checkSubscription(user: UserLike): { ok: false; error: string; s
     };
   }
 
-  // If trial, check it hasn't expired
-  if (status === "trial" && user.trial_ends_at) {
-    if (new Date(user.trial_ends_at) < new Date()) {
+  // If trial, check it hasn't expired (fail closed: missing end date = expired)
+  if (status === "trial") {
+    if (!user.trial_ends_at || new Date(user.trial_ends_at) < new Date()) {
       return {
         ok: false,
         error: "TRIAL_EXPIRED",

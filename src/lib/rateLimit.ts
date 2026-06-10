@@ -1,6 +1,18 @@
 /**
- * In-memory rate limiter. For production, replace with Upstash Redis or Vercel KV.
- * Uses a simple sliding window per key (IP or userId).
+ * In-memory rate limiter. Uses a simple sliding window per key (IP or userId).
+ *
+ * **IMPORTANT**: In-memory Map is unsuitable for serverless production (Vercel).
+ * Multiple function instances have isolated memory — rate limiting will not be
+ * effective globally. Replace with a distributed store before deploying:
+ *
+ * @example Upstash Redis
+ *   import { Redis } from "@upstash/redis";
+ *   const redis = Redis.fromEnv();
+ *   // Refactor checkRateLimit to use redis.get / redis.incr / redis.pexpire
+ *
+ * @example Vercel KV
+ *   import { kv } from "@vercel/kv";
+ *   // Refactor checkRateLimit to use kv.get / kv.incr / kv.expire
  */
 
 const store = new Map<string, { count: number; resetAt: number }>();

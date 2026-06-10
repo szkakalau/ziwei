@@ -85,6 +85,7 @@ export function buildCustomerReplyMailto(args: {
   sessionId: string;
 }) {
   const subject = `Your Zi Wei reading order ${args.sessionId}`;
+  // TODO: extract to i18n dictionary for localization
   const body = [
     "Hi,",
     "",
@@ -103,20 +104,25 @@ export async function sendOpsWebhook(payload: OpsOrderPayload) {
   const url = process.env.OPS_WEBHOOK_URL?.trim();
   if (!url) return;
 
-  const response = await fetch(url, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "User-Agent": "DestinyBlueprintOpsWebhook/1.0",
-    },
-    body: JSON.stringify({
-      type: "ziwei.consultation_order.created",
-      ...payload,
-    }),
-    cache: "no-store",
-  });
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "User-Agent": "DestinyBlueprintOpsWebhook/1.0",
+      },
+      body: JSON.stringify({
+        type: "ziwei.consultation_order.created",
+        ...payload,
+      }),
+      cache: "no-store",
+    });
 
-  if (!response.ok) {
-    throw new Error(`OPS_WEBHOOK_FAILED:${response.status}`);
+    if (!response.ok) {
+      throw new Error(`OPS_WEBHOOK_FAILED:${response.status}`);
+    }
+  } catch (error) {
+    console.error("Failed to send ops webhook:", error);
+    throw error;
   }
 }

@@ -141,7 +141,7 @@ export async function generateHoroscope(
   // Tier 3: Template (guaranteed)
   const stars = extractStars(userChart);
   return {
-    text: templateHoroscope(stars),
+    text: validateHoroscope(templateHoroscope(stars)),
     highlightedStars: stars,
     transitSummary,
     source: "template",

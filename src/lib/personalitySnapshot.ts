@@ -22,7 +22,7 @@ export type PersonalitySnapshot = {
   highlightedStars: string[];
 };
 
-function hashString(s: string): number {
+export function hashString(s: string): number {
   let h = 0;
   for (let i = 0; i < s.length; i++) {
     h = (Math.imul(31, h) + s.charCodeAt(i)) | 0;
@@ -48,7 +48,7 @@ function pickStars(p: PalaceLike | undefined, limit: number): string[] {
 
 function titleCaseWord(s: string): string {
   if (!s) return s;
-  return s.charAt(0).toUpperCase() + s.slice(1);
+  return s.charAt(0).toUpperCase() + s.slice(1).toLowerCase();
 }
 
 function palaceNamed(palaces: PalaceLike[], name: string): PalaceLike | undefined {
@@ -151,11 +151,11 @@ const BUNDLES: Bundle[] = [
 const FALLBACK_ROTATIONS: Omit<Bundle, "test">[] = [
   {
     personality:
-      "You are naturally analytical and independent.\n\nYou tend to observe before acting, and people often see you as calm and thoughtful. However, you keep your deeper emotions private and only open up to people you deeply trust.",
+      "You are naturally analytical and independent. You tend to observe before acting, and people often see you as calm and thoughtful. However, you keep your deeper emotions private and only open up to people you deeply trust.",
     hiddenStrength:
-      "You have strong long-term planning ability.\n\nWhen you commit to a goal, you rarely quit. Your biggest advantage is persistence.",
+      "You have strong long-term planning ability. When you commit to a goal, you rarely quit. Your biggest advantage is persistence.",
     careerHint:
-      "You perform best in careers where strategy, analysis or leadership is involved.\n\nYou dislike repetitive or highly controlled work.",
+      "You perform best in careers where strategy, analysis or leadership is involved. You dislike repetitive or highly controlled work.",
   },
   {
     personality:

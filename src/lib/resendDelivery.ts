@@ -1,6 +1,6 @@
 import { Resend } from "resend";
 import { getSupportEmail } from "@/lib/brand";
-import type { DeliveryWindow } from "@/lib/opsAutomation";
+import type { DeliveryWindow, ChartSummary } from "@/lib/opsAutomation";
 
 function escapeHtml(s: string): string {
   return s
@@ -25,13 +25,7 @@ function focusAreaLabel(focusArea: string) {
   }
 }
 
-function chartSummaryText(summary?: {
-  placeLabel?: string;
-  apparentSolarDate?: string;
-  apparentSolarTime?: string;
-  isApproximate?: boolean;
-  errorCode?: string | null;
-}) {
+function chartSummaryText(summary?: ChartSummary) {
   if (!summary) return "Chart summary unavailable.";
   if (summary.errorCode) {
     return `Chart could not be prepared automatically. Error: ${summary.errorCode}`;
@@ -92,15 +86,21 @@ export async function sendConsultationConfirmationViaResend(args: {
       <p style="margin:0;font-size:12px;color:#666;">For personal insight and entertainment only.</p>
     </div>
   `;
-  const { error } = await resend.emails.send({
-    from,
-    to: args.to,
-    subject: "We received your Zi Wei reading order",
-    html,
-  });
+  try {
+    const { error } = await resend.emails.send({
+      from,
+      to: args.to,
+      subject: "We received your Zi Wei reading order",
+      html,
+    });
 
-  if (error) {
-    throw new Error(typeof error === "string" ? error : JSON.stringify(error));
+    if (error) {
+      throw new Error(typeof error === "string" ? error : JSON.stringify(error));
+    }
+  } catch (err) {
+    throw new Error(
+      `Failed to send confirmation email: ${err instanceof Error ? err.message : String(err)}`,
+    );
   }
 }
 
@@ -117,13 +117,7 @@ export async function sendConsultationOrderAlertViaResend(args: {
   allowFallback: boolean;
   deliveryWindow: DeliveryWindow;
   customerReplyMailto: string;
-  chartSummary?: {
-    placeLabel?: string;
-    apparentSolarDate?: string;
-    apparentSolarTime?: string;
-    isApproximate?: boolean;
-    errorCode?: string | null;
-  };
+  chartSummary?: ChartSummary;
 }) {
   const { resend, from } = getResendClient();
   const focusLabel = focusAreaLabel(args.focusArea);
@@ -150,14 +144,20 @@ export async function sendConsultationOrderAlertViaResend(args: {
     </div>
   `;
 
-  const { error } = await resend.emails.send({
-    from,
-    to: args.to,
-    subject: `New Zi Wei consultation order · ${focusLabel}`,
-    html,
-  });
+  try {
+    const { error } = await resend.emails.send({
+      from,
+      to: args.to,
+      subject: `New Zi Wei consultation order · ${focusLabel}`,
+      html,
+    });
 
-  if (error) {
-    throw new Error(typeof error === "string" ? error : JSON.stringify(error));
+    if (error) {
+      throw new Error(typeof error === "string" ? error : JSON.stringify(error));
+    }
+  } catch (err) {
+    throw new Error(
+      `Failed to send ops alert email: ${err instanceof Error ? err.message : String(err)}`,
+    );
   }
 }

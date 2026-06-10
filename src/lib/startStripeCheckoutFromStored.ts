@@ -33,7 +33,7 @@ export async function startStripeCheckoutFromStored(options?: {
   let birthInput: {
     birthDate: string;
     birthTime: string;
-    gender: string;
+    gender: "male" | "female";
     location: string;
     allowFallback?: boolean;
   };
@@ -70,13 +70,9 @@ export async function startStripeCheckoutFromStored(options?: {
     | { ok: false; error: string };
 
   if (!res.ok || !data.ok || !data.url) {
-    const error = !data.ok ? data.error : "";
     return {
       ok: false,
-      message:
-        error === "MISSING_CONSULTATION_DETAILS"
-          ? "Please tell us what you want help with before checkout."
-          : "We couldn't start checkout. Please try again in a moment.",
+      message: "We couldn't start checkout. Please try again in a moment.",
     };
   }
 

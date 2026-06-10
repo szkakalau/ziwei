@@ -16,7 +16,8 @@ const config: Config = {
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
-    "./content/**/*.{md,mdx}",
+    // TODO: Add when content/ directory with MDX files is created
+    // "./content/**/*.{md,mdx}",
   ],
   theme: {
     extend: {

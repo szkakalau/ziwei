@@ -14,33 +14,32 @@ export async function sendDailyPush(params: {
     try {
       const ok = await sendOneSignalPush(playerId, params.horoscopePreview);
       if (ok) return { success: true, channel: "push" };
-    } catch {
+    } catch (err) {
+      console.error("[push] OneSignal delivery failed:", err);
       // Fall through to email
     }
   }
 
-  // Email fallback
+  // Email fallback — send the daily horoscope directly, not a purchase confirmation
   if (process.env.RESEND_API_KEY) {
     try {
-      // Fall back to email — look up user's email
       const { getUserById } = await import("@/lib/db");
       const user = await getUserById(params.userId);
       if (user?.email) {
-        const resend = await import("@/lib/resendDelivery");
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const send = (resend as any).sendConsultationConfirmationViaResend;
-        if (send) {
-          await send({
-            to: user.email,
-            focusArea: "general",
-            question: params.horoscopePreview,
-            deliveryWindow: { label: "Today", iso: new Date().toISOString() },
-          }).catch(() => {});
-        }
+        const { Resend } = await import("resend");
+        const resend = new Resend(process.env.RESEND_API_KEY);
+        await resend.emails.send({
+          from: process.env.RESEND_FROM!,
+          to: user.email,
+          subject: `Your daily horoscope — ${params.date}`,
+          html: `<p>${params.horoscopePreview}</p>`,
+        }).catch((err) => {
+          console.error("[push] Resend email fallback failed:", err);
+        });
       }
       return { success: true, channel: "email" };
-    } catch {
-      // Both channels failed
+    } catch (err) {
+      console.error("[push] Email fallback setup failed:", err);
     }
   }
 
@@ -59,7 +58,10 @@ async function getPlayerId(userId: string): Promise<string | null> {
 
 async function sendOneSignalPush(playerId: string, preview: string): Promise<boolean> {
   const title = "Your daily horoscope is ready";
-  const body = preview.length > 120 ? preview.slice(0, 117) + "..." : preview;
+  // Unicode-safe truncation: slice by code points, not code units
+  const body = preview.length > 120
+    ? Array.from(preview).slice(0, 117).join("") + "..."
+    : preview;
 
   const res = await fetch("https://onesignal.com/api/v1/notifications", {
     method: "POST",
@@ -72,7 +74,7 @@ async function sendOneSignalPush(playerId: string, preview: string): Promise<boo
       include_player_ids: [playerId],
       headings: { en: title },
       contents: { en: body },
-      url: `${process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"}/daily`,
+      url: `${process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"}/daily`,
     }),
   });
 
@@ -84,6 +86,6 @@ export async function registerPushToken(userId: string, playerId: string) {
   await sql`
     INSERT INTO push_tokens (user_id, onesignal_player_id, platform)
     VALUES (${userId}, ${playerId}, 'web')
-    ON CONFLICT DO NOTHING
+    ON CONFLICT (user_id, onesignal_player_id) DO NOTHING
   `;
 }
