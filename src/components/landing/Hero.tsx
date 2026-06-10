@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { Sparkles, Star, Sun, ArrowRight, Compass } from "lucide-react";
+import { Sparkles, Star, ArrowRight, Compass } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { track } from "@/lib/analytics";
 
@@ -202,11 +202,13 @@ export default function Hero({ formAnchorId }: Props) {
       {/* Multi-layer cosmic background */}
       <CosmicStarField scrollY={scrollY} />
 
-      {/* Orbital ring */}
-      <OrbitalRing scrollY={scrollY} />
+      {/* Orbital ring — hidden on mobile to save vertical space */}
+      <div className="hidden sm:block" aria-hidden>
+        <OrbitalRing scrollY={scrollY} />
+      </div>
 
-      {/* Constellation overlay */}
-      <div className="pointer-events-none absolute inset-0 opacity-[0.35]" aria-hidden>
+      {/* Constellation overlay — hidden on small screens */}
+      <div className="pointer-events-none absolute inset-0 hidden opacity-[0.35] sm:block" aria-hidden>
         <ConstellationLines />
       </div>
 
@@ -223,7 +225,7 @@ export default function Hero({ formAnchorId }: Props) {
         aria-hidden
       />
 
-      <div className="relative mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-24 lg:min-h-[calc(100svh-4rem)] lg:flex lg:items-center lg:py-32">
+      <div className="relative mx-auto max-w-7xl px-4 py-10 sm:px-6 sm:py-24 lg:min-h-[calc(100svh-4rem)] lg:flex lg:items-center lg:py-32">
         <div className="relative z-10 w-full">
           {/* Top label row */}
           <div className="flex flex-wrap items-center gap-x-4 gap-y-2 sm:gap-x-6">
@@ -296,33 +298,27 @@ export default function Hero({ formAnchorId }: Props) {
               </p>
             </div>
 
-            {/* Preview card — shows what you get */}
+            {/* Preview card — compact on mobile */}
             <div className="min-w-0 flex-1 max-w-md">
               <div className="card-cosmic overflow-hidden text-left">
-                <div className="flex items-center gap-2 border-b border-gold/[0.08] px-4 py-2.5">
-                  <Sparkles className="h-3.5 w-3.5 text-gold/60" />
-                  <span className="font-mono text-[10px] uppercase tracking-wider text-gold/60">
+                <div className="flex items-center gap-1.5 border-b border-gold/[0.08] px-3 py-2 sm:px-4 sm:py-2.5">
+                  <Sparkles className="h-3 w-3 text-gold/60 sm:h-3.5 sm:w-3.5" />
+                  <span className="font-mono text-[9px] uppercase tracking-wider text-gold/60 sm:text-[10px]">
                     Your Daily Horoscope
                   </span>
-                  <span className="ml-auto font-mono text-[9px] text-ink-dim">
-                    Sample Preview
+                  <span className="ml-auto font-mono text-[8px] text-ink-dim sm:text-[9px]">
+                    Sample
                   </span>
                 </div>
-                <div className="px-4 py-3">
-                  <div className="flex items-center gap-1.5 mb-2">
-                    <Sun className="h-3 w-3 text-gold/50" />
-                    <span className="font-mono text-[10px] text-ink-dim">
-                      {new Date().toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric" })}
-                    </span>
-                  </div>
-                  <p className="font-body text-[13px] leading-relaxed text-ink-muted">
+                <div className="px-3 py-2.5 sm:px-4 sm:py-3">
+                  <p className="line-clamp-3 font-body text-[12px] leading-relaxed text-ink-muted sm:text-[13px] sm:line-clamp-none">
                     Your <span className="font-semibold text-gold/80">Career Palace</span> is
                     activated today. A conversation about direction or ambition may
                     surface — what people reveal matters more than what they say.
                     <span className="font-semibold text-star/80"> Tian Ji</span> in
                     your Travel Palace suggests movement within 72 hours.
                   </p>
-                  <div className="mt-2.5 flex flex-wrap gap-1">
+                  <div className="mt-2 flex flex-wrap gap-1">
                     {["Zi Wei", "Tian Fu", "Wu Qu"].map((s) => (
                       <span
                         key={s}
