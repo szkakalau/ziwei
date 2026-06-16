@@ -6,10 +6,10 @@ import { track } from "@/lib/analytics";
 import { Compass } from "lucide-react";
 
 type Props = {
-  formAnchorId: string;
+  formAnchorId?: string;
 };
 
-export default function LandingNavbar({ formAnchorId }: Props) {
+export default function LandingNavbar({ formAnchorId = "" }: Props) {
   return (
     <header className="sticky top-0 z-50 border-b border-gold/[0.06] bg-void/70 pt-[env(safe-area-inset-top)] backdrop-blur-2xl">
       {/* Top accent — gold/star gradient */}
