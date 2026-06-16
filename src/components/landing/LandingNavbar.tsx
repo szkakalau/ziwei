@@ -47,7 +47,7 @@ export default function LandingNavbar({ formAnchorId = "" }: Props) {
             className="min-h-9 border-gold/15 px-2.5 text-[10px] font-semibold uppercase tracking-wider text-ink-muted transition-all hover:border-cinnabar/30 hover:bg-cinnabar/[0.06] hover:text-ink sm:min-h-10 sm:px-4 sm:text-xs"
           >
             <a
-              href={`#${formAnchorId}`}
+              href={formAnchorId ? `#${formAnchorId}` : "/#top"}
               onClick={() => track("cta_nav_email_reading_click")}
             >
               <span className="hidden sm:inline">Get My Free Snapshot</span>

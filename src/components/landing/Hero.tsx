@@ -190,7 +190,7 @@ export default function Hero() {
   }, [year, month, day, hour, minute, location, gender, unknownTime, router]);
 
   return (
-    <section className="relative overflow-hidden px-4 pt-16 pb-20 sm:px-6 sm:pt-24 sm:pb-28 md:pt-32 md:pb-36">
+    <section className="relative overflow-hidden px-4 pt-12 pb-16 sm:px-6 sm:pt-24 sm:pb-28 md:pt-32 md:pb-36">
       {/* Background */}
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-10%,oklch(0.74_0.12_78/0.04),transparent_50%)]" aria-hidden />
 
@@ -232,7 +232,7 @@ export default function Hero() {
               <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-gold/70 mb-4">Get Your Free Snapshot · 30 seconds</p>
 
               {/* Date row */}
-              <div className="grid gap-3 sm:grid-cols-4">
+              <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
                 <div>
                   <Label htmlFor="hero-year">Year</Label>
                   <select id="hero-year" className="input-ink mt-1" value={year} onChange={(e) => setYear(e.target.value)}>
