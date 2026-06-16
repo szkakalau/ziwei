@@ -64,7 +64,7 @@ export function BirthdaySurprise({ birthDate, streak }: BirthdaySurpriseProps) {
             Your birthday is coming up! 🎂
           </p>
           <p className="text-white/40 text-xs mb-3">
-            Come back on your birthday for a special annual Zi Wei Dou Shu reading.
+            Come back on your birthday for a special annual personal insight reading.
           </p>
         </div>
       )}
@@ -78,7 +78,7 @@ export function BirthdaySurprise({ birthDate, streak }: BirthdaySurpriseProps) {
             Happy Birthday! 🎉
           </h2>
           <p className="text-white/50 text-sm mb-5">
-            You&apos;re turning {age}. Let the stars reveal what your next year holds.
+            You&apos;re turning {age}. Let your personality patterns reveal what your next year holds.
           </p>
           <button
             onClick={() => { setShowReading(true); handleGenerateReading(); }}
@@ -100,7 +100,7 @@ export function BirthdaySurprise({ birthDate, streak }: BirthdaySurpriseProps) {
           <div className="flex items-center gap-2 mb-4">
             <Sparkles className="h-4 w-4 text-amber-400" />
             <h2 className="text-amber-200/90 text-sm font-semibold uppercase tracking-wider">
-              Your {age}th Year — Annual Zi Wei Reading
+              Your {age}th Year — Annual Personal Insight Reading
             </h2>
           </div>
 
@@ -118,7 +118,7 @@ export function BirthdaySurprise({ birthDate, streak }: BirthdaySurpriseProps) {
           </div>
 
           <p className="text-white/20 text-[11px] mt-4">
-            This reading is based on your Zi Wei Dou Shu birth chart and the current year&apos;s transits.
+            This reading is based on your personality patterns and the current year's life-phase dynamics.
           </p>
         </div>
       )}

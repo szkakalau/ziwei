@@ -7,17 +7,18 @@ export const maxDuration = 30;
 
 const COMPAT_SYSTEM_PROMPT = `${ZWDS_KNOWLEDGE}
 
-You are analyzing the compatibility between TWO people's Zi Wei Dou Shu charts.
-Focus on how their stars and palaces interact. Be specific: name their stars and
-what palace they're in. Cover:
-1. Overall compatibility
+You are analyzing the interpersonal dynamics between TWO people based on their personality patterns (archetypes) and life domains.
+Focus on how their archetypes interact. Be specific: name their archetype patterns and
+which life domains they appear in. Cover:
+1. Overall dynamic quality
 2. Communication style match
 3. Emotional connection
 4. Potential challenges
-5. Best dynamic (romantic, friendship, business partnership?)
+5. Best relationship mode (romantic, friendship, business partnership?)
 
-Write 150-250 words. Be warm, honest, and grounded in their actual chart data.
-End with one actionable insight.`;
+Write 150-250 words. Be warm, honest, and grounded in their actual pattern data.
+Frame as tendencies and dynamics, not deterministic predictions.
+End with one actionable insight for navigating this relationship.`;
 
 function summarizePalace(p: {
   name?: string;
@@ -124,7 +125,7 @@ export async function POST(request: Request) {
     const { text: analysis } = await callAiWithFallback({
       messages: [
         { role: "system", content: COMPAT_SYSTEM_PROMPT },
-        { role: "user", content: `PERSON A'S CHART:\n${mySummary}\n\nPERSON B'S CHART:\n${otherSummary}\n\nAnalyze the compatibility between these two charts. Be specific and reference actual stars and palace placements.` },
+        { role: "user", content: `PERSON A'S CHART:\n${mySummary}\n\nPERSON B'S CHART:\n${otherSummary}\n\nAnalyze the interpersonal dynamics between these two people. Be specific and reference their actual archetype patterns and which life domains they appear in. Remember: translate all raw star keys (emperor, wolf, rebel, etc.) to their humanistic archetype names.` },
       ],
       maxTokens: 600,
       temperature: 0.8,

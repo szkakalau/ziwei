@@ -1,7 +1,12 @@
 /**
- * Deterministic “Personality Snapshot” copy derived from chart palaces / stars.
+ * Deterministic "Personality Snapshot" copy derived from chart palaces / stars.
  * Feels personalized without calling an LLM on the marketing page.
+ *
+ * Star names are translated through the humanistic archetype map from
+ * zwdsKnowledge so users see "Architect" not "emperor", etc.
  */
+
+import { starToArchetypeLabel, palaceToHumanistic } from "@/lib/zwdsKnowledge";
 
 export type PalaceLike = {
   name?: string;
@@ -20,6 +25,10 @@ export type PersonalitySnapshot = {
   careerHint: string;
   soulPalaceLabel: string;
   highlightedStars: string[];
+  /** Human-readable archetype names (not raw iztro keys) */
+  archetypes: string[];
+  /** The archetype labels of the dominant stars in the Core Self domain */
+  dominantArchetypes: string[];
 };
 
 export function hashString(s: string): number {
@@ -51,6 +60,16 @@ function titleCaseWord(s: string): string {
   return s.charAt(0).toUpperCase() + s.slice(1).toLowerCase();
 }
 
+/** Convert a raw iztro star name to its humanistic archetype label. */
+function toArchetypeLabel(rawStarName: string): string {
+  return starToArchetypeLabel(rawStarName);
+}
+
+/** Convert a raw iztro palace name to its humanistic domain label. */
+function toHumanisticPalace(rawPalaceName: string): string {
+  return palaceToHumanistic(rawPalaceName);
+}
+
 function palaceNamed(palaces: PalaceLike[], name: string): PalaceLike | undefined {
   const n = name.toLowerCase();
   return palaces.find((p) => (p.name ?? "").toLowerCase() === n);
@@ -68,9 +87,9 @@ const BUNDLES: Bundle[] = [
   {
     test: (b) => /\bemperor\b/.test(b),
     personality:
-      "You carry a natural sense of dignity and long-range purpose. You prefer clarity over noise, and you’re willing to play the long game even when recognition comes slowly. People often read you as composed—but underneath, you’re quietly competitive with your own standards.",
+      "You carry a natural sense of dignity and long-range purpose. You prefer clarity over noise, and you're willing to play the long game even when recognition comes slowly. People often read you as composed—but underneath, you're quietly competitive with your own standards.",
     hiddenStrength:
-      "You have unusual staying power once you commit. When a goal matters, you don’t flinch at repetition or delayed gratification; you build structure until results become inevitable.",
+      "You have unusual staying power once you commit. When a goal matters, you don't flinch at repetition or delayed gratification; you build structure until results become inevitable.",
     careerHint:
       "You perform best where leadership, planning, or high-stakes judgment is required. You dislike chaos without ownership—you want a lane where your decisions actually move outcomes.",
   },
@@ -86,9 +105,9 @@ const BUNDLES: Bundle[] = [
   {
     test: (b) => /\bsun\b/.test(b),
     personality:
-      "You’re wired for visibility and generosity—when you trust the room, you bring warmth and momentum. You care about fairness and can become sharp when you feel dismissed or underestimated.",
+      "You're wired for visibility and generosity—when you trust the room, you bring warmth and momentum. You care about fairness and can become sharp when you feel dismissed or underestimated.",
     hiddenStrength:
-      "You can rally people: clarity + conviction is your hidden engine. In the right environment, you don’t just execute—you elevate the standard around you.",
+      "You can rally people: clarity + conviction is your hidden engine. In the right environment, you don't just execute—you elevate the standard around you.",
     careerHint:
       "You perform best where communication, leadership, and public-facing responsibility are part of the job. Pure back-office isolation often underuses your natural strengths.",
   },
@@ -104,7 +123,7 @@ const BUNDLES: Bundle[] = [
   {
     test: (b) => /\bgeneral\b/.test(b),
     personality:
-      "You’re built for execution and endurance. You respect competence and dislike empty talk; you’d rather ship results than debate vibes. You can come across as serious—but it’s usually focus, not coldness.",
+      "You're built for execution and endurance. You respect competence and dislike empty talk; you'd rather ship results than debate vibes. You can come across as serious—but it's usually focus, not coldness.",
     hiddenStrength:
       "When you aim at a target, you outwork the room. Your discipline compounds: small daily standards become big advantages over time.",
     careerHint:
@@ -113,7 +132,7 @@ const BUNDLES: Bundle[] = [
   {
     test: (b) => /\bwolf\b/.test(b),
     personality:
-      "You’re curious, magnetic, and hungry for variety. You learn fast and get bored fast—your challenge isn’t talent, it’s focus. People are drawn to your energy, but you guard your inner circle carefully.",
+      "You're curious, magnetic, and hungry for variety. You learn fast and get bored fast—your challenge isn't talent, it's focus. People are drawn to your energy, but you guard your inner circle carefully.",
     hiddenStrength:
       "You can pivot without losing confidence. That versatility helps you survive uncertainty and spot opportunities earlier than more rigid personalities.",
     careerHint:
@@ -122,27 +141,27 @@ const BUNDLES: Bundle[] = [
   {
     test: (b) => /\bjudge\b/.test(b),
     personality:
-      "You think in arguments, evidence, and nuance. You’re not “negative”—you’re thorough. You can intimidate people who prefer soft ambiguity, but your intent is usually truth, not drama.",
+      "You think in arguments, evidence, and nuance. You're not 'negative'—you're thorough. You can intimidate people who prefer soft ambiguity, but your intent is usually truth, not drama.",
     hiddenStrength:
-      "Your ability to question assumptions prevents expensive mistakes. In complex decisions, you’re the person who spots the hidden clause.",
+      "Your ability to question assumptions prevents expensive mistakes. In complex decisions, you're the person who spots the hidden clause.",
     careerHint:
       "You excel in analysis, research, negotiation, and specialist roles where depth beats small talk. You dislike environments that punish honesty or reward politics over outcomes.",
   },
   {
     test: (b) => /\bempress\b|\bmarshal\b/.test(b),
     personality:
-      "You combine poise with practicality. You’re protective of your reputation and selective about where you invest attention—when you choose a lane, you tend to build it properly rather than chasing novelty.",
+      "You combine poise with practicality. You're protective of your reputation and selective about where you invest attention—when you choose a lane, you tend to build it properly rather than chasing novelty.",
     hiddenStrength:
-      "You stabilize situations: people underestimate how much calm execution matters until a crisis hits—and that’s when your steadiness pays off.",
+      "You stabilize situations: people underestimate how much calm execution matters until a crisis hits—and that's when your steadiness pays off.",
     careerHint:
       "You perform best in structured environments where responsibility is real: management, operations, finance-adjacent roles, or building durable systems.",
   },
   {
     test: (b) => /\brebel\b|\bsage\b/.test(b),
     personality:
-      "You’re wired for bold moves and sharp timing. You dislike slow bureaucracy, but you’re not reckless—you take calculated risks when you sense an opening. You learn fastest by doing.",
+      "You're wired for bold moves and sharp timing. You dislike slow bureaucracy, but you're not reckless—you take calculated risks when you sense an opening. You learn fastest by doing.",
     hiddenStrength:
-      "You recover quickly from setbacks because you iterate. Your competitive edge is momentum: once you’re aligned, you move faster than people still debating.",
+      "You recover quickly from setbacks because you iterate. Your competitive edge is momentum: once you're aligned, you move faster than people still debating.",
     careerHint:
       "You thrive in competitive, dynamic fields—startups, sales, trading-adjacent roles, creative direction, or anything where initiative is rewarded.",
   },
@@ -159,15 +178,15 @@ const FALLBACK_ROTATIONS: Omit<Bundle, "test">[] = [
   },
   {
     personality:
-      "You present a steady exterior, but your inner world runs deep. You prefer a few strong bonds over a wide social surface, and you’re selective about where you invest energy.",
+      "You present a steady exterior, but your inner world runs deep. You prefer a few strong bonds over a wide social surface, and you're selective about where you invest energy.",
     hiddenStrength:
       "Your resilience is quiet but real: you bounce back by refining your approach, not by performing emotion for an audience.",
     careerHint:
-      "You’re built for roles that reward judgment—strategy, specialist expertise, or leadership with real accountability. Micromanagement and busywork are your kryptonite.",
+      "You're built for roles that reward judgment—strategy, specialist expertise, or leadership with real accountability. Micromanagement and busywork are your kryptonite.",
   },
   {
     personality:
-      "You’re motivated by meaning and mastery. You can be patient when the roadmap makes sense—and surprisingly impatient when it doesn’t. You notice details others skim past.",
+      "You're motivated by meaning and mastery. You can be patient when the roadmap makes sense—and surprisingly impatient when it doesn't. You notice details others skim past.",
     hiddenStrength:
       "You improve systems. Even without trying, you optimize: habits, workflows, relationships—whatever you touch tends to get more efficient over time.",
     careerHint:
@@ -175,7 +194,7 @@ const FALLBACK_ROTATIONS: Omit<Bundle, "test">[] = [
   },
   {
     personality:
-      "You balance caution with ambition. You’re not reckless, but you’re not timid either—you take calculated risks when the upside is worth the trade. You value loyalty and consistency.",
+      "You balance caution with ambition. You're not reckless, but you're not timid either—you take calculated risks when the upside is worth the trade. You value loyalty and consistency.",
     hiddenStrength:
       "Your long game is strong: you can delay gratification and build advantages quietly until the right window opens.",
     careerHint:
@@ -207,13 +226,19 @@ export function buildPersonalitySnapshot(chart: unknown): PersonalitySnapshot {
   }
 
   const rawName = soul?.name?.trim();
-  const soulLabel = rawName ? titleCaseWord(rawName) : "Soul";
+  const soulLabel = rawName ? toHumanisticPalace(rawName) : "Core Self";
+
+  // Collect all unique star names across soul + career for dominant archetypes
+  const allRelevantStars = pickStars(soul, 10);
+  const dominantArchetypes = Array.from(new Set(allRelevantStars.map(toArchetypeLabel))).slice(0, 3);
 
   return {
     personality: chosen.personality,
     hiddenStrength: chosen.hiddenStrength,
     careerHint: chosen.careerHint,
     soulPalaceLabel: soulLabel,
-    highlightedStars: soulStars.slice(0, 5).map(titleCaseWord),
+    highlightedStars: soulStars.slice(0, 5).map(toArchetypeLabel),
+    archetypes: dominantArchetypes,
+    dominantArchetypes,
   };
 }

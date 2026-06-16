@@ -302,7 +302,7 @@ export default function SnapshotClient() {
       <main className="mx-auto max-w-3xl px-4 pb-28 pt-14 sm:px-6">
         <div className="text-center">
           <h1 className="font-display text-3xl font-semibold tracking-tight text-ink md:text-4xl">
-            Your Personalized Zi Wei Dou Shu Snapshot
+            Your Personality Pattern Snapshot
           </h1>
           <p className="mt-3 font-body text-sm text-ink-muted md:text-base">
             Based on your birth data: {birthInput.birthDate} · {birthInput.birthTime} ·{" "}
@@ -330,7 +330,7 @@ export default function SnapshotClient() {
             </div>
           ) : null}
           <p className="mt-2 font-body text-sm text-ink-muted">
-            This free preview is generated from your chart. Subscribe to unlock daily AI horoscopes
+            This free preview is generated from your chart. Subscribe to unlock daily AI insights
             and a one-time human-written email reading delivered within 24-48 hours.
           </p>
         </div>
@@ -437,7 +437,7 @@ export default function SnapshotClient() {
 
           <div className="mt-6 grid gap-3 sm:grid-cols-2">
             <div className="rounded-sm border border-white/10 bg-white/[0.03] p-4 font-body text-sm text-ink-muted">
-              Included: human-written email reading, daily AI horoscopes, AI chat, compatibility check, yearly forecast PDF, birthday surprises, and streak tracking — all for $4.99/month.
+              Included: human-written email reading, daily AI insights, AI chat, compatibility check, yearly forecast PDF, birthday surprises, and streak tracking — all for $4.99/month.
             </div>
             <div className="rounded-sm border border-white/10 bg-white/[0.03] p-4 font-body text-sm text-ink-muted">
               Risk-free: 7-day free trial. You won&apos;t be charged until the trial ends. Cancel anytime from your account page. Human reading delivered within 24-48 hours of subscribing.

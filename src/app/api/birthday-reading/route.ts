@@ -7,15 +7,16 @@ export const maxDuration = 30;
 
 const BIRTHDAY_PROMPT = `${ZWDS_KNOWLEDGE}
 
-You are writing a birthday annual Zi Wei Dou Shu reading for someone.
+You are writing a birthday personal insight reading for someone.
 This is their special day. Write 200-300 words covering:
 1. A warm birthday greeting
-2. What their chart says about the year ahead (career, love, health, wealth)
-3. Key transits to watch for
-4. One piece of wisdom from the stars for their new year
+2. What their personality patterns suggest about the year ahead (career, love, health, wealth)
+3. Key life-phase dynamics to watch for
+4. One piece of wisdom grounded in their archetype patterns for their new year
 
-Be warm, celebratory, and grounded in their actual chart. Make them feel seen.
-End with: "May the stars guide your {age}th year."`;
+Be warm, celebratory, and grounded in their actual chart data. Make them feel seen.
+Remember: translate all raw star keys (emperor, wolf, rebel, etc.) to their humanistic archetype names.
+End with: "May this year bring you deeper self-understanding and meaningful growth."`;
 
 function summarizeChart(chart: {
   palaces?: Array<{
@@ -80,7 +81,7 @@ export async function POST() {
     const { text: reading } = await callAiWithFallback({
       messages: [
         { role: "system", content: BIRTHDAY_PROMPT },
-        { role: "user", content: `Today is this person's ${age}th birthday!\n\nTHEIR BIRTH CHART:\n${chartSummary}\n\nWrite a beautiful birthday annual reading for them.` },
+        { role: "user", content: `Today is this person's ${age}th birthday!\n\nTHEIR CHART (raw iztro data — translate star keys to archetype names):\n${chartSummary}\n\nWrite a beautiful birthday personal insight reading for them.` },
       ],
       maxTokens: 800,
       temperature: 0.9,

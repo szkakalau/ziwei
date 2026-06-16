@@ -6,7 +6,7 @@ export const maxDuration = 45;
 
 async function callAI(prompt: string): Promise<string> {
   const { ZWDS_KNOWLEDGE } = await import("@/lib/zwdsKnowledge");
-  const system = `${ZWDS_KNOWLEDGE}\n\nWrite a comprehensive Zi Wei Dou Shu annual reading. Structure with ### section headings.`;
+  const system = `${ZWDS_KNOWLEDGE}\n\nWrite a comprehensive annual personal insight reading. Structure with ### section headings. Remember: translate all raw star keys (emperor, wolf, rebel, etc.) to their humanistic archetype names.`;
 
   const providers = [
     { name: "deepseek", url: "https://api.deepseek.com/chat/completions", key: process.env.DEEPSEEK_API_KEY, model: "deepseek-chat" },
@@ -54,7 +54,7 @@ export async function POST() {
     }).join("\n");
 
     const year = new Date().getFullYear();
-    const reading = await callAI(`USER'S BIRTH CHART:\n${chartSummary}\n\nWrite a comprehensive annual Zi Wei Dou Shu reading for ${year}.`);
+    const reading = await callAI(`USER'S CHART (raw iztro data — translate star keys to archetype names):\n${chartSummary}\n\nWrite a comprehensive annual personal insight reading for ${year}.`);
 
     const { generateYearlyPdf } = await import("@/lib/generateYearlyPdf");
     const pdfBuffer = await generateYearlyPdf(year, reading);

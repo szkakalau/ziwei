@@ -1,4 +1,5 @@
 import type { ChartLike } from "@/lib/personalitySnapshot";
+import { starToArchetypeLabel } from "@/lib/zwdsKnowledge";
 
 export interface HoroscopeOutput {
   text: string;
@@ -7,14 +8,15 @@ export interface HoroscopeOutput {
   source: "deepseek" | "openai" | "template";
 }
 
-const HOROSCOPE_SYSTEM_PROMPT = `You are a Zi Wei Dou Shu (紫微斗数) astrologer writing a daily horoscope.
+const HOROSCOPE_SYSTEM_PROMPT = `You are a personal insight coach writing a daily pattern analysis based on Zi Wei Dou Shu (Chinese astrological psychology).
 
 Rules:
 - Write 100-150 words in English, warm and specific
-- Reference the user's chart stars and today's transits by name
+- Reference the user's personality archetypes by name (Architect, Synthesizer, Radiator, etc.) — NEVER use raw Chinese star names (emperor, wolf, rebel, etc.)
+- Frame the day's energy as interacting with their personality patterns, not as cosmic forces
 - Be uplifting but grounded — no generic "great things are coming" fluff
-- Format: plain text, no markdown, no emojis
-- End with one actionable insight for today`;
+- End with one actionable insight for today
+- Format: plain text, no markdown, no emojis`;
 
 function buildUserPrompt(userChart: ChartLike, transitSummary: string): string {
   const starBlob = (userChart.palaces ?? [])
@@ -25,9 +27,9 @@ function buildUserPrompt(userChart: ChartLike, transitSummary: string): string {
 
   return `Today's transits: ${transitSummary}
 
-User's chart stars: ${starBlob}
+User's chart stars (raw iztro keys): ${starBlob}
 
-Write today's daily horoscope based on these transits and this person's natal chart.`;
+Write today's daily pattern analysis based on these transits and this person's personality patterns. Remember: translate all raw star keys to their humanistic archetype names.`;
 }
 
 async function callDeepSeek(prompt: string): Promise<string> {
@@ -80,11 +82,16 @@ async function callOpenAI(prompt: string): Promise<string> {
 
 /** Fallback template — guaranteed to return something */
 function templateHoroscope(stars: string[]): string {
-  const starNames = stars.length > 0 ? stars.join(" and ") : "your chart";
+  const archetypes = stars.map((s) => starToArchetypeLabel(s));
+  const archetypeNames =
+    archetypes.length > 0
+      ? archetypes.slice(0, 3).join(" and ")
+      : "your personality patterns";
+
   const templates = [
-    `Today, ${starNames} shape your energy in subtle but meaningful ways. You may notice a shift in how you approach decisions — trust your instincts when they feel unusually clear. A conversation you have today could plant a seed that grows over the coming weeks. Stay open to unexpected input from people you respect. Your focus is sharpest in the morning hours, so tackle anything requiring deep thought before midday.`,
-    `With ${starNames} influencing your chart today, you're in a reflective mode. This is a good day to revisit a plan you set aside — you'll see it with fresh eyes now. Someone from your past may cross your mind; there's a reason for that. Pay attention to recurring themes in your thoughts today. The universe is nudging you toward closure on something you've been avoiding.`,
-    `The influence of ${starNames} brings a gentle assertiveness to your day. You'll find it easier than usual to say what you mean without second-guessing yourself. A practical matter that's been stalled may suddenly find resolution — be ready to act when the opening appears. Your emotional clarity is above average today, making it a good time for honest conversations.`,
+    `Today, your ${archetypeNames} patterns color how you experience the world. You may notice a shift in how you approach decisions — this is a moment to trust your judgment when it feels unusually clear. A conversation you have today could plant a seed that grows over the coming weeks. Stay open to unexpected input from people you respect. Your focus is sharpest in the morning hours, so tackle anything requiring deep thought before midday.`,
+    `With your ${archetypeNames} tendencies active today, you are in a reflective mode. This is a good day to revisit a plan you set aside — you will see it with fresh eyes now. Someone from your past may cross your mind; there is a reason for that. Pay attention to recurring themes in your thoughts. Your mind is nudging you toward closure on something you have been carrying.`,
+    `The combination of ${archetypeNames} brings a gentle assertiveness to your day. You will find it easier than usual to say what you mean without second-guessing yourself. A practical matter that has been stalled may suddenly find resolution — be ready to act when the opening appears. Your emotional clarity is above average today, making it a good time for honest conversations.`,
   ];
   const idx = new Date().getDate() % templates.length;
   return templates[idx];
@@ -142,7 +149,7 @@ export async function generateHoroscope(
   const stars = extractStars(userChart);
   return {
     text: validateHoroscope(templateHoroscope(stars)),
-    highlightedStars: stars,
+    highlightedStars: stars.map((s) => starToArchetypeLabel(s)),
     transitSummary,
     source: "template",
   };

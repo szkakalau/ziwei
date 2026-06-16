@@ -243,13 +243,13 @@ export default function FreePersonalitySnapshot() {
                   ) : null}
                 </div>
 
-                {/* NEW: Daily Horoscope CTA */}
+                {/* Daily Insight CTA */}
                 <div className="mt-6 rounded-xl border border-amber-500/20 bg-amber-500/[0.03] p-5 sm:p-6">
                   <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-amber-300/70">
-                    🌅 Daily horoscope
+                    🌅 Daily insight
                   </p>
                   <p className="mt-2 font-body text-sm text-ink-muted">
-                    Get a personalized Zi Wei horoscope every morning based on your chart.
+                    Get a personalized insight every morning based on your personality patterns.
                     7-day free trial, then $4.99/month.
                   </p>
                   <div className="mt-4">
@@ -259,7 +259,7 @@ export default function FreePersonalitySnapshot() {
                                  text-sm font-medium text-amber-300 border border-amber-500/20
                                  hover:bg-amber-500/25 transition-colors"
                     >
-                      Get Your Daily Horoscope →
+                      Get Your Daily Insight →
                     </Link>
                   </div>
                 </div>

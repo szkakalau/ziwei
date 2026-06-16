@@ -77,9 +77,9 @@ function YearlyPdfDocument({ year, reading }: YearlyPdfProps) {
     <Document>
       <Page size="A4" style={styles.page}>
         <Text style={styles.brand}>DestinyBlueprint</Text>
-        <Text style={styles.title}>Your {year} Zi Wei Dou Shu Annual Forecast</Text>
+        <Text style={styles.title}>Your {year} Personal Insight Annual Reading</Text>
         <Text style={styles.subtitle}>
-          Personalized reading based on your birth chart • Generated {new Date().toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}
+          Personalized analysis based on your personality patterns • Generated {new Date().toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}
         </Text>
         <View style={styles.divider} />
 
@@ -91,7 +91,7 @@ function YearlyPdfDocument({ year, reading }: YearlyPdfProps) {
         ))}
 
         <Text style={styles.footer}>
-          DestinyBlueprint — Zi Wei Dou Shu • For entertainment and self-reflection purposes only
+          DestinyBlueprint — Personality Pattern Analysis • For self-reflection and personal growth
         </Text>
       </Page>
     </Document>

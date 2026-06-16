@@ -7,7 +7,7 @@ export const maxDuration = 45;
 
 const YEARLY_SYSTEM_PROMPT = `${ZWDS_KNOWLEDGE}
 
-You are writing a comprehensive annual Zi Wei Dou Shu reading covering the next 12 months.
+You are writing a comprehensive annual personal insight reading covering the next 12 months.
 Structure your response in these sections. Use ### for section headings:
 
 ### Career & Work
@@ -16,10 +16,11 @@ Structure your response in these sections. Use ### for section headings:
 ### Wealth & Finances
 ### Key Months to Watch
 
-For each section, write 80-120 words. Be specific — reference the user's actual stars
-and their palace placements. End with an overall theme for the year.
+For each section, write 80-120 words. Be specific — reference the user's actual archetype patterns
+and which life domains they appear in. End with an overall theme for the year.
 
-Write in warm, conversational English. This is a premium reading — make it feel worth paying for.`;
+Write in warm, conversational English. This is a premium reading — make it feel personal and valuable.
+Remember: translate all raw star keys (emperor, wolf, rebel, etc.) to their humanistic archetype names.`;
 
 function summarizeChart(chart: unknown): string {
   const c = chart as {
@@ -92,7 +93,7 @@ export async function POST() {
     const { text: reading } = await callAiWithFallback({
       messages: [
         { role: "system", content: YEARLY_SYSTEM_PROMPT },
-        { role: "user", content: `Write a comprehensive annual Zi Wei Dou Shu reading for ${year}.\n\nUSER'S BIRTH CHART:\n${chartSummary}` },
+        { role: "user", content: `Write a comprehensive annual personal insight reading for ${year}.\n\nUSER'S CHART (raw iztro data — translate star keys to archetype names):\n${chartSummary}` },
       ],
       maxTokens: 1500,
       temperature: 0.8,

@@ -86,7 +86,7 @@ export default function AccountPage() {
         <AlertCircle className="h-8 w-8 text-white/20 mx-auto mb-3" />
         <p className="text-white/50">Could not load account info.</p>
         <Link href="/daily" className="text-amber-400/60 text-sm mt-4 inline-block">
-          ← Back to horoscope
+          ← Back to daily
         </Link>
       </main>
     );
@@ -182,7 +182,7 @@ export default function AccountPage() {
         href="/daily"
         className="block text-center text-white/25 text-xs mt-8 hover:text-white/40 transition-colors"
       >
-        ← Back to horoscope
+        ← Back to daily
       </Link>
 
       <AppNav />

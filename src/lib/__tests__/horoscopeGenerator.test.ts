@@ -2,8 +2,8 @@ import { describe, it, expect, vi, beforeEach } from "vitest";
 
 const mockChart = {
   palaces: [
-    { name: "Soul", majorStars: [{ name: "Emperor" }], minorStars: [] },
-    { name: "Career", majorStars: [{ name: "Sun" }], minorStars: [{ name: "Assistant" }] },
+    { name: "Soul", majorStars: [{ name: "emperor" }], minorStars: [] },
+    { name: "Career", majorStars: [{ name: "sun" }], minorStars: [{ name: "assistant" }] },
   ],
 };
 
@@ -24,17 +24,19 @@ describe("generateHoroscope", () => {
 
     expect(result.source).toBe("template");
     expect(result.text.length).toBeGreaterThan(60);
-    expect(result.highlightedStars).toContain("Emperor");
+    // highlightedStars now returns archetype labels, not raw iztro names
+    expect(result.highlightedStars).toContain("Architect");
   });
 
-  it("extracts stars correctly", async () => {
+  it("extracts stars correctly and maps to archetype labels", async () => {
     (global.fetch as ReturnType<typeof vi.fn>).mockRejectedValue(new Error("offline"));
 
     const { generateHoroscope } = await import("@/lib/horoscopeGenerator");
     const result = await generateHoroscope(mockChart as never, mockTransit);
 
-    expect(result.highlightedStars).toContain("Emperor");
-    expect(result.highlightedStars).toContain("Sun");
+    // Returns archetype labels, not raw iztro names
+    expect(result.highlightedStars).toContain("Architect");
+    expect(result.highlightedStars).toContain("Radiator");
     expect(result.highlightedStars.length).toBeLessThanOrEqual(5);
   });
 
