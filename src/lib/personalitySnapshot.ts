@@ -55,11 +55,6 @@ function pickStars(p: PalaceLike | undefined, limit: number): string[] {
   return uniq.slice(0, limit);
 }
 
-function titleCaseWord(s: string): string {
-  if (!s) return s;
-  return s.charAt(0).toUpperCase() + s.slice(1).toLowerCase();
-}
-
 /** Convert a raw iztro star name to its humanistic archetype label. */
 function toArchetypeLabel(rawStarName: string): string {
   return starToArchetypeLabel(rawStarName);
