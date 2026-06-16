@@ -249,8 +249,7 @@ export default function Hero({ formAnchorId }: Props) {
                 className="absolute -inset-x-3 -bottom-1 -top-1 -z-0 rounded-sm bg-gold/6 blur-md"
                 aria-hidden
               />
-            </span>
-            ,<br />
+            </span>, <br />
             not 1/12th of the planet.
           </h1>
 
