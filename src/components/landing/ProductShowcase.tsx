@@ -33,23 +33,23 @@ function DailyHoroscopePreview() {
       {/* Horoscope text */}
       <div className="p-5">
         <p className="font-body text-[15px] leading-relaxed text-ink/85">
-          The <span className="font-semibold text-gold">Wealth Palace</span> is
-          activated today by a favorable Earth star transit. A conversation about
-          money or resources may surface unexpectedly — pay attention to what
-          people reveal, not just what they say. Your{" "}
-          <span className="font-semibold text-star">Career Palace</span> suggests
-          a window of opportunity within the next 72 hours. Trust your instinct on
-          timing.
+          Your <span className="font-semibold text-gold">Resources & Values</span>{" "}
+          domain is activated today by a favorable pattern alignment. A
+          conversation about money or direction may surface unexpectedly — pay
+          attention to what people reveal, not just what they say. Your{" "}
+          <span className="font-semibold text-star">Professional Life</span>{" "}
+          domain suggests a window of opportunity within the next 72 hours. Trust
+          your instinct on timing.
         </p>
-        {/* Star tags */}
+        {/* Archetype tags */}
         <div className="mt-4 flex flex-wrap gap-1.5">
-          {["Zi Wei", "Tian Fu", "Wu Qu"].map((star) => (
+          {["Architect", "Stabilizer", "Executor"].map((archetype) => (
             <span
-              key={star}
+              key={archetype}
               className="inline-flex items-center gap-1 rounded-sm border border-gold/[0.10] bg-gold/[0.04] px-2 py-0.5 font-mono text-[10px] text-gold/70"
             >
               <Star className="h-2.5 w-2.5" />
-              {star}
+              {archetype}
             </span>
           ))}
         </div>
@@ -57,7 +57,7 @@ function DailyHoroscopePreview() {
       {/* Footer label */}
       <div className="border-t border-gold/[0.06] bg-gold/[0.02] px-5 py-2.5">
         <p className="font-mono text-[9px] uppercase tracking-wider text-ink-dim">
-          New horoscope every morning · based on your chart
+          New insight every morning · based on your patterns
         </p>
       </div>
     </div>
@@ -80,16 +80,17 @@ function AskZiweiChatPreview() {
         {/* User question */}
         <div className="ml-8 rounded-sm border border-star/[0.12] bg-star/[0.03] px-3 py-2">
           <p className="font-body text-sm text-ink-muted">
-            Should I change jobs in the next 3 months based on my Career Palace?
+            Should I change jobs in the next 3 months based on my Professional Life
+            domain?
           </p>
         </div>
         {/* AI response */}
         <div className="rounded-sm border border-gold/[0.08] bg-gold/[0.03] px-3 py-2">
           <p className="font-body text-sm leading-relaxed text-ink/80">
-            Your Career Palace shows Tian Liang (天梁) in a supportive position —
-            this suggests stability is currently serving you well. However, the
-            traveling star Yi Ma (驿马) appears in your 3-month transit, indicating
-            movement. Short answer: wait 6-8 weeks for a clearer signal, then
+            Your Professional Life domain shows your Anchor pattern in a supportive
+            position — stability is currently serving you well. However, a mobility
+            indicator appears in your 3-month outlook, suggesting movement is on
+            the horizon. Short answer: wait 6-8 weeks for a clearer signal, then
             decide.
           </p>
         </div>
@@ -227,21 +228,21 @@ function EmailReadingPreview() {
 
 const showcases = [
   {
-    title: "Daily AI Horoscope",
+    title: "Daily AI Insight",
     description:
-      "Every morning, a personalized reading based on your chart and the day's transits.",
+      "Every morning, a personalized reading based on your personality patterns and the day's dynamics.",
     preview: <DailyHoroscopePreview />,
   },
   {
     title: "Ask Ziwei Chat",
     description:
-      "Ask anything about your chart, stars, or life direction. The AI has full context of your 12 palaces.",
+      "Ask anything about your patterns, life direction, or specific archetypes — the AI has full context of your 12 life domains.",
     preview: <AskZiweiChatPreview />,
   },
   {
     title: "Compatibility Check",
     description:
-      "Compare your chart with anyone. See how your stars interact across palaces.",
+      "Compare your patterns with anyone. See how your archetypes interact across life domains.",
     preview: <CompatibilityPreview />,
   },
   {
