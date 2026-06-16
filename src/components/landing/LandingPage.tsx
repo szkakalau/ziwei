@@ -12,6 +12,7 @@ import Testimonials from "@/components/landing/Testimonials";
 import RiskFree from "@/components/landing/RiskFree";
 import FAQ from "@/components/landing/FAQ";
 import EmailCapture from "@/components/landing/EmailCapture";
+import SeeWhatYouGet from "@/components/landing/SeeWhatYouGet";
 import LandingFooter from "@/components/landing/LandingFooter";
 
 const FORM_ANCHOR_ID = "birth-form";
@@ -79,7 +80,12 @@ export default function LandingPage() {
           <FreeVsPaidTable readingHref={`#${FORM_ANCHOR_ID}`} />
         </div>
 
-        {/* 6. Social Proof */}
+        {/* 6. What You Get — chart preview + email reading sample */}
+        <div data-reveal-section>
+          <SeeWhatYouGet />
+        </div>
+
+        {/* 7. Social Proof */}
         <div data-reveal-section>
           <Testimonials />
         </div>
@@ -88,12 +94,12 @@ export default function LandingPage() {
           <RiskFree />
         </div>
 
-        {/* 7. FAQ */}
+        {/* 8. FAQ */}
         <div data-reveal-section>
           <FAQ />
         </div>
 
-        {/* 8. Email Capture — exit intent for visitors who didn't convert */}
+        {/* 9. Email Capture — exit intent for visitors who didn't convert */}
         <div data-reveal-section>
           <EmailCapture />
         </div>
