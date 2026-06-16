@@ -1,6 +1,5 @@
 import Image from "next/image";
-import { FileText, Sparkles, ArrowRight, Star, MessageCircle, Calendar, Bell } from "lucide-react";
-import EmailReadingPreviewSample from "@/components/landing/EmailReadingPreviewSample";
+import { Sparkles, Star, MessageCircle, Calendar, Bell } from "lucide-react";
 
 const features = [
   {
@@ -17,11 +16,6 @@ const features = [
     icon: Calendar,
     label: "Yearly Forecast + PDF",
     body: "A comprehensive annual reading covering career, love, health, and wealth, downloadable as a PDF.",
-  },
-  {
-    icon: FileText,
-    label: "Human-Written Email Reading",
-    body: "A one-time deep reading by a real Zi Wei practitioner, delivered to your inbox within 24-48 hours of subscribing.",
   },
 ] as const;
 
@@ -70,10 +64,9 @@ export default function SeeWhatYouGet() {
           ))}
         </div>
 
-        {/* Preview cards — side by side */}
-        <div className="mt-12 grid gap-4 sm:mt-16 sm:gap-6 lg:grid-cols-2">
-          {/* Chart preview card */}
-          <article className="rounded-sm border border-white/[0.08] bg-panel/80 shadow-panel backdrop-blur-md">
+        {/* Chart preview */}
+        <div className="mt-12 sm:mt-16">
+          <article className="mx-auto max-w-2xl rounded-sm border border-white/[0.08] bg-panel/80 shadow-panel backdrop-blur-md">
             <div className="flex items-start gap-3 border-b border-white/[0.07] px-4 py-4 sm:gap-4 sm:px-6 sm:py-5">
               <span className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-sm border border-jade/25 bg-jade/[0.08]">
                 <Sparkles className="h-5 w-5 text-jade" aria-hidden />
@@ -83,7 +76,7 @@ export default function SeeWhatYouGet() {
                   Your Zi Wei Birth Chart
                 </h3>
                 <p className="mt-0.5 font-body text-sm text-ink-muted">
-                  The full 12-palace chart — included free, no signup required
+                  The full 12-palace chart with 100+ stars — included free, no signup required
                 </p>
               </div>
             </div>
@@ -97,55 +90,6 @@ export default function SeeWhatYouGet() {
                   className="block aspect-[4/3] w-full object-cover"
                   loading="lazy"
                 />
-              </div>
-            </div>
-          </article>
-
-          {/* Email reading preview card */}
-          <article className="rounded-sm border border-gold/25 bg-gradient-to-br from-gold/[0.06] via-panel/90 to-cinnabar/[0.04] shadow-glow backdrop-blur-md">
-            <div className="flex items-start gap-3 border-b border-gold/[0.15] px-4 py-4 sm:gap-4 sm:px-6 sm:py-5">
-              <span className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-sm border border-gold/30 bg-gold/[0.08]">
-                <FileText className="h-5 w-5 text-gold" aria-hidden />
-              </span>
-              <div>
-                <h3 className="font-display text-xl font-semibold text-ink">
-                  Your Human-Written Email Reading
-                </h3>
-                <p className="mt-0.5 font-body text-sm text-ink-muted">
-                  Included with your subscription · Delivered in 24-48 hours
-                </p>
-              </div>
-            </div>
-
-            <div className="px-4 pb-4 pt-3 sm:px-5 sm:pb-5 sm:pt-4">
-              <EmailReadingPreviewSample />
-
-              <div className="mt-5 space-y-3 border-t border-white/[0.07] pt-5">
-                <div className="flex items-start gap-3">
-                  <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rotate-45 bg-cinnabar" aria-hidden />
-                  <span className="font-body text-sm leading-relaxed text-ink-muted">
-                    Human-written reading grounded in your full Zi Wei Dou Shu chart
-                  </span>
-                </div>
-                <div className="flex items-start gap-3">
-                  <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rotate-45 bg-cinnabar" aria-hidden />
-                  <span className="font-body text-sm leading-relaxed text-ink-muted">
-                    Choose your focus: love, career, wealth, or life timing
-                  </span>
-                </div>
-                <div className="flex items-start gap-3">
-                  <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rotate-45 bg-cinnabar" aria-hidden />
-                  <span className="font-body text-sm leading-relaxed text-ink-muted">
-                    Your specific stars and palaces referenced by name
-                  </span>
-                </div>
-              </div>
-
-              <div className="mt-5 flex items-center gap-2 text-gold/60">
-                <ArrowRight className="h-4 w-4" aria-hidden />
-                <span className="font-mono text-[10px] uppercase tracking-[0.2em]">
-                  This is just a sample — your reading is unique
-                </span>
               </div>
             </div>
           </article>
