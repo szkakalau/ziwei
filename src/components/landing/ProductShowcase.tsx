@@ -97,7 +97,7 @@ function AskZiweiChatPreview() {
       </div>
       <div className="border-t border-gold/[0.06] bg-gold/[0.02] px-5 py-2.5">
         <p className="font-mono text-[9px] uppercase tracking-wider text-ink-dim">
-          Unlimited questions · understands your full birth chart
+          Unlimited questions · understands your full pattern profile
         </p>
       </div>
     </div>
