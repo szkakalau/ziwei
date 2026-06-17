@@ -84,9 +84,9 @@ describe("POST /api/generate-daily", () => {
     expect(body.error).toBe("SUBSCRIPTION_REQUIRED");
   });
 
-  it("returns 400 when user has no chart_data", async () => {
+  it("returns 400 when user has neither birth_date nor chart_data", async () => {
     const { getCurrentUser } = await import("@/lib/auth");
-    vi.mocked(getCurrentUser).mockResolvedValue({ ...mockUser, chart_data: null, birth_place: null });
+    vi.mocked(getCurrentUser).mockResolvedValue({ ...mockUser, birth_date: null, chart_data: null });
 
     const { POST } = await import("../route");
     const res = await POST();
@@ -155,19 +155,44 @@ describe("POST /api/generate-daily", () => {
     expect(body.source).toBe("template");
   });
 
-  it("returns 500 when chart computation throws", async () => {
+  it("gracefully degrades to template when chart computation throws", async () => {
     const { getCurrentUser } = await import("@/lib/auth");
     vi.mocked(getCurrentUser).mockResolvedValue(mockUser);
 
+    // Chart computation fails
     mockComputeChart.mockRejectedValue(new Error("Chart service down"));
 
     const { POST } = await import("../route");
     const res = await POST();
 
-    expect(res.status).toBe(500);
+    // Should still return 200 via template fallback (no chart data needed)
+    expect(res.status).toBe(200);
     const body = await res.json();
-    expect(body.ok).toBe(false);
-    expect(body.error).toBe("INTERNAL_ERROR");
+    expect(body.ok).toBe(true);
+    expect(body.horoscope).toBeTruthy();
+  });
+
+  it("succeeds with template when user has birth_date but no chart_data (real user scenario)", async () => {
+    const { getCurrentUser } = await import("@/lib/auth");
+    vi.mocked(getCurrentUser).mockResolvedValue({
+      ...mockUser,
+      chart_data: null,
+      birth_place: null,
+      birth_date: "1978-11-09",
+      birth_time: "20:15",
+    });
+
+    // computeOrGetCachedChart tries DB cache (miss), then computes fresh
+    mockComputeChart.mockResolvedValue({ palaces: [] });
+
+    const { POST } = await import("../route");
+    const res = await POST();
+
+    // Should succeed — template fallback always works
+    expect(res.status).toBe(200);
+    const body = await res.json();
+    expect(body.ok).toBe(true);
+    expect(body.horoscope).toBeTruthy();
   });
 });
 
