@@ -52,7 +52,7 @@ export default function DailyPage() {
         if (d.user?.birthDate) setUserBirthDate(d.user.birthDate);
 
         const status = d.user?.subscriptionStatus;
-        if (!status || status === "cancelled" || status === "expired") {
+        if (!status || status === "free" || status === "cancelled" || status === "expired") {
           setAuthStatus("no_subscription");
         } else {
           setAuthStatus("ok");
@@ -80,11 +80,12 @@ export default function DailyPage() {
 
       const [h, c, s] = results;
       if (h.status === "fulfilled") {
+        // SUBSCRIPTION_REQUIRED — user was marked "ok" but subscription lapsed
+        if (h.value.status === 402) { setAuthStatus("no_subscription"); setLoading(false); return; }
         // CHART_NOT_FOUND — try to sync sessionStorage chart data to server before giving up
         if (h.value.status === 400 && !skipSync) {
           const synced = await syncChartFromStorage();
           if (synced) {
-            // Retry horoscope generation now that chart data is on the server
             fetchHoroscope(true);
             return;
           }
