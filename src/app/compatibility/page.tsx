@@ -22,7 +22,7 @@ export default function CompatibilityPage() {
 
   if (loading) {
     return (
-      <main className="min-h-screen bg-[#0a0a0f] text-white px-5 py-8 max-w-lg mx-auto">
+      <main className="min-h-screen bg-[#0a0a0f] text-white px-5 py-8 pb-20 max-w-lg mx-auto">
         <div className="h-32 bg-white/[0.02] rounded-xl animate-pulse" />
       </main>
     );
@@ -30,7 +30,7 @@ export default function CompatibilityPage() {
 
   if (!authOk) {
     return (
-      <main className="min-h-screen bg-[#0a0a0f] text-white px-5 py-8 max-w-lg mx-auto text-center">
+      <main className="min-h-screen bg-[#0a0a0f] text-white px-5 py-8 pb-20 max-w-lg mx-auto text-center">
         <p className="text-white/40 text-sm">Please log in to use compatibility.</p>
         <a href="/daily" className="text-amber-400/60 text-sm mt-4 inline-block">← Go to daily</a>
       </main>

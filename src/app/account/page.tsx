@@ -70,7 +70,7 @@ export default function AccountPage() {
 
   if (loading) {
     return (
-      <main className="min-h-screen bg-[#0a0a0f] text-white px-5 py-8 max-w-lg mx-auto">
+      <main className="min-h-screen bg-[#0a0a0f] text-white px-5 py-8 pb-20 max-w-lg mx-auto">
         <div className="space-y-4">
           <div className="h-8 bg-white/5 rounded w-1/3 animate-pulse" />
           <div className="h-20 bg-white/[0.02] rounded-xl animate-pulse" />
@@ -82,7 +82,7 @@ export default function AccountPage() {
 
   if (!info) {
     return (
-      <main className="min-h-screen bg-[#0a0a0f] text-white px-5 py-8 max-w-lg mx-auto text-center">
+      <main className="min-h-screen bg-[#0a0a0f] text-white px-5 py-8 pb-20 max-w-lg mx-auto text-center">
         <AlertCircle className="h-8 w-8 text-white/20 mx-auto mb-3" />
         <p className="text-white/50">Could not load account info.</p>
         <Link href="/daily" className="text-amber-400/60 text-sm mt-4 inline-block">
@@ -95,7 +95,7 @@ export default function AccountPage() {
   const status = statusLabel(info.subscriptionStatus);
 
   return (
-    <main className="min-h-screen bg-[#0a0a0f] text-white px-5 py-8 max-w-lg mx-auto">
+    <main className="min-h-screen bg-[#0a0a0f] text-white px-5 py-8 pb-20 max-w-lg mx-auto">
       <h1 className="text-white/80 text-lg font-semibold mb-6">Account</h1>
 
       {/* Email */}

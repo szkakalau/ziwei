@@ -27,7 +27,7 @@ export default function YearlyPage() {
 
   if (loading) {
     return (
-      <main className="min-h-screen bg-[#0a0a0f] text-white px-5 py-12 max-w-lg mx-auto text-center">
+      <main className="min-h-screen bg-[#0a0a0f] text-white px-5 py-12 pb-20 max-w-lg mx-auto text-center">
         <Sparkles className="h-8 w-8 text-amber-400/50 mx-auto mb-4 animate-pulse" />
         <p className="text-white/60 text-base mb-2">Writing your annual reading...</p>
         <p className="text-white/25 text-xs">This takes about 20 seconds. Worth the wait.</p>
@@ -42,7 +42,7 @@ export default function YearlyPage() {
 
   if (error) {
     return (
-      <main className="min-h-screen bg-[#0a0a0f] text-white px-5 py-8 max-w-lg mx-auto text-center">
+      <main className="min-h-screen bg-[#0a0a0f] text-white px-5 py-8 pb-20 max-w-lg mx-auto text-center">
         <p className="text-white/60 text-base mb-4">{error}</p>
         <Link href="/daily" className="text-amber-400/60 text-sm hover:text-amber-300">
           ← Back to daily horoscope
@@ -53,7 +53,7 @@ export default function YearlyPage() {
 
   if (!reading) {
     return (
-      <main className="min-h-screen bg-[#0a0a0f] text-white px-5 py-8 max-w-lg mx-auto text-center">
+      <main className="min-h-screen bg-[#0a0a0f] text-white px-5 py-8 pb-20 max-w-lg mx-auto text-center">
         <p className="text-white/40 text-sm">No reading available. Please try again.</p>
         <a href="/daily" className="text-amber-400/60 text-sm mt-4 inline-block">← Back to horoscope</a>
       </main>
@@ -67,7 +67,7 @@ export default function YearlyPage() {
   });
 
   return (
-    <main className="min-h-screen bg-[#0a0a0f] text-white px-5 py-8 max-w-lg mx-auto">
+    <main className="min-h-screen bg-[#0a0a0f] text-white px-5 py-8 pb-20 max-w-lg mx-auto">
       {/* Header */}
       <div className="flex items-center justify-between mb-8">
         <Link href="/daily" className="text-white/30 hover:text-white/50 transition-colors">

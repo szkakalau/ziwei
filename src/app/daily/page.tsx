@@ -222,7 +222,7 @@ export default function DailyPage() {
   // ── AUTH GATE: Not authenticated ──
   if (authStatus === "unauthenticated") {
     return (
-      <main className="min-h-screen px-5 py-8 max-w-lg mx-auto">
+      <main className="min-h-screen px-5 py-8 pb-20 max-w-lg mx-auto">
         <p className="text-gold/60 text-sm mb-8 text-center">{dateLabel}</p>
 
         <div className="card-cosmic p-6 mb-4">
@@ -282,7 +282,7 @@ export default function DailyPage() {
   // ── NO CHART ──
   if (authStatus === "no_chart") {
     return (
-      <main className="min-h-screen px-5 py-8 max-w-lg mx-auto">
+      <main className="min-h-screen px-5 py-8 pb-20 max-w-lg mx-auto">
         <p className="text-gold/60 text-sm mb-8 text-center">{dateLabel}</p>
         <div className="card-cosmic p-8 text-center">
           <h2 className="text-ink/80 text-lg font-semibold mb-2">Set up your birth chart</h2>
@@ -303,7 +303,7 @@ export default function DailyPage() {
   // ── NO SUBSCRIPTION ──
   if (authStatus === "no_subscription") {
     return (
-      <main className="min-h-screen px-5 py-8 max-w-lg mx-auto">
+      <main className="min-h-screen px-5 py-8 pb-20 max-w-lg mx-auto">
         <p className="text-gold/60 text-sm mb-8 text-center">{dateLabel}</p>
         <div className="card-cosmic-highlight p-8 text-center">
           <h2 className="text-ink/80 text-lg font-semibold mb-2">
@@ -337,7 +337,7 @@ export default function DailyPage() {
   // ── LOADING ──
   if (loading) {
     return (
-      <main className="min-h-screen px-5 py-8 max-w-lg mx-auto">
+      <main className="min-h-screen px-5 py-8 pb-20 max-w-lg mx-auto">
         <div className="flex items-center justify-between mb-8">
           <div className="h-5 w-32 bg-gold/[0.06] rounded animate-pulse" />
           <div className="h-4 w-16 bg-gold/[0.04] rounded animate-pulse" />
@@ -355,7 +355,7 @@ export default function DailyPage() {
   // ── ERROR ──
   if (error) {
     return (
-      <main className="min-h-screen px-5 py-8 max-w-lg mx-auto">
+      <main className="min-h-screen px-5 py-8 pb-20 max-w-lg mx-auto">
         <p className="text-gold/60 text-sm mb-2">{dateLabel}</p>
         <div className="card-cosmic p-8 text-center">
           <p className="text-ink-muted text-base mb-4">{error}</p>
@@ -374,7 +374,7 @@ export default function DailyPage() {
   // ── EMPTY ──
   if (!data?.horoscope) {
     return (
-      <main className="min-h-screen px-5 py-8 max-w-lg mx-auto">
+      <main className="min-h-screen px-5 py-8 pb-20 max-w-lg mx-auto">
         <p className="text-gold/60 text-sm mb-2">{dateLabel}</p>
         <div className="card-cosmic p-8 text-center">
           <p className="text-ink-muted text-base mb-2">
@@ -400,7 +400,7 @@ export default function DailyPage() {
 
   // ── SUCCESS ──
   return (
-    <main className="min-h-screen px-4 py-6 md:px-6 md:py-10 max-w-4xl mx-auto">
+    <main className="min-h-screen px-4 py-6 pb-20 md:px-6 md:py-10 max-w-4xl mx-auto">
       {/* Top bar */}
       <div className="flex items-center justify-between mb-5">
         <p className="text-gold/70 text-sm font-medium">{dateLabel}</p>
