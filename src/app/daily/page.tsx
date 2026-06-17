@@ -400,103 +400,80 @@ export default function DailyPage() {
 
   // ── SUCCESS ──
   return (
-    <main className="min-h-screen px-5 py-8 max-w-lg mx-auto">
-      <div className="flex items-center justify-between mb-4">
+    <main className="min-h-screen px-4 py-6 md:px-6 md:py-10 max-w-4xl mx-auto">
+      {/* Top bar */}
+      <div className="flex items-center justify-between mb-5">
         <p className="text-gold/70 text-sm font-medium">{dateLabel}</p>
         <StreakBadge streak={streak} />
       </div>
 
-      {/* Birthday Surprise */}
+      {/* Birthday + Push banner */}
       {userBirthDate && (
         <BirthdaySurprise birthDate={userBirthDate} streak={streak} />
       )}
-
-      {/* Push notification prompt */}
       {pushState !== "loading" && pushState !== "unsupported" && (
-        <div className="mb-6">
+        <div className="mb-5">
           <PushPrompt pushState={pushState} onEnable={requestPush} />
         </div>
       )}
 
-      {/* Horoscope card */}
-      <div className="card-cosmic-highlight p-6 mb-8">
-        <p className="text-ink/90 text-[17px] leading-relaxed whitespace-pre-line">
-          {data.horoscope}
-        </p>
-        {data.source && data.source !== "cached" && (
-          <p className="text-ink-dim/30 text-[11px] mt-4">
-            Generated via {data.source === "template" ? "template" : "AI"}
-          </p>
-        )}
-      </div>
-
-      {/* Today's Stars */}
-      {data.highlightedStars.length > 0 && (
-        <section className="mb-8">
-          <h2 className="text-ink-dim text-xs uppercase tracking-wider mb-3 font-medium">
-            Today&apos;s Stars
-          </h2>
-          <div className="space-y-2">
-            {data.highlightedStars.map((star) => (
-              <div
-                key={star}
-                className="flex items-center gap-3 rounded-sm bg-gold/[0.03] px-4 py-3 border border-gold/[0.06]"
-              >
-                <span className="w-1.5 h-1.5 rounded-full bg-gold/60" />
-                <span className="text-ink-muted text-sm">{star}</span>
-              </div>
-            ))}
+      {/* Two-column: desktop only */}
+      <div className="md:grid md:grid-cols-5 md:gap-6">
+        {/* Left: Horoscope (3/5 on desktop) */}
+        <div className="md:col-span-3">
+          <div className="card-cosmic-highlight p-5 md:p-7">
+            <p className="text-ink/90 text-[18px] md:text-[20px] leading-relaxed whitespace-pre-line">
+              {data.horoscope}
+            </p>
+            {data.source && data.source !== "cached" && (
+              <p className="text-ink-dim/30 text-[11px] mt-5">
+                Generated via {data.source === "template" ? "template" : "AI"}
+              </p>
+            )}
           </div>
-        </section>
-      )}
 
-      {/* AI Chat */}
-      <AskZiwei />
+          {/* Action buttons */}
+          <div className="flex flex-wrap gap-2.5 mt-4">
+            <button onClick={handleShare} className="inline-flex items-center gap-1.5 rounded-sm border border-gold/15 bg-gold/[0.04] px-4 py-2 text-xs text-gold/80 hover:bg-gold/[0.08] transition-colors">
+              <Share2 className="h-3.5 w-3.5" />
+              Share
+            </button>
+            <ShareCard horoscopeText={data.horoscope} highlightedStars={data.highlightedStars} date={dateLabel} streak={streak} />
+            {chartPalaces.length > 0 && (
+              <button onClick={() => setShowChart(!showChart)} className="inline-flex items-center gap-1.5 rounded-sm border border-white/[0.08] bg-white/[0.02] px-4 py-2 text-xs text-ink-dim hover:text-ink-muted hover:bg-white/[0.04] transition-colors">
+                <Eye className="h-3.5 w-3.5" />
+                {showChart ? "Hide Chart" : "View Chart"}
+              </button>
+            )}
+          </div>
 
-      {/* Compatibility Check */}
-      <CompatibilityCheck />
+          {/* Chart (expandable) */}
+          {showChart && chartPalaces.length > 0 && (
+            <section className="mt-4 card-cosmic p-4">
+              <ChartCanvas palaces={chartPalaces} />
+            </section>
+          )}
+        </div>
 
-      {/* Actions */}
-      <div className="flex flex-wrap gap-3 mb-6">
-        <Link
-          href="/yearly"
-          className="btn-cosmic inline-flex items-center gap-2"
-        >
-          <Calendar className="h-4 w-4" />
-          Yearly Forecast
-        </Link>
+        {/* Right: Tools (2/5 on desktop) */}
+        <div className="mt-6 md:mt-0 md:col-span-2 space-y-4">
+          <Link href="/yearly" className="flex items-center gap-3 rounded-sm border border-white/[0.06] bg-panel/60 px-4 py-3.5 hover:border-gold/15 transition-colors">
+            <Calendar className="h-5 w-5 text-gold/60 shrink-0" />
+            <div>
+              <p className="text-sm font-medium text-ink">Yearly Forecast</p>
+              <p className="text-xs text-ink-dim">Career · Love · Wealth · Health</p>
+            </div>
+          </Link>
 
-        <button
-          onClick={handleShare}
-          className="btn-cosmic inline-flex items-center gap-2"
-        >
-          <Share2 className="h-4 w-4" />
-          Share
-        </button>
+          <div className="rounded-sm border border-white/[0.06] bg-panel/60">
+            <AskZiwei />
+          </div>
 
-        <ShareCard
-          horoscopeText={data.horoscope}
-          highlightedStars={data.highlightedStars}
-          date={dateLabel}
-          streak={streak}
-        />
-
-        {chartPalaces.length > 0 && (
-          <button
-            onClick={() => setShowChart(!showChart)}
-            className="btn-cosmic inline-flex items-center gap-2"
-          >
-            <Eye className="h-4 w-4" />
-            {showChart ? "Hide Chart" : "View Your Chart"}
-          </button>
-        )}
+          <div className="rounded-sm border border-white/[0.06] bg-panel/60">
+            <CompatibilityCheck />
+          </div>
+        </div>
       </div>
-
-      {showChart && chartPalaces.length > 0 && (
-        <section className="mb-8 card-cosmic p-4">
-          <ChartCanvas palaces={chartPalaces} />
-        </section>
-      )}
 
       <p className="text-ink-dim/20 text-[11px] mt-12 text-center mb-20">
         DestinyBlueprint — Zi Wei Dou Shu Daily
