@@ -115,7 +115,7 @@ describe("DailyPage", () => {
     }, { timeout: 3000 });
   });
 
-  it("shows horoscope with stars and interactive sections on success", async () => {
+  it("shows horoscope and interactive tools on success", async () => {
     vi.mocked(global.fetch).mockResolvedValueOnce({
       status: 200, ok: true,
       json: async () => ({ ok: true, user: { id: "u1", subscriptionStatus: "active", birthDate: "1990-06-15" } }),
@@ -141,8 +141,10 @@ describe("DailyPage", () => {
       expect(screen.getByText("Your Architect pattern shines today.")).toBeDefined();
     }, { timeout: 3000 });
 
-    expect(screen.getByText("Today's Stars")).toBeDefined();
-    expect(screen.getByText("Architect")).toBeDefined();
+    // Horoscope source line
+    expect(screen.getByText(/Generated via/)).toBeDefined();
+    // Sidebar items
+    expect(screen.getByText("Yearly Forecast")).toBeDefined();
     expect(screen.getByTestId("ask-ziwei")).toBeDefined();
     expect(screen.getByTestId("compat-check")).toBeDefined();
   });
