@@ -32,10 +32,16 @@ export async function POST() {
     } else {
       const customer = await stripe.customers.create({ email: user.email });
       customerId = customer.id;
-      // Persist immediately so billing portal works even if webhook is delayed
-      const { updateSubscription } = await import("@/lib/db");
-      await updateSubscription(user.id, { status: user.subscription_status ?? "free", stripeCustomerId: customerId });
     }
+
+    // Grant trial access immediately — don't wait for the async webhook.
+    // If the user abandons checkout, they get 7 free days. Acceptable.
+    const { updateSubscription } = await import("@/lib/db");
+    await updateSubscription(user.id, {
+      status: "trial",
+      trialEndsAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(),
+      stripeCustomerId: customerId,
+    });
 
     const session = await stripe.checkout.sessions.create({
       mode: "subscription",

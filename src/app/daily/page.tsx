@@ -51,41 +51,10 @@ export default function DailyPage() {
         if (d.user?.id) setUserId(d.user.id);
         if (d.user?.birthDate) setUserBirthDate(d.user.birthDate);
 
-        // If returning from Stripe checkout, verify the session synchronously.
+        // Clean up Stripe session_id from URL (status was already set by checkout API)
         const params = new URLSearchParams(window.location.search);
-        const sessionId = params.get("session_id");
-        if (sessionId && d.user?.id) {
-          // Clean URL immediately to avoid re-triggering on reload
+        if (params.has("session_id")) {
           window.history.replaceState(null, "", "/daily");
-
-          const vr = await fetch("/api/checkout/verify-session", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ sessionId }),
-          }).catch(() => null);
-
-          if (vr?.ok) {
-            // Session verified — reload to pick up new subscription status
-            window.location.reload();
-            return;
-          }
-
-          // Verification failed — poll auth/me until webhook fires (up to 15s)
-          setAuthStatus("checking");
-          for (let i = 0; i < 15; i++) {
-            await new Promise((r) => setTimeout(r, 1000));
-            const pr = await fetch("/api/auth/me").catch(() => null);
-            if (!pr?.ok) continue;
-            const pd = await pr.json();
-            const s = pd.user?.subscriptionStatus;
-            if (s === "trial" || s === "active") {
-              window.location.reload();
-              return;
-            }
-          }
-          // Webhook never fired — show trial CTA (better than nothing)
-          setAuthStatus("no_subscription");
-          return;
         }
 
         const status = d.user?.subscriptionStatus;
