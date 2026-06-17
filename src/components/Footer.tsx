@@ -12,7 +12,7 @@ export default function Footer() {
   return (
     <footer className="relative border-t border-gold/[0.06] bg-mist/60">
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-star/20 via-gold/15 to-transparent" />
-      <div className="mx-auto flex max-w-6xl flex-col gap-6 px-4 py-10 sm:flex-row sm:items-center sm:justify-between sm:px-6 sm:py-12">
+      <div className="mx-auto flex max-w-6xl flex-col gap-6 px-4 py-10 pb-20 sm:flex-row sm:items-center sm:justify-between sm:px-6 sm:py-12 sm:pb-24">
         <p className="max-w-md font-body text-sm text-ink-dim">
           © {new Date().getFullYear()} {BRAND_NAME}. For reflection and
           entertainment only—not medical, legal, or financial advice.
