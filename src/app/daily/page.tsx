@@ -64,28 +64,48 @@ export default function DailyPage() {
   useEffect(() => {
     if (authStatus !== "ok") { setLoading(false); return; }
 
-    Promise.allSettled([
-      fetch("/api/generate-daily", { method: "POST" }),
-      fetch("/api/chart"),
-      fetch("/api/streak"),
-    ])
-      .then(async (results) => {
-        const [h, c, s] = results;
-        if (h.status === "fulfilled") {
-          if (h.value.status === 400) { setAuthStatus("no_chart"); return; }
-          if (h.value.ok) { const d = await h.value.json(); if (d.ok) setData(d); }
-        }
-        if (c.status === "fulfilled" && c.value.ok) {
-          const d = await c.value.json(); if (d.ok) setChartPalaces(d.chart?.palaces ?? []);
-        }
-        if (s.status === "fulfilled" && s.value.ok) {
-          const d = await s.value.json(); if (d.ok) setStreak(d.streak ?? 0);
-        }
-        fetch("/api/streak", { method: "POST" }).catch(() => {});
-      })
-      .catch(() => setError("Today's stars are taking longer than usual."))
-      .finally(() => setLoading(false));
+    fetchHoroscope();
   }, [authStatus]);
+
+  const fetchHoroscope = async () => {
+    setLoading(true);
+    setError(null);
+
+    try {
+      const results = await Promise.allSettled([
+        fetch("/api/generate-daily", { method: "POST" }),
+        fetch("/api/chart"),
+        fetch("/api/streak"),
+      ]);
+
+      const [h, c, s] = results;
+      if (h.status === "fulfilled") {
+        if (h.value.status === 400) { setAuthStatus("no_chart"); setLoading(false); return; }
+        if (h.value.ok) {
+          const d = await h.value.json();
+          if (d.ok && d.horoscope) setData(d);
+          else if (d.ok && !d.horoscope) { /* horoscope is null — generation pending */ }
+          else setError(d.message || "Could not generate today's reading.");
+        } else {
+          setError("The stars are taking longer than usual. Please try again.");
+        }
+      } else {
+        setError("Network error. Check your connection and try again.");
+      }
+
+      if (c.status === "fulfilled" && c.value.ok) {
+        const d = await c.value.json(); if (d.ok) setChartPalaces(d.chart?.palaces ?? []);
+      }
+      if (s.status === "fulfilled" && s.value.ok) {
+        const d = await s.value.json(); if (d.ok) setStreak(d.streak ?? 0);
+      }
+      fetch("/api/streak", { method: "POST" }).catch(() => {});
+    } catch {
+      setError("Today's stars are taking longer than usual.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const today = new Date();
   const dateLabel = today.toLocaleDateString("en-US", {
@@ -311,15 +331,19 @@ export default function DailyPage() {
           <p className="text-ink-muted text-base mb-2">
             Your first horoscope is being written...
           </p>
-          <p className="text-ink-dim text-sm">
+          <p className="text-ink-dim text-sm mb-5">
             While you wait, explore your birth chart.
           </p>
           <button
-            onClick={() => window.location.reload()}
-            className="mt-5 btn-cosmic"
+            onClick={fetchHoroscope}
+            disabled={loading}
+            className="btn-cosmic"
           >
-            Refresh
+            {loading ? "Generating…" : "Refresh"}
           </button>
+          {error && (
+            <p className="text-cinnabar/70 text-sm mt-4">{error}</p>
+          )}
         </div>
       </main>
     );
