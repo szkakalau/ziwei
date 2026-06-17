@@ -51,6 +51,27 @@ export default function DailyPage() {
         if (d.user?.id) setUserId(d.user.id);
         if (d.user?.birthDate) setUserBirthDate(d.user.birthDate);
 
+        // If returning from Stripe checkout, verify the session synchronously.
+        // The webhook may be delayed — this ensures the subscription status is
+        // updated immediately.
+        const params = new URLSearchParams(window.location.search);
+        const sessionId = params.get("session_id");
+        if (sessionId && d.user?.id) {
+          try {
+            const vr = await fetch("/api/checkout/verify-session", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ sessionId }),
+            });
+            if (vr.ok) {
+              // Session verified — reload to pick up new subscription status
+              window.location.search = ""; // Remove ?session_id= from URL
+              window.location.reload();
+              return;
+            }
+          } catch { /* fall through to normal auth check */ }
+        }
+
         const status = d.user?.subscriptionStatus;
         if (!status || status === "free" || status === "cancelled" || status === "expired") {
           setAuthStatus("no_subscription");
