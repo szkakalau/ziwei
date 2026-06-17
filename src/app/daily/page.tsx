@@ -67,7 +67,7 @@ export default function DailyPage() {
     fetchHoroscope();
   }, [authStatus]);
 
-  const fetchHoroscope = async () => {
+  const fetchHoroscope = async (skipSync = false) => {
     setLoading(true);
     setError(null);
 
@@ -80,7 +80,16 @@ export default function DailyPage() {
 
       const [h, c, s] = results;
       if (h.status === "fulfilled") {
-        if (h.value.status === 400) { setAuthStatus("no_chart"); setLoading(false); return; }
+        // CHART_NOT_FOUND — try to sync sessionStorage chart data to server before giving up
+        if (h.value.status === 400 && !skipSync) {
+          const synced = await syncChartFromStorage();
+          if (synced) {
+            // Retry horoscope generation now that chart data is on the server
+            fetchHoroscope(true);
+            return;
+          }
+          setAuthStatus("no_chart"); setLoading(false); return;
+        }
         if (h.value.ok) {
           const d = await h.value.json();
           if (d.ok && d.horoscope) setData(d);
@@ -104,6 +113,32 @@ export default function DailyPage() {
       setError("Today's stars are taking longer than usual.");
     } finally {
       setLoading(false);
+    }
+  };
+
+  // If the user filled the Hero form before registering, their chart data is
+  // only in sessionStorage. Sync it to the server so /api/generate-daily can use it.
+  const syncChartFromStorage = async (): Promise<boolean> => {
+    try {
+      const birthInput = JSON.parse(sessionStorage.getItem("userBirthInput") || "null");
+      const chart = JSON.parse(sessionStorage.getItem("userChart") || "null");
+      const meta = JSON.parse(sessionStorage.getItem("userChartMeta") || "null");
+      if (!birthInput || !chart) return false;
+
+      const r = await fetch("/api/chart", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          birthDate: birthInput.birthDate,
+          birthTime: birthInput.birthTime,
+          birthPlace: meta ? { lat: meta.latitude, lng: meta.longitude, tz: meta.timezone } : undefined,
+          chartData: chart,
+        }),
+      });
+      const d = await r.json();
+      return d.ok === true;
+    } catch {
+      return false;
     }
   };
 

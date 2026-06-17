@@ -60,6 +60,24 @@ export async function POST(request: Request) {
       return NextResponse.json({ ok: false, error: result.errorCode }, { status });
     }
 
+    // If user is authenticated, persist chart data to their account so
+    // /api/generate-daily can use it later without re-computing.
+    const { getCurrentUser } = await import("@/lib/auth");
+    const currentUser = await getCurrentUser().catch(() => null);
+    if (currentUser) {
+      const { updateUserChart } = await import("@/lib/db");
+      updateUserChart(currentUser.id, {
+        birthDate,
+        birthTime,
+        birthPlace: {
+          lat: result.meta.latitude,
+          lng: result.meta.longitude,
+          tz: result.meta.timezone,
+        },
+        chartData: result.chart,
+      }).catch(() => {}); // fire-and-forget — don't block the response
+    }
+
     const payload = {
       ok: true,
       chart: result.chart,
