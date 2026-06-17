@@ -64,9 +64,8 @@ export default function DailyPage() {
               body: JSON.stringify({ sessionId }),
             });
             if (vr.ok) {
-              // Session verified — reload to pick up new subscription status
-              window.location.search = ""; // Remove ?session_id= from URL
-              window.location.reload();
+              // Session verified — clean reload without the session_id param
+              window.location.replace("/daily");
               return;
             }
           } catch { /* fall through to normal auth check */ }
