@@ -96,7 +96,13 @@ export default function DailyPage() {
           else if (d.ok && !d.horoscope) { /* horoscope is null — generation pending */ }
           else setError(d.message || "Could not generate today's reading.");
         } else {
-          setError("The stars are taking longer than usual. Please try again.");
+          // Include server error detail if available
+          try {
+            const d = await h.value.json();
+            setError(d.message || "The stars are taking longer than usual. Please try again.");
+          } catch {
+            setError("The stars are taking longer than usual. Please try again.");
+          }
         }
       } else {
         setError("Network error. Check your connection and try again.");

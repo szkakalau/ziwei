@@ -85,7 +85,13 @@ export async function POST() {
     // Generate horoscope — guaranteed to work (template fallback is code-only)
     const { generateHoroscope } = await import("@/lib/horoscopeGenerator");
     const transitSummary = `Daily transit for ${today}`;
-    const result = await generateHoroscope(chart, transitSummary);
+    let result: Awaited<ReturnType<typeof generateHoroscope>>;
+    try {
+      result = await generateHoroscope(chart, transitSummary);
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : String(err);
+      throw new Error(`Horoscope generation failed: ${msg}`);
+    }
 
     // Persist
     try {
@@ -111,8 +117,13 @@ export async function POST() {
       highlightedStars: result.highlightedStars,
       source: result.source,
     });
-  } catch {
-    return NextResponse.json({ ok: false, error: "INTERNAL_ERROR" }, { status: 500 });
+  } catch (err) {
+    const message = err instanceof Error ? err.message : String(err);
+    console.error("generate-daily POST failed:", message);
+    return NextResponse.json(
+      { ok: false, error: "INTERNAL_ERROR", message: `Server error: ${message}` },
+      { status: 500 },
+    );
   }
 }
 
