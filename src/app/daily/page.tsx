@@ -347,7 +347,7 @@ export default function DailyPage() {
         <div className="card-cosmic p-8 text-center">
           <p className="text-ink-muted text-base mb-4">{error}</p>
           <button
-            onClick={fetchHoroscope}
+            onClick={() => fetchHoroscope()}
             disabled={loading}
             className="btn-cosmic"
           >
@@ -371,7 +371,7 @@ export default function DailyPage() {
             While you wait, explore your birth chart.
           </p>
           <button
-            onClick={fetchHoroscope}
+            onClick={() => fetchHoroscope()}
             disabled={loading}
             className="btn-cosmic"
           >
