@@ -84,16 +84,27 @@ describe("POST /api/generate-daily", () => {
     expect(body.error).toBe("SUBSCRIPTION_REQUIRED");
   });
 
-  it("returns 400 when user has neither birth_date nor chart_data", async () => {
+  it("succeeds with template fallback even without birth_date or chart_data", async () => {
     const { getCurrentUser } = await import("@/lib/auth");
     vi.mocked(getCurrentUser).mockResolvedValue({ ...mockUser, birth_date: null, chart_data: null });
+
+    // computeOrGetCachedChart will be called but may throw — fallback chart is empty
+    mockComputeChart.mockRejectedValue(new Error("No birth data"));
+    mockGenerate.mockResolvedValue({
+      text: "Template-based insight for today.",
+      highlightedStars: [],
+      transitSummary: "Daily transit",
+      source: "template" as const,
+    });
 
     const { POST } = await import("../route");
     const res = await POST();
 
-    expect(res.status).toBe(400);
+    // Route no longer returns 400 — it always generates via template fallback
+    expect(res.status).toBe(200);
     const body = await res.json();
-    expect(body.error).toBe("CHART_NOT_FOUND");
+    expect(body.ok).toBe(true);
+    expect(body.horoscope).toBeTruthy();
   });
 
   it("returns cached horoscope when already generated today", async () => {
