@@ -1,5 +1,6 @@
 import type { ChartLike } from "@/lib/personalitySnapshot";
 import { getDailyTransit, type DailyTransit } from "@/lib/dailyTransit";
+import { formatStarName } from "@/lib/zwdsNaming";
 
 export interface HoroscopeOutput {
   text: string;
@@ -142,6 +143,16 @@ function validateHoroscope(text: string): string {
   return cleaned;
 }
 
+/** Format today's 四化 stars as display names for the UI. */
+function formatHighlightedStars(daily: DailyTransit): string[] {
+  return [
+    formatStarName(daily.sihua.hualu),
+    formatStarName(daily.sihua.huaquan),
+    formatStarName(daily.sihua.huake),
+    formatStarName(daily.sihua.huaji),
+  ];
+}
+
 /**
  * Generate a daily horoscope with three-tier fallback:
  * 1. DeepSeek (primary)
@@ -174,12 +185,7 @@ export async function generateHoroscope(
       const text = await callDeepSeek(systemPrompt, userPrompt);
       return {
         text: validateHoroscope(text),
-        highlightedStars: [
-          daily.sihua.hualu,
-          daily.sihua.huaquan,
-          daily.sihua.huake,
-          daily.sihua.huaji,
-        ],
+        highlightedStars: formatHighlightedStars(daily),
         transitSummary: daily.summary,
         source: "deepseek",
       };
@@ -194,12 +200,7 @@ export async function generateHoroscope(
       const text = await callOpenAI(systemPrompt, userPrompt);
       return {
         text: validateHoroscope(text),
-        highlightedStars: [
-          daily.sihua.hualu,
-          daily.sihua.huaquan,
-          daily.sihua.huake,
-          daily.sihua.huaji,
-        ],
+        highlightedStars: formatHighlightedStars(daily),
         transitSummary: daily.summary,
         source: "openai",
       };
@@ -211,12 +212,7 @@ export async function generateHoroscope(
   // Tier 3: Template (guaranteed)
   return {
     text: validateHoroscope(templateHoroscope(daily)),
-    highlightedStars: [
-      daily.sihua.hualu,
-      daily.sihua.huaquan,
-      daily.sihua.huake,
-      daily.sihua.huaji,
-    ],
+    highlightedStars: formatHighlightedStars(daily),
     transitSummary: daily.summary,
     source: "template",
   };
