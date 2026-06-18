@@ -57,6 +57,46 @@ export function starToArchetypeLabel(rawName: string): string {
   return starToArchetype(rawName)?.archetype ?? rawName;
 }
 
+/** One-line (~≤120 chars) plain-English summary of what a star/archetype represents. */
+export function getStarBrief(name: string): string {
+  const briefs: Record<string, string> = {
+    // Raw star keys
+    emperor: "Natural leader who builds order from chaos. High internal standards; others look to you for direction.",
+    advisor: "Master synthesizer. You connect ideas across domains and bring clarity to complexity.",
+    sun: "Radiating presence. You energize everyone around you and thrive when your impact is visible.",
+    general: "Disciplined executor. You ship results, value competence, and cut through empty talk.",
+    fortunate: "Calm harmonizer. Steady, agreeable, and gifted at resolving tension without escalation.",
+    upright: "Principled intensifier. High moral standards — you see ethical nuance others rationalize away.",
+    empress: "Institutional stabilizer. You build lasting structures and protect what matters through consistency.",
+    moon: "Emotional resonator. You read undercurrents before others notice and offer deep empathic insight.",
+    wolf: "Restless catalyst. High-energy connector who sparks change, craves novelty, and moves fast.",
+    judge: "Rigorous interrogator. You question assumptions, demand evidence, and sharpen ideas through critique.",
+    minister: "Diplomatic facilitator. You bridge opposing views and create harmony while getting things done.",
+    sage: "Wise anchor. A steady presence others lean on. Deep pattern recognition earned through experience.",
+    sevenkillings: "Bold disruptor. You challenge norms, break stalemates, and reshape landscapes by force of will.",
+    rebel: "Creative reconstructor. You tear down broken systems and rebuild them better from first principles.",
+
+    // Archetype labels (for AI-generated highlights)
+    architect: "Strategic leader who builds lasting structures. High standards; natural organizing instinct.",
+    synthesizer: "Integrative thinker who connects disparate ideas. Thrives on complexity and nuance.",
+    radiator: "Social catalyst whose presence energizes groups. Driven by visible, meaningful impact.",
+    executor: "Grit-powered achiever. Disciplined, closure-oriented, allergic to empty talk.",
+    harmonizer: "Emotionally steady peacemaker. Builds trust and psychological safety wherever you go.",
+    intensifier: "Uncompromising truth-seeker. High moral clarity; spots the compromise others miss.",
+    stabilizer: "Guardian of continuity. Creates safety through reliable systems and steady stewardship.",
+    resonator: "Empathic sensor with deep emotional intelligence. You notice what remains unspoken.",
+    catalyst: "High-energy innovator who bridges networks. Sparks fly where you go — focus is your edge.",
+    interrogator: "Sharp skeptic who thinks in arguments and evidence. Clarity through rigorous questioning.",
+    facilitator: "Diplomatic bridge-builder. Smooths friction and aligns stakeholders toward shared outcomes.",
+    anchor: "Grounding force others depend on. Deep wisdom earned through patience and pattern recognition.",
+    disruptor: "Norm-breaker who shatters inertia. Decisive action when others hesitate — change agent at scale.",
+    reconstructor: "Visionary rebuilder. You see what's broken and have the courage to start over, better.",
+  };
+  const key = name.toLowerCase().replace(/\s+/g, "");
+  return briefs[key] ?? "";
+}
+
+
 export const STAR_ARCHETYPE_MAP: Record<string, StarArchetype> = {
   // ---- 紫微 (Zi Wei) ----
   emperor: {

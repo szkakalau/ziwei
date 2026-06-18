@@ -10,6 +10,7 @@ import { CompatibilityCheck } from "@/components/CompatibilityCheck";
 import { useOneSignal, PushPrompt } from "@/components/PushSetup";
 import { BirthdaySurprise } from "@/components/BirthdaySurprise";
 import { AppNav } from "@/components/AppNav";
+import { getStarBrief } from "@/lib/zwdsKnowledge";
 import Link from "next/link";
 
 interface HoroscopeData {
@@ -491,21 +492,29 @@ export default function DailyPage() {
             )}
           </div>
 
-          {/* Highlighted stars — horizontal scrolling chips (The Pattern-style) */}
+          {/* Highlighted stars — horizontal scrolling cards with brief meaning */}
           {data.highlightedStars && data.highlightedStars.length > 0 && (
             <div className="mt-5">
               <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-ink-dim/40 mb-1">Active Stars Today</p>
-              <p className="text-ink-dim/30 text-[11px] mb-2">Your chart&rsquo;s dominant archetypes shaping today&rsquo;s reading</p>
-              <div className="flex gap-2 overflow-x-auto pb-1 [-webkit-overflow-scrolling:touch] scrollbar-none">
-                {data.highlightedStars.map((star) => (
-                  <span
-                    key={star}
-                    className="shrink-0 inline-flex items-center gap-1.5 rounded-sm border border-gold/[0.10] bg-gold/[0.03] px-3 py-1.5 font-mono text-[11px] text-gold/80 whitespace-nowrap"
-                  >
-                    <span className="h-1 w-1 rounded-full bg-gold/40" aria-hidden />
-                    {star}
-                  </span>
-                ))}
+              <p className="text-ink-dim/30 text-[11px] mb-3">Your chart&rsquo;s dominant archetypes shaping today&rsquo;s reading</p>
+              <div className="flex gap-3 overflow-x-auto pb-1 [-webkit-overflow-scrolling:touch] scrollbar-none">
+                {data.highlightedStars.map((star) => {
+                  const brief = getStarBrief(star);
+                  return (
+                    <div
+                      key={star}
+                      className="shrink-0 rounded-sm border border-gold/[0.10] bg-gold/[0.02] px-4 py-3 min-w-[160px] max-w-[200px]"
+                    >
+                      <span className="inline-flex items-center gap-1.5 font-mono text-[11px] text-gold/80">
+                        <span className="h-1.5 w-1.5 rounded-full bg-gold/50 shrink-0" aria-hidden />
+                        {star}
+                      </span>
+                      {brief && (
+                        <p className="mt-1.5 text-ink-dim/50 text-[11px] leading-relaxed">{brief}</p>
+                      )}
+                    </div>
+                  );
+                })}
               </div>
             </div>
           )}
