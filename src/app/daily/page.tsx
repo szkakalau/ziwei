@@ -494,7 +494,8 @@ export default function DailyPage() {
           {/* Highlighted stars — horizontal scrolling chips (The Pattern-style) */}
           {data.highlightedStars && data.highlightedStars.length > 0 && (
             <div className="mt-5">
-              <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-ink-dim/40 mb-2">Active Stars Today</p>
+              <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-ink-dim/40 mb-1">Active Stars Today</p>
+              <p className="text-ink-dim/30 text-[11px] mb-2">Your chart&rsquo;s dominant archetypes shaping today&rsquo;s reading</p>
               <div className="flex gap-2 overflow-x-auto pb-1 [-webkit-overflow-scrolling:touch] scrollbar-none">
                 {data.highlightedStars.map((star) => (
                   <span
