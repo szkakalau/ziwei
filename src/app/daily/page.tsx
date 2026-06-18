@@ -414,27 +414,27 @@ export default function DailyPage() {
   ];
   const ritual = ritualPrompts[dayOfYear % ritualPrompts.length];
   return (
-    <main className="min-h-screen px-4 py-4 pb-20 md:px-8 md:py-10 max-w-6xl mx-auto">
-      {/* Top bar — airy, wider */}
-      <div className="flex items-center justify-between mb-4 md:mb-6">
+    <main className="min-h-screen px-4 py-6 pb-20 md:px-8 md:py-10 max-w-6xl mx-auto">
+      {/* ── Screen 1: Date + Identity ── */}
+      <div className="flex items-center justify-between mb-6 md:mb-6">
         <div>
           <p className="text-gold/80 text-base md:text-lg font-medium">{dateLabel}</p>
-          <p className="text-ink-dim/60 text-[11px] mt-0.5">Your daily Zi Wei Dou Shu reading</p>
+          <p className="text-ink-dim/55 text-[11px] mt-0.5">Your daily Zi Wei Dou Shu reading</p>
         </div>
         <StreakBadge streak={streak} />
       </div>
 
-      {/* Birthday + Push banner — compact */}
+      {/* Birthday + Push banner */}
       {userBirthDate && (
         <BirthdaySurprise birthDate={userBirthDate} streak={streak} />
       )}
       {pushState !== "loading" && pushState !== "unsupported" && (
-        <div className="mb-3 md:mb-4">
+        <div className="mb-4 md:mb-6">
           <PushPrompt pushState={pushState} onEnable={requestPush} />
         </div>
       )}
 
-      {/* Two-column grid — 12-col on desktop for precise proportions */}
+      {/* ── Screen 2+3: Horoscope (left) + Stars & Tools (right) ── */}
       <div className="md:grid md:grid-cols-12 md:gap-8">
         {/* ── Left: Main Reading (7/12) ── */}
         <div className="md:col-span-7">
@@ -505,13 +505,19 @@ export default function DailyPage() {
         </div>
 
         {/* ── Right: Stars + Tools (5/12) ── */}
-        <aside className="mt-6 md:mt-0 md:col-span-5 space-y-6">
-          {/* Active Stars — dedicated section with proper hierarchy */}
+        <aside className="mt-8 md:mt-0 md:col-span-5 md:space-y-6">
+
+          {/* Active Stars — mobile: one per screen, desktop: stacked cards */}
           {data.highlightedStars && data.highlightedStars.length > 0 && (
-            <div>
-              <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-gold/70 mb-1">Active Stars Today</p>
-              <p className="text-ink-dim/55 text-[11px] mb-4">Your chart&rsquo;s dominant archetypes shaping today&rsquo;s reading</p>
-              <div className="space-y-3">
+            <div className="mb-8 md:mb-0">
+              {/* Section label — prominent on mobile */}
+              <div className="mb-4">
+                <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-gold/70 mb-1">Active Stars Today</p>
+                <p className="text-ink-dim/55 text-[11px]">Your chart&rsquo;s dominant archetypes shaping today&rsquo;s reading</p>
+              </div>
+
+              {/* Star cards — full-width vertical on mobile, compact stack on desktop */}
+              <div className="space-y-4 md:space-y-3">
                 {data.highlightedStars.map((star) => {
                   const brief = getStarBrief(star);
                   const displayName = formatStarName(star);
@@ -519,23 +525,23 @@ export default function DailyPage() {
                   return (
                     <div
                       key={star}
-                      className="rounded-sm border border-gold/[0.08] bg-gold/[0.015] px-4 py-3.5 hover:border-gold/[0.15] transition-colors"
+                      className="rounded-sm border border-gold/[0.10] bg-gold/[0.02] px-5 py-4 md:px-4 md:py-3.5 hover:border-gold/[0.15] transition-colors"
                     >
-                      <div className="flex items-center gap-2">
-                        <span className="h-1.5 w-1.5 rounded-full bg-gold/45 shrink-0" aria-hidden />
-                        <span className="font-mono text-[13px] text-gold/85 leading-tight">{displayName}</span>
+                      <div className="flex items-center gap-2.5">
+                        <span className="h-2 w-2 rounded-full bg-gold/50 shrink-0" aria-hidden />
+                        <span className="font-mono text-[13px] md:text-[13px] text-gold/85 leading-tight font-medium">{displayName}</span>
                       </div>
                       {keywords.length > 0 && (
-                        <div className="mt-2 flex flex-wrap gap-1.5">
+                        <div className="mt-2.5 flex flex-wrap gap-1.5">
                           {keywords.slice(0, 3).map((kw) => (
-                            <span key={kw} className="inline-block rounded-full border border-gold/[0.06] bg-gold/[0.02] px-2 py-0.5 text-[10px] text-ink-dim/55 font-mono tracking-wider">
+                            <span key={kw} className="inline-block rounded-full border border-gold/[0.08] bg-gold/[0.03] px-2.5 py-0.5 text-[10px] text-ink-dim/55 font-mono tracking-wider">
                               {kw}
                             </span>
                           ))}
                         </div>
                       )}
                       {brief && (
-                        <p className="mt-2 text-ink-dim/50 text-[11px] leading-relaxed">{brief}</p>
+                        <p className="mt-2.5 text-ink-dim/55 text-[11px] md:text-[11px] leading-relaxed">{brief}</p>
                       )}
                     </div>
                   );
@@ -544,25 +550,28 @@ export default function DailyPage() {
             </div>
           )}
 
-          {/* Divider */}
-          <div className="h-px bg-gradient-to-r from-transparent via-gold/[0.08] to-transparent" aria-hidden />
+          {/* Divider — visible on both mobile and desktop */}
+          <div className="h-px bg-gradient-to-r from-transparent via-gold/[0.08] to-transparent my-6 md:my-0" aria-hidden />
 
-          {/* Tools */}
-          <div className="space-y-4">
-            <Link href="/yearly" className="flex items-center gap-3 rounded-sm border border-white/[0.06] bg-panel/60 px-5 py-4 hover:border-gold/15 transition-colors group">
-              <Calendar className="h-5 w-5 text-gold/60 shrink-0 group-hover:text-gold/80 transition-colors" />
-              <div>
-                <p className="text-sm font-medium text-ink">Yearly Forecast</p>
-                <p className="text-xs text-ink-dim mt-0.5">Career · Love · Wealth · Health</p>
+          {/* ── Tools section ── */}
+          <div>
+            <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-dim/50 mb-3 md:hidden">Explore</p>
+            <div className="space-y-3 md:space-y-4">
+              <Link href="/yearly" className="flex items-center gap-3 rounded-sm border border-white/[0.06] bg-panel/60 px-5 py-4 hover:border-gold/15 transition-colors group">
+                <Calendar className="h-5 w-5 text-gold/60 shrink-0 group-hover:text-gold/80 transition-colors" />
+                <div>
+                  <p className="text-sm font-medium text-ink">Yearly Forecast</p>
+                  <p className="text-xs text-ink-dim mt-0.5">Career · Love · Wealth · Health</p>
+                </div>
+              </Link>
+
+              <div className="rounded-sm border border-white/[0.06] bg-panel/60">
+                <AskZiwei />
               </div>
-            </Link>
 
-            <div className="rounded-sm border border-white/[0.06] bg-panel/60">
-              <AskZiwei />
-            </div>
-
-            <div className="rounded-sm border border-white/[0.06] bg-panel/60">
-              <CompatibilityCheck />
+              <div className="rounded-sm border border-white/[0.06] bg-panel/60">
+                <CompatibilityCheck />
+              </div>
             </div>
           </div>
         </aside>

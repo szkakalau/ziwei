@@ -27,7 +27,7 @@ export default function YearlyPage() {
 
   if (loading) {
     return (
-      <main className="min-h-screen bg-[#0a0a0f] text-white px-5 py-12 pb-20 max-w-lg mx-auto text-center">
+      <main className="min-h-screen bg-[#0a0a0f] text-white px-5 py-12 pb-20 max-w-2xl mx-auto text-center">
         <Sparkles className="h-8 w-8 text-amber-400/50 mx-auto mb-4 animate-pulse" />
         <p className="text-white/60 text-base mb-2">Writing your annual reading...</p>
         <p className="text-white/25 text-xs">This takes about 20 seconds. Worth the wait.</p>
@@ -42,7 +42,7 @@ export default function YearlyPage() {
 
   if (error) {
     return (
-      <main className="min-h-screen bg-[#0a0a0f] text-white px-5 py-8 pb-20 max-w-lg mx-auto text-center">
+      <main className="min-h-screen bg-[#0a0a0f] text-white px-5 py-8 pb-20 max-w-2xl mx-auto text-center">
         <p className="text-white/60 text-base mb-4">{error}</p>
         <Link href="/daily" className="text-amber-400/60 text-sm hover:text-amber-300">
           ← Back to daily horoscope
@@ -53,7 +53,7 @@ export default function YearlyPage() {
 
   if (!reading) {
     return (
-      <main className="min-h-screen bg-[#0a0a0f] text-white px-5 py-8 pb-20 max-w-lg mx-auto text-center">
+      <main className="min-h-screen bg-[#0a0a0f] text-white px-5 py-8 pb-20 max-w-2xl mx-auto text-center">
         <p className="text-white/40 text-sm">No reading available. Please try again.</p>
         <a href="/daily" className="text-amber-400/60 text-sm mt-4 inline-block">← Back to horoscope</a>
       </main>
@@ -67,9 +67,9 @@ export default function YearlyPage() {
   });
 
   return (
-    <main className="min-h-screen bg-[#0a0a0f] text-white px-5 py-8 pb-20 max-w-lg mx-auto">
+    <main className="min-h-screen bg-[#0a0a0f] text-white px-5 py-8 pb-20 md:px-8 md:py-12 max-w-4xl mx-auto">
       {/* Header */}
-      <div className="flex items-center justify-between mb-8">
+      <div className="flex items-center justify-between mb-8 md:mb-10">
         <Link href="/daily" className="text-white/30 hover:text-white/50 transition-colors">
           <ArrowLeft className="h-5 w-5" />
         </Link>
@@ -80,9 +80,9 @@ export default function YearlyPage() {
       </div>
 
       {/* Title */}
-      <div className="text-center mb-8">
+      <div className="text-center mb-8 md:mb-10">
         <Sparkles className="h-6 w-6 text-amber-400/60 mx-auto mb-3" />
-        <h1 className="text-amber-200/90 text-xl font-semibold">
+        <h1 className="text-amber-200/90 text-xl md:text-2xl font-semibold">
           Your {year} Zi Wei Dou Shu Forecast
         </h1>
         <p className="text-white/30 text-sm mt-2">
@@ -90,12 +90,12 @@ export default function YearlyPage() {
         </p>
       </div>
 
-      {/* Sections */}
-      <div className="space-y-6">
+      {/* Sections — two-column grid on desktop for scanability */}
+      <div className="md:grid md:grid-cols-2 md:gap-5 space-y-5 md:space-y-0">
         {sections.map((s) => (
           <section
             key={s.heading}
-            className="rounded-xl bg-white/[0.02] border border-white/[0.05] p-5"
+            className="rounded-xl bg-white/[0.02] border border-white/[0.05] p-5 md:p-6"
           >
             <h2 className="text-amber-300/80 text-sm font-semibold mb-3 tracking-wide">
               {s.heading}

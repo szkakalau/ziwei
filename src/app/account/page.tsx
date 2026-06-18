@@ -70,7 +70,7 @@ export default function AccountPage() {
 
   if (loading) {
     return (
-      <main className="min-h-screen bg-[#0a0a0f] text-white px-5 py-8 pb-20 max-w-lg mx-auto">
+      <main className="min-h-screen bg-[#0a0a0f] text-white px-5 py-8 pb-20 max-w-3xl mx-auto">
         <div className="space-y-4">
           <div className="h-8 bg-white/5 rounded w-1/3 animate-pulse" />
           <div className="h-20 bg-white/[0.02] rounded-xl animate-pulse" />
@@ -82,7 +82,7 @@ export default function AccountPage() {
 
   if (!info) {
     return (
-      <main className="min-h-screen bg-[#0a0a0f] text-white px-5 py-8 pb-20 max-w-lg mx-auto text-center">
+      <main className="min-h-screen bg-[#0a0a0f] text-white px-5 py-8 pb-20 max-w-3xl mx-auto text-center">
         <AlertCircle className="h-8 w-8 text-white/20 mx-auto mb-3" />
         <p className="text-white/50">Could not load account info.</p>
         <Link href="/daily" className="text-amber-400/60 text-sm mt-4 inline-block">
@@ -95,11 +95,12 @@ export default function AccountPage() {
   const status = statusLabel(info.subscriptionStatus);
 
   return (
-    <main className="min-h-screen bg-[#0a0a0f] text-white px-5 py-8 pb-20 max-w-lg mx-auto">
+    <main className="min-h-screen bg-[#0a0a0f] text-white px-5 py-8 pb-20 md:px-8 max-w-3xl mx-auto">
       <h1 className="text-white/80 text-lg font-semibold mb-6">Account</h1>
 
-      {/* Email */}
-      <div className="rounded-xl bg-white/[0.02] border border-white/[0.06] p-4 mb-3">
+      <div className="md:grid md:grid-cols-2 md:gap-4">
+        {/* Email */}
+        <div className="rounded-xl bg-white/[0.02] border border-white/[0.06] p-4 mb-3 md:mb-0">
         <div className="flex items-center gap-3">
           <User className="h-4 w-4 text-white/30" />
           <div>
@@ -165,6 +166,8 @@ export default function AccountPage() {
           </div>
         </div>
       )}
+
+      </div>
 
       {/* Logout */}
       <button

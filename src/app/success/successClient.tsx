@@ -44,7 +44,7 @@ export default function SuccessClient() {
   const sessionId = sp.get("session_id") ?? "";
 
   return (
-    <div className="relative mx-auto flex min-h-[calc(100vh-8rem)] max-w-xl flex-col items-stretch px-6 py-16 md:max-w-2xl md:py-20">
+    <div className="relative mx-auto flex min-h-[calc(100vh-8rem)] max-w-xl flex-col items-stretch px-6 py-16 md:max-w-3xl md:py-20">
       <div
         className="pointer-events-none absolute inset-0 bg-grid-fine bg-grid opacity-25"
         aria-hidden

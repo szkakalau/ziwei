@@ -27,7 +27,7 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   const support = getSupportEmail();
   return (
-    <main className="mx-auto max-w-2xl px-4 py-12 sm:px-6 sm:py-16">
+    <main className="mx-auto max-w-3xl px-4 py-12 sm:px-6 sm:py-16">
       <h1 className="font-display text-3xl font-semibold text-ink sm:text-4xl md:text-5xl">
         Contact
       </h1>
