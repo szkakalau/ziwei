@@ -44,15 +44,19 @@ describe("STAR_ARCHETYPE_MAP", () => {
     expect(keys).toContain("sage");
     expect(keys).toContain("sevenkillings");
     expect(keys).toContain("rebel");
-    expect(keys.length).toBe(14);
+    // 14 main + 6 auspicious + 6 inauspicious + 4 transformation = 30
+    expect(keys.length).toBe(30);
   });
 
-  it("every star has all three lenses", () => {
+  it("all 30 stars have complete 6-field descriptions", () => {
     for (const [key, entry] of Object.entries(STAR_ARCHETYPE_MAP)) {
       expect(entry.archetype, `${key} missing archetype`).toBeTruthy();
       expect(entry.psychological, `${key} missing psychological`).toBeTruthy();
       expect(entry.sociological, `${key} missing sociological`).toBeTruthy();
       expect(entry.management, `${key} missing management`).toBeTruthy();
+      expect(entry.prediction, `${key} missing prediction`).toBeTruthy();
+      expect(entry.riskManagement, `${key} missing riskManagement`).toBeTruthy();
+      expect(entry.relationships, `${key} missing relationships`).toBeTruthy();
     }
   });
 });

@@ -56,6 +56,36 @@ const STAR_ALIASES: Record<string, string> = {
   advocator: "minister",
   // 武曲 (Wu Qu) — iztro may use "marshal" as a variant of "general"
   marshal: "general",
+  // 文昌 (Wen Chang) — iztro variant names
+  literary: "wenchang",
+  // 文曲 (Wen Qu) — iztro variant names
+  literature: "wenqu",
+  // 天魁 (Tian Kui) — iztro variant names
+  leaderstar: "tiankui",
+  // 天钺 (Tian Yue) — iztro variant names
+  halberd: "tianyue",
+  // 左辅 (Zuo Fu) — iztro variant names
+  leftassist: "zuofu",
+  // 右弼 (You Bi) — iztro variant names
+  rightassist: "youbi",
+  // 火星 (Huo Xing) — iztro variant names
+  firestar: "mars",
+  // 擎羊 (Qing Yang) — iztro variant names
+  goat: "qingyang",
+  // 陀罗 (Tuo Luo) — iztro variant names
+  topstar: "tuoluo",
+  // 地空 (Di Kong) — iztro variant names
+  earthvoid: "dikong",
+  // 地劫 (Di Jie) — iztro variant names
+  earthcalamity: "dijie",
+  // 化禄 (Hua Lu) — iztro variant names
+  prosperitystar: "hualu",
+  // 化权 (Hua Quan) — iztro variant names
+  authoritystar: "huaquan",
+  // 化科 (Hua Ke) — iztro variant names
+  famestar: "huake",
+  // 化忌 (Hua Ji) — iztro variant names
+  taboostar: "huaji",
 };
 
 /**
@@ -157,6 +187,44 @@ export function getStarBrief(name: string): string {
       "Norm-breaker who shatters inertia. Decisive action when others hesitate — a mission, not a job description.",
     reconstructor:
       "Visionary rebuilder with courage to start over. Every ending you create makes space for a truer beginning.",
+
+    // ── 6 Auspicious Stars — raw keys + archetype labels ──
+    wenchang: "Scholar of deep learning. Academic success, literary talent, intellectual recognition. Your knowledge compounds.",
+    scholar: "Deep learner whose knowledge accumulates. Exams, writing, and research are your domains of mastery.",
+    wenqu: "Artist of creative expression. Aesthetic sensitivity brings beauty and emotional nuance to everything you touch.",
+    artist: "Creative spirit who sees beauty others miss. Design, storytelling, and emotional truth are your mediums.",
+    tiankui: "Patron who elevates others. Your endorsement opens doors — you are the sponsor people credit in their success.",
+    patron: "Magnanimous sponsor whose belief in others changes trajectories. Doors open where you walk.",
+    tianyue: "Benefactor appearing in crisis. Timely help arrives through you — and for you — when it matters most.",
+    benefactor: "Guardian in emergencies. Your timely intervention creates bonds that last a lifetime.",
+    zuofu: "LeftHand of reliable execution. You turn vision into reality through steady, skilled support.",
+    lefthand: "Operational anchor turning plans into results. The partner everyone wants on their team.",
+    youbi: "RightHand of wise counsel. Your insight improves every decision made by those who seek your advice.",
+    righthand: "Trusted advisor whose judgment sharpens others' choices. Wisdom shared is wisdom multiplied.",
+
+    // ── 6 Inauspicious Stars — raw keys + archetype labels ──
+    mars: "Kindler of sudden fire. Emotions flare fast and burn out — the gap between spark and flame is where wisdom lives.",
+    kindler: "Emotional accelerant. Your passion can warm or burn — the choice lives in the pause between stimulus and response.",
+    lingxing: "Smolderer of slow-burning intensity. Resentment compounds silently. Speak sooner, softer, before the fire catches.",
+    smolderer: "Quiet accumulator of feeling. What goes unspoken today becomes an explosion tomorrow. Clear the air early.",
+    qingyang: "Ram of direct confrontation. You charge where others tiptoe — courage and force are twin edges of one sword.",
+    ram: "Head-on challenger who breaks tension by naming it. Measure the cost before charging — not every wall needs breaking.",
+    tuoluo: "Spinner of cyclical patterns. The wheel turns but the cart stays still. Exit the loop by choosing a new direction.",
+    spinner: "Persistent perseverator. Your loyalty outlasts circumstances — ask whether you stay from love or from inertia.",
+    dikong: "Void of existential depth. Plans dissolve, expectations crumble. What remains after emptiness is what was always real.",
+    void: "Gap-seer who notices what's missing. The abyss is real — but so is the ground you stand on. Attend to both.",
+    dijie: "Breaker of fragile structures. Sudden disruption reveals what was already cracked. What survives the shock is truly yours.",
+    breaker: "Crisis-hardened survivor. Your resilience was earned — now learn to build what does not need constant testing.",
+
+    // ── 4 Transformation Stars — raw keys + archetype labels ──
+    hualu: "Abundance flowing in. Resources, opportunities, and generosity expand. Receive fully — you cannot pour from an empty cup.",
+    abundance: "Expansion energy. Windfalls and growth arrive. Save a portion for the season when the tide turns.",
+    huaquan: "Command asserted with will. Authority found or claimed. Lead decisively — but remember that power is granted, not owned.",
+    command: "Executive authority activated. Tough calls fall to you. Lead with the consent of those who follow.",
+    huake: "Recognition shining public. Your name travels, your work is seen. Let the light illuminate your substance, not replace it.",
+    recognition: "Visibility peak. Awards, reputation, and public acknowledgment arrive. Share credit; the spotlight is shared light.",
+    huaji: "Contraction demanding depth. Obstacles force introspection. This is not punishment — it is refinement you did not know you needed.",
+    contraction: "Difficulty as teacher. Limitations reveal what was weak. The gift hidden in hardship is wisdom you cannot gain any other way.",
   };
   const key = name.toLowerCase().replace(/\s+/g, "");
   return briefs[key] ?? "";
@@ -609,6 +677,532 @@ export const STAR_ARCHETYPE_MAP: Record<string, StarArchetype> = {
       "Highest compatibility with Disruptor and Catalyst types who understand that creation and destruction are the same process at different stages. " +
       "Caution with Stabilizer types: what you see as renovation, they experience as demolition. Negotiate explicitly what is and is not up for reconstruction. " +
       "In family and friendship, you are the truth-teller who helps others break free from limiting patterns. Your honesty is a gift — deliver it with the gentleness that makes it receivable.",
+  },
+
+  // ══════════════════════════════════════════════════════════════════════
+  // 6 Auspicious Stars (六吉星) — helpers, benefactors, talent enhancers
+  // ══════════════════════════════════════════════════════════════════════
+
+  // ---- 文昌 (Wen Chang) ----
+  wenchang: {
+    archetype: "Scholar",
+    psychological:
+      "High crystallized intelligence with strong verbal-linguistic ability. " +
+      "Your cognitive style leans toward structured learning and pattern recognition in symbolic systems. " +
+      "Natural academic orientation — you absorb and synthesize complex written information efficiently. " +
+      "The shadow: intellectual elitism. Your facility with abstract concepts can create distance from those who process differently.",
+    sociological:
+      "Knowledge curator in social networks — others seek you for information, references, and intellectual validation. " +
+      "You serve as the group's intellectual historian, preserving and transmitting specialized knowledge. " +
+      "Risk: being valued only for output. Your humanity is more than your intellectual productivity.",
+    management:
+      "Mastery-oriented contributor — deep expertise over broad generalism. " +
+      "Excel in research, writing, documentation, and systems that reward intellectual depth. " +
+      "Thrive when given autonomy to study and synthesize. Struggle in environments that prioritize speed over accuracy.",
+    prediction:
+      "The Scholar star's transit favors intellectual pursuits: exams, certifications, publications, and formal study. " +
+      "Its 3-year academic cycle brings formal recognition — degrees, awards, publications — during years 2-3. " +
+      "When it aligns with the Career palace, a writing, teaching, or research opportunity arrives within 6-12 months. " +
+      "In daily transit, it signals days suited for documentation, contracts, and detailed analysis.",
+    riskManagement:
+      "Intellectual hubris is your primary risk: over-reliance on theory at the expense of practical experience. " +
+      "Career risk: credentialism — pursuing degrees and certifications past the point of diminishing returns. " +
+      "Financial risk: analysis paralysis in investment decisions; you may over-research and under-act. " +
+      "Health risk: sedentary intellectual work patterns. Physical movement must be scheduled, not spontaneous.",
+    relationships:
+      "You connect through ideas and shared intellectual pursuits — a stimulating conversation is your love language. " +
+      "Highest compatibility with Artist and Anchor types who match your depth and add creative dimension. " +
+      "Tension with purely experiential types who dismiss theory as irrelevant. " +
+      "In mentorship roles, you excel. In peer relationships, be mindful of intellectual one-upmanship.",
+  },
+
+  // ---- 文曲 (Wen Qu) ----
+  wenqu: {
+    archetype: "Artist",
+    psychological:
+      "High Openness to Experience with strong aesthetic sensitivity and divergent thinking. " +
+      "Fluid intelligence peaks in creative domains — you see beauty and pattern where others see noise. " +
+      "Your cognitive style is associative rather than linear; you think in metaphors and images. " +
+      "The shadow: creative chaos. Inspiration without structure scatters your gifts across unfinished projects.",
+    sociological:
+      "Cultural creator role — you introduce beauty, meaning, and emotional nuance into group environments. " +
+      "Others experience the world more vividly through your perspective. " +
+      "Risk: being treated as entertainment rather than a serious contributor. Your art is work — claim it as such.",
+    management:
+      "Creative and expressive contributor — strong in design, storytelling, UX, branding, and innovation. " +
+      "Excel when given creative freedom and flexible timelines. " +
+      "Struggle in rigid, process-heavy environments that treat creativity as a checkbox.",
+    prediction:
+      "The Artist star's transit favors creative output: writing, design, performance, and original expression. " +
+      "Its 5-year creative cycle brings breakthrough work during years 2-4 — the middle phase is most productive. " +
+      "When it enters the Career or Creativity palace, a creative project or artistic collaboration emerges within 6 months. " +
+      "In daily transit, it signals days suited for brainstorming, prototyping, and aesthetic decisions.",
+    riskManagement:
+      "Creative chaos without completion is your primary risk: the gap between inspiration and finished work widens without structure. " +
+      "Career risk: undervaluing creative work commercially. Learn the business side of your craft. " +
+      "Financial risk: irregular income from project-based work. Build a financial buffer for creative dry spells. " +
+      "Reputational risk: being perceived as flaky. Meeting deadlines, even self-imposed ones, builds trust with collaborators.",
+    relationships:
+      "You bring beauty and emotional richness into relationships — your attention to detail makes others feel seen. " +
+      "Highest compatibility with Scholar and Resonator types who appreciate depth and nuance. " +
+      "Friction with purely pragmatic types who dismiss aesthetic concerns as frivolous. " +
+      "In romantic relationships, your sensitivity is a gift — but communicate needs explicitly rather than hoping your partner intuits them.",
+  },
+
+  // ---- 天魁 (Tian Kui) ----
+  tiankui: {
+    archetype: "Patron",
+    psychological:
+      "Magnanimous orientation with high social responsibility. You derive meaning from elevating others. " +
+      "Strong internalized moral compass — you act on principle even when unobserved. " +
+      "The shadow: savior complex. Helping others can become a way to avoid addressing your own needs.",
+    sociological:
+      "Sponsorship role in social networks — you open doors, make introductions, and share opportunity. " +
+      "Your endorsement carries disproportionate weight; people advance because you vouched for them. " +
+      "Risk: compassion fatigue. Giving without receiving drains even the deepest well.",
+    management:
+      "Mentorship and sponsorship leadership — you build the next generation of leaders. " +
+      "Excel in educational leadership, talent development, and philanthropic roles. " +
+      "Thrive when your success metric includes the success of those you champion.",
+    prediction:
+      "The Patron star brings benefactor energy: its transit signals meeting influential allies and receiving unexpected support. " +
+      "Its 7-year cycle brings a significant mentor or sponsor into your life during years 2-4. " +
+      "When it enters the Career palace, a promotion or opportunity arrives through personal connection, not blind application. " +
+      "In daily transit, it signals days suited for networking, seeking advice, and offering help to others.",
+    riskManagement:
+      "Over-giving without boundaries is your primary risk: your generosity can attract dependents rather than partners. " +
+      "Career risk: advancing others at the expense of your own visibility and promotion. " +
+      "Financial risk: being the emergency fund for your network. Set clear limits on financial support. " +
+      "Psychological risk: deriving self-worth entirely from being useful creates an unsustainable identity.",
+    relationships:
+      "You are the person others credit in their success stories — your belief in people changes their trajectory. " +
+      "Highest compatibility with Benefactor and LeftHand types who reciprocate your generosity. " +
+      "Caution: one-way relationships form easily around you. Screen for reciprocity. " +
+      "In family, you are often the financial or emotional pillar. Ensure dependents develop self-reliance alongside receiving your support.",
+  },
+
+  // ---- 天钺 (Tian Yue) ----
+  tianyue: {
+    archetype: "Benefactor",
+    psychological:
+      "Altruistic with high empathic concern — you feel genuine distress at others' suffering and act to relieve it. " +
+      "Resilience through service: helping others is also how you restore your own sense of purpose. " +
+      "The shadow: rescue fantasies. You may be drawn to 'fixing' people in ways that disempower them.",
+    sociological:
+      "Crisis responder in social networks — you appear when people need help most. " +
+      "Your timely intervention creates deep, lasting loyalty. " +
+      "Risk: being remembered only in crisis, then forgotten in calm. Your value extends beyond emergency mode.",
+    management:
+      "Crisis leadership and humanitarian orientation — you shine when systems fail and people need direct assistance. " +
+      "Excel in emergency response, social work, healthcare, and community organizing. " +
+      "Struggle in environments that reward competition over cooperation.",
+    prediction:
+      "The Benefactor star brings rescue energy: its transit signals timely help arriving just when you need it most. " +
+      "Its irregular but reliable cycle brings a 'guardian angel' figure during life transitions — a person, resource, or insight that shifts the outcome. " +
+      "When it enters the Health or Relationship palace, recovery or reconciliation is statistically favored within 3-6 months. " +
+      "In daily transit, it signals days for accepting help and offering it to others — both sides of the exchange matter.",
+    riskManagement:
+      "Rescuing others at personal cost is your primary risk: you lose yourself in service. " +
+      "Career risk: choosing helping professions that underpay and overwork, then burning out. " +
+      "Financial risk: emergency generosity that depletes your own safety net. Secure your own oxygen mask first. " +
+      "Health risk: absorbing others' trauma without processing it. Secondary traumatic stress is a documented occupational hazard.",
+    relationships:
+      "You are the person who shows up at 3 a.m. without being asked — your reliability in crisis creates unbreakable bonds. " +
+      "Highest compatibility with Patron and Anchor types who understand the rhythm of giving and receiving. " +
+      "Caution: attracting people in perpetual crisis who drain without replenishing. " +
+      "In romantic relationships, distinguish between healthy interdependence and codependent rescuing patterns.",
+  },
+
+  // ---- 左辅 (Zuo Fu) ----
+  zuofu: {
+    archetype: "LeftHand",
+    psychological:
+      "High conscientiousness with strong loyalty orientation. You find identity in supporting worthy missions and capable leaders. " +
+      "Your satisfaction comes from seeing the whole succeed, not from individual recognition. " +
+      "The shadow: self-erasure. You may defer your own growth to serve another's vision indefinitely.",
+    sociological:
+      "Steadfast ally role — you are the reliable executor who turns vision into reality. " +
+      "Groups depend on your consistency; your absence creates a vacuum no one else fills. " +
+      "Risk: being taken for granted precisely because you are so reliable.",
+    management:
+      "Operational excellence — you excel at making plans work in practice. " +
+      "Strong in COO, chief-of-staff, and implementation roles where execution trumps ideation. " +
+      "Thrive when paired with a visionary leader who values your grounded perspective.",
+    prediction:
+      "The LeftHand star activates support energy: its transit signals forming productive partnerships and finding the right collaborators. " +
+      "Its 5-year cycle brings a significant working partnership — someone whose strengths complement yours perfectly. " +
+      "When it enters the Career palace, team-based achievements outpace solo efforts. Delegate and collaborate. " +
+      "In daily transit, it signals days suited for team alignment, delegation, and supporting colleagues.",
+    riskManagement:
+      "Deferred ambition is your primary risk: you postpone your own goals to support others, then wake up years later wondering where your time went. " +
+      "Career risk: staying deputy to someone who has plateaued. Know when it's time to lead your own mission. " +
+      "Financial risk: investing in others' ventures without securing your own equity or upside. " +
+      "Identity risk: defining yourself entirely through who you support. You are a full person, not an appendage.",
+    relationships:
+      "You are the partner everyone wants — reliable, competent, and genuinely invested in mutual success. " +
+      "Highest compatibility with Architect and Executor types whose vision you can operationalize. " +
+      "Caution with Catalyst and Disruptor types who may treat your stability as a safety net for their risk-taking. " +
+      "In romantic relationships, ensure your voice carries equal weight. Partnership means co-creation, not supporting cast.",
+  },
+
+  // ---- 右弼 (You Bi) ----
+  youbi: {
+    archetype: "RightHand",
+    psychological:
+      "High emotional intelligence with strong perspective-taking ability — you see situations through others' eyes naturally. " +
+      "Counsel-oriented: you provide the insight that helps others make better decisions. " +
+      "The shadow: wisdom without agency. You may be better at advising others than directing your own life.",
+    sociological:
+      "Trusted advisor role — others seek your counsel before major decisions. " +
+      "Your judgment is valued because you combine empathy with clear reasoning. " +
+      "Risk: advisory influence without formal authority. Your impact is real but invisible on org charts.",
+    management:
+      "Strategic counsel and decision-support — you improve the quality of leadership decisions. " +
+      "Excel in advisory, consulting, coaching, and board roles where influence flows through insight rather than authority. " +
+      "Thrive when your advice is sought and respected. Wilt in environments that dismiss counsel in favor of hierarchy.",
+    prediction:
+      "The RightHand star activates wisdom energy: its transit signals receiving good counsel and making sound judgments. " +
+      "Its 6-year advisory cycle brings a period of being sought for your perspective during years 3-5. " +
+      "When it enters the Self or Career palace, a pivotal decision-point arrives — your instinct will be unusually clear. " +
+      "In daily transit, it signals days suited for seeking advice, reflection, and weighing options carefully.",
+    riskManagement:
+      "Advising without acting is your primary risk: you help others navigate their lives while postponing your own decisions. " +
+      "Career risk: staying in advisory roles that cap your growth. At some point, step from counsel to command. " +
+      "Financial risk: giving excellent financial advice to others while neglecting your own planning. " +
+      "Psychological risk: vicarious living. Build your own story, not just footnotes in others'.",
+    relationships:
+      "You are the friend who asks the right question at the right moment — your insight helps others see their own path clearly. " +
+      "Highest compatibility with LeftHand and Anchor types who value your counsel and reciprocate with grounded action. " +
+      "Caution: relationships where you are always the therapist and never the equal. " +
+      "In family dynamics, you are often the mediator. Ensure you are not always the one who understands everyone else.",
+  },
+
+  // ══════════════════════════════════════════════════════════════════════
+  // 6 Inauspicious Stars (六煞星) — obstacles, turbulence, growth catalysts
+  // ══════════════════════════════════════════════════════════════════════
+
+  // ---- 火星 (Huo Xing) ----
+  mars: {
+    archetype: "Kindler",
+    psychological:
+      "High emotional reactivity with a short fuse and quick recovery. Your anger flares fast but burns out quickly. " +
+      "Impulse-driven action: you act before overthinking, which can be courage or recklessness depending on context. " +
+      "The shadow: emotional volatility creates collateral damage that outlasts the moment of anger.",
+    sociological:
+      "Conflict catalyst — you bring hidden tensions to the surface. " +
+      "Others may find you intimidating or unpredictable; your intensity clears rooms or galvanizes them. " +
+      "Risk: relationships burned in moments of heat that took years to build.",
+    management:
+      "Emergency responder — you excel in fast-moving, high-stakes situations where hesitation is costlier than imperfection. " +
+      "Strong in crisis management, rapid-response teams, and startup environments. " +
+      "Struggle in slow, consensus-driven cultures where your speed is perceived as aggression.",
+    prediction:
+      "The Kindler star activates sudden energy: its transit signals unexpected events, rapid developments, and moments requiring immediate action. " +
+      "Its irregular cycle brings acute crises that resolve quickly — the damage is proportional to your reaction speed. " +
+      "When it enters the Health or Relationship palace, a sudden conflict or health flare demands attention within days, not weeks. " +
+      "In daily transit, it signals days of high emotional charge — pause before speaking; reactions compound.",
+    riskManagement:
+      "Impulsive destruction is your primary risk: words spoken and actions taken in a flash of heat undo long-built trust. " +
+      "Career risk: dramatic exits and confrontations that burn professional bridges. " +
+      "Financial risk: impulsive investments and revenge spending during emotional peaks. " +
+      "Safety risk: the Kindler correlates with accident-proneness during high-emotion periods. Physical caution during anger.",
+    relationships:
+      "Your passion is magnetic — but the same fire that warms can burn. Partners must understand that your anger passes quickly and is rarely personal. " +
+      "Highest compatibility with Smolderer and Ram types who match your intensity without being consumed by it. " +
+      "Caution with Harmonizer and Resonator types who experience your fire as trauma. " +
+      "Practice: when anger rises, say 'I need a moment' before speaking. The pause between spark and flame is where wisdom lives.",
+  },
+
+  // ---- 铃星 (Ling Xing) ----
+  lingxing: {
+    archetype: "Smolderer",
+    psychological:
+      "Slow-burning emotional intensity. You do not flare up — you accumulate, and the release comes after long pressure buildup. " +
+      "High grudge-holding potential: you remember slights others forget, and resentment compounds with interest. " +
+      "The shadow: delayed reactions mean conflicts resurface long after others thought them resolved.",
+    sociological:
+      "Underground tension carrier — groups sense something is wrong without knowing what. " +
+      "Your unexpressed anger shapes dynamics invisibly; others walk on eggshells without knowing why. " +
+      "Risk: isolation through accumulated resentment. People pull away from an atmosphere they cannot name.",
+    management:
+      "Persistence under pressure — you endure difficult conditions longer than most. " +
+      "Strong in roles requiring sustained effort against resistance: litigation, long-term negotiation, investigative work. " +
+      "Struggle in transparent, fast-feedback cultures where unspoken resentment is treated as a performance issue.",
+    prediction:
+      "The Smolderer star activates slow-building tension: its transit signals problems that develop gradually over weeks or months before surfacing. " +
+      "Its 8-year cycle brings a period of accumulated grievance reaching a breaking point — the eruption is predictable in retrospect. " +
+      "When it enters the Career or Relationship palace, a long-simmering issue demands resolution within 6-12 months. " +
+      "In daily transit, it signals days for addressing old resentments before they harden into permanent barriers.",
+    riskManagement:
+      "Accumulated resentment is your primary risk: issues left unaddressed for years become irreparable ruptures. " +
+      "Career risk: passive-aggressive behavior that damages professional reputation more than open conflict would. " +
+      "Financial risk: avoiding money conversations until debts or inequities reach crisis levels. " +
+      "Health risk: chronic anger correlates with cardiovascular strain and autoimmune conditions. The body keeps score.",
+    relationships:
+      "You remember everything — the good and the hurt. Your loyalty runs deep, but so does your memory of betrayal. " +
+      "Highest compatibility with Kindler types whose quick-release anger you can learn from, and Anchor types whose steadiness soothes your accumulation. " +
+      "Caution: your partner cannot fix what you never told them was broken. " +
+      "Practice: schedule monthly 'clearing conversations' to prevent resentment accumulation. Speak sooner, softer.",
+  },
+
+  // ---- 擎羊 (Qing Yang) ----
+  qingyang: {
+    archetype: "Ram",
+    psychological:
+      "High assertiveness with a confrontational edge. You meet problems head-on — sometimes creating problems by the force of your approach. " +
+      "Low hesitation under pressure: you act when others freeze. " +
+      "The shadow: force becomes your only tool, even when subtlety and patience would serve better.",
+    sociological:
+      "Direct challenger — you break social tension by naming it, which either resolves it or escalates it. " +
+      "Others appreciate your honesty but fear your delivery. " +
+      "Risk: being labeled aggressive in cultures that value indirect communication.",
+    management:
+      "Crisis intervenor — you excel when a situation requires someone to charge in and break a deadlock. " +
+      "Strong in turnaround situations, enforcement roles, and environments where hard decisions cannot be delegated. " +
+      "Struggle in diplomatic roles requiring patient, multi-stakeholder alignment.",
+    prediction:
+      "The Ram star activates confrontational energy: its transit signals direct challenges, conflicts, and situations requiring assertive action. " +
+      "Its 4-year cycle brings head-on collisions with obstacles that force growth through resistance. " +
+      "When it enters the Career palace, expect a power struggle or competitive challenge within 3-6 months. " +
+      "In daily transit, it signals days where direct action beats diplomacy — but measure the cost before charging.",
+    riskManagement:
+      "Excessive force is your primary risk: you break doors that could have been opened with a knock. " +
+      "Career risk: creating enemies where allies were possible. Not every opponent needs to be defeated. " +
+      "Financial risk: high-stakes competitive moves that trigger equally aggressive responses. " +
+      "Physical risk: the Ram correlates with accident-proneness, especially head injuries and conflicts. Channel aggression into structured competition.",
+    relationships:
+      "You are fiercely protective of those you love — your loyalty is absolute, and your defense of them is uncompromising. " +
+      "Highest compatibility with Spinner and Void types whose subtlety can temper your directness. " +
+      "Caution with other high-assertiveness types where two Rams create a battlefield. " +
+      "Practice: before engaging, ask 'is this a battle or a conversation?' Your intensity is a weapon — choose when to wield it.",
+  },
+
+  // ---- 陀罗 (Tuo Luo) ----
+  tuoluo: {
+    archetype: "Spinner",
+    psychological:
+      "High perseveration tendency — thoughts, emotions, and behaviors loop in repetitive cycles. " +
+      "You struggle to let go: of grudges, of failed plans, of relationships past their expiration. " +
+      "The shadow: circular mental patterns that simulate progress while standing still. The wheel turns; the cart does not move.",
+    sociological:
+      "Stuck-point identifier — you linger on problems others have moved past, which can either surface unresolved issues or create stagnation. " +
+      "Groups experience you as either thorough or obstructionist, depending on whether your persistence is aligned with their goals. " +
+      "Risk: becoming the person who cannot move on, holding the group back.",
+    management:
+      "Persistence specialist — you excel in roles requiring sustained attention to complex, slow-moving problems. " +
+      "Strong in audit, quality control, compliance, and long-cycle projects. " +
+      "Struggle with rapid iteration and environments that reward speed over thoroughness.",
+    prediction:
+      "The Spinner star activates stagnation energy: its transit signals delays, obstacles, and situations that resist forward movement. " +
+      "Its 6-year cycle brings periods of feeling stuck — the lesson is not about breaking free but about finding meaning in the waiting. " +
+      "When it enters the Career or Travel palace, plans stall unexpectedly. The delay often prevents a larger mistake. " +
+      "In daily transit, it signals days for patience. If nothing moves forward, use the pause to review, not to force.",
+    riskManagement:
+      "Perseveration without progress is your primary risk: you invest time in dead-end situations because sunk cost feels like commitment. " +
+      "Career risk: staying in stalled roles or projects past the point of learning. " +
+      "Financial risk: holding losing investments due to loss aversion. Set exit criteria before entering any commitment. " +
+      "Psychological risk: rumination cycles that deepen anxiety and depression. External movement (exercise, change of scene) breaks the loop.",
+    relationships:
+      "Your loyalty outlasts circumstances — you stay long after others have left, for better and sometimes for worse. " +
+      "Highest compatibility with Ram and Breaker types whose forward momentum helps you exit loops. " +
+      "Caution: you may stay in relationships years past their natural end. Ask: 'am I here from love or from inertia?' " +
+      "Practice: set explicit check-in points in relationships and projects. 'Are we still heading where we intended?'",
+  },
+
+  // ---- 地空 (Di Kong) ----
+  dikong: {
+    archetype: "Void",
+    psychological:
+      "High existential sensitivity — you are acutely aware of impermanence, meaninglessness, and the gaps in every plan. " +
+      "Abstract and philosophical orientation. You think about what is missing more than what is present. " +
+      "The shadow: the abyss stares back. Prolonged focus on emptiness can become depression or fatalism.",
+    sociological:
+      "Gap-spotter in social systems — you notice what is absent: the missing voice, the unaddressed need, the structural hole. " +
+      "This perspective is invaluable for planning but exhausting for morale. " +
+      "Risk: being perceived as negative or defeatist, even when your observations are accurate.",
+    management:
+      "Risk identification specialist — you excel at seeing what could go wrong and preparing contingencies. " +
+      "Strong in risk management, scenario planning, and roles requiring worst-case thinking. " +
+      "Struggle in roles requiring optimism and motivational leadership without being perceived as insincere.",
+    prediction:
+      "The Void star activates emptiness energy: its transit signals plans falling through, expectations dissolving, and groundlessness. " +
+      "Its irregular cycle brings existential recalibrations — moments where what you thought was solid proves to be air. " +
+      "When it enters the Wealth or Career palace, financial or professional plans may dissolve. This is not failure — it is correction. " +
+      "In daily transit, it signals days for releasing attachments, not making commitments. Let go; do not grasp.",
+    riskManagement:
+      "Nihilistic paralysis is your primary risk: seeing the emptiness in everything robs you of the motivation to build anything. " +
+      "Career risk: abandoning projects mid-stream because you saw their ultimate futility. " +
+      "Financial risk: neglecting practical money management because 'it's all ultimately meaningless.' Meaning is constructed, not discovered. " +
+      "Existential risk: depression masked as philosophy. If emptiness becomes suffering, seek support — insight should liberate, not imprison.",
+    relationships:
+      "You see through social performance to the reality beneath — this makes you incapable of shallow relationships and intolerant of pretense. " +
+      "Highest compatibility with Anchor and Sage types whose grounded presence balances your existential vertigo. " +
+      "Caution: your awareness of impermanence can prevent you from committing fully to relationships. Love is choosing meaning despite knowing it ends. " +
+      "Practice: notice what IS present, not just what is absent. The void defines the form; both are real.",
+  },
+
+  // ---- 地劫 (Di Jie) ----
+  dijie: {
+    archetype: "Breaker",
+    psychological:
+      "High disruption sensitivity — you experience sudden shifts and external shocks that reshape your path without warning. " +
+      "Resilience forged through repeated loss and recalibration. " +
+      "The shadow: expecting disaster becomes a self-fulfilling prophecy. Hypervigilance exhausts before the actual crisis arrives.",
+    sociological:
+      "Crisis survivor role — you carry wisdom from experiences others have not faced. " +
+      "Your resilience inspires, but your expectation of catastrophe can create a heavy atmosphere. " +
+      "Risk: others avoid you because your presence reminds them of what they fear.",
+    management:
+      "Crisis-hardened operator — you function when systems collapse and others panic. " +
+      "Strong in disaster recovery, organizational turnaround, and environments where disruption is the norm. " +
+      "Struggle in stable environments where your crisis-adapted reflexes feel like overreaction.",
+    prediction:
+      "The Breaker star activates disruption energy: its transit signals sudden external events that interrupt plans, relationships, and assumptions. " +
+      "Its unpredictable cycle brings shocks that feel random but reveal pattern in retrospect — what breaks was already fragile. " +
+      "When it enters any palace, expect the unexpected in that life domain within 12 months. " +
+      "In daily transit, it signals days of sudden change. Flexibility is survival; resistance amplifies damage.",
+    riskManagement:
+      "Crisis normalization is your primary risk: you become so accustomed to disaster that you fail to recognize (or build) stability. " +
+      "Career risk: thriving in chaos makes you indispensable in crises but restless in calm — and calm is where sustainable growth happens. " +
+      "Financial risk: under-saving because 'something always goes wrong anyway.' The Breaker pattern requires larger emergency reserves, not smaller ones. " +
+      "Trauma risk: repeated exposure to crisis without processing creates cumulative psychological damage. Recovery is not optional.",
+    relationships:
+      "You understand loss in ways others cannot — this depth makes you an extraordinary partner through others' dark times, but also wary of attachment. " +
+      "Highest compatibility with Void and Anchor types who do not fear the darkness you have walked through. " +
+      "Caution: you may unconsciously test relationships by expecting them to fail. " +
+      "Practice: distinguish between the disasters that happened to you and the ones you are projecting onto the present. The past is a teacher, not a prophecy.",
+  },
+
+  // ══════════════════════════════════════════════════════════════════════
+  // 4 Transformation Stars (四化星) — annual Tai Sui energy modifiers
+  // ══════════════════════════════════════════════════════════════════════
+
+  // ---- 化禄 (Hua Lu) ----
+  hualu: {
+    archetype: "Abundance",
+    psychological:
+      "Expansive, optimistic orientation. You see opportunity where others see scarcity. " +
+      "Reward-sensitive: you are motivated by gains and possibilities more than fear of loss. " +
+      "The shadow: over-expansion. Abundance without discernment becomes excess; optimism without realism becomes delusion.",
+    sociological:
+      "Resource magnet — wealth, opportunities, and people flow toward you during this transit. " +
+      "Others experience you as generous and fortunate, which attracts further abundance in a virtuous cycle. " +
+      "Risk: attracting opportunists who value your resources more than your person.",
+    management:
+      "Growth-oriented contributor — you excel at identifying and capturing new opportunities. " +
+      "Strong in business development, fundraising, sales, and expansion roles. " +
+      "Thrive when growth is the priority. Struggle when consolidation and cost-cutting are required.",
+    prediction:
+      "The Abundance star marks the most favorable annual transit: income increases, windfalls arrive, investments pay off. " +
+      "Its 1-year cycle (tied to Tai Sui) brings a specific life domain into abundance — which domain depends on which palace it occupies. " +
+      "When combined with any main star, it amplifies that star's positive potential 2-3x for the year. " +
+      "In daily transit, it signals days for receiving, accepting help, and allowing good things to arrive without pushing them away.",
+    riskManagement:
+      "Over-expansion is your primary risk: abundance creates the illusion of infinite resources, leading to over-commitment. " +
+      "Career risk: taking on too many opportunities simultaneously and executing none at full capacity. " +
+      "Financial risk: lifestyle inflation that outpaces the temporary abundance. Save windfalls; do not spend them in advance. " +
+      "Relationship risk: abundance of attention can strain committed partnerships. Transparency about boundaries protects what matters.",
+    relationships:
+      "You are generous with your time, resources, and affection — people feel enriched by your presence. " +
+      "The Abundance transit often coincides with new relationships, deepening existing bonds, or financial windfalls shared with loved ones. " +
+      "Caution: generosity attracts genuine friends AND opportunists. Observe who stays when the abundance cycle naturally contracts. " +
+      "In partnerships, share the harvest — your abundance is sweeter when those you love thrive alongside you.",
+  },
+
+  // ---- 化权 (Hua Quan) ----
+  huaquan: {
+    archetype: "Command",
+    psychological:
+      "Assertive, ambitious orientation with strong will to power. You take control where others hesitate. " +
+      "High self-efficacy: you believe in your capacity to shape outcomes through decisive action. " +
+      "The shadow: authoritarian reflex. Power asserted without consent breeds resentment and resistance.",
+    sociological:
+      "Authority figure — during this transit, others defer to you, for better or worse. " +
+      "You occupy the decision-making seat whether you sought it or not. " +
+      "Risk: power without accountability. Authority is granted by others; it can be withdrawn.",
+    management:
+      "Decisive leader — you excel when tough calls need making and consensus has failed. " +
+      "Strong in executive roles, crisis command, and situations requiring hierarchical clarity. " +
+      "Struggle when collaboration and consensus are culturally valued above direction.",
+    prediction:
+      "The Command star marks the year of taking charge: promotions, leadership roles, and moments where others place you in authority. " +
+      "Its 1-year cycle (tied to Tai Sui) activates ambition and power dynamics in a specific life domain. " +
+      "When combined with any main star, it gives that star's archetype executive authority for the year. " +
+      "In daily transit, it signals days for making decisions, asserting boundaries, and taking the lead.",
+    riskManagement:
+      "Power without wisdom is your primary risk: authority exercised without consultation creates blind spots. " +
+      "Career risk: overplaying your hand in negotiations or office politics, triggering backlash. " +
+      "Financial risk: concentrated decision-making without checks and balances. Even commanders need trusted advisors. " +
+      "Legal risk: the Command transit correlates with disputes over authority and control. Document agreements clearly.",
+    relationships:
+      "You lead naturally — but leadership in relationships requires consent. Your partner is not your subordinate. " +
+      "The Command transit often brings clarity about who truly supports your direction and who resists your growth. " +
+      "Caution: 'my way or the highway' thinking. The strongest partnerships are alliances, not hierarchies. " +
+      "Practice: before deciding for others, ask 'what would you do?' Authority is most respected when it invites input.",
+  },
+
+  // ---- 化科 (Hua Ke) ----
+  huake: {
+    archetype: "Recognition",
+    psychological:
+      "High social visibility with reputation sensitivity. You care about how your work and character are perceived. " +
+      "Achievement-oriented with a desire for legacy — you want your contributions to be remembered. " +
+      "The shadow: reputation dependency. When external validation becomes identity, invisibility feels like erasure.",
+    sociological:
+      "Reputation peak — during this transit, your name travels further than your presence. " +
+      "Others speak of you, recommend you, and attribute value to your association. " +
+      "Risk: reputation is a proxy for reality, not reality itself. The gap between public image and private self requires integrity to bridge.",
+    management:
+      "Brand and reputation builder — you excel at external representation, public communication, and institutional credibility. " +
+      "Strong in PR, marketing, thought leadership, and roles requiring public trust. " +
+      "Thrive when reputation is an organizational asset. Struggle when behind-the-scenes work is more valued.",
+    prediction:
+      "The Recognition star marks the year of visibility: awards, promotions, media attention, and public acknowledgment arrive. " +
+      "Its 1-year cycle (tied to Tai Sui) elevates your profile in a specific domain — your work is seen, your name is spoken. " +
+      "When combined with any main star, it gives that star's archetype public visibility and acclaim for the year. " +
+      "In daily transit, it signals days for sharing your work, speaking publicly, and accepting acknowledgment gracefully.",
+    riskManagement:
+      "Reputation fragility is your primary risk: visibility amplifies scrutiny. Every flaw is magnified alongside every achievement. " +
+      "Career risk: over-investing in image at the expense of substance. Recognition without genuine contribution is a bubble. " +
+      "Financial risk: spending to maintain appearances. The Recognition transit tempts lifestyle display that outpaces actual wealth. " +
+      "Psychological risk: imposter syndrome intensifies as visibility increases. The gap between how others see you and how you see yourself can ache.",
+    relationships:
+      "Your light draws people toward you — but some are drawn to the glow, not the person. Discernment is essential. " +
+      "The Recognition transit often brings new social connections, professional opportunities through reputation, and romantic interest. " +
+      "Caution: the version of you that exists in others' minds is not you. Do not perform your own life. " +
+      "Practice: when praised, share credit. When criticized, seek the kernel of truth. Reputation is an echo; character is the voice.",
+  },
+
+  // ---- 化忌 (Hua Ji) ----
+  huaji: {
+    archetype: "Contraction",
+    psychological:
+      "Introspective, self-critical orientation. You turn inward during this transit and examine what is not working. " +
+      "High sensitivity to loss, failure, and limitation — this is painful but also the source of your deepest growth. " +
+      "The shadow: self-blame becoming self-attack. Contraction's purpose is refinement, not punishment.",
+    sociological:
+      "Reckoning bearer — during this transit, consequences arrive for past actions. " +
+      "Others may distance themselves as you process difficulty, or draw close to offer support. " +
+      "Risk: isolation during hardship. Contraction is a season, not an identity — do not push away those who would help.",
+    management:
+      "Course-correction specialist — you excel at identifying what is not working and forcing necessary adjustments. " +
+      "Strong in turnaround, restructuring, and roles requiring hard truths about underperformance. " +
+      "Struggle when morale and optimism are the primary currencies needed.",
+    prediction:
+      "The Contraction star marks the most challenging annual transit: obstacles surface, plans fail, losses accumulate. " +
+      "Its 1-year cycle (tied to Tai Sui) brings difficulty to a specific life domain — but the difficulty is diagnostic. It reveals what was already weak. " +
+      "When combined with any main star, it constrains that star's expression for the year — forcing depth, patience, and humility. " +
+      "In daily transit, it signals days for restraint. Do not launch; review. Do not expand; consolidate. Wisdom is the gift hidden in limitation.",
+    riskManagement:
+      "Despair is your primary risk: mistaking a difficult season for a permanent condition. Contraction always precedes a new expansion. " +
+      "Career risk: abandoning a path at its hardest point, just before the breakthrough. " +
+      "Financial risk: panic-selling at market bottoms or cutting essential investments during tight periods. " +
+      "Health risk: stress-induced conditions peak during Contraction transits. Extra self-care is not indulgence — it is survival strategy.",
+    relationships:
+      "You see clearly what is broken — in yourself, in relationships, in systems. This clarity is painful but precious. " +
+      "The Contraction transit often ends relationships that cannot bear weight and deepens those that can. " +
+      "Caution: pushing people away because you feel unworthy of support. Let those who love you decide if they want to stay. " +
+      "Practice: when the impulse to isolate rises, reach toward one safe person. Contraction endured alone becomes despair; shared, it becomes transformation.",
   },
 };
 
