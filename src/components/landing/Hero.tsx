@@ -197,22 +197,20 @@ export default function Hero() {
         {/* Pill badge */}
         <div className="inline-flex items-center gap-2 rounded-full border border-gold/[0.10] bg-gold/[0.03] px-4 py-1.5 backdrop-blur-sm">
           <Sparkles className="h-3.5 w-3.5 text-gold/70" aria-hidden />
-          <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-gold/80">Not 1 of 12 Sun Signs</span>
+          <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-gold/80">1,000 years of imperial astrology &middot; now in your pocket</span>
         </div>
 
         {/* Headline — centered, larger, text-driven (Ephemeris-style) */}
         <h1 className="landing-headline mt-6 text-[clamp(2.25rem,6vw,4rem)] animate-on-load text-balance">
-          A daily insight{" "}
+          Your stars have{" "}
           <span className="relative whitespace-nowrap">
-            <span className="relative z-10 bg-gradient-to-r from-gold via-gold/90 to-cinnabar bg-clip-text text-transparent">written for you</span>
+            <span className="relative z-10 bg-gradient-to-r from-gold via-gold/90 to-cinnabar bg-clip-text text-transparent">a plan for tomorrow</span>
           </span>
-          ,{" "}
-          <br className="hidden sm:inline" />
-          not 1/12th of the planet.
+          . Here&rsquo;s what it says.
         </h1>
 
         <p className="mt-4 mx-auto max-w-xl font-body text-base leading-relaxed text-ink-muted animate-on-load-delay-1">
-          DestinyBlueprint maps 100+ personality patterns to your exact birth time and location. Every morning you get a personalized reading based on YOUR profile — not a generic paragraph for millions of people.
+          A 1,000-year-old system, mapped to your exact birth minute. See your free personality snapshot in 30 seconds — then wake up to a daily reading that&rsquo;s actually yours, plus a human-written email reading from a real practitioner.
         </p>
 
         {/* Social proof inline */}
@@ -224,12 +222,15 @@ export default function Hero() {
         </div>
 
         {/* Birth form — centered single column */}
+        <p className="mt-8 text-center font-body text-sm text-ink-dim animate-on-load-delay-3">
+          Your birth time is the key. The more precise, the more revealing.
+        </p>
         <form
           id="hero-form"
           className="animate-on-load-delay-3 mt-8 mx-auto max-w-lg text-left rounded-sm border border-gold/20 bg-void/70 p-6 backdrop-blur-md sm:p-7"
               onSubmit={(e) => { e.preventDefault(); void handleSubmit(); }}
             >
-              <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-gold/70 mb-4">Get Your Free Snapshot · 30 seconds</p>
+              <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-gold/70 mb-4">Your free snapshot is 30 seconds away</p>
 
               {/* Date row */}
               <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
@@ -317,12 +318,17 @@ export default function Hero() {
               {error && <p className="mt-3 font-body text-sm text-cinnabar" role="alert">{error}</p>}
 
               <Button type="submit" variant="cta" className="w-full mt-5" disabled={!formComplete || pending}>
-                {pending ? "Generating…" : "See My Free Snapshot →"}
+                {pending ? "Generating…" : "Reveal My Free Snapshot →"}
               </Button>
 
               <p className="mt-3 flex items-center gap-1.5 justify-center font-body text-xs text-ink-dim">
                 <Lock className="h-3 w-3" aria-hidden />
-                100% private · No signup · No credit card
+                100% private · No signup · Your data never leaves your device
+              </p>
+
+              <p className="mt-2 text-center font-body text-xs text-ink-dim">
+                Free: your personality snapshot ·{" "}
+                <span className="text-gold/60">Premium: daily readings + human email reading</span>
               </p>
             </form>
       </div>
