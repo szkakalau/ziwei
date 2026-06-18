@@ -1,7 +1,6 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Lock, Sparkles, Star } from "lucide-react";
 
@@ -194,40 +193,40 @@ export default function Hero() {
       {/* Background — deep cosmic: dark void with subtle warm core */}
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-10%,oklch(0.12_0.025_270/0.8),oklch(0.10_0.02_265/0.9)_30%,transparent_70%),radial-gradient(ellipse_40%_30%_at_50%_50%,oklch(0.74_0.12_78/0.03),transparent_60%)]" aria-hidden />
 
-      <div className="relative mx-auto max-w-6xl">
-        <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
-          {/* Left: headline + form */}
-          <div className="flex flex-col justify-center">
-            <div className="inline-flex items-center gap-2 rounded-full border border-gold/[0.10] bg-gold/[0.03] px-4 py-1.5 backdrop-blur-sm">
-              <Sparkles className="h-3.5 w-3.5 text-gold/70" aria-hidden />
-              <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-gold/80">Not 1 of 12 Sun Signs</span>
-            </div>
+      <div className="relative mx-auto max-w-3xl text-center">
+        {/* Pill badge */}
+        <div className="inline-flex items-center gap-2 rounded-full border border-gold/[0.10] bg-gold/[0.03] px-4 py-1.5 backdrop-blur-sm">
+          <Sparkles className="h-3.5 w-3.5 text-gold/70" aria-hidden />
+          <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-gold/80">Not 1 of 12 Sun Signs</span>
+        </div>
 
-            <h1 className="landing-headline mt-6 text-[clamp(2rem,5.5vw,3.75rem)] animate-on-load">
-              A daily insight{" "}
-              <span className="relative whitespace-nowrap">
-                <span className="relative z-10 bg-gradient-to-r from-gold via-gold/90 to-cinnabar bg-clip-text text-transparent">written for you</span>
-              </span>,{" "}
-              <br className="hidden sm:inline" />
-              not 1/12th of the planet.
-            </h1>
+        {/* Headline — centered, larger, text-driven (Ephemeris-style) */}
+        <h1 className="landing-headline mt-6 text-[clamp(2.25rem,6vw,4rem)] animate-on-load text-balance">
+          A daily insight{" "}
+          <span className="relative whitespace-nowrap">
+            <span className="relative z-10 bg-gradient-to-r from-gold via-gold/90 to-cinnabar bg-clip-text text-transparent">written for you</span>
+          </span>
+          ,{" "}
+          <br className="hidden sm:inline" />
+          not 1/12th of the planet.
+        </h1>
 
-            <p className="mt-4 max-w-lg font-body text-base leading-relaxed text-ink-muted animate-on-load-delay-1">
-              DestinyBlueprint maps 100+ personality patterns to your exact birth time and location. Every morning you get a personalized reading based on YOUR profile — not a generic paragraph for millions of people.
-            </p>
+        <p className="mt-4 mx-auto max-w-xl font-body text-base leading-relaxed text-ink-muted animate-on-load-delay-1">
+          DestinyBlueprint maps 100+ personality patterns to your exact birth time and location. Every morning you get a personalized reading based on YOUR profile — not a generic paragraph for millions of people.
+        </p>
 
-            {/* Social proof inline */}
-            <div className="mt-4 flex items-center gap-3 animate-on-load-delay-2">
-              <span className="inline-flex gap-0.5 text-gold" aria-hidden>
-                {Array.from({ length: 5 }).map((_, i) => <Star key={i} className="h-3.5 w-3.5 fill-gold/70" />)}
-              </span>
-              <span className="font-body text-sm text-ink-dim">4.9 · 12,400+ charts generated</span>
-            </div>
+        {/* Social proof inline */}
+        <div className="mt-4 flex items-center justify-center gap-3 animate-on-load-delay-2">
+          <span className="inline-flex gap-0.5 text-gold" aria-hidden>
+            {Array.from({ length: 5 }).map((_, i) => <Star key={i} className="h-3.5 w-3.5 fill-gold/70" />)}
+          </span>
+          <span className="font-body text-sm text-ink-dim">4.9 · 12,400+ charts generated</span>
+        </div>
 
-            {/* Birth form */}
-            <form
-              id="hero-form"
-              className="animate-on-load-delay-3 mt-8 rounded-sm border border-gold/20 bg-void/70 p-5 backdrop-blur-md sm:p-6"
+        {/* Birth form — centered single column */}
+        <form
+          id="hero-form"
+          className="animate-on-load-delay-3 mt-8 mx-auto max-w-lg text-left rounded-sm border border-gold/20 bg-void/70 p-6 backdrop-blur-md sm:p-7"
               onSubmit={(e) => { e.preventDefault(); void handleSubmit(); }}
             >
               <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-gold/70 mb-4">Get Your Free Snapshot · 30 seconds</p>
@@ -279,7 +278,7 @@ export default function Hero() {
                       <option value="">Hr</option>
                       {hours.map((h) => <option key={h} value={String(h)}>{String(h).padStart(2, "0")}</option>)}
                     </select>
-                    <select className="input-ink" value={minute} onChange={(e) => setMinute(e.target.value)} disabled={unknownTime}>
+                    <select id="hero-minute" className="input-ink" value={minute} onChange={(e) => setMinute(e.target.value)} disabled={unknownTime}>
                       <option value="">Min</option>
                       {minutes.map((m) => <option key={m} value={String(m)}>{String(m).padStart(2, "0")}</option>)}
                     </select>
@@ -326,22 +325,6 @@ export default function Hero() {
                 100% private · No signup · No credit card
               </p>
             </form>
-          </div>
-
-          {/* Right: chart preview image */}
-          <div className="hidden lg:flex lg:items-center lg:justify-center">
-            <div className="overflow-hidden rounded-sm border border-white/[0.06] bg-void/60">
-              <Image
-                src="/images/destiny-chart-preview.jpg"
-                alt="Zi Wei Dou Shu birth chart showing 12 palaces and 100+ stars"
-                width={800}
-                height={600}
-                className="block w-full max-w-md object-cover"
-                priority
-              />
-            </div>
-          </div>
-        </div>
       </div>
     </section>
   );
