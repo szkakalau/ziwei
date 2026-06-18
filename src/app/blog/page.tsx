@@ -7,6 +7,7 @@ import {
 } from "@/lib/blog";
 import { getSiteUrl } from "@/lib/site";
 import { BRAND_NAME } from "@/lib/brand";
+import JsonLd from "@/components/JsonLd";
 
 const site = getSiteUrl();
 
@@ -52,6 +53,15 @@ export default function BlogPage({ searchParams }: Props) {
 
   return (
     <main className="mx-auto max-w-5xl px-5 py-20 sm:px-6">
+      <JsonLd
+        data={{
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Home", item: site.toString() },
+            { "@type": "ListItem", position: 2, name: "Blog", item: new URL("/blog", site).toString() },
+          ],
+        }}
+      />
       <header>
         <h1 className="font-display text-4xl font-semibold tracking-tight text-ink md:text-5xl">
           Blog

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { getSiteUrl } from "@/lib/site";
 import { BRAND_NAME } from "@/lib/brand";
+import JsonLd from "@/components/JsonLd";
 
 const site = getSiteUrl();
 
@@ -26,9 +27,18 @@ export const metadata: Metadata = {
   },
 };
 
+const breadcrumbJsonLd = {
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: site.toString() },
+    { "@type": "ListItem", position: 2, name: "About", item: new URL("/about", site).toString() },
+  ],
+};
+
 export default function AboutPage() {
   return (
     <main className="mx-auto max-w-3xl px-5 py-20 sm:px-6">
+      <JsonLd data={breadcrumbJsonLd} />
       <h1 className="font-display text-4xl font-semibold tracking-tight text-ink md:text-5xl">
         Our mission: make ancient astrology accessible
       </h1>
@@ -54,6 +64,42 @@ export default function AboutPage() {
         <p className="font-body text-sm text-ink-dim">
           If you need professional help (health, legal, financial, or
           crisis support), please consult a qualified expert.
+        </p>
+
+        <h2>How the reading works</h2>
+        <p>
+          You submit your birth date, time, and location. Our system calculates
+          your <strong>Zi Wei Dou Shu chart</strong> — a map of over 100 symbolic
+          stars distributed across 12 life palaces covering self, career, wealth,
+          relationships, health, and more. The chart is generated using classical
+          rules refined over centuries.
+        </p>
+        <p>
+          The AI then interprets your chart against over 100 documented personality
+          patterns, highlighting the themes most relevant to your configuration.
+          This is not generic: two people born on the same calendar day will receive
+          different readings if their birth times or locations differ.
+        </p>
+        <p>
+          With a subscription, each morning&rsquo;s <strong>daily horoscope</strong> is
+          personalized to your chart — not a one-size-fits-all paragraph for
+          millions of people. You also get a human-written email reading delivered
+          by a trained astrologer, covering your core patterns in plain English.
+        </p>
+
+        <h2>Why Zi Wei Dou Shu instead of Western astrology?</h2>
+        <p>
+          Western sun-sign astrology maps one celestial body to your birth month.
+          Zi Wei Dou Shu maps over 100 stars to your exact birth hour and location
+          across 12 life palaces. The resulting profile is far more granular:
+          it distinguishes career pressure points from relationship timing, and
+          luck cycles from health windows — each with separate interpretive rules.
+        </p>
+        <p>
+          Neither system is &ldquo;better&rdquo; in an absolute sense — they serve different
+          purposes. Zi Wei Dou Shu is particularly suited for structured
+          self-reflection because its output is chart-based and rule-driven rather
+          than intuitive.
         </p>
       </div>
     </main>

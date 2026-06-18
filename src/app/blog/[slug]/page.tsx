@@ -3,7 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { compileMDX } from "next-mdx-remote/rsc";
 import remarkGfm from "remark-gfm";
-import { getPostBySlug, getPostSlugs } from "@/lib/blog";
+import { getPostBySlug, getPostSlugs, getAllPosts, type PostMeta } from "@/lib/blog";
 import { getSiteUrl } from "@/lib/site";
 import { BRAND_NAME } from "@/lib/brand";
 import JsonLd from "@/components/JsonLd";
@@ -123,6 +123,65 @@ export default async function BlogPostPage({ params }: Props) {
       <div className="prose prose-invert prose-base mt-10 max-w-none sm:prose-lg prose-headings:scroll-mt-24 prose-headings:font-display prose-headings:text-ink prose-p:font-body prose-p:text-ink-muted prose-strong:text-ink prose-a:text-gold prose-a:no-underline hover:prose-a:underline prose-li:text-ink-muted prose-blockquote:border-gold/30 prose-blockquote:text-ink-muted prose-code:rounded-sm prose-code:bg-void/80 prose-code:px-1 prose-code:text-jade">
         {content}
       </div>
+
+      {/* Related posts — internal linking boost for crawl depth */}
+      <RelatedPosts currentSlug={params.slug} category={post.meta.category} />
     </main>
+  );
+}
+
+function RelatedPosts({
+  currentSlug,
+  category,
+}: {
+  currentSlug: string;
+  category: string;
+}) {
+  const all = getAllPosts();
+  const related = all
+    .filter((p) => p.slug !== currentSlug)
+    .sort((a, b) => {
+      // Same-category posts first, then by date
+      const aMatch = a.category === category ? 0 : 1;
+      const bMatch = b.category === category ? 0 : 1;
+      if (aMatch !== bMatch) return aMatch - bMatch;
+      return +new Date(b.date) - +new Date(a.date);
+    })
+    .slice(0, 3);
+
+  if (!related.length) return null;
+
+  return (
+    <aside
+      className="mt-16 border-t border-gold/[0.08] pt-10"
+      aria-labelledby="related-heading"
+    >
+      <h2
+        id="related-heading"
+        className="font-display text-xl font-semibold text-ink"
+      >
+        Continue reading
+      </h2>
+      <ul className="mt-6 grid gap-5 sm:grid-cols-3">
+        {related.map((p: PostMeta) => (
+          <li key={p.slug}>
+            <Link
+              href={`/blog/${p.slug}`}
+              className="group block rounded-lg border border-gold/[0.06] bg-void/40 p-4 transition-all hover:border-gold/15 hover:bg-void/60"
+            >
+              <span className="font-mono text-[10px] font-semibold uppercase tracking-wider text-jade">
+                {p.category}
+              </span>
+              <h3 className="mt-1 font-body text-sm font-semibold text-ink group-hover:text-gold transition-colors line-clamp-2">
+                {p.title}
+              </h3>
+              <p className="mt-1 font-body text-xs text-ink-dim line-clamp-2">
+                {p.description}
+              </p>
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </aside>
   );
 }

@@ -33,42 +33,98 @@ const faqJsonLd = {
   mainEntity: [
     {
       "@type": "Question",
-      name: "What is Zi Wei Dou Shu? Is it like Western astrology?",
+      name: "What is Chinese astrology?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Zi Wei Dou Shu (Purple Star Astrology) is an ancient Chinese system that maps over 100 stars across 12 life palaces using your exact birth time and location. It's fundamentally more detailed than Western sun-sign astrology.",
+        text: "Chinese astrology is a family of symbolic systems that map birth time and calendar cycles to personality traits and life themes. We present it as cultural wisdom for self-reflection and entertainment—not as scientific certainty.",
       },
     },
     {
       "@type": "Question",
-      name: "Is this AI or human-powered?",
+      name: "Is this fortune telling?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Both. Your subscription includes daily AI-generated horoscopes (personalized to your chart), plus a one-time human-written email reading delivered within 24-48 hours.",
+        text: "We do not claim to predict fixed outcomes. Readings describe patterns and possibilities so you can reflect with more clarity. Treat insights as prompts, not commands.",
       },
     },
     {
       "@type": "Question",
-      name: "Do I need my exact birth time?",
+      name: "Is it scientifically proven?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "The more accurate your birth time, the more precise your chart. If you don't know at all, we can still generate a chart using noon, but the precision will be reduced.",
+        text: "Astrology is not a substitute for professional advice in medicine, law, finance, or mental health. It is a reflective framework; use your judgment and seek experts when needed.",
       },
     },
     {
       "@type": "Question",
-      name: "What's the difference between the free snapshot and the subscription?",
+      name: "Do I need birth time?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "The free snapshot gives you core personality traits, strengths, and growth areas. The $4.99/month subscription unlocks daily AI horoscopes, AI chat, compatibility checks, yearly forecast with PDF, birthday surprises, and a human-written email reading.",
+        text: "Birth time improves precision for certain chart elements. If unknown, use your best estimate or skip time. Your reading can still highlight useful themes, with a narrower technical scope.",
       },
     },
     {
       "@type": "Question",
-      name: "What if I'm not satisfied?",
+      name: "How accurate is the reading?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "You have a 7-day free trial. Cancel before it ends and you're never charged. After that, cancel anytime from your account page. If the human-written reading doesn't resonate, email support for a refund.",
+        text: "Quality depends on correct birth data and how you apply the insights. Readings are based on classical-style rules and human interpretation; they are best used as structured reflection, not literal prediction.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Should I use this for major life decisions?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "No. Use readings for reflection and planning conversations—not as the sole basis for medical, legal, financial, or safety decisions.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "How do I receive my reading?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "After checkout, you receive an order confirmation right away, and your reading is delivered by email within the stated turnaround window. Exact steps are confirmed at purchase.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "What is your refund policy?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Refund terms depend on the product version and region. We publish the current policy on the checkout page and in your confirmation email. Contact support if delivery fails.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "What currency are prices in?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Prices are shown in USD unless stated otherwise at checkout. Your bank may apply conversion fees for non-USD cards.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Do you store birth data?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "We collect only what is needed to generate your chart and deliver your order. Retention, deletion, and security measures are described in our Privacy Policy.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Who can access my information?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Access is limited to systems and people required to run the service (for example, delivery and support). We do not sell personal data.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Can I request deletion?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Yes, where applicable by law and our internal policies. Use the contact options in our Privacy Policy to request deletion or export.",
       },
     },
   ],

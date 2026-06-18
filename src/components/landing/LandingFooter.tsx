@@ -20,14 +20,14 @@ export default function LandingFooter() {
               className="inline-flex items-center gap-2 font-display text-lg font-semibold text-ink transition-colors hover:text-gold"
             >
               <Compass className="h-5 w-5 text-gold/60" aria-hidden />
-              DestinyBlueprint
+              DestinyBlueprint.xyz
             </Link>
             <p className="mt-3 font-body text-sm leading-relaxed text-ink-dim">
               Ancient Zi Wei Dou Shu astrology, delivered with modern precision.
               Daily AI horoscopes and human-written email readings based on your unique birth chart.
             </p>
             <p className="mt-3 font-mono text-[10px] uppercase tracking-[0.2em] text-ink-dim">
-              © {new Date().getFullYear()} DestinyBlueprint. All rights reserved.
+              © {new Date().getFullYear()} DestinyBlueprint.xyz. All rights reserved.
             </p>
           </div>
 

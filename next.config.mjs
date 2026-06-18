@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  poweredByHeader: false,
   // geo-tz reads binary timezone data via __dirname; bundling breaks path resolution in API routes.
   experimental: {
     serverComponentsExternalPackages: ["geo-tz"],
