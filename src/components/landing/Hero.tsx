@@ -190,7 +190,7 @@ export default function Hero() {
   }, [year, month, day, hour, minute, location, gender, unknownTime, router]);
 
   return (
-    <section className="relative overflow-hidden px-4 pt-12 pb-16 sm:px-6 sm:pt-24 sm:pb-28 md:pt-32 md:pb-36">
+    <section className="relative overflow-hidden px-4 pt-16 pb-20 sm:px-6 sm:pt-28 sm:pb-32 md:pt-36 md:pb-40">
       {/* Background — deep cosmic: dark void with subtle warm core */}
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-10%,oklch(0.12_0.025_270/0.8),oklch(0.10_0.02_265/0.9)_30%,transparent_70%),radial-gradient(ellipse_40%_30%_at_50%_50%,oklch(0.74_0.12_78/0.03),transparent_60%)]" aria-hidden />
 
@@ -203,7 +203,7 @@ export default function Hero() {
               <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-gold/80">Not 1 of 12 Sun Signs</span>
             </div>
 
-            <h1 className="landing-headline mt-6 text-[clamp(1.75rem,5vw,3.25rem)]">
+            <h1 className="landing-headline mt-6 text-[clamp(2rem,5.5vw,3.75rem)] animate-on-load">
               A daily insight{" "}
               <span className="relative whitespace-nowrap">
                 <span className="relative z-10 bg-gradient-to-r from-gold via-gold/90 to-cinnabar bg-clip-text text-transparent">written for you</span>
@@ -212,12 +212,12 @@ export default function Hero() {
               not 1/12th of the planet.
             </h1>
 
-            <p className="mt-4 max-w-lg font-body text-base leading-relaxed text-ink-muted">
+            <p className="mt-4 max-w-lg font-body text-base leading-relaxed text-ink-muted animate-on-load-delay-1">
               DestinyBlueprint maps 100+ personality patterns to your exact birth time and location. Every morning you get a personalized reading based on YOUR profile — not a generic paragraph for millions of people.
             </p>
 
             {/* Social proof inline */}
-            <div className="mt-4 flex items-center gap-3">
+            <div className="mt-4 flex items-center gap-3 animate-on-load-delay-2">
               <span className="inline-flex gap-0.5 text-gold" aria-hidden>
                 {Array.from({ length: 5 }).map((_, i) => <Star key={i} className="h-3.5 w-3.5 fill-gold/70" />)}
               </span>
@@ -227,7 +227,7 @@ export default function Hero() {
             {/* Birth form */}
             <form
               id="hero-form"
-              className="mt-8 rounded-sm border border-gold/20 bg-void/70 p-5 backdrop-blur-md sm:p-6"
+              className="animate-on-load-delay-3 mt-8 rounded-sm border border-gold/20 bg-void/70 p-5 backdrop-blur-md sm:p-6"
               onSubmit={(e) => { e.preventDefault(); void handleSubmit(); }}
             >
               <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-gold/70 mb-4">Get Your Free Snapshot · 30 seconds</p>

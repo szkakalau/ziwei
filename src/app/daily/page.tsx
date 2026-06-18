@@ -399,6 +399,18 @@ export default function DailyPage() {
   }
 
   // ── SUCCESS ──
+  const dayOfYear = Math.floor((today.getTime() - new Date(today.getFullYear(), 0, 0).getTime()) / 86400000);
+  const ritualPrompts = [
+    "Take 3 minutes to journal: what opportunity is presenting itself today?",
+    "Notice one moment where you felt fully present. What triggered it?",
+    "Identify one decision you've been postponing. What's the smallest first step?",
+    "Reach out to someone who energizes you — a text is enough.",
+    "Write down one limiting belief. Then write one piece of evidence against it.",
+    "Before bed, name three things that went better than expected today.",
+    "Observe your energy levels. When did you feel most alive? Most drained?",
+    "Ask yourself: if I trusted my instinct completely, what would I do differently?",
+  ];
+  const ritual = ritualPrompts[dayOfYear % ritualPrompts.length];
   return (
     <main className="min-h-screen px-4 py-4 pb-20 md:px-6 md:py-8 max-w-4xl mx-auto">
       {/* Top bar — compact */}
@@ -440,6 +452,27 @@ export default function DailyPage() {
                   </p>
                 </div>
               )}
+
+              {/* Daily Ritual — CHANI-style "prediction → action" loop */}
+              <div className="mt-4 rounded-sm border border-jade/[0.12] bg-jade/[0.03] px-4 py-3">
+                <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-jade/70 mb-1.5">Today's Practice</p>
+                <p className="text-ink-muted text-sm leading-relaxed">{ritual}</p>
+              </div>
+
+              {/* Yesterday feedback — subtle 👍👎 */}
+              <div className="mt-4 pt-4 border-t border-white/[0.06] flex items-center gap-4">
+                <span className="text-ink-dim/40 text-[11px]">Was yesterday's reading accurate?</span>
+                <button
+                  className="inline-flex items-center gap-1 rounded-sm px-2 py-1 text-xs text-ink-dim/50 hover:text-jade hover:bg-jade/[0.06] transition-colors"
+                  onClick={() => {/* TODO: POST /api/feedback */}}
+                  aria-label="Thumbs up — accurate"
+                >👍</button>
+                <button
+                  className="inline-flex items-center gap-1 rounded-sm px-2 py-1 text-xs text-ink-dim/50 hover:text-cinnabar hover:bg-cinnabar/[0.06] transition-colors"
+                  onClick={() => {/* TODO: POST /api/feedback */}}
+                  aria-label="Thumbs down — not accurate"
+                >👎</button>
+              </div>
             </div>
           </div>
 
@@ -457,6 +490,24 @@ export default function DailyPage() {
               </button>
             )}
           </div>
+
+          {/* Highlighted stars — horizontal scrolling chips (The Pattern-style) */}
+          {data.highlightedStars && data.highlightedStars.length > 0 && (
+            <div className="mt-5">
+              <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-ink-dim/40 mb-2">Active Stars Today</p>
+              <div className="flex gap-2 overflow-x-auto pb-1 [-webkit-overflow-scrolling:touch] scrollbar-none">
+                {data.highlightedStars.map((star) => (
+                  <span
+                    key={star}
+                    className="shrink-0 inline-flex items-center gap-1.5 rounded-sm border border-gold/[0.10] bg-gold/[0.03] px-3 py-1.5 font-mono text-[11px] text-gold/80 whitespace-nowrap"
+                  >
+                    <span className="h-1 w-1 rounded-full bg-gold/40" aria-hidden />
+                    {star}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
 
           {/* Chart (expandable) */}
           {showChart && chartPalaces.length > 0 && (
