@@ -36,7 +36,7 @@ function createProvider(
         body: JSON.stringify({
           model,
           messages: params.messages,
-          max_tokens: params.maxTokens ?? 500,
+          max_tokens: params.maxTokens ?? 800,
           temperature: params.temperature ?? 0.8,
         }),
         signal: AbortSignal.timeout(params.timeoutMs ?? 25_000),

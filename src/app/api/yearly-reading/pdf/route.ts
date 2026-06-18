@@ -1,34 +1,16 @@
 import { NextResponse } from "next/server";
+import { ZWDS_KNOWLEDGE } from "@/lib/zwdsKnowledge";
+import { formatChartDetailed } from "@/lib/chartFormatter";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 export const maxDuration = 45;
 
-async function callAI(prompt: string): Promise<string> {
-  const { ZWDS_KNOWLEDGE } = await import("@/lib/zwdsKnowledge");
-  const system = `${ZWDS_KNOWLEDGE}\n\nWrite a comprehensive annual personal insight reading. Structure with ### section headings. Remember: translate all raw star keys (emperor, wolf, rebel, etc.) to their humanistic archetype names.`;
-
-  const providers = [
-    { name: "deepseek", url: "https://api.deepseek.com/chat/completions", key: process.env.DEEPSEEK_API_KEY, model: "deepseek-chat" },
-    { name: "openai", url: "https://api.openai.com/v1/chat/completions", key: process.env.OPENAI_API_KEY, model: "gpt-4o-mini" },
-  ];
-
-  for (const p of providers) {
-    if (!p.key) continue;
-    try {
-      const res = await fetch(p.url, {
-        method: "POST",
-        headers: { "Content-Type": "application/json", Authorization: `Bearer ${p.key}` },
-        body: JSON.stringify({ model: p.model, messages: [{ role: "system", content: system }, { role: "user", content: prompt }], max_tokens: 1500, temperature: 0.8 }),
-        signal: AbortSignal.timeout(35_000),
-      });
-      if (res.ok) {
-        const json = await res.json();
-        return (json.choices?.[0]?.message?.content ?? "").trim();
-      }
-    } catch { continue; }
-  }
-  throw new Error("All providers unavailable");
+function buildPdfPrompt(chartSummary: string, year: number): { system: string; user: string } {
+  return {
+    system: `${ZWDS_KNOWLEDGE}\n\nWrite a comprehensive annual personal insight reading. Structure with ### section headings (Career & Work, Love & Relationships, Health & Wellbeing, Wealth & Finances, Key Months to Watch). Reference stars by their EXACT Pinyin · Alias names.`,
+    user: `USER'S CHART:\n${chartSummary}\n\nWrite a comprehensive annual personal insight reading for ${year}.`,
+  };
 }
 
 export async function POST() {
@@ -47,14 +29,30 @@ export async function POST() {
       return NextResponse.json({ ok: false, error: "CHART_NOT_FOUND" }, { status: 400 });
     }
 
-    const c = user.chart_data as { palaces?: Array<{ name?: string; majorStars?: Array<{ name?: string }>; minorStars?: Array<{ name?: string }> }> };
-    const chartSummary = (c.palaces ?? []).map((p) => {
-      const stars = [...(p.majorStars ?? []), ...(p.minorStars ?? [])].map((s) => s?.name).filter(Boolean);
-      return `${p.name ?? "Unknown"}: ${stars.join(", ") || "empty"}`;
-    }).join("\n");
-
+    const chartSummary = formatChartDetailed(user.chart_data as Parameters<typeof formatChartDetailed>[0]);
     const year = new Date().getFullYear();
-    const reading = await callAI(`USER'S CHART (raw iztro data — translate star keys to archetype names):\n${chartSummary}\n\nWrite a comprehensive annual personal insight reading for ${year}.`);
+    const { system, user: userPrompt } = buildPdfPrompt(chartSummary, year);
+
+    const { callAiWithFallback } = await import("@/lib/aiProviders");
+    let reading: string;
+    try {
+      const result = await callAiWithFallback({
+        messages: [
+          { role: "system", content: system },
+          { role: "user", content: userPrompt },
+        ],
+        maxTokens: 1500,
+        temperature: 0.8,
+        timeoutMs: 35_000,
+      });
+      reading = result.text;
+    } catch {
+      return NextResponse.json({ ok: false, error: "AI_UNAVAILABLE" }, { status: 503 });
+    }
+
+    if (!reading) {
+      return NextResponse.json({ ok: false, error: "EMPTY_RESPONSE" }, { status: 500 });
+    }
 
     const { generateYearlyPdf } = await import("@/lib/generateYearlyPdf");
     const pdfBuffer = await generateYearlyPdf(year, reading);

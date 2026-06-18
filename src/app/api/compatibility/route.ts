@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { ZWDS_KNOWLEDGE } from "@/lib/zwdsKnowledge";
+import { formatChartCompact } from "@/lib/chartFormatter";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -7,29 +8,34 @@ export const maxDuration = 30;
 
 const COMPAT_SYSTEM_PROMPT = `${ZWDS_KNOWLEDGE}
 
-You are analyzing the interpersonal dynamics between TWO people based on their personality patterns (archetypes) and life domains.
-Focus on how their archetypes interact. Be specific: name their archetype patterns and
-which life domains they appear in. Cover:
+You are analyzing the interpersonal dynamics between TWO people based on their Zi Wei Dou Shu charts.
+Focus on how their star configurations interact. Be specific: reference stars by their EXACT
+Pinyin · Alias names (e.g. "Zi Wei · Emperor Star") and which life palaces they appear in.
+
+Cover:
 1. Overall dynamic quality
 2. Communication style match
 3. Emotional connection
 4. Potential challenges
 5. Best relationship mode (romantic, friendship, business partnership?)
 
-Write 150-250 words. Be warm, honest, and grounded in their actual pattern data.
+Write 150-250 words. Be warm, honest, and grounded in their actual chart data.
 Frame as tendencies and dynamics, not deterministic predictions.
 End with one actionable insight for navigating this relationship.`;
 
-function summarizePalace(p: {
-  name?: string;
-  majorStars?: Array<{ name?: string }>;
-  minorStars?: Array<{ name?: string }>;
-}): string {
-  const stars = [
-    ...(p.majorStars ?? []).map((s) => s?.name).filter(Boolean),
-    ...(p.minorStars ?? []).map((s) => s?.name).filter(Boolean),
-  ];
-  return `${p.name ?? "Unknown"}: ${stars.join(", ") || "empty"}`;
+function templateCompat(): string {
+  return `**Overall Dynamic:** These two charts suggest an interesting and layered connection. The interaction between their core stars creates both natural alignment and productive tension — the kind that can lead to growth when approached with awareness.
+
+**Communication:** Their communication styles are shaped by different star configurations, which means they may process information at different speeds or through different lenses. Patience and explicit expression — saying what you mean rather than assuming — will bridge gaps that intuition alone cannot.
+
+**Emotional Connection:** Emotional resonance between these two depends heavily on context. In calm, reflective moments, they may feel deeply understood. Under stress, their default responses can diverge. Building shared rituals — even small ones — helps anchor the emotional bond.
+
+**Potential Challenges:** The main friction points come from differing approaches to decision-making and resource management. One may favor bold moves while the other prefers measured steps. Neither is wrong, but without compromise, resentment can build.
+
+**Best Mode:** A partnership built on complementary skills — where each person leads in their strength zone — works best. Romantic potential is strong if communication is prioritized; as friends or collaborators, they can achieve more together than separately.
+
+**Key Insight:** Pay attention to how you handle disagreement. The way you navigate conflict will determine whether this relationship deepens or drifts over time.`;
+
 }
 
 export async function POST(request: Request) {
@@ -40,7 +46,6 @@ export async function POST(request: Request) {
       return NextResponse.json({ ok: false, error: "NOT_AUTHENTICATED" }, { status: 401 });
     }
 
-    // Rate limit: 5 compatibility checks per user per hour
     const { checkRateLimit } = await import("@/lib/rateLimit");
     const rl = checkRateLimit(`compat:${user.id}`, { windowMs: 3_600_000, maxRequests: 5 });
     if (!rl.allowed) {
@@ -101,44 +106,33 @@ export async function POST(request: Request) {
       );
     }
 
-    // Build chart summaries
-    const myChart = user.chart_data as {
-      palaces?: Array<{
-        name?: string;
-        majorStars?: Array<{ name?: string }>;
-        minorStars?: Array<{ name?: string }>;
-      }>;
-    };
-    const mySummary = (myChart.palaces ?? []).map(summarizePalace).join("\n");
+    // Build chart summaries using project naming
+    const mySummary = formatChartCompact(user.chart_data as Parameters<typeof formatChartCompact>[0]);
+    const otherSummary = formatChartCompact(otherResult.chart as Parameters<typeof formatChartCompact>[0]);
 
-    const otherChart = otherResult.chart as {
-      palaces?: Array<{
-        name?: string;
-        majorStars?: Array<{ name?: string }>;
-        minorStars?: Array<{ name?: string }>;
-      }>;
-    };
-    const otherSummary = (otherChart.palaces ?? []).map(summarizePalace).join("\n");
-
-    // Use shared AI provider with automatic fallback
+    // AI call with template fallback
     const { callAiWithFallback } = await import("@/lib/aiProviders");
-    const { text: analysis } = await callAiWithFallback({
-      messages: [
-        { role: "system", content: COMPAT_SYSTEM_PROMPT },
-        { role: "user", content: `PERSON A'S CHART:\n${mySummary}\n\nPERSON B'S CHART:\n${otherSummary}\n\nAnalyze the interpersonal dynamics between these two people. Be specific and reference their actual archetype patterns and which life domains they appear in. Remember: translate all raw star keys (emperor, wolf, rebel, etc.) to their humanistic archetype names.` },
-      ],
-      maxTokens: 600,
-      temperature: 0.8,
-    });
+    let analysis: string;
+    try {
+      const result = await callAiWithFallback({
+        messages: [
+          { role: "system", content: COMPAT_SYSTEM_PROMPT },
+          { role: "user", content: `PERSON A'S CHART:\n${mySummary}\n\nPERSON B'S CHART:\n${otherSummary}\n\nAnalyze the interpersonal dynamics between these two people. Be specific and reference their actual star names and which life palaces they appear in.` },
+        ],
+        maxTokens: 800,
+        temperature: 0.8,
+      });
+      analysis = result.text || templateCompat();
+    } catch {
+      analysis = templateCompat();
+    }
 
     return NextResponse.json({
       ok: true,
       analysis,
-      otherStars: (otherChart.palaces ?? [])
-        .flatMap((p) => [
-          ...(p.majorStars ?? []).map((s) => s?.name).filter(Boolean),
-        ])
-        .slice(0, 5),
+      otherStars: (otherResult.chart as { palaces?: Array<{ majorStars?: Array<{ name?: string }> }> }).palaces
+        ?.flatMap((p) => (p.majorStars ?? []).map((s) => s?.name).filter(Boolean))
+        .slice(0, 5) ?? [],
     });
   } catch {
     return NextResponse.json({ ok: false, error: "INTERNAL_ERROR" }, { status: 500 });
