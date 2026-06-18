@@ -2,6 +2,7 @@
 
 import { useRef, useState, useCallback } from "react";
 import { Download } from "lucide-react";
+import { formatStarName } from "@/lib/zwdsNaming";
 
 interface ShareCardProps {
   horoscopeText: string;
@@ -91,7 +92,7 @@ export function ShareCard({ horoscopeText, highlightedStars, date, streak }: Sha
     y += 50;
     ctx.fillStyle = "rgba(251, 191, 36, 0.7)";
     ctx.font = "500 26px system-ui, sans-serif";
-    const starText = highlightedStars.slice(0, 3).join("  ·  ");
+    const starText = highlightedStars.slice(0, 3).map((s) => formatStarName(s)).join("  ·  ");
     ctx.fillText(starText, 540, y);
 
     // Bottom branding

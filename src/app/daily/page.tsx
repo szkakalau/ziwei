@@ -11,6 +11,7 @@ import { useOneSignal, PushPrompt } from "@/components/PushSetup";
 import { BirthdaySurprise } from "@/components/BirthdaySurprise";
 import { AppNav } from "@/components/AppNav";
 import { getStarBrief } from "@/lib/zwdsKnowledge";
+import { formatStarName, getStarKeywords } from "@/lib/zwdsNaming";
 import Link from "next/link";
 
 interface HoroscopeData {
@@ -500,17 +501,28 @@ export default function DailyPage() {
               <div className="flex gap-3 overflow-x-auto pb-1 [-webkit-overflow-scrolling:touch] scrollbar-none">
                 {data.highlightedStars.map((star) => {
                   const brief = getStarBrief(star);
+                  const displayName = formatStarName(star);
+                  const keywords = getStarKeywords(star);
                   return (
                     <div
                       key={star}
-                      className="shrink-0 rounded-sm border border-gold/[0.10] bg-gold/[0.02] px-4 py-3 min-w-[160px] max-w-[200px]"
+                      className="shrink-0 rounded-sm border border-gold/[0.10] bg-gold/[0.02] px-4 py-3 min-w-[176px] max-w-[220px]"
                     >
-                      <span className="inline-flex items-center gap-1.5 font-mono text-[11px] text-gold/80">
+                      <span className="inline-flex items-center gap-1.5">
                         <span className="h-1.5 w-1.5 rounded-full bg-gold/50 shrink-0" aria-hidden />
-                        {star}
+                        <span className="font-mono text-[12px] text-gold/85 leading-tight">{displayName}</span>
                       </span>
+                      {keywords.length > 0 && (
+                        <div className="mt-2 flex flex-wrap gap-1">
+                          {keywords.slice(0, 3).map((kw) => (
+                            <span key={kw} className="inline-block rounded-full border border-gold/[0.08] bg-gold/[0.03] px-2 py-0.5 text-[10px] text-ink-dim/40 font-mono tracking-wider">
+                              {kw}
+                            </span>
+                          ))}
+                        </div>
+                      )}
                       {brief && (
-                        <p className="mt-1.5 text-ink-dim/50 text-[11px] leading-relaxed">{brief}</p>
+                        <p className="mt-2 text-ink-dim/40 text-[10px] leading-relaxed">{brief}</p>
                       )}
                     </div>
                   );
