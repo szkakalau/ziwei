@@ -129,11 +129,11 @@ export function getDailyTransit(date?: Date): DailyTransit {
   }
 
   const summary = [
-    `${hualuName.pinyin}·${hualuName.alias} 化禄`,
-    `${huaquanName.pinyin}·${huaquanName.alias} 化权`,
-    `${huakeName.pinyin}·${huakeName.alias} 化科`,
-    `${huajiName.pinyin}·${huajiName.alias} 化忌`,
-  ].join("、");
+    `${hualuName.pinyin}·${hualuName.alias} → Hua Lu`,
+    `${huaquanName.pinyin}·${huaquanName.alias} → Hua Quan`,
+    `${huakeName.pinyin}·${huakeName.alias} → Hua Ke`,
+    `${huajiName.pinyin}·${huajiName.alias} → Hua Ji`,
+  ].join(" | ");
 
   return {
     date: dateStr,

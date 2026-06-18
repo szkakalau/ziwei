@@ -78,11 +78,11 @@ export default function LandingFooter() {
           <div>
             <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-ink-dim">Get in touch</p>
             <a
-              href="mailto:support@destinyblueprint.xyz"
+              href="mailto:castro.liu@me.com"
               className="mt-3 inline-flex items-center gap-2 font-body text-sm text-ink-muted transition-colors hover:text-gold"
             >
               <Mail className="h-4 w-4 shrink-0" aria-hidden />
-              support@destinyblueprint.xyz
+              castro.liu@me.com
             </a>
           </div>
         </div>

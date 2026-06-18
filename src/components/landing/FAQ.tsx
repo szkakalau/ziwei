@@ -25,7 +25,7 @@ const faqs = [
   },
   {
     q: "What if I'm not satisfied?",
-    a: "You have a 7-day free trial — if you cancel before it ends, you're never charged. After that, you can cancel anytime from your account page and won't be billed again. If the human-written email reading doesn't resonate, email us at support@destinyblueprint.xyz for a refund.",
+    a: "You have a 7-day free trial — if you cancel before it ends, you're never charged. After that, you can cancel anytime from your account page and won't be billed again. If the human-written email reading doesn't resonate, email us at castro.liu@me.com for a refund.",
   },
   {
     q: "Is this scientifically validated?",
@@ -67,7 +67,7 @@ export default function FAQ() {
             </h2>
             <p className="mt-3 font-body text-base text-ink-muted">
               Don&apos;t see your question?{" "}
-              <a href="mailto:support@destinyblueprint.xyz" className="link-gold">
+              <a href="mailto:castro.liu@me.com" className="link-gold">
                 Email us
               </a>
               {" "}— we&apos;ll get back to you.
@@ -102,8 +102,8 @@ export default function FAQ() {
           <p className="font-body text-sm leading-relaxed text-ink-muted">
             <span className="font-semibold text-ink">Still have questions?</span>{" "}
             We&apos;re happy to help. Email{" "}
-            <a href="mailto:support@destinyblueprint.xyz" className="link-gold">
-              support@destinyblueprint.xyz
+            <a href="mailto:castro.liu@me.com" className="link-gold">
+              castro.liu@me.com
             </a>
             {" "}and we&apos;ll get back to you.
           </p>

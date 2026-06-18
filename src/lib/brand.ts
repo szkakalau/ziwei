@@ -4,7 +4,7 @@ export const BRAND_NAME = "DestinyBlueprint.xyz";
 /** Canonical public hostname (no protocol). */
 export const PUBLIC_SITE_HOST = "www.destinyblueprint.xyz";
 
-export const DEFAULT_SUPPORT_EMAIL = "support@destinyblueprint.xyz";
+export const DEFAULT_SUPPORT_EMAIL = "castro.liu@me.com";
 
 export function getSupportEmail(): string {
   return (

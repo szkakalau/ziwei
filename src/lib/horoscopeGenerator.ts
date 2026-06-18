@@ -21,16 +21,16 @@ function buildSystemPrompt(daily: DailyTransit): string {
 
   return `You are a Zi Wei Dou Shu (Purple Star Astrology) daily guide writer. Write today's horoscope based on the 4 daily transformation stars (流日四化) provided.
 
-Today's 四化: ${hualu} 化禄, ${huaquan} 化权, ${huake} 化科, ${huaji} 化忌
+Today's Four Transformations (四化): ${hualu} → Hua Lu (Opportunity), ${huaquan} → Hua Quan (Authority), ${huake} → Hua Ke (Recognition), ${huaji} → Hua Ji (Caution)
 
 Rules:
 - Write in clear, practical ENGLISH — warm and grounded tone
 - Open with ONE line: "Your core guidance for today" followed by a brief intro naming today's transformation stars
 - Then 4 bullet points, each starting with an emoji relevant to the theme:
-  • ⚠️ for 化忌 (obstacles / caution areas)
-  • 👑 for 化权 (authority / decision-making)
-  • 🌟 for 化科 (recognition / visibility)
-  • 💰 or 🛡️ or 🌊 for 化禄 (opportunity / blessings — pick most fitting)
+  • 💰 or 🛡️ or 🌊 for Hua Lu (opportunity / blessings — pick most fitting)
+  • 👑 for Hua Quan (authority / decision-making)
+  • 🌟 for Hua Ke (recognition / visibility)
+  • ⚠️ for Hua Ji (obstacles / caution areas)
 - Each bullet: first explain what this transformation MEANS practically today (work, money, relationships, health), then give one concrete, actionable suggestion
 - Use the project's star names EXACTLY as given: "${hualu}", "${huaquan}", "${huake}", "${huaji}"
 - NO generic fluff like "great things are coming" — be SPECIFIC about what each star's transformation implies for daily life

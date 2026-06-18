@@ -44,7 +44,7 @@ const mockDailyTransit = {
   date: "2026-06-17",
   stem: "壬",
   stemDescription: "Yang Water",
-  summary: "Tian Liang·Sage Star 化禄、Zi Wei·Emperor Star 化权、Zuo Fu·Left Hand Star 化科、Wu Qu·Marshal Star 化忌",
+  summary: "Tian Liang·Sage Star → Hua Lu | Zi Wei·Emperor Star → Hua Quan | Zuo Fu·Left Hand Star → Hua Ke | Wu Qu·Marshal Star → Hua Ji",
   sihua: { hualu: "sage", huaquan: "emperor", huake: "zuofu", huaji: "general" },
   display: {
     hualu: { pinyin: "Tian Liang", alias: "Sage Star", keywords: [] },

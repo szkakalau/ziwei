@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Fraunces, Source_Serif_4, IBM_Plex_Mono } from "next/font/google";
 import Script from "next/script";
 import LayoutChrome from "@/components/LayoutChrome";
-import { BRAND_NAME, DEFAULT_META_DESCRIPTION } from "@/lib/brand";
+import { BRAND_NAME, DEFAULT_META_DESCRIPTION, DEFAULT_SUPPORT_EMAIL } from "@/lib/brand";
 import { getSiteUrl } from "@/lib/site";
 import JsonLd from "@/components/JsonLd";
 import "./globals.css";
@@ -110,7 +110,7 @@ export default function RootLayout({
             name: BRAND_NAME,
             url: siteUrl.toString(),
             description: DEFAULT_META_DESCRIPTION,
-            email: "support@destinyblueprint.xyz",
+            email: DEFAULT_SUPPORT_EMAIL,
           }}
         />
         <JsonLd
