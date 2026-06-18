@@ -414,10 +414,13 @@ export default function DailyPage() {
   ];
   const ritual = ritualPrompts[dayOfYear % ritualPrompts.length];
   return (
-    <main className="min-h-screen px-4 py-4 pb-20 md:px-6 md:py-8 max-w-4xl mx-auto">
-      {/* Top bar — compact */}
-      <div className="flex items-center justify-between mb-3 md:mb-4">
-        <p className="text-gold/70 text-sm font-medium">{dateLabel}</p>
+    <main className="min-h-screen px-4 py-4 pb-20 md:px-8 md:py-10 max-w-6xl mx-auto">
+      {/* Top bar — airy, wider */}
+      <div className="flex items-center justify-between mb-4 md:mb-6">
+        <div>
+          <p className="text-gold/80 text-base md:text-lg font-medium">{dateLabel}</p>
+          <p className="text-ink-dim/60 text-[11px] mt-0.5">Your daily Zi Wei Dou Shu reading</p>
+        </div>
         <StreakBadge streak={streak} />
       </div>
 
@@ -431,21 +434,21 @@ export default function DailyPage() {
         </div>
       )}
 
-      {/* Two-column: desktop only */}
-      <div className="md:grid md:grid-cols-5 md:gap-6">
-        {/* Left: Horoscope (3/5 on desktop) */}
-        <div className="md:col-span-3">
-          {/* Horoscope card — elevated dark card with gold accent */}
-          <div className="relative rounded-sm border border-gold/[0.15] bg-[oklch(0.12_0.03_265/0.85)] shadow-[0_0_60px_-20px_oklch(0.74_0.12_78/0.06)] backdrop-blur-md overflow-hidden">
-            {/* Subtle top accent line */}
-            <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-gold/30 to-transparent" aria-hidden />
-            <div className="p-5 md:p-7">
-              <p className="text-ink text-[20px] md:text-[22px] leading-loose whitespace-pre-line">
+      {/* Two-column grid — 12-col on desktop for precise proportions */}
+      <div className="md:grid md:grid-cols-12 md:gap-8">
+        {/* ── Left: Main Reading (7/12) ── */}
+        <div className="md:col-span-7">
+          {/* Horoscope card — spacious, prominent */}
+          <div className="relative rounded-sm border border-gold/[0.12] bg-[oklch(0.11_0.03_265/0.80)] shadow-[0_0_80px_-24px_oklch(0.74_0.12_78/0.05)] backdrop-blur-md overflow-hidden">
+            <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-gold/25 to-transparent" aria-hidden />
+            <div className="p-6 md:p-8">
+              <p className="text-ink text-[19px] md:text-[22px] leading-relaxed md:leading-loose whitespace-pre-line">
                 {data.horoscope}
               </p>
-              {/* AI transparency label — visible, trustworthy */}
+
+              {/* AI transparency + source */}
               {data.source && data.source !== "cached" && (
-                <div className="mt-5 pt-4 border-t border-white/[0.06] flex items-center gap-2">
+                <div className="mt-6 pt-5 border-t border-white/[0.06] flex items-center gap-2">
                   <span className="inline-flex h-1.5 w-1.5 rounded-full bg-gold/50" aria-hidden />
                   <p className="text-ink-dim/70 text-xs">
                     {data.source === "template"
@@ -455,14 +458,14 @@ export default function DailyPage() {
                 </div>
               )}
 
-              {/* Daily Ritual — CHANI-style "prediction → action" loop */}
-              <div className="mt-4 rounded-sm border border-jade/[0.12] bg-jade/[0.03] px-4 py-3">
-                <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-jade/70 mb-1.5">Today&rsquo;s Practice</p>
+              {/* Daily Ritual */}
+              <div className="mt-5 rounded-sm border border-jade/[0.10] bg-jade/[0.03] px-5 py-4">
+                <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-jade/70 mb-2">Today&rsquo;s Practice</p>
                 <p className="text-ink-muted text-sm leading-relaxed">{ritual}</p>
               </div>
 
-              {/* Yesterday feedback — subtle 👍👎 */}
-              <div className="mt-4 pt-4 border-t border-white/[0.06] flex items-center gap-4">
+              {/* Yesterday feedback */}
+              <div className="mt-5 pt-4 border-t border-white/[0.06] flex items-center gap-4">
                 <span className="text-ink-dim/60 text-[11px]">Was yesterday&rsquo;s reading accurate?</span>
                 <button
                   className="inline-flex items-center gap-1 rounded-sm px-2 py-1 text-xs text-ink-dim/70 hover:text-jade hover:bg-jade/[0.06] transition-colors"
@@ -478,27 +481,37 @@ export default function DailyPage() {
             </div>
           </div>
 
-          {/* Action buttons — clean, unified style */}
-          <div className="flex flex-wrap gap-2.5 mt-4">
-            <button onClick={handleShare} className="inline-flex items-center gap-1.5 rounded-sm border border-gold/15 bg-gold/[0.04] px-4 py-2 text-xs text-gold/80 hover:bg-gold/[0.08] transition-colors">
-              <Share2 className="h-3.5 w-3.5" />
+          {/* Action buttons */}
+          <div className="flex flex-wrap gap-3 mt-5">
+            <button onClick={handleShare} className="inline-flex items-center gap-2 rounded-sm border border-gold/15 bg-gold/[0.04] px-5 py-2.5 text-sm text-gold/80 hover:bg-gold/[0.08] transition-colors">
+              <Share2 className="h-4 w-4" />
               Share
             </button>
             <ShareCard horoscopeText={data.horoscope} highlightedStars={data.highlightedStars} date={dateLabel} streak={streak} />
             {chartPalaces.length > 0 && (
-              <button onClick={() => setShowChart(!showChart)} className="inline-flex items-center gap-1.5 rounded-sm border border-white/[0.08] bg-white/[0.02] px-4 py-2 text-xs text-ink-dim hover:text-ink-muted hover:bg-white/[0.04] transition-colors">
-                <Eye className="h-3.5 w-3.5" />
+              <button onClick={() => setShowChart(!showChart)} className="inline-flex items-center gap-2 rounded-sm border border-white/[0.08] bg-white/[0.02] px-5 py-2.5 text-sm text-ink-dim hover:text-ink-muted hover:bg-white/[0.04] transition-colors">
+                <Eye className="h-4 w-4" />
                 {showChart ? "Hide Chart" : "View Chart"}
               </button>
             )}
           </div>
 
-          {/* Highlighted stars — horizontal scrolling cards with brief meaning */}
+          {/* Expandable chart */}
+          {showChart && chartPalaces.length > 0 && (
+            <section className="mt-5 card-cosmic p-4">
+              <ChartCanvas palaces={chartPalaces} />
+            </section>
+          )}
+        </div>
+
+        {/* ── Right: Stars + Tools (5/12) ── */}
+        <aside className="mt-6 md:mt-0 md:col-span-5 space-y-6">
+          {/* Active Stars — dedicated section with proper hierarchy */}
           {data.highlightedStars && data.highlightedStars.length > 0 && (
-            <div className="mt-5">
-              <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-ink-dim/60 mb-1">Active Stars Today</p>
-              <p className="text-ink-dim/55 text-[11px] mb-3">Your chart&rsquo;s dominant archetypes shaping today&rsquo;s reading</p>
-              <div className="flex gap-3 overflow-x-auto md:overflow-visible md:flex-wrap pb-1 [-webkit-overflow-scrolling:touch] scrollbar-none">
+            <div>
+              <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-gold/70 mb-1">Active Stars Today</p>
+              <p className="text-ink-dim/55 text-[11px] mb-4">Your chart&rsquo;s dominant archetypes shaping today&rsquo;s reading</p>
+              <div className="space-y-3">
                 {data.highlightedStars.map((star) => {
                   const brief = getStarBrief(star);
                   const displayName = formatStarName(star);
@@ -506,23 +519,23 @@ export default function DailyPage() {
                   return (
                     <div
                       key={star}
-                      className="shrink-0 md:shrink rounded-sm border border-gold/[0.10] bg-gold/[0.02] px-4 py-3 min-w-[176px] max-w-[220px] md:min-w-0 md:max-w-[240px] md:flex-1 md:basis-[calc(33.333%-0.75rem)]"
+                      className="rounded-sm border border-gold/[0.08] bg-gold/[0.015] px-4 py-3.5 hover:border-gold/[0.15] transition-colors"
                     >
-                      <span className="inline-flex items-center gap-1.5">
-                        <span className="h-1.5 w-1.5 rounded-full bg-gold/50 shrink-0" aria-hidden />
-                        <span className="font-mono text-[12px] text-gold/85 leading-tight">{displayName}</span>
-                      </span>
+                      <div className="flex items-center gap-2">
+                        <span className="h-1.5 w-1.5 rounded-full bg-gold/45 shrink-0" aria-hidden />
+                        <span className="font-mono text-[13px] text-gold/85 leading-tight">{displayName}</span>
+                      </div>
                       {keywords.length > 0 && (
-                        <div className="mt-2 flex flex-wrap gap-1">
+                        <div className="mt-2 flex flex-wrap gap-1.5">
                           {keywords.slice(0, 3).map((kw) => (
-                            <span key={kw} className="inline-block rounded-full border border-gold/[0.08] bg-gold/[0.03] px-2 py-0.5 text-[10px] text-ink-dim/60 font-mono tracking-wider">
+                            <span key={kw} className="inline-block rounded-full border border-gold/[0.06] bg-gold/[0.02] px-2 py-0.5 text-[10px] text-ink-dim/55 font-mono tracking-wider">
                               {kw}
                             </span>
                           ))}
                         </div>
                       )}
                       {brief && (
-                        <p className="mt-2 text-ink-dim/60 text-[10px] leading-relaxed">{brief}</p>
+                        <p className="mt-2 text-ink-dim/50 text-[11px] leading-relaxed">{brief}</p>
                       )}
                     </div>
                   );
@@ -531,36 +544,32 @@ export default function DailyPage() {
             </div>
           )}
 
-          {/* Chart (expandable) */}
-          {showChart && chartPalaces.length > 0 && (
-            <section className="mt-4 card-cosmic p-4">
-              <ChartCanvas palaces={chartPalaces} />
-            </section>
-          )}
-        </div>
+          {/* Divider */}
+          <div className="h-px bg-gradient-to-r from-transparent via-gold/[0.08] to-transparent" aria-hidden />
 
-        {/* Right: Tools (2/5 on desktop) */}
-        <aside className="mt-6 md:mt-0 md:col-span-2 space-y-4">
-          <Link href="/yearly" className="flex items-center gap-3 rounded-sm border border-white/[0.06] bg-panel/60 px-4 py-3.5 hover:border-gold/15 transition-colors">
-            <Calendar className="h-5 w-5 text-gold/60 shrink-0" />
-            <div>
-              <p className="text-sm font-medium text-ink">Yearly Forecast</p>
-              <p className="text-xs text-ink-dim">Career · Love · Wealth · Health</p>
+          {/* Tools */}
+          <div className="space-y-4">
+            <Link href="/yearly" className="flex items-center gap-3 rounded-sm border border-white/[0.06] bg-panel/60 px-5 py-4 hover:border-gold/15 transition-colors group">
+              <Calendar className="h-5 w-5 text-gold/60 shrink-0 group-hover:text-gold/80 transition-colors" />
+              <div>
+                <p className="text-sm font-medium text-ink">Yearly Forecast</p>
+                <p className="text-xs text-ink-dim mt-0.5">Career · Love · Wealth · Health</p>
+              </div>
+            </Link>
+
+            <div className="rounded-sm border border-white/[0.06] bg-panel/60">
+              <AskZiwei />
             </div>
-          </Link>
 
-          <div className="rounded-sm border border-white/[0.06] bg-panel/60">
-            <AskZiwei />
-          </div>
-
-          <div className="rounded-sm border border-white/[0.06] bg-panel/60">
-            <CompatibilityCheck />
+            <div className="rounded-sm border border-white/[0.06] bg-panel/60">
+              <CompatibilityCheck />
+            </div>
           </div>
         </aside>
       </div>
 
-      <p className="text-ink-dim/45 text-[11px] mt-12 text-center mb-20">
-        DestinyBlueprint — Zi Wei Dou Shu Daily
+      <p className="text-ink-dim/45 text-[11px] mt-16 text-center mb-20">
+        DestinyBlueprint · Zi Wei Dou Shu Daily
       </p>
 
       <AppNav />
