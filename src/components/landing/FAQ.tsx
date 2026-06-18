@@ -43,7 +43,7 @@ const faqs = [
 
 export default function FAQ() {
   return (
-    <section className="relative overflow-hidden border-y border-white/[0.07] bg-mist/40 py-16 backdrop-blur-sm sm:py-24 md:py-32">
+    <section className="relative overflow-hidden border-y border-white/[0.07] bg-mist/40 py-20 backdrop-blur-sm sm:py-24 md:py-32">
       {/* Decorative elements */}
       <div
         className="pointer-events-none absolute -right-20 bottom-10 h-80 w-80 rounded-full border border-jade/[0.06] bg-jade/[0.02]"
@@ -62,10 +62,10 @@ export default function FAQ() {
           </span>
           <div>
             <p className="landing-kicker">FAQ</p>
-            <h2 className="landing-headline mt-2 text-2xl sm:text-3xl md:text-4xl">
+            <h2 className="landing-headline mt-4 text-2xl sm:text-3xl md:text-4xl">
               Everything you want to ask
             </h2>
-            <p className="mt-2 font-body text-base text-ink-muted">
+            <p className="mt-3 font-body text-base text-ink-muted">
               Don&apos;t see your question?{" "}
               <a href="mailto:support@destinyblueprint.xyz" className="link-gold">
                 Email us
@@ -76,7 +76,7 @@ export default function FAQ() {
         </div>
 
         {/* FAQ accordion */}
-        <Accordion type="single" collapsible className="mt-8 space-y-2 sm:mt-12 sm:space-y-3">
+        <Accordion type="single" collapsible className="mt-10 space-y-3 sm:mt-12 sm:space-y-3">
           {faqs.map((f, idx) => (
             <AccordionItem
               key={f.q}
@@ -97,7 +97,7 @@ export default function FAQ() {
         </Accordion>
 
         {/* Contact prompt */}
-        <div className="mt-8 flex items-center gap-3 rounded-sm border border-gold/[0.12] bg-gold/[0.03] px-4 py-4 backdrop-blur-sm sm:mt-12 sm:gap-4 sm:px-6 sm:py-5">
+        <div className="mt-10 flex items-center gap-3 rounded-sm border border-gold/[0.12] bg-gold/[0.03] px-5 py-4 backdrop-blur-sm sm:mt-12 sm:gap-4 sm:px-6 sm:py-5">
           <MessageCircle className="h-5 w-5 shrink-0 text-gold/70" aria-hidden />
           <p className="font-body text-sm leading-relaxed text-ink-muted">
             <span className="font-semibold text-ink">Still have questions?</span>{" "}

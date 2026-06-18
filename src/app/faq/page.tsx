@@ -76,7 +76,7 @@ const faqJsonLd = {
 
 export default function FaqPage() {
   return (
-    <main className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
+    <main className="mx-auto max-w-3xl px-5 py-20 sm:px-6">
       <JsonLd data={faqJsonLd} />
 
       <h1 className="font-display text-4xl font-semibold tracking-tight text-ink md:text-5xl">

@@ -58,7 +58,7 @@ const accentColors = {
 
 export default function WhyZiWeiBetter() {
   return (
-    <section className="relative overflow-hidden px-4 py-16 sm:px-6 sm:py-24 md:py-32">
+    <section className="relative overflow-hidden px-5 py-20 sm:px-6 sm:py-24 md:py-32">
       {/* Diagonal accent lines */}
       <div
         className="pointer-events-none absolute left-0 top-[15%] h-px w-[140%] -rotate-[3deg] bg-gradient-to-r from-transparent via-gold/15 to-transparent"
@@ -124,7 +124,7 @@ export default function WhyZiWeiBetter() {
         </div>
 
         {/* Cards grid — symmetric 2x2 */}
-        <div className="relative mt-12 grid gap-4 sm:mt-16 sm:gap-5 sm:grid-cols-2">
+        <div className="relative mt-12 grid gap-5 sm:mt-16 sm:gap-5 sm:grid-cols-2">
           {cards.map((c, idx) => {
             const colors = accentColors[c.accent];
             return (

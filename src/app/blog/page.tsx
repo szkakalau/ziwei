@@ -51,7 +51,7 @@ export default function BlogPage({ searchParams }: Props) {
   );
 
   return (
-    <main className="mx-auto max-w-5xl px-4 py-16 sm:px-6">
+    <main className="mx-auto max-w-5xl px-5 py-20 sm:px-6">
       <header>
         <h1 className="font-display text-4xl font-semibold tracking-tight text-ink md:text-5xl">
           Blog

@@ -281,7 +281,7 @@ export default function SnapshotClient() {
 
   if (!birthInput || !snapshot || !structured) {
     return (
-      <main className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
+      <main className="mx-auto max-w-3xl px-5 py-20 sm:px-6">
         <h1 className="font-display text-3xl font-semibold tracking-tight text-ink md:text-4xl">
           Your Free Snapshot
         </h1>
@@ -299,7 +299,7 @@ export default function SnapshotClient() {
 
   return (
     <>
-      <main className="mx-auto max-w-3xl px-4 pb-28 pt-14 sm:px-6">
+      <main className="mx-auto max-w-3xl px-5 pb-28 pt-16 sm:px-6">
         <div className="text-center">
           <h1 className="font-display text-3xl font-semibold tracking-tight text-ink md:text-4xl">
             Your Personality Pattern Snapshot

@@ -21,7 +21,7 @@ const features = [
 
 export default function SeeWhatYouGet() {
   return (
-    <section className="relative overflow-hidden px-4 py-16 sm:px-6 sm:py-24 md:py-32">
+    <section className="relative overflow-hidden px-5 py-20 sm:px-6 sm:py-24 md:py-32">
       {/* Background: subtle radial glow */}
       <div
         className="pointer-events-none absolute left-1/2 top-1/2 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,oklch(0.74_0.12_78/0.06),transparent_60%)]"
@@ -49,7 +49,7 @@ export default function SeeWhatYouGet() {
         </div>
 
         {/* Feature grid */}
-        <div className="mt-12 grid gap-4 sm:mt-16 sm:gap-5 sm:grid-cols-2">
+        <div className="mt-12 grid gap-5 sm:mt-16 sm:gap-5 sm:grid-cols-2">
           {features.map((f) => (
             <article
               key={f.label}

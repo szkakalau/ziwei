@@ -93,7 +93,7 @@ export default async function BlogPostPage({ params }: Props) {
   };
 
   return (
-    <main className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
+    <main className="mx-auto max-w-3xl px-5 py-20 sm:px-6">
       <JsonLd data={articleJsonLd} />
       <JsonLd data={breadcrumbJsonLd} />
 
