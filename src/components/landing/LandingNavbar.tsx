@@ -23,8 +23,7 @@ export default function LandingNavbar({ formAnchorId = "" }: Props) {
           className="flex items-center gap-1.5 font-display text-base font-semibold tracking-tight text-ink transition-colors hover:text-gold sm:gap-2 sm:text-lg"
         >
           <Compass className="h-4 w-4 text-gold/60 sm:h-5 sm:w-5" aria-hidden />
-          <span className="hidden xs:inline">DestinyBlueprint</span>
-          <span className="xs:hidden">DB</span>
+          <span>DestinyBlueprint.xyz</span>
         </Link>
 
         <nav aria-label="Main navigation" className="flex items-center gap-2 sm:gap-3">

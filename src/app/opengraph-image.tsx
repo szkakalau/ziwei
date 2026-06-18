@@ -72,7 +72,7 @@ export default function Image() {
               letterSpacing: "-0.02em",
             }}
           >
-            DestinyBlueprint
+            DestinyBlueprint.xyz
           </div>
 
           {/* Tagline */}

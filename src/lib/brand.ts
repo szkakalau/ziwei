@@ -1,5 +1,5 @@
 /** Product / site brand (single word). */
-export const BRAND_NAME = "DestinyBlueprint";
+export const BRAND_NAME = "DestinyBlueprint.xyz";
 
 /** Canonical public hostname (no protocol). */
 export const PUBLIC_SITE_HOST = "www.destinyblueprint.xyz";
