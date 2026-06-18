@@ -225,6 +225,65 @@ export function getStarBrief(name: string): string {
     recognition: "Visibility peak. Awards, reputation, and public acknowledgment arrive. Share credit; the spotlight is shared light.",
     huaji: "Contraction demanding depth. Obstacles force introspection. This is not punishment — it is refinement you did not know you needed.",
     contraction: "Difficulty as teacher. Limitations reveal what was weak. The gift hidden in hardship is wisdom you cannot gain any other way.",
+
+    // ── Batch 1/3: 26 Minor Stars ──
+    lucun: "Treasurer who saves where others spend. Financial stability comes naturally. Risk: hoarding out of fear rather than prudence.",
+    treasurer: "Resource accumulator with disciplined patience. Your savings compound while others' diminish.",
+    tianma: "Traveler driven by movement. Relocation and travel accelerate your growth. Risk: rootlessness disguised as freedom.",
+    traveler: "Restless spirit thriving on geographic change. Cross-cultural connections expand your world.",
+    tianguan: "Dignitary climbing institutional ladders. Titles and recognition mark your milestones. Risk: defining self by position.",
+    dignitary: "Career ascender through formal hierarchies. Your rank signals competence to the world.",
+    tianfu: "Blessed with natural good fortune. Luck follows you — and those around you. Risk: optimism without preparation.",
+    blessed: "Fortune-bearer whose presence brings serendipity. Lucky breaks arrive more often than for most.",
+    tianshou: "Enduring through difficulty with quiet stamina. Late-blooming success rewards your patience. Risk: persisting past the exit sign.",
+    enduring: "Long-distance runner of life. Recognition comes later but lasts longer.",
+    tiancai: "Prodigy absorbing skills rapidly. Intelligence flashes bright. Risk: coasting on talent without deliberate practice.",
+    prodigy: "Quick learner whose natural gifts amaze. The plateau where talent meets its limit awaits — practice through it.",
+    tiangui: "Noble presence commanding respect. Elite circles open to you. Risk: distance from perspectives outside privilege.",
+    noble: "Dignified presence opening doors. Your bearing creates access — share it with those who lack it.",
+    enguang: "Illuminated seeker of meaning. Clarity arrives as a gift. Risk: forcing meaning onto random events.",
+    illuminated: "Insight receiver whose understanding lights the way for others. Not everything needs a lesson.",
+
+    hongluan: "Romancer destined for deep partnership. The strongest marriage indicator in Zi Wei. Risk: projecting perfection onto partners.",
+    romancer: "Love-bringer whose presence sparks unions. Relationships form in your gravitational field.",
+    tianxi: "Celebrant marking life's milestones. Joy is your gift and your practice. Risk: forcing celebration when grief needs space.",
+    celebrant: "Joy catalyst who creates meaningful rituals. Your gatherings become cherished memories.",
+    xianchi: "Seductress of magnetic charisma. Desire flows toward you. Risk: confusing intensity for intimacy.",
+    seductress: "Charisma-bearer whose appeal is genuine. Distinguish those drawn to your glow from those committed to your person.",
+    muyu: "Refresher shedding old skins. Reinvention is your rhythm. Risk: abandoning identities before learning their lessons.",
+    refresher: "Renewal agent who cleanses and restarts. Each version of you deserves its full arc.",
+
+    santai: "Ascender climbing step by step. Methodical career progression defines your path. Risk: overdependence on institutional approval.",
+    ascender: "Patient climber through organizational ranks. Each level earned through demonstrated competence.",
+    bazuo: "Statesman of institutional gravitas. Systems and institutions are your canvas. Risk: serving systems over people.",
+    statesman: "Diplomatic leader representing collective efforts. Your authority stabilizes organizations.",
+    taifu: "Councillor improving decisions from behind the scenes. Your impact is real but your name stays quiet. Risk: invisible, unrewarded contribution.",
+    councillor: "Behind-the-throne advisor whose counsel shapes outcomes. Document your influence.",
+    fenggao: "Commended achiever earning public recognition. Awards and honors mark your path. Risk: chasing acclaim over substance.",
+    commended: "Recognition receiver. Your name travels further than your presence. Let the work earn the spotlight.",
+
+    tianxing: "Adjudicator enforcing accountability. Justice is your instinct. Risk: punishment without mercy.",
+    adjudicator: "Karmic balancer ensuring consequences follow actions. Forgive as thoroughly as you judge.",
+    tianyao: "Enchantress of mysterious magnetism. Fascination follows you — intended or not. Risk: charm becoming manipulation.",
+    enchantress: "Magnetic presence attracting attention and projection. Intention matters; charisma is a tool, not an identity.",
+    tianku: "Mourner feeling loss deeply. You give voice to grief others cannot articulate. Risk: defining self by what was lost.",
+    mourner: "Grief-holder whose depth comforts the suffering. You are more than what you have lost.",
+    tianxu: "Hollow perceiving emptiness. The void you sense beneath daily life is real. Risk: confusing the container with its contents.",
+    hollow: "Emptiness-aware observer. What is absent reveals what is needed. The space prepares for what comes next.",
+
+    yuede: "LunarBenevolence of quiet kindness. Protection arrives through goodness given without calculation. Risk: giving without receiving.",
+    lunarbenevolence: "Quiet helper whose good deeds accumulate unseen. Grace protects you silently.",
+    tiande: "Virtuous compass orienting toward integrity. Moral clarity defines your decisions. Risk: righteousness without humility.",
+    virtuous: "Ethical anchor whose presence raises collective standards. Your virtue is a practice, not a credential.",
+    longchi: "Dragonborn pursuing metamorphosis. Transformation is your nature. Risk: changing what needed gentle evolution.",
+    dragonborn: "Metamorphosis seeker whose ambition transforms. Not everything needs revolution.",
+    fengge: "Phoenixborne rising from ashes. Rebirth is your pattern. Risk: defining self by survival, not creation.",
+    phoenixborne: "Resilience embodied. You rise each time — and you deserve rest between flights.",
+
+    tianchu: "Nourisher providing comfort and sustenance. Love expressed through material care. Risk: over-providing when presence is needed.",
+    nourisher: "Caregiver whose meals and comfort create community. Ask what nourishes — do not assume.",
+    tianwu: "Mystic sensing transcendent patterns. Intuition is your guide. Risk: spiritual bypassing earthly responsibilities.",
+    mystic: "Spiritual bridge connecting worlds seen and unseen. The mystic's path includes washing dishes.",
   };
   const key = name.toLowerCase().replace(/\s+/g, "");
   return briefs[key] ?? "";
@@ -1203,6 +1262,282 @@ export const STAR_ARCHETYPE_MAP: Record<string, StarArchetype> = {
       "The Contraction transit often ends relationships that cannot bear weight and deepens those that can. " +
       "Caution: pushing people away because you feel unworthy of support. Let those who love you decide if they want to stay. " +
       "Practice: when the impulse to isolate rises, reach toward one safe person. Contraction endured alone becomes despair; shared, it becomes transformation.",
+  },
+
+  // ══════════════════════════════════════════════════════════════════════
+  // Batch 1/3 — 26 Minor Stars (杂曜): fortune, peach blossom, career, karma
+  // ══════════════════════════════════════════════════════════════════════
+
+  // ── Fortune & Blessing (8) ──
+
+  lucun: {
+    archetype: "Treasurer",
+    psychological: "High saving orientation with delayed gratification preference. You accumulate where others spend.",
+    sociological: "Resource anchor — others rely on your material stability during their crises.",
+    management: "Strong in asset management, treasury, and roles requiring fiscal discipline over charisma.",
+    prediction: "The Treasurer star stabilizes wealth: its transit brings financial accumulation and windfall protection. 6-year savings cycles peak in years 3-4.",
+    riskManagement: "Hoarding mentality: excessive saving at the expense of living. Distinguish prudence from fear-driven accumulation.",
+    relationships: "Your material stability attracts dependents. In partnerships, negotiate financial roles explicitly to avoid silent resentment.",
+  },
+
+  tianma: {
+    archetype: "Traveler",
+    psychological: "High novelty-seeking with restlessness in static environments. Movement is your mode of processing.",
+    sociological: "Geographic connector — you link distant places and cultures. Your network spans cities, not just neighborhoods.",
+    management: "Strong in roles requiring mobility: sales territories, international operations, logistics, field work.",
+    prediction: "The Traveler star activates movement: its transit signals travel, relocation, or career mobility within 3-6 months. Annual cycles favor geographic expansion.",
+    riskManagement: "Rootlessness: constant movement prevents deep roots. Some growth requires staying still long enough for seeds to sprout.",
+    relationships: "Long-distance relationships and cross-cultural bonds are statistically elevated. Caution: restlessness can become relationship avoidance.",
+  },
+
+  tianguan: {
+    archetype: "Dignitary",
+    psychological: "Achievement-oriented with strong status motivation. Recognition and rank matter to your sense of self.",
+    sociological: "Status anchor — your position provides identity for you and stability signals for others in your network.",
+    management: "Excel in hierarchical organizations with clear promotion tracks. Struggle in flat structures where rank is ambiguous.",
+    prediction: "The Dignitary star brings career elevation: its transit signals promotions, title increases, and formal recognition within 6-18 months. 8-year status cycles peak mid-cycle.",
+    riskManagement: "Status dependency: identity fragility when titles are removed. Build self-worth independent of position.",
+    relationships: "Your status attracts but may also intimidate. In partnerships, share vulnerability — your title is not your self.",
+  },
+
+  tianfu: {
+    archetype: "Blessed",
+    psychological: "Optimistic baseline with high subjective wellbeing. You recover from setbacks faster than most.",
+    sociological: "Fortune sharer — your good luck tends to benefit those around you. Others seek your presence during uncertain times.",
+    management: "Natural morale-builder. Excel in roles where team optimism directly impacts performance outcomes.",
+    prediction: "The Blessed star brings general good fortune: its transit smooths obstacles and creates lucky breaks. Its cycle is gentle — less dramatic than Abundance but more consistent.",
+    riskManagement: "Undeserved optimism: assuming things will work out without planning. Fortune favors the prepared, even the naturally lucky.",
+    relationships: "People enjoy being around you — your optimism is contagious and attractive. Ensure you are valued for more than your good mood.",
+  },
+
+  tianshou: {
+    archetype: "Enduring",
+    psychological: "High persistence through difficulty. Your psychological stamina outlasts most — you simply do not quit.",
+    sociological: "Continuity keeper — in groups, you are the institutional memory that preserves wisdom across generations.",
+    management: "Strong in roles requiring sustained effort over decades: academia, craftsmanship, institutional leadership.",
+    prediction: "The Enduring star correlates with longevity and late-blooming success. Its 12-year cycle brings recognition in years 8-12 — patience is your advantage.",
+    riskManagement: "Enduring what should be exited. Persistence without periodic strategic review becomes stubbornness.",
+    relationships: "Your loyalty spans decades — rare and precious. In partnerships, your constancy is a gift; ensure it is reciprocated.",
+  },
+
+  tiancai: {
+    archetype: "Prodigy",
+    psychological: "High fluid intelligence with rapid skill acquisition. You learn faster than peers and synthesize novel solutions.",
+    sociological: "Innovation source — groups rely on you for creative breakthroughs and unconventional approaches to stuck problems.",
+    management: "Excel in R&D, creative problem-solving, and roles requiring rapid upskilling. Struggle with repetitive, skill-stagnant work.",
+    prediction: "The Prodigy star activates talent breakthroughs: its transit signals rapid learning, creative insights, and intellectual recognition within 3-9 months.",
+    riskManagement: "Talent without discipline: raw ability may substitute for deliberate practice until it cannot. The plateau is where talent meets its limit — practice pushes through.",
+    relationships: "Your quick mind attracts admiration but may intimidate. In partnerships, patience for different cognitive speeds preserves connection.",
+  },
+
+  tiangui: {
+    archetype: "Noble",
+    psychological: "High self-regard anchored in genuine competence. You carry yourself with earned dignity, not arrogance.",
+    sociological: "Elite connector — you navigate high-status circles with ease, opening doors for those you choose to bring with you.",
+    management: "Strong in client-facing leadership, board relations, and roles where presence and bearing influence outcomes.",
+    prediction: "The Noble star brings elite access: its transit opens doors to influential circles within 6-12 months. Its 9-year cycle elevates your social stratum.",
+    riskManagement: "Elite isolation: access to power can distance you from the perspectives of those without it. Stay grounded.",
+    relationships: "Your presence commands respect — ensure it does not demand distance. Authenticity is rarer and more valuable than polish.",
+  },
+
+  enguang: {
+    archetype: "Illuminated",
+    psychological: "High need for meaning and purpose. You seek the light of understanding in all experiences, especially difficult ones.",
+    sociological: "Meaning-maker in groups — you help others find the narrative that makes their suffering comprehensible and their joy significant.",
+    management: "Strong in mission-driven organizations, editorial roles, and any work where framing and narrative shape outcomes.",
+    prediction: "The Illuminated star activates insight: its transit brings sudden clarity about long-standing questions within weeks. 5-year wisdom cycles bring pivotal realizations.",
+    riskManagement: "Meaning-seeking can become meaning-forcing — not every event carries a lesson. Some things just are.",
+    relationships: "Your depth attracts those seeking meaning. In partnerships, share your light but allow your partner their own path to understanding.",
+  },
+
+  // ── Peach Blossom & Relationship (4) ──
+
+  hongluan: {
+    archetype: "Romancer",
+    psychological: "High romantic idealism with strong desire for partnership. Love and beauty are central to your life narrative.",
+    sociological: "Romantic catalyst — weddings, unions, and deep partnerships form in your presence. You bring people together.",
+    management: "Strong in roles involving aesthetics, celebration, and human connection: events, hospitality, relationship-based sales.",
+    prediction: "The Romancer star is the strongest marriage indicator: its transit brings romantic encounters, proposals, and unions within 3-12 months. Its 6-year cycle governs relationship milestones.",
+    riskManagement: "Romantic idealization: projecting perfection onto partners, then experiencing disillusionment. Love the person, not the projection.",
+    relationships: "You are built for deep partnership — being single feels incomplete. The right match arrives in the season when you are whole alone and ready together.",
+  },
+
+  tianxi: {
+    archetype: "Celebrant",
+    psychological: "High capacity for joy and celebration. You find reasons to mark milestones that others overlook.",
+    sociological: "Joy catalyst — your presence makes gatherings feel significant. You create the rituals that bond communities.",
+    management: "Strong in event planning, community building, and roles where emotional atmosphere drives engagement and retention.",
+    prediction: "The Celebrant star activates joyful events: its transit brings celebrations, pregnancies, and family expansions within 6-18 months. Annual cycles favor social abundance.",
+    riskManagement: "Forcing celebration when processing is needed. Joy is authentic or it is performance — honor your genuine emotional state.",
+    relationships: "Your joy is infectious — people want to celebrate with you. In partnerships, ensure celebrations include your partner's milestones, not just your own.",
+  },
+
+  xianchi: {
+    archetype: "Seductress",
+    psychological: "High charisma with strong aesthetic and sensual awareness. You know your appeal and how to wield it.",
+    sociological: "Attraction node — desire and attention flow toward you, creating both opportunity and complication in social networks.",
+    management: "Strong in roles leveraging personal presence: entertainment, luxury sales, brand ambassadorship, public relations.",
+    prediction: "The Seductress star activates romantic and creative passion: its transit brings intense attractions and artistic inspiration within 1-6 months. 4-year cycles govern peak desirability.",
+    riskManagement: "Attention dependency: defining self-worth through desirability is a depreciating asset. Beauty fades; substance compounds.",
+    relationships: "Your magnetism is genuine — but distinguish those attracted to your energy from those committed to your wellbeing. Intensity is not intimacy.",
+  },
+
+  muyu: {
+    archetype: "Refresher",
+    psychological: "High renewal capacity — you shed old identities and habits more easily than most, reinventing yourself in cycles.",
+    sociological: "Renewal agent — you help others and groups shed what no longer serves, creating space for new growth.",
+    management: "Strong in change management, wellness, and roles requiring periodic reinvention. Struggle in static roles.",
+    prediction: "The Refresher star activates personal renewal: its transit signals life cleanses — new habits, new appearance, new direction within 3-6 months. Annual cycles favor fresh starts.",
+    riskManagement: "Reinvention without integration: shedding identities before learning their lessons. Each version of you deserves its full arc.",
+    relationships: "You help partners evolve — but ensure you are not molding them into projects. Love the person, not their potential.",
+  },
+
+  // ── Career & Status (4) ──
+
+  santai: {
+    archetype: "Ascender",
+    psychological: "High ambition with steady, stair-step progression. You rise through patience and persistence, not sudden leaps.",
+    sociological: "Rank achiever — you move through institutional hierarchies methodically, earning each level through demonstrated competence.",
+    management: "Excel in organizations with clear promotion ladders: government, academia, corporate hierarchies, military.",
+    prediction: "The Ascender star brings step-by-step elevation: its transit signals methodical career progress within 6-18 months. 10-year career cycles feature three distinct promotion windows.",
+    riskManagement: "Institutional dependency: your trajectory is tied to organizational health. Diversify your professional identity beyond any single employer.",
+    relationships: "Your ambition is attractive — but ensure partners are not reduced to supporting characters in your career narrative.",
+  },
+
+  bazuo: {
+    archetype: "Statesman",
+    psychological: "High diplomatic intelligence with broad perspective. You think in systems, institutions, and long time horizons.",
+    sociological: "Institutional pillar — you stabilize and represent organizations, becoming the trusted public face of collective efforts.",
+    management: "Strong in governance, institutional leadership, and roles requiring multi-stakeholder alignment across competing interests.",
+    prediction: "The Statesman star elevates your institutional standing: its transit brings board seats, appointments, and formal authority within 12-24 months. 15-year cycles govern peak influence.",
+    riskManagement: "Institutional capture: serving systems at the expense of people. Institutions exist to serve humans, not the reverse.",
+    relationships: "Your authority commands respect. In personal relationships, step out of institutional role — your partner needs the person, not the position.",
+  },
+
+  taifu: {
+    archetype: "Councillor",
+    psychological: "High advisory intelligence. Your strength is improving others' decisions through timely, well-framed counsel.",
+    sociological: "Behind-the-scenes influencer — your advice shapes outcomes without your name being attached. You trade visibility for impact.",
+    management: "Excel in chief-of-staff, strategy, and advisory roles where your success metric is the quality of leadership decisions you inform.",
+    prediction: "The Councillor star activates advisory influence: its transit positions you as the trusted voice behind important decisions. 7-year cycles bring peak advisory demand in years 4-6.",
+    riskManagement: "Invisible impact: your contributions may go unrecognized and unrewarded. Document your influence and negotiate explicitly for credit and compensation.",
+    relationships: "You help partners make better life choices — a valuable but potentially paternalistic dynamic. Counsel when asked; support always.",
+  },
+
+  fenggao: {
+    archetype: "Commended",
+    psychological: "High achievement motivation with external validation sensitivity. Recognition fuels your drive; obscurity drains it.",
+    sociological: "Merit marker — your recognition signals quality to others in your network, elevating both your status and theirs by association.",
+    management: "Strong in competitive fields with visible metrics: sales awards, creative competitions, performance-ranked environments.",
+    prediction: "The Commended star brings formal recognition: its transit signals awards, honors, and public acknowledgment within 3-9 months. 5-year cycles bring peak commendation periods.",
+    riskManagement: "Validation addiction: pursuing recognition for its own sake rather than for the work that earns it. Substance precedes acclaim.",
+    relationships: "Your achievements inspire — but ensure your partner feels celebrated for their own, not just applauding yours from the audience.",
+  },
+
+  // ── Destiny & Karma (4) ──
+
+  tianxing: {
+    archetype: "Adjudicator",
+    psychological: "High justice sensitivity with strong retributive intuition. You notice unfairness immediately and feel compelled to address it.",
+    sociological: "Accountability enforcer — you ensure consequences follow actions, which creates order but can also create fear.",
+    management: "Strong in legal, compliance, and enforcement roles. Excel where impartial judgment is more valued than popularity.",
+    prediction: "The Adjudicator star activates karmic reckoning: its transit brings consequences — good and bad — for past actions within 6-18 months. 7-year justice cycles resolve long-standing disputes.",
+    riskManagement: "Excessive punishment orientation: justice without mercy becomes cruelty. Balance accountability with compassion.",
+    relationships: "You hold people accountable — including yourself. In partnerships, ensure accountability does not become scorekeeping. Forgive as thoroughly as you judge.",
+  },
+
+  tianyao: {
+    archetype: "Enchantress",
+    psychological: "High interpersonal magnetism with a touch of mystery. You fascinate others — sometimes without intending to.",
+    sociological: "Fascination node — attention, speculation, and projection gather around you, creating opportunities and complications.",
+    management: "Strong in entertainment, arts, and any role where mystique and personal brand drive value.",
+    prediction: "The Enchantress star activates romantic complexity: its transit brings intoxicating encounters and situations testing fidelity and discernment within 1-6 months.",
+    riskManagement: "The line between enchantment and entanglement is thin. Intense attraction can masquerade as destiny — time reveals which it is.",
+    relationships: "You are unforgettable — sometimes to people you have already forgotten. Intention matters: charm with integrity, not manipulation.",
+  },
+
+  tianku: {
+    archetype: "Mourner",
+    psychological: "High emotional depth with grief sensitivity. You feel loss — yours and others' — more acutely than most.",
+    sociological: "Grief holder — communities process collective loss through you. You give voice to sorrow others cannot articulate.",
+    management: "Strong in counseling, end-of-life care, and roles where emotional depth and grief literacy are essential, not optional.",
+    prediction: "The Mourner star activates grief processing: its transit brings endings, goodbyes, and necessary mourning within 3-12 months. Catharsis follows the tears you allow yourself.",
+    riskManagement: "Grief identification: defining yourself by loss. You are more than what you have lost — the grief is real, but so is what remains.",
+    relationships: "You understand loss deeply — this makes you a profound partner through others' dark times. Allow yourself to be comforted, not just to comfort.",
+  },
+
+  tianxu: {
+    archetype: "Hollow",
+    psychological: "High existential sensitivity with emptiness awareness. You sense the void beneath daily life that others ignore.",
+    sociological: "Emptiness spotter — you perceive what is missing in social structures: the unspoken, the absent, the erased.",
+    management: "Strong in roles requiring gap analysis, risk identification, and noticing what the plan overlooked.",
+    prediction: "The Hollow star activates emptiness: its transit brings periods where motivation, meaning, or resources feel absent. This is a signal to reassess, not to despair — what fills you next is being prepared.",
+    riskManagement: "Emptiness can become identity. The hollow is a space, not a self. Do not confuse the container with its future contents.",
+    relationships: "You sense what is missing in relationships — a gift for identifying needs but a risk of focusing on deficits. Name what is present too.",
+  },
+
+  // ── Noble & Virtue (4) ──
+
+  yuede: {
+    archetype: "LunarBenevolence",
+    psychological: "High compassionate responsiveness. Your kindness is intuitive and immediate — you help without calculating.",
+    sociological: "Quiet helper — your good deeds happen without announcement, creating a reservoir of goodwill others discover only when needed.",
+    management: "Strong in service-oriented roles where kindness is the primary deliverable: healthcare, social work, pastoral care.",
+    prediction: "The Lunar Benevolence star brings quiet protection: its transit deflects minor misfortunes and attracts helpful people within 1-6 months. Grace accumulates silently.",
+    riskManagement: "Kindness without boundaries becomes exploitation. Your goodness is a resource — allocate it with the same wisdom you would apply to money.",
+    relationships: "Your kindness is genuine — but ensure you receive as well as give. The caregiver who never accepts care burns out alone.",
+  },
+
+  tiande: {
+    archetype: "Virtuous",
+    psychological: "High moral identity with strong conscience. Ethical considerations are central to your decision-making, not afterthoughts.",
+    sociological: "Moral compass — groups orient their ethical decisions around your presence. Your approval signals acceptable behavior.",
+    management: "Strong in ethics, compliance, and values-based leadership. Excel where integrity is the product, not a policy.",
+    prediction: "The Virtuous star brings moral protection: its transit deflects ethical traps and attracts principled allies within 6-12 months. 9-year integrity cycles bring moral tests and growth.",
+    riskManagement: "Moral superiority: righteousness without humility alienates. Your virtue is a practice, not a credential.",
+    relationships: "You attract those seeking moral clarity — a meaningful role but a heavy one. Your partner is not your ethical project.",
+  },
+
+  longchi: {
+    archetype: "Dragonborn",
+    psychological: "High aspirational drive with transformative ambition. You are not content with incremental progress — you seek metamorphosis.",
+    sociological: "Transformation symbol — your presence signals that change is possible, inspiring others to pursue their own becoming.",
+    management: "Strong in visionary roles where transformation takes years: founding institutions, leading turnarounds, building legacy.",
+    prediction: "The Dragonborn star activates metamorphosis: its transit signals identity-level transformation within 12-36 months. Its 18-year cycle brings the most profound life changes.",
+    riskManagement: "Transform or perish thinking: not every situation requires metamorphosis. Some things benefit from gentle evolution, not revolution.",
+    relationships: "You inspire transformation in partners — sometimes welcome, sometimes imposed. Ensure your partner chooses their changes, not just inherits yours.",
+  },
+
+  fengge: {
+    archetype: "Phoenixborne",
+    psychological: "High rebirth capacity — you rise from ashes repeatedly, each time more refined than before.",
+    sociological: "Resilience symbol — your survival through difficulty becomes a story others draw strength from.",
+    management: "Strong in crisis recovery, post-failure rebuilding, and roles where resurrection experience is more valuable than uninterrupted success.",
+    prediction: "The Phoenixborne star activates rebirth: its transit signals emergence from difficulty into a new phase within 6-18 months. What ended was a chapter, not the book.",
+    riskManagement: "Crisis identity: defining yourself by what you survived rather than what you are building. Survival is a chapter, not the whole story.",
+    relationships: "Your resilience is awe-inspiring — but let partners support you, not just admire you. You deserve rest, not just recovery.",
+  },
+
+  // ── Health & Spirit (2) ──
+
+  tianchu: {
+    archetype: "Nourisher",
+    psychological: "High nurturance drive — you express care through providing sustenance, comfort, and material support.",
+    sociological: "Provider role — your cooking, hosting, and material care create the infrastructure of community wellbeing.",
+    management: "Strong in hospitality, culinary arts, facilities management, and roles where physical care drives satisfaction and loyalty.",
+    prediction: "The Nourisher star activates material abundance: its transit signals good food, comfort, and physical wellbeing within 1-3 months. Annual cycles favor health and domestic harmony.",
+    riskManagement: "Over-nourishing: providing food/comfort when presence or listening is what is actually needed. Ask what nourishes, do not assume.",
+    relationships: "You show love through provision — meals, comfort, material care. Ensure your partner receives this as love, not as control dressed in generosity.",
+  },
+
+  tianwu: {
+    archetype: "Mystic",
+    psychological: "High spiritual sensitivity with intuitive knowing. You perceive patterns and connections beyond rational explanation.",
+    sociological: "Spiritual bridge — you connect communities to transcendent meaning. Others seek you for rituals, blessings, and cosmic perspective.",
+    management: "Strong in pastoral, therapeutic, and creative roles where intuition and transcendent framing add dimension beyond pure rationality.",
+    prediction: "The Mystic star activates spiritual awakening: its transit signals heightened intuition, meaningful synchronicities, and spiritual encounters within 3-12 months. 11-year cycles bring peak mystical sensitivity.",
+    riskManagement: "Spiritual bypassing: using transcendence to avoid material responsibilities and emotional processing. The mystic's path includes the mundane.",
+    relationships: "Your depth attracts seekers — but ensure your partner is with you on the journey, not just following your light from a distance.",
   },
 };
 
