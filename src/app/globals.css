@@ -13,8 +13,10 @@
 
   /* Ink family — warm starlight on dark stone */
   --color-ink: oklch(0.94 0.024 90);
-  --color-ink-muted: oklch(0.73 0.026 90);
-  --color-ink-dim: oklch(0.50 0.022 90);
+  /* Readable secondary text: ~14:1 contrast on void background (was 0.73) */
+  --color-ink-muted: oklch(0.85 0.018 90);
+  /* Tertiary/deemphasized text: ~6.5:1 contrast, above WCAG AA (was 0.50) */
+  --color-ink-dim: oklch(0.65 0.014 90);
 
   /* Cinnabar — imperial vermillion seal paste, more intense */
   --color-cinnabar: oklch(0.56 0.22 30);

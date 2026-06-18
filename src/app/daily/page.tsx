@@ -274,7 +274,7 @@ export default function DailyPage() {
           </button>
         </div>
 
-        <p className="text-ink-dim/30 text-[11px] text-center mt-8">
+        <p className="text-ink-dim/55 text-[11px] text-center mt-8">
           DestinyBlueprint — Zi Wei Dou Shu Daily
         </p>
       </main>
@@ -327,7 +327,7 @@ export default function DailyPage() {
           >
             Start 7-Day Free Trial
           </button>
-          <p className="text-ink-dim/40 text-xs">Then $4.99/month. Cancel anytime.</p>
+          <p className="text-ink-dim/60 text-xs">Then $4.99/month. Cancel anytime.</p>
           {trialError && (
             <p className="text-cinnabar/70 text-xs mt-3">{trialError}</p>
           )}
@@ -447,7 +447,7 @@ export default function DailyPage() {
               {data.source && data.source !== "cached" && (
                 <div className="mt-5 pt-4 border-t border-white/[0.06] flex items-center gap-2">
                   <span className="inline-flex h-1.5 w-1.5 rounded-full bg-gold/50" aria-hidden />
-                  <p className="text-ink-dim/50 text-xs">
+                  <p className="text-ink-dim/70 text-xs">
                     {data.source === "template"
                       ? "Generated from Zi Wei chart template"
                       : "AI-generated — powered by your Zi Wei chart data"}
@@ -463,14 +463,14 @@ export default function DailyPage() {
 
               {/* Yesterday feedback — subtle 👍👎 */}
               <div className="mt-4 pt-4 border-t border-white/[0.06] flex items-center gap-4">
-                <span className="text-ink-dim/40 text-[11px]">Was yesterday&rsquo;s reading accurate?</span>
+                <span className="text-ink-dim/60 text-[11px]">Was yesterday&rsquo;s reading accurate?</span>
                 <button
-                  className="inline-flex items-center gap-1 rounded-sm px-2 py-1 text-xs text-ink-dim/50 hover:text-jade hover:bg-jade/[0.06] transition-colors"
+                  className="inline-flex items-center gap-1 rounded-sm px-2 py-1 text-xs text-ink-dim/70 hover:text-jade hover:bg-jade/[0.06] transition-colors"
                   onClick={() => {/* TODO: POST /api/feedback */}}
                   aria-label="Thumbs up — accurate"
                 >👍</button>
                 <button
-                  className="inline-flex items-center gap-1 rounded-sm px-2 py-1 text-xs text-ink-dim/50 hover:text-cinnabar hover:bg-cinnabar/[0.06] transition-colors"
+                  className="inline-flex items-center gap-1 rounded-sm px-2 py-1 text-xs text-ink-dim/70 hover:text-cinnabar hover:bg-cinnabar/[0.06] transition-colors"
                   onClick={() => {/* TODO: POST /api/feedback */}}
                   aria-label="Thumbs down — not accurate"
                 >👎</button>
@@ -496,8 +496,8 @@ export default function DailyPage() {
           {/* Highlighted stars — horizontal scrolling cards with brief meaning */}
           {data.highlightedStars && data.highlightedStars.length > 0 && (
             <div className="mt-5">
-              <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-ink-dim/40 mb-1">Active Stars Today</p>
-              <p className="text-ink-dim/30 text-[11px] mb-3">Your chart&rsquo;s dominant archetypes shaping today&rsquo;s reading</p>
+              <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-ink-dim/60 mb-1">Active Stars Today</p>
+              <p className="text-ink-dim/55 text-[11px] mb-3">Your chart&rsquo;s dominant archetypes shaping today&rsquo;s reading</p>
               <div className="flex gap-3 overflow-x-auto pb-1 [-webkit-overflow-scrolling:touch] scrollbar-none">
                 {data.highlightedStars.map((star) => {
                   const brief = getStarBrief(star);
@@ -515,14 +515,14 @@ export default function DailyPage() {
                       {keywords.length > 0 && (
                         <div className="mt-2 flex flex-wrap gap-1">
                           {keywords.slice(0, 3).map((kw) => (
-                            <span key={kw} className="inline-block rounded-full border border-gold/[0.08] bg-gold/[0.03] px-2 py-0.5 text-[10px] text-ink-dim/40 font-mono tracking-wider">
+                            <span key={kw} className="inline-block rounded-full border border-gold/[0.08] bg-gold/[0.03] px-2 py-0.5 text-[10px] text-ink-dim/60 font-mono tracking-wider">
                               {kw}
                             </span>
                           ))}
                         </div>
                       )}
                       {brief && (
-                        <p className="mt-2 text-ink-dim/40 text-[10px] leading-relaxed">{brief}</p>
+                        <p className="mt-2 text-ink-dim/60 text-[10px] leading-relaxed">{brief}</p>
                       )}
                     </div>
                   );
@@ -559,7 +559,7 @@ export default function DailyPage() {
         </aside>
       </div>
 
-      <p className="text-ink-dim/20 text-[11px] mt-12 text-center mb-20">
+      <p className="text-ink-dim/45 text-[11px] mt-12 text-center mb-20">
         DestinyBlueprint — Zi Wei Dou Shu Daily
       </p>
 
