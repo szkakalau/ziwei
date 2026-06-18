@@ -141,8 +141,8 @@ describe("DailyPage", () => {
       expect(screen.getByText("Your Architect pattern shines today.")).toBeDefined();
     }, { timeout: 3000 });
 
-    // Horoscope source line
-    expect(screen.getByText(/Generated via/)).toBeDefined();
+    // Horoscope source line — AI transparency label
+    expect(screen.getByText(/AI-generated/)).toBeDefined();
     // Sidebar items
     expect(screen.getByText("Yearly Forecast")).toBeDefined();
     expect(screen.getByTestId("ask-ziwei")).toBeDefined();

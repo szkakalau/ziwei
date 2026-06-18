@@ -191,8 +191,8 @@ export default function Hero() {
 
   return (
     <section className="relative overflow-hidden px-4 pt-12 pb-16 sm:px-6 sm:pt-24 sm:pb-28 md:pt-32 md:pb-36">
-      {/* Background */}
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-10%,oklch(0.74_0.12_78/0.04),transparent_50%)]" aria-hidden />
+      {/* Background — deep cosmic: dark void with subtle warm core */}
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-10%,oklch(0.12_0.025_270/0.8),oklch(0.10_0.02_265/0.9)_30%,transparent_70%),radial-gradient(ellipse_40%_30%_at_50%_50%,oklch(0.74_0.12_78/0.03),transparent_60%)]" aria-hidden />
 
       <div className="relative mx-auto max-w-6xl">
         <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
@@ -226,6 +226,7 @@ export default function Hero() {
 
             {/* Birth form */}
             <form
+              id="hero-form"
               className="mt-8 rounded-sm border border-gold/20 bg-void/70 p-5 backdrop-blur-md sm:p-6"
               onSubmit={(e) => { e.preventDefault(); void handleSubmit(); }}
             >

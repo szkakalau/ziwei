@@ -400,19 +400,19 @@ export default function DailyPage() {
 
   // ── SUCCESS ──
   return (
-    <main className="min-h-screen px-4 py-6 pb-20 md:px-6 md:py-10 max-w-4xl mx-auto">
-      {/* Top bar */}
-      <div className="flex items-center justify-between mb-5">
+    <main className="min-h-screen px-4 py-4 pb-20 md:px-6 md:py-8 max-w-4xl mx-auto">
+      {/* Top bar — compact */}
+      <div className="flex items-center justify-between mb-3 md:mb-4">
         <p className="text-gold/70 text-sm font-medium">{dateLabel}</p>
         <StreakBadge streak={streak} />
       </div>
 
-      {/* Birthday + Push banner */}
+      {/* Birthday + Push banner — compact */}
       {userBirthDate && (
         <BirthdaySurprise birthDate={userBirthDate} streak={streak} />
       )}
       {pushState !== "loading" && pushState !== "unsupported" && (
-        <div className="mb-5">
+        <div className="mb-3 md:mb-4">
           <PushPrompt pushState={pushState} onEnable={requestPush} />
         </div>
       )}
@@ -421,18 +421,29 @@ export default function DailyPage() {
       <div className="md:grid md:grid-cols-5 md:gap-6">
         {/* Left: Horoscope (3/5 on desktop) */}
         <div className="md:col-span-3">
-          <div className="card-cosmic-highlight p-5 md:p-7">
-            <p className="text-ink/90 text-[18px] md:text-[20px] leading-relaxed whitespace-pre-line">
-              {data.horoscope}
-            </p>
-            {data.source && data.source !== "cached" && (
-              <p className="text-ink-dim/30 text-[11px] mt-5">
-                Generated via {data.source === "template" ? "template" : "AI"}
+          {/* Horoscope card — elevated dark card with gold accent */}
+          <div className="relative rounded-sm border border-gold/[0.15] bg-[oklch(0.12_0.03_265/0.85)] shadow-[0_0_60px_-20px_oklch(0.74_0.12_78/0.06)] backdrop-blur-md overflow-hidden">
+            {/* Subtle top accent line */}
+            <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-gold/30 to-transparent" aria-hidden />
+            <div className="p-5 md:p-7">
+              <p className="text-ink text-[20px] md:text-[22px] leading-loose whitespace-pre-line">
+                {data.horoscope}
               </p>
-            )}
+              {/* AI transparency label — visible, trustworthy */}
+              {data.source && data.source !== "cached" && (
+                <div className="mt-5 pt-4 border-t border-white/[0.06] flex items-center gap-2">
+                  <span className="inline-flex h-1.5 w-1.5 rounded-full bg-gold/50" aria-hidden />
+                  <p className="text-ink-dim/50 text-xs">
+                    {data.source === "template"
+                      ? "Generated from Zi Wei chart template"
+                      : "AI-generated — powered by your Zi Wei chart data"}
+                  </p>
+                </div>
+              )}
+            </div>
           </div>
 
-          {/* Action buttons */}
+          {/* Action buttons — clean, unified style */}
           <div className="flex flex-wrap gap-2.5 mt-4">
             <button onClick={handleShare} className="inline-flex items-center gap-1.5 rounded-sm border border-gold/15 bg-gold/[0.04] px-4 py-2 text-xs text-gold/80 hover:bg-gold/[0.08] transition-colors">
               <Share2 className="h-3.5 w-3.5" />
@@ -456,7 +467,7 @@ export default function DailyPage() {
         </div>
 
         {/* Right: Tools (2/5 on desktop) */}
-        <div className="mt-6 md:mt-0 md:col-span-2 space-y-4">
+        <aside className="mt-6 md:mt-0 md:col-span-2 space-y-4">
           <Link href="/yearly" className="flex items-center gap-3 rounded-sm border border-white/[0.06] bg-panel/60 px-4 py-3.5 hover:border-gold/15 transition-colors">
             <Calendar className="h-5 w-5 text-gold/60 shrink-0" />
             <div>
@@ -472,7 +483,7 @@ export default function DailyPage() {
           <div className="rounded-sm border border-white/[0.06] bg-panel/60">
             <CompatibilityCheck />
           </div>
-        </div>
+        </aside>
       </div>
 
       <p className="text-ink-dim/20 text-[11px] mt-12 text-center mb-20">
