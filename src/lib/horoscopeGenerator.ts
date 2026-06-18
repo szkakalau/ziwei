@@ -20,21 +20,21 @@ function buildSystemPrompt(daily: DailyTransit): string {
 
   return `You are a Zi Wei Dou Shu (Purple Star Astrology) daily guide writer. Write today's horoscope based on the 4 daily transformation stars (流日四化) provided.
 
-Today's 四化: ${hualu}化禄、${huaquan}化权、${huake}化科、${huaji}化忌
+Today's 四化: ${hualu} 化禄, ${huaquan} 化权, ${huake} 化科, ${huaji} 化忌
 
 Rules:
-- Write in TRADITIONAL CHINESE (繁體中文), warm and grounded tone
-- Open with ONE line: "針對您今天的運勢核心提醒" followed by a brief intro naming today's 四化 stars
+- Write in clear, practical ENGLISH — warm and grounded tone
+- Open with ONE line: "Your core guidance for today" followed by a brief intro naming today's transformation stars
 - Then 4 bullet points, each starting with an emoji relevant to the theme:
-  • ⚠️ for 化忌 (obstacles / caution)
-  • 👑 for 化权 (authority / leadership)
-  • 🌟 for 化科 (recognition / fame)
-  • 🛡️ / 💰 / 🌊 for 化禄 (blessings / prosperity — pick most fitting)
-- Each bullet: first explain what this transformation MEANS practically today (work, money, relationships, health), then give one concrete suggestion
+  • ⚠️ for 化忌 (obstacles / caution areas)
+  • 👑 for 化权 (authority / decision-making)
+  • 🌟 for 化科 (recognition / visibility)
+  • 💰 or 🛡️ or 🌊 for 化禄 (opportunity / blessings — pick most fitting)
+- Each bullet: first explain what this transformation MEANS practically today (work, money, relationships, health), then give one concrete, actionable suggestion
 - Use the project's star names EXACTLY as given: "${hualu}", "${huaquan}", "${huake}", "${huaji}"
-- NO generic fluff like "great things are coming" — be SPECIFIC about what each star's transformation implies
+- NO generic fluff like "great things are coming" — be SPECIFIC about what each star's transformation implies for daily life
 - End with one short closing line of encouragement
-- Target length: 250-350 Chinese characters total
+- Target length: 200-300 words
 - Format: plain text, no markdown formatting`;
 }
 
@@ -45,9 +45,9 @@ Rules:
 function buildUserPrompt(daily: DailyTransit): string {
   return `Date: ${daily.date}
 Heavenly Stem: ${daily.stem} (${daily.stemDescription})
-Today's 四化: ${daily.summary}
+Today's transformations: ${daily.summary}
 
-写一份今日紫微斗数运势提醒（Traditional Chinese），按系统提示的格式输出。`;
+Write today's Zi Wei Dou Shu horoscope in English following the system prompt format.`;
 }
 
 // ═══════════════════════════════════════════════════════════════════════
@@ -112,23 +112,23 @@ function templateHoroscope(daily: DailyTransit): string {
   const huake = `${daily.display.huake.pinyin}·${daily.display.huake.alias}`;
   const huaji = `${daily.display.huaji.pinyin}·${daily.display.huaji.alias}`;
 
-  return `針對您今天的運勢核心提醒
+  return `Your core guidance for today
 
-結合今天的流日四化（${hualu}化祿、${huaquan}化權、${huake}化科、${huaji}化忌），以下幾點是您今天在生活中可以特別留意的共性趨向：
+With today's daily transformations — ${hualu} (Hua Lu), ${huaquan} (Hua Quan), ${huake} (Hua Ke), ${huaji} (Hua Ji) — here are the key themes to watch:
 
-• 💰 資源與機會（${hualu}化祿）：
-今日化祿之星帶來資源流動與機遇。適合把握人際互動中的善意，但不宜冒進投機。留意來自熟悉圈子的消息，可能藏有對您有利的資訊。
+• 💰 Opportunity & Flow (${hualu} → Hua Lu):
+Hua Lu brings resource movement and opportunity. Today favors receiving goodwill from others, but avoid impulsive speculation. Pay attention to messages from familiar circles — they may carry useful information for you.
 
-• 👑 決策與影響力（${huaquan}化權）：
-今日化權之星強化您的決斷力與話語權。在工作或團隊中，您可能會被賦予更多責任。遇到分歧時，以理服人比強勢壓制更有效。
+• 👑 Decisions & Influence (${huaquan} → Hua Quan):
+Hua Quan strengthens your decisiveness and authority. At work or in teams, you may be given more responsibility. When disagreements arise, persuading with reason works better than pushing hard.
 
-• 🌟 聲譽與助力（${huake}化科）：
-今日化科之星帶來名聲與貴人運。您的專業表現容易被看見，適合展現才華。遇到難題時，容易得到同事或平輩的協助與推薦。
+• 🌟 Visibility & Support (${huake} → Hua Ke):
+Hua Ke brings recognition and helpful connections. Your expertise is more likely to be noticed today — a good moment to showcase your skills. If you hit a snag, colleagues or peers are likely to step in with assistance or a recommendation.
 
-• ⚠️ 謹慎與防範（${huaji}化忌）：
-今日化忌之星提示需要收斂的領域。不宜進行大額投資或簽署重要合約，容易出現資金延誤或超支。人際溝通也需多一分耐心，避免因誤解產生摩擦。
+• ⚠️ Caution & Boundary (${huaji} → Hua Ji):
+Hua Ji signals areas that call for restraint. Avoid large investments or signing important contracts today, as delays or overspending are likely. In communication, a little extra patience goes a long way — misunderstandings can escalate quickly under this influence.
 
-今天的星象提醒我們：順勢而為，化忌為警，化祿為機。保持覺察，從容應對。`;
+Today's stars remind us: flow with the opportunities, heed the cautions, and stay present. A steady, aware approach turns every transit into useful insight.`;
 }
 
 // ═══════════════════════════════════════════════════════════════════════
