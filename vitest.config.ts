@@ -8,6 +8,7 @@ export default defineConfig({
     environment: "jsdom",
     globals: true,
     setupFiles: [],
+    exclude: ["e2e/**", "node_modules/**"],
     env: {
       DATABASE_URL: "postgres://test:test@localhost:5432/test",
     },

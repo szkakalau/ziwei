@@ -41,7 +41,7 @@ export function CompatibilityCheck() {
   };
 
   return (
-    <section className="mb-8">
+    <section className="mb-8" data-testid="compat-check">
       <h2 className="text-white/40 text-xs uppercase tracking-wider mb-4 font-medium flex items-center gap-2">
         <Heart className="h-3.5 w-3.5" />
         Compatibility Check

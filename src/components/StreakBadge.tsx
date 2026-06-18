@@ -14,7 +14,7 @@ export function StreakBadge({ streak }: StreakBadgeProps) {
   const next = getNextAchievement(streak);
 
   return (
-    <div className="relative">
+    <div className="relative" data-testid="streak-badge">
       <button
         onClick={() => setShowAchievement(!showAchievement)}
         className={`flex items-center gap-1.5 text-sm font-medium transition-colors ${achievement.color}`}

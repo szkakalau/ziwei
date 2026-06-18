@@ -15,7 +15,7 @@ export function AppNav() {
   ];
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-50 bg-void/80 backdrop-blur-2xl border-t border-gold/[0.05] safe-area-bottom">
+    <nav className="fixed bottom-0 left-0 right-0 z-50 bg-void/80 backdrop-blur-2xl border-t border-gold/[0.05] safe-area-bottom" data-testid="app-nav">
       <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-gold/20 to-transparent" />
       <div className="flex items-center justify-around max-w-lg mx-auto h-16">
         {links.map(({ href, label, icon: Icon }) => {

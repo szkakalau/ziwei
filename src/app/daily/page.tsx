@@ -455,13 +455,13 @@ export default function DailyPage() {
 
               {/* Daily Ritual — CHANI-style "prediction → action" loop */}
               <div className="mt-4 rounded-sm border border-jade/[0.12] bg-jade/[0.03] px-4 py-3">
-                <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-jade/70 mb-1.5">Today's Practice</p>
+                <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-jade/70 mb-1.5">Today&rsquo;s Practice</p>
                 <p className="text-ink-muted text-sm leading-relaxed">{ritual}</p>
               </div>
 
               {/* Yesterday feedback — subtle 👍👎 */}
               <div className="mt-4 pt-4 border-t border-white/[0.06] flex items-center gap-4">
-                <span className="text-ink-dim/40 text-[11px]">Was yesterday's reading accurate?</span>
+                <span className="text-ink-dim/40 text-[11px]">Was yesterday&rsquo;s reading accurate?</span>
                 <button
                   className="inline-flex items-center gap-1 rounded-sm px-2 py-1 text-xs text-ink-dim/50 hover:text-jade hover:bg-jade/[0.06] transition-colors"
                   onClick={() => {/* TODO: POST /api/feedback */}}
