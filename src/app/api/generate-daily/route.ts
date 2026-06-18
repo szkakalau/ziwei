@@ -41,11 +41,17 @@ export async function POST() {
 
   const today = new Date().toISOString().slice(0, 10);
 
-  // Step 3: Check cache — if we generated today's horoscope already, return it
+  // Compute today's transit summary for cache validation.
+  // Old caches have generic "Daily transit for YYYY-MM-DD" — if the cached
+  // transit_summary doesn't match today's actual 四化 summary, we regenerate.
+  const { getDailyTransit } = await import("@/lib/dailyTransit");
+  const daily = getDailyTransit();
+
+  // Step 3: Check cache — return only if transit summary matches (prompt version check)
   try {
     const { getHoroscope } = await import("@/lib/db");
     const cached = await getHoroscope(user.id, today);
-    if (cached) {
+    if (cached && cached.transit_summary === daily.summary) {
       return NextResponse.json({
         ok: true,
         horoscope: cached.horoscope_text,
@@ -78,8 +84,7 @@ export async function POST() {
   // TEMPLATE FALLBACK IS CODE-ONLY — IT CANNOT FAIL.
   // DeepSeek → OpenAI → template (guaranteed)
   const { generateHoroscope } = await import("@/lib/horoscopeGenerator");
-  const transitSummary = `Daily transit for ${today}`;
-  const result = await generateHoroscope(chart, transitSummary);
+  const result = await generateHoroscope(chart, daily.summary);
 
   // Step 6: Persist (best-effort — don't block the user on DB writes)
   try {

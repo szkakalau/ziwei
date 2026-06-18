@@ -23,9 +23,10 @@ export async function GET(request: Request) {
     }
 
     const { generateHoroscope } = await import("@/lib/horoscopeGenerator");
+    const { getDailyTransit } = await import("@/lib/dailyTransit");
     const { computeChartFromStored } = await import("@/lib/chartCache");
     const today = new Date().toISOString().slice(0, 10);
-    const transitSummary = `Daily transit for ${today}`;
+    const daily = getDailyTransit();
 
     let generated = 0;
     let failed = 0;
@@ -45,7 +46,7 @@ export async function GET(request: Request) {
         allowFallback: true,
       });
 
-      const result = await generateHoroscope(chart, transitSummary);
+      const result = await generateHoroscope(chart, daily.summary);
 
       await upsertHoroscope({
         userId: user.id,

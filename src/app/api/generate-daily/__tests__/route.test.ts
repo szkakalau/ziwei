@@ -40,6 +40,21 @@ vi.mock("@/lib/horoscopeGenerator", () => ({ generateHoroscope: mockGenerate }))
 const mockSendPush = vi.fn(() => Promise.resolve());
 vi.mock("@/lib/pushService", () => ({ sendDailyPush: mockSendPush }));
 
+const mockDailyTransit = {
+  date: "2026-06-17",
+  stem: "壬",
+  stemDescription: "Yang Water",
+  summary: "Tian Liang·Sage Star 化禄、Zi Wei·Emperor Star 化权、Zuo Fu·Left Hand Star 化科、Wu Qu·Marshal Star 化忌",
+  sihua: { hualu: "sage", huaquan: "emperor", huake: "zuofu", huaji: "general" },
+  display: {
+    hualu: { pinyin: "Tian Liang", alias: "Sage Star", keywords: [] },
+    huaquan: { pinyin: "Zi Wei", alias: "Emperor Star", keywords: [] },
+    huake: { pinyin: "Zuo Fu", alias: "Left Hand Star", keywords: [] },
+    huaji: { pinyin: "Wu Qu", alias: "Marshal Star", keywords: [] },
+  },
+};
+vi.mock("@/lib/dailyTransit", () => ({ getDailyTransit: vi.fn(() => mockDailyTransit) }));
+
 describe("POST /api/generate-daily", () => {
   beforeEach(() => {
     vi.clearAllMocks();
@@ -114,7 +129,7 @@ describe("POST /api/generate-daily", () => {
     mockGetHoroscope.mockResolvedValue({
       horoscope_text: "Your patterns align today, Architect.",
       highlighted_stars: ["Architect", "Executor"],
-      transit_summary: "Daily transit",
+      transit_summary: mockDailyTransit.summary,
       date: "2026-06-17",
       source: "deepseek",
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
