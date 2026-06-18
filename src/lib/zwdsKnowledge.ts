@@ -86,6 +86,16 @@ const STAR_ALIASES: Record<string, string> = {
   famestar: "huake",
   // 化忌 (Hua Ji) — iztro variant names
   taboostar: "huaji",
+  // 天马 (Tian Ma) — iztro outputs "horse"
+  horse: "tianma",
+  // 天姚 (Tian Yao) — iztro variant names
+  allure: "tianyao",
+  // 天哭 (Tian Ku) — iztro variant names
+  cry: "tianku",
+  // 红鸾 (Hong Luan) — iztro variant names
+  lovebird: "hongluan",
+  // 禄存 (Lu Cun) — iztro variant names
+  treasury: "lucun",
 };
 
 /**

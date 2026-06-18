@@ -498,7 +498,7 @@ export default function DailyPage() {
             <div className="mt-5">
               <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-ink-dim/60 mb-1">Active Stars Today</p>
               <p className="text-ink-dim/55 text-[11px] mb-3">Your chart&rsquo;s dominant archetypes shaping today&rsquo;s reading</p>
-              <div className="flex gap-3 overflow-x-auto pb-1 [-webkit-overflow-scrolling:touch] scrollbar-none">
+              <div className="flex gap-3 overflow-x-auto md:overflow-visible md:flex-wrap pb-1 [-webkit-overflow-scrolling:touch] scrollbar-none">
                 {data.highlightedStars.map((star) => {
                   const brief = getStarBrief(star);
                   const displayName = formatStarName(star);
@@ -506,7 +506,7 @@ export default function DailyPage() {
                   return (
                     <div
                       key={star}
-                      className="shrink-0 rounded-sm border border-gold/[0.10] bg-gold/[0.02] px-4 py-3 min-w-[176px] max-w-[220px]"
+                      className="shrink-0 md:shrink rounded-sm border border-gold/[0.10] bg-gold/[0.02] px-4 py-3 min-w-[176px] max-w-[220px] md:min-w-0 md:max-w-[240px] md:flex-1 md:basis-[calc(33.333%-0.75rem)]"
                     >
                       <span className="inline-flex items-center gap-1.5">
                         <span className="h-1.5 w-1.5 rounded-full bg-gold/50 shrink-0" aria-hidden />

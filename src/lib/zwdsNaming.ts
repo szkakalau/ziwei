@@ -710,20 +710,56 @@ const ARCHETYPE_TO_KEY: Record<string, string> = {
   earthrelief: "earthrelief",
 };
 
+/**
+ * Raw iztro variant names that don't match either the canonical key
+ * or the archetype label. Maps iztro's English output → canonical key.
+ * Mirrors STAR_ALIASES in zwdsKnowledge.ts for naming-only lookups.
+ */
+const RAW_ALIAS_TO_KEY: Record<string, string> = {
+  horse: "tianma",
+  advocator: "minister",
+  marshal: "general",
+  literary: "wenchang",
+  literature: "wenqu",
+  leaderstar: "tiankui",
+  halberd: "tianyue",
+  leftassist: "zuofu",
+  rightassist: "youbi",
+  firestar: "mars",
+  goat: "qingyang",
+  topstar: "tuoluo",
+  earthvoid: "dikong",
+  earthcalamity: "dijie",
+  prosperitystar: "hualu",
+  authoritystar: "huaquan",
+  famestar: "huake",
+  taboostar: "huaji",
+  allure: "tianyao",
+  cry: "tianku",
+  lovebird: "hongluan",
+  treasury: "lucun",
+};
+
 // ═══════════════════════════════════════════════════════════════════════
 // Lookup Utilities
 // ═══════════════════════════════════════════════════════════════════════
 
 /**
  * Case-insensitive, whitespace-insensitive lookup of a star name to its
- * naming entry. Accepts both raw iztro keys ("emperor", "wolf") and
- * human-readable archetype labels ("Architect", "Catalyst").
+ * naming entry. Resolves through three paths:
+ *   1. Direct iztro canonical key ("emperor", "wolf")
+ *   2. Archetype label reverse lookup ("Architect", "Catalyst")
+ *   3. Raw iztro variant name ("horse", "advocator")
  * Returns null if no entry exists.
  */
 export function getStarNaming(rawName: string): StarNaming | null {
   const key = rawName.toLowerCase().replace(/\s+/g, "");
-  // Try direct iztro key first, then archetype label reverse lookup
-  const resolvedKey = ZWDS_NAMING[key] ? key : ARCHETYPE_TO_KEY[key] ?? null;
+  // Try direct, then archetype, then raw alias
+  const resolvedKey =
+    ZWDS_NAMING[key] ? key :
+    ARCHETYPE_TO_KEY[key] ??
+    RAW_ALIAS_TO_KEY[key] ??
+    null;
   return resolvedKey ? ZWDS_NAMING[resolvedKey] ?? null : null;
 }
 
