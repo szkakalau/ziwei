@@ -27,7 +27,7 @@ export default function LandingNavbar({ formAnchorId = "" }: Props) {
           <span className="xs:hidden">DB</span>
         </Link>
 
-        <div className="flex items-center gap-2 sm:gap-3">
+        <nav aria-label="Main navigation" className="flex items-center gap-2 sm:gap-3">
           <Link
             href="/daily"
             className="hidden font-body text-sm text-ink-dim transition-colors hover:text-ink-muted sm:inline"
@@ -54,7 +54,7 @@ export default function LandingNavbar({ formAnchorId = "" }: Props) {
               <span className="sm:hidden">Free Snapshot</span>
             </a>
           </Button>
-        </div>
+        </nav>
       </div>
     </header>
   );

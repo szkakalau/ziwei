@@ -44,11 +44,27 @@ export const metadata: Metadata = {
     siteName: BRAND_NAME,
     title: defaultTitle,
     description: DEFAULT_META_DESCRIPTION,
+    images: [
+      {
+        url: new URL("/opengraph-image", siteUrl).toString(),
+        width: 1200,
+        height: 630,
+        alt: `${BRAND_NAME} — Daily Zi Wei Dou Shu Horoscopes`,
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: defaultTitle,
     description: DEFAULT_META_DESCRIPTION,
+    images: [
+      {
+        url: new URL("/opengraph-image", siteUrl).toString(),
+        width: 1200,
+        height: 630,
+        alt: `${BRAND_NAME} — Daily Zi Wei Dou Shu Horoscopes`,
+      },
+    ],
   },
 };
 
