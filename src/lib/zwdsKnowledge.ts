@@ -284,6 +284,61 @@ export function getStarBrief(name: string): string {
     nourisher: "Caregiver whose meals and comfort create community. Ask what nourishes — do not assume.",
     tianwu: "Mystic sensing transcendent patterns. Intuition is your guide. Risk: spiritual bypassing earthly responsibilities.",
     mystic: "Spiritual bridge connecting worlds seen and unseen. The mystic's path includes washing dishes.",
+
+    // ── Batch 2/3: 26 Minor Stars ──
+    changsheng: "Birth of new cycles. Generative energy launches what will grow for years. Risk: starting without finishing.",
+    birth: "Initiating spark. Ventures launched now carry foundational momentum. Nurture what you begin.",
+    guandai: "Initiate in formation. Eager learner developing competence. Risk: declaring readiness before foundations solidify.",
+    initiate: "Apprentice phase. Curiosity exceeds mastery. Stay in learning until the craft is internalized.",
+    linguan: "Officiate stepping into authority. First real responsibilities reveal leadership capacity. Risk: authority without experience.",
+    officiate: "Junior leader whose word begins carrying weight. Balance confidence with learning humility.",
+    diwang: "Peak of the life cycle. Maximum ability and influence. Risk: assuming the summit is permanent.",
+    peak: "Apex performance. Enjoy completely — peaks are summits, not residences. Prepare the next phase now.",
+    shuai: "Wane after the peak. Natural decline is rest, not failure. Risk: fighting the rhythm exhausts faster than accepting it.",
+    wane: "Post-peak recalibration. Wisdom transfers as power recedes. Those who stay through decline are true.",
+    bing: "Ail of vulnerability. Depleted resources demand rest. Risk: pushing through compounds the damage.",
+    ail: "Depletion signal. Body and mind demand restoration. Let people show up for you.",
+    si: "End of a chapter. Necessary closure makes space. Risk: ending too soon or too late — discernment is everything.",
+    end: "Completion energy. The love was real even if the duration was finite. Grieve fully and release.",
+    mu: "Entomb in dormancy. Underground processing during external stillness. Risk: mistaking dormancy for death.",
+    entomb: "Quiet preservation. Seeds germinate in darkness. Trust the unseen work.",
+    jue: "Extinguish — absolute ending. What was is irretrievably gone. Risk: despair blocking awareness of the next beginning.",
+    extinguish: "Final dissolution. Release completely. Conception follows extinction.",
+    tai: "Conceive new potential. First spark after emptiness. Trust inner stirring before external validation.",
+    conceive: "Gestation phase. Fragile beginning — guard energy and surround yourself with believers.",
+    yang: "Nurture steady growth. Quiet daily work of making something thrive. The most important phase.",
+    nurture: "Sustaining care that turns potential into reality. The nurturer needs nurturing too.",
+
+    suiyi: "Courier of messages and movement. News and travel accelerate growth. Risk: transmitting without processing.",
+    courier: "Information conduit. Your introductions carry weight — connect with care.",
+    huagai: "Hermit in productive solitude. Deep work requires withdrawal. Risk: isolation becoming loneliness.",
+    hermit: "Wise recluse returning with insight. Space is not rejection — communicate your needs.",
+    jiesha: "Robber of resources. Loss risk heightened. Secure what matters — the warning is the gift.",
+    robber: "Vulnerability signal. Distinguish genuine threat from projected fear.",
+    zaisha: "Calamity approaching. Preparation determines setback versus catastrophe. Risk: crisis normalization.",
+    calamity: "Early warning system. Alertness without alarmism protects without exhausting.",
+    tiansha: "HeavenlySha of karmic threat. Consequences surfacing from past actions. Risk: fatalism replacing agency.",
+    heavenlysha: "Sacred alarm. Trust your instincts — then verify before acting.",
+    zhibei: "Accuser drawing scrutiny. Criticism and blame approach. Risk: fighting every accusation.",
+    accuser: "Accountability mirror. If you acted with integrity, the scrutiny will pass.",
+    jiangxing: "Commander called to lead. The situation requiring you approaches. Risk: commanding without consent.",
+    commander: "War leader emerging in conflict. Check: leading or collaborating?",
+    panan: "Ascendant on the rise. Multiple domains improving together. Risk: rising without foundation.",
+    ascendant: "Rising star. Distinguish genuine connection from proximity to ascent.",
+    suipo: "Yearbreaker shattering patterns. Annual disruption surfaces hidden cracks. Risk: breaking what needed repair.",
+    yearbreaker: "Pattern breaker. What shatters was already cracked — and not every tradition is oppression.",
+    longde: "DragonVirtue of protection. Misfortunes deflected. Guardian figures arrive. Give thanks.",
+    dragonvirtue: "Protected status. Integrity is your shield. Recognize those who protect you.",
+    baihu: "WhiteTiger of fierce defense. Confrontations require your strength. Risk: fighting battles not yours.",
+    whitetiger: "Guardian at the gate. Protect without possessing.",
+    diaoke: "MournerGuest bearing witness. Your presence at others' loss matters. Risk: absorbing grief without processing yours.",
+    mournerguest: "Called to grief ceremonies. Sacred work — ensure someone witnesses yours.",
+    bingfu: "SickCharm of vulnerability. Minor ailments compound without care. Respond to the body's whisper.",
+    sickcharm: "Health signal. Those who care for you in sickness earn trust in health.",
+    dahao: "BigLoss of major resources. Tighten budgets now. Risk: desperate moves creating larger losses.",
+    bigloss: "Major depletion warning. Steady response beats reactive scrambling.",
+    xiaohao: "SmallLoss of slow leakage. Audit subscriptions and habits. Risk: focusing on pennies, missing pounds.",
+    smallloss: "Efficiency monitor. Address small grievances before they become major ruptures.",
   };
   const key = name.toLowerCase().replace(/\s+/g, "");
   return briefs[key] ?? "";
@@ -1539,6 +1594,154 @@ export const STAR_ARCHETYPE_MAP: Record<string, StarArchetype> = {
     riskManagement: "Spiritual bypassing: using transcendence to avoid material responsibilities and emotional processing. The mystic's path includes the mundane.",
     relationships: "Your depth attracts seekers — but ensure your partner is with you on the journey, not just following your light from a distance.",
   },
+
+  // ══════════════════════════════════════════════════════════════════════
+  // Batch 2/3 — 26 Minor Stars: life-cycle, annual sha, destiny modifiers
+  // ══════════════════════════════════════════════════════════════════════
+
+  // ── Life-Cycle Stars (12) ──
+
+  changsheng: {
+    archetype: "Birth",
+    psychological: "Initiating energy — you bring new projects, ideas, and phases into existence with fresh enthusiasm and generative vitality.",
+    sociological: "Genesis point — groups form around your initial spark. You are the beginning others build upon.",
+    management: "Strong at launching initiatives. Excel in startup phases, project kickoffs, and zero-to-one creation.",
+    prediction: "The Birth star signals new beginnings: its transit marks the start of a 12-phase growth cycle. Ventures launched now carry foundational momentum for years.",
+    riskManagement: "Starting without finishing: the excitement of beginnings can mask the discipline needed for completion. Partner with those who sustain what you initiate.",
+    relationships: "New relationships formed under this transit carry special potential — but the birth is just the beginning. Nurture what you start.",
+  },
+
+  guandai: {
+    archetype: "Initiate",
+    psychological: "Formative energy — you are developing competence and confidence. Eagerness exceeds experience; curiosity exceeds mastery.",
+    sociological: "Apprentice role — you learn from those ahead while bringing fresh eyes that veterans may have lost.",
+    management: "Strong in learning phases. Excel with mentorship and structured growth paths.",
+    prediction: "The Initiate star signals a learning phase: skill development and formative experiences arrive within 3-12 months.",
+    riskManagement: "Premature independence: declaring readiness before foundations solidify. Stay in apprenticeship until the craft is internalized.",
+    relationships: "You are forming your relational self — observe healthy relationships and learn patterns you want to embody.",
+  },
+
+  linguan: {
+    archetype: "Officiate",
+    psychological: "Coming-into-authority energy. You step into first real responsibilities and discover your capacity for leadership.",
+    sociological: "Junior leader — others begin deferring to you in your growing domain. Your word starts carrying weight.",
+    management: "Strong in first-time leadership. Excel with real responsibility and support, not micromanagement.",
+    prediction: "The Officiate star signals career entry: first promotions and professional recognition within 6-18 months.",
+    riskManagement: "Authority without experience: the gap between responsibility and capability creates stress. Seek mentors who walked this path.",
+    relationships: "Your growing confidence attracts. Balance new authority with the humility of still learning.",
+  },
+
+  diwang: {
+    archetype: "Peak",
+    psychological: "Maximum power phase — abilities, confidence, and influence at their life-cycle zenith. Everything clicks into place.",
+    sociological: "Central node — the network routes through you at peak. Your decisions affect more people than ever.",
+    management: "Peak leadership performance. Excel in high-stakes roles where maximum capability is required.",
+    prediction: "The Peak star signals apex of a life cycle: career height and maximum influence within 1-3 years. Enjoy it — peaks are summits, not permanent residences.",
+    riskManagement: "Peak illusion: assuming the summit is permanent. Every peak is followed by descent. Prepare the next phase during the current height.",
+    relationships: "Your magnetism peaks — ensure those drawn to your power would stay through your decline. Peak attracts; character retains.",
+  },
+
+  shuai: {
+    archetype: "Wane",
+    psychological: "Post-peak recalibration. Energy naturally declines after sustained effort. This is rest and integration, not failure.",
+    sociological: "Graceful decline — you model that diminishing is natural and not shameful. Wisdom transfers as power recedes.",
+    management: "Strong in advisory and mentorship as direct execution energy pulls back. Knowledge transfer becomes your primary contribution.",
+    prediction: "The Wane star signals natural decline: reduced energy and shifting priorities within 6-12 months. This phase prepares the next cycle.",
+    riskManagement: "Resisting natural rhythm: fighting decline exhausts faster than accepting it. Rest now to prepare for the next birth.",
+    relationships: "Relationships deepen when performance stops. Those who stay through your waning phase are your true people.",
+  },
+
+  bing: {
+    archetype: "Ail",
+    psychological: "Vulnerability phase — physical or emotional resources are depleted. Sensitivity heightens; resilience temporarily lowers.",
+    sociological: "Care-receiver role — you need support from others now. Accepting help is a skill, not a weakness.",
+    management: "Reduced capacity requiring essentialist prioritization. Excel by doing less but doing the right things.",
+    prediction: "The Ail star signals depletion: health or energy issues surface within 3-6 months. Rest is not optional.",
+    riskManagement: "Pushing through depletion compounds damage. The body and mind demand rest — longer delay means longer recovery.",
+    relationships: "This phase reveals who truly supports you. Let people show up. Vulnerability offered is intimacy received.",
+  },
+
+  si: {
+    archetype: "End",
+    psychological: "Completion energy — something must end: a phase, relationship, career chapter, or identity construct.",
+    sociological: "Closure agent — you facilitate endings others resist but need. Your willingness to let go gives others permission.",
+    management: "Strong at project closure and graceful exits. Excel at wrapping up what no longer serves.",
+    prediction: "The End star signals necessary conclusion: a chapter closes within 3-12 months. What ends makes space. Grieve — then look forward.",
+    riskManagement: "Timing the close: end too soon and miss the lesson; end too late and prolong suffering. Discernment is everything.",
+    relationships: "Some relationships reach their natural end. The love was real even if the duration was finite. Grieve fully and release.",
+  },
+
+  mu: {
+    archetype: "Entomb",
+    psychological: "Dormancy and preservation energy. After ending comes quiet — nothing visible happens but deep processing occurs underground.",
+    sociological: "Memory keeper — you preserve what was valuable from what ended. Cultural and emotional memory passes through you.",
+    management: "Strong at documentation, archiving, and preserving institutional knowledge through transition.",
+    prediction: "The Entomb star signals dormancy: external stillness with internal processing within 3-12 months. Seeds germinate in darkness. Trust the unseen work.",
+    riskManagement: "Mistaking dormancy for death: giving up because nothing visible happens. The seed in soil is alive, not dead. Wait.",
+    relationships: "Solitude in this phase is natural. Those who respect your need for quiet processing are keepers.",
+  },
+
+  jue: {
+    archetype: "Extinguish",
+    psychological: "Absolute ending — the final dissolution of what was. Most difficult phase: what was is irretrievably gone.",
+    sociological: "Grief witness — you sit with loss when others want to move past it. Bearing witness to endings is sacred work.",
+    management: "Strong at final closure: dissolutions, cancellations, releasing what cannot be saved. Honesty in endings is rare skill.",
+    prediction: "The Extinguish star signals irreversible ending within 1-6 months. Release completely. What is meant to survive returns in new form next cycle.",
+    riskManagement: "Despair at finality: concluding nothing will ever grow again. It will — but first, conception follows extinction.",
+    relationships: "The relationship ending here is truly over. Do not haunt what has passed. Honor it and release.",
+  },
+
+  tai: {
+    archetype: "Conceive",
+    psychological: "Gestation energy — after emptiness of extinction, the first spark of new life. You sense possibility before it has form.",
+    sociological: "Vision holder — you carry the seed of what is coming before others perceive it. Hope in this phase is precious and fragile.",
+    management: "Strong at early ideation and vision-setting. Excel in the pre-manifest phase of creation when nothing is yet visible.",
+    prediction: "The Conceive star signals new potential forming: pregnancy (literal or metaphorical), new idea, fresh direction within 3-9 months. Trust the inner stirring before external validation arrives.",
+    riskManagement: "Protecting fragile beginnings: the newly conceived is easily lost. Guard energy, avoid harsh environments, surround yourself with believers.",
+    relationships: "A new relational possibility stirs — literal conception or a new kind of connection. Tend the seed gently.",
+  },
+
+  yang: {
+    archetype: "Nurture",
+    psychological: "Sustaining energy — you feed, protect, and grow what was conceived. The quiet, daily work of making something thrive.",
+    sociological: "Nurturer role — your consistent care turns potential into reality. Patience determines the quality of what emerges.",
+    management: "Strong at growth phase after launch. Excel at building systems for sustainable expansion over flashy growth.",
+    prediction: "The Nurture star signals steady growth: consistent progress and deepening foundations within 6-18 months. The long middle — least dramatic but most important phase.",
+    riskManagement: "Nurturing neglect: sustaining others while depleting yourself. The nurturer needs nurturing too. Schedule replenishment.",
+    relationships: "Your consistent care deepens bonds. This is where relationships transition from excitement to substance.",
+  },
+
+  // ── Annual & Sha Stars (14) ──
+
+  suiyi: { archetype: "Courier", psychological: "Restless messenger energy — you carry news, opportunities, and connections between people and places.", sociological: "Information conduit — news flows through you. Network value comes from what you transmit.", management: "Strong in communications, logistics, and roles where information velocity drives advantage.", prediction: "The Courier star activates movement: news, travel, important communications within 1-3 months. Annual cycles favor mobility.", riskManagement: "Information overload: transmitting without processing. Some messages need reflection, not forwarding.", relationships: "You connect people — sometimes romantically. Your introductions carry weight; introduce with care." },
+
+  huagai: { archetype: "Hermit", psychological: "Solitude-seeking with deep introspective capacity. Withdrawal periods are productive, not antisocial — you return with insight.", sociological: "Wise recluse — periodic withdrawals serve the group by producing clarity others cannot generate in noise.", management: "Strong in research, writing, and deep-work roles requiring uninterrupted focus and autonomy.", prediction: "The Hermit star signals withdrawal: reduced social activity and deep inner work within 3-12 months. Productive isolation — treat as creative residency.", riskManagement: "Isolation excess: solitude becoming loneliness. Return periodically to share what was discovered.", relationships: "You need space others may not understand. Communicate: 'I am withdrawing to recharge, not rejecting you.'" },
+
+  jiesha: { archetype: "Robber", psychological: "Loss sensitivity — attuned to what can be taken: resources, time, opportunities, trust.", sociological: "Vulnerability signal — your presence alerts groups to what risks being lost or stolen.", management: "Strong in security, risk assessment, and asset protection where vigilance is professional virtue.", prediction: "The Robber star signals loss risk: theft, betrayal, or resource depletion within 3-6 months. Secure what matters. The warning is the gift.", riskManagement: "Hypervigilance cost: seeing threats everywhere exhausts you and alienates allies. Distinguish genuine risk from projected fear.", relationships: "Trust issues surface. Past betrayals color present perceptions. Check: untrustworthy person, or old wounds projecting?" },
+
+  zaisha: { archetype: "Calamity", psychological: "Crisis anticipation — heightened pattern recognition of systemic weakness. Not paranoia but early warning instinct.", sociological: "Early warning system — your alarm protects groups by surfacing catastrophic possibilities others overlook.", management: "Strong in disaster preparedness and business continuity where worst-case thinking saves lives and assets.", prediction: "The Calamity star signals acute crisis risk within 1-6 months. Preparation determines setback versus catastrophe.", riskManagement: "Crisis normalization: living in emergency mode burns reserves. Distinguish alertness from alarmism.", relationships: "Crisis bonds or breaks people. Relationships surviving calamity with you are forged in fire." },
+
+  tiansha: { archetype: "HeavenlySha", psychological: "Existential threat sensitivity — perceiving dangers beyond material: spiritual, karmic, cosmic.", sociological: "Sacred alarm — you warn of consequences beyond visible. Others dismiss until manifestations prove you right.", management: "Strong in moral and ethical risk assessment. Your 'something feels wrong' instinct is usually correct.", prediction: "The Heavenly Sha star signals karmic threat: consequences of past collective actions surfacing within 6-12 months.", riskManagement: "Cosmic fatalism: attributing to fate what belongs to human agency. Some things are karmic; many are choices.", relationships: "You sense danger in relationships others miss. Trust instincts — but verify before acting. Intuition is data, not verdict." },
+
+  zhibei: { archetype: "Accuser", psychological: "Blame sensitivity — acutely aware of being judged, criticized, or scapegoated by others.", sociological: "Accountability mirror — your presence makes others defensive because you reflect what they avoid seeing.", management: "Strong in quality assurance and audit where holding people accountable despite resistance is essential.", prediction: "The Accuser star signals scrutiny: criticism and blame within 3-6 months. If you acted with integrity, scrutiny passes.", riskManagement: "Defensive overreaction: fighting every accusation exhausts. Some criticism is projection — discern what is yours.", relationships: "Others may project guilt onto you. You are not responsible for how others see themselves." },
+
+  jiangxing: { archetype: "Commander", psychological: "Command presence — you naturally take charge in chaos. Others look to you when direction is needed.", sociological: "War leader emerging during conflict. Decisiveness under pressure is your primary social value.", management: "Strong in competitive environments requiring rapid, confident decision-making under fire.", prediction: "The Commander star signals leadership activation: you will be called to lead within 3-9 months. The situation approaches.", riskManagement: "Command without consent: leading when no one asked creates resentment. Authority is granted, not seized.", relationships: "Decisiveness attracts followers — but partnerships require equality, not command. Check: leading or collaborating?" },
+
+  panan: { archetype: "Ascendant", psychological: "Rising energy — upward trajectory across multiple life domains simultaneously.", sociological: "Rising star — others notice ascent and adjust behavior. Some support; some envy.", management: "Strong during promotion phases. Excel when upward momentum is self-reinforcing.", prediction: "The Ascendant star signals comprehensive rise: career, status, growth trending up within 6-18 months. Multiple domains improve together.", riskManagement: "Ascent without foundation: rising too fast creates instability. Earn and integrate each level before reaching for next.", relationships: "Rising attracts attention — some romantic. Distinguish genuine connection from proximity-seeking to ascent." },
+
+  suipo: { archetype: "Yearbreaker", psychological: "Disruption sensitivity — experiencing annual breaking of patterns and assumptions more acutely than most.", sociological: "Pattern breaker — presence disrupts comfortable routines. Destabilizing short-term, necessary long-term.", management: "Strong in organizational change. Excel when status quo has become stagnation needing disruption.", prediction: "The Yearbreaker star signals annual disruption: the year's major pattern breaks within the current cycle. What shatters was already cracked.", riskManagement: "Breaking what needed repair: not every tradition is oppression. Disruption without discernment destroys as much as it liberates.", relationships: "Annual relationship tests: this transit surfaces incompatibilities always present but previously ignored." },
+
+  longde: { archetype: "DragonVirtue", psychological: "Noble protection energy — almost visible aura of benevolent forces watching over you.", sociological: "Protected status — others sense harming you carries consequences. Implicit safety in social situations.", management: "Strong in roles requiring moral authority. Your integrity is your shield.", prediction: "The Dragon Virtue star brings powerful protection: major misfortunes deflected during transit. Guardian figures and narrow escapes arrive.", riskManagement: "Protection dependency: expecting rescue rather than building resilience. Protection is gift, not entitlement.", relationships: "Benevolent people enter — mentors, protectors, allies. Recognize and thank them." },
+
+  baihu: { archetype: "WhiteTiger", psychological: "Fierce protective energy — you defend what is yours with uncompromising intensity. Ferocity as love language.", sociological: "Guardian at the gate — the person others want between them and danger. Fierceness as public service.", management: "Strong in security and enforcement where intimidating presence deters threats before they materialize.", prediction: "The White Tiger star activates protective fierceness: confrontations arise within 3-6 months. The fight finds you — ensure it is yours.", riskManagement: "Fighting battles not yours: ferocity is finite. Deploy where it matters most, not where merely provoked.", relationships: "You protect loved ones fiercely — beautiful. Ensure protection does not become possession. The guarded are not the owned." },
+
+  diaoke: { archetype: "MournerGuest", psychological: "Grief proximity — drawn into others' mourning by circumstance or calling.", sociological: "Funeral attendee — presence at others' losses is meaningful. Bearing witness when witness is needed.", management: "Strong in bereavement support and memorial work where grief literacy is essential.", prediction: "The Mourner Guest star signals proximity to loss: funerals, endings, grief ceremonies within 3-9 months. Your presence matters more than you know.", riskManagement: "Grief absorption: carrying others' sorrow without processing your own. Witness grief; do not become it.", relationships: "Called to be present for others' losses — sacred work. Ensure someone is present for yours." },
+
+  bingfu: { archetype: "SickCharm", psychological: "Health vulnerability — physical resilience lower during transit. Prevention more effective than treatment.", sociological: "Health signal — your condition alerts network to systemic health risks.", management: "Reduced capacity requiring careful prioritization. Excel by doing less but better.", prediction: "The Sick Charm star signals health vulnerability: minor ailments may compound within 3-6 months. Prevention and early intervention critical.", riskManagement: "Ignoring early symptoms: body's whispers become shouts. Respond to the whisper.", relationships: "Reveals who shows up when you are not at your best. Those who care for you in sickness earn trust in health." },
+
+  dahao: { archetype: "BigLoss", psychological: "Loss magnitude sensitivity — when you lose, you lose big. Makes you either extremely cautious or dangerously reckless.", sociological: "Resource drain signal — presence warns groups of financial vulnerability in specific domains.", management: "Strong in cost control and preventing organizational waste. Loss aversion protects collective resources.", prediction: "The Big Loss star signals major resource depletion within 6-12 months. Tighten budgets now.", riskManagement: "Loss panic: desperate moves to avoid loss creating larger losses. Steady response beats reactive scrambling.", relationships: "Generosity may be exploited. Give from surplus, not need. True friends do not ask for what you cannot afford." },
+
+  xiaohao: { archetype: "SmallLoss", psychological: "Leakage sensitivity — noticing small, cumulative losses others overlook until significant.", sociological: "Efficiency monitor — attention to small drains protects group resources from death by a thousand cuts.", management: "Strong in operational efficiency and eliminating waste. Pennies saved compound dramatically.", prediction: "The Small Loss star signals slow resource leakage within 3-12 months. Audit subscriptions, habits, commitments.", riskManagement: "Nickel-and-diming: focusing on small costs at expense of large value. Not everything measurable matters.", relationships: "Small resentments accumulate. Address minor grievances before they become major ruptures." },
 };
 
 // ---------------------------------------------------------------------------

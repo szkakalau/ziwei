@@ -44,8 +44,8 @@ describe("STAR_ARCHETYPE_MAP", () => {
     expect(keys).toContain("sage");
     expect(keys).toContain("sevenkillings");
     expect(keys).toContain("rebel");
-    // 14 main + 6 auspicious + 6 inauspicious + 4 transformation + 26 minor batch1 = 56
-    expect(keys.length).toBe(56);
+    // 14 main + 6 auspicious + 6 inauspicious + 4 transformation + 26 batch1 + 26 batch2 = 82
+    expect(keys.length).toBe(82);
   });
 
   it("all 30 stars have complete 6-field descriptions", () => {
