@@ -1,15 +1,35 @@
 import type { Metadata } from "next";
 import PricingTable from "@/components/PricingTable";
+import { getSiteUrl } from "@/lib/site";
+import { BRAND_NAME } from "@/lib/brand";
+
+const site = getSiteUrl();
 
 export const metadata: Metadata = {
   title: "Pricing",
   description:
     "Simple pricing for DestinyBlueprint — free chart snapshot and personalized Zi Wei email readings.",
+  alternates: { canonical: new URL("/pricing", site).toString() },
+  openGraph: {
+    type: "website",
+    title: `Pricing | ${BRAND_NAME}`,
+    description:
+      "Simple pricing for DestinyBlueprint — free chart snapshot and personalized Zi Wei email readings.",
+    url: new URL("/pricing", site),
+    images: [
+      {
+        url: new URL("/opengraph-image", site).toString(),
+        width: 1200,
+        height: 630,
+        alt: `${BRAND_NAME} — Pricing`,
+      },
+    ],
+  },
 };
 
 export default function PricingPage() {
   return (
-    <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
+    <main className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
       <header className="text-center">
         <h1 className="font-display text-4xl font-semibold tracking-tight text-ink md:text-5xl">
           Simple, transparent pricing
@@ -21,6 +41,6 @@ export default function PricingPage() {
       </header>
 
       <PricingTable />
-    </div>
+    </main>
   );
 }

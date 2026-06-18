@@ -1,15 +1,33 @@
 import type { Metadata } from "next";
 import { BRAND_NAME, getSupportEmail } from "@/lib/brand";
+import { getSiteUrl } from "@/lib/site";
+
+const site = getSiteUrl();
 
 export const metadata: Metadata = {
   title: "Contact",
   description: `Contact ${BRAND_NAME} for support and privacy requests.`,
+  alternates: { canonical: new URL("/contact", site).toString() },
+  openGraph: {
+    type: "website",
+    title: `Contact | ${BRAND_NAME}`,
+    description: `Contact ${BRAND_NAME} for support and privacy requests.`,
+    url: new URL("/contact", site),
+    images: [
+      {
+        url: new URL("/opengraph-image", site).toString(),
+        width: 1200,
+        height: 630,
+        alt: `${BRAND_NAME} — Contact`,
+      },
+    ],
+  },
 };
 
 export default function ContactPage() {
   const support = getSupportEmail();
   return (
-    <div className="mx-auto max-w-2xl px-4 py-12 sm:px-6 sm:py-16">
+    <main className="mx-auto max-w-2xl px-4 py-12 sm:px-6 sm:py-16">
       <h1 className="font-display text-3xl font-semibold text-ink sm:text-4xl md:text-5xl">
         Contact
       </h1>
@@ -23,6 +41,6 @@ export default function ContactPage() {
         </a>
         .
       </p>
-    </div>
+    </main>
   );
 }

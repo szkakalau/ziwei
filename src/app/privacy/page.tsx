@@ -1,13 +1,32 @@
 import type { Metadata } from "next";
+import { getSiteUrl } from "@/lib/site";
+import { BRAND_NAME } from "@/lib/brand";
+
+const site = getSiteUrl();
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
   description: "How DestinyBlueprint handles personal and birth-related information.",
+  alternates: { canonical: new URL("/privacy", site).toString() },
+  openGraph: {
+    type: "website",
+    title: `Privacy Policy | ${BRAND_NAME}`,
+    description: "How DestinyBlueprint handles personal and birth-related information.",
+    url: new URL("/privacy", site),
+    images: [
+      {
+        url: new URL("/opengraph-image", site).toString(),
+        width: 1200,
+        height: 630,
+        alt: `${BRAND_NAME} — Privacy Policy`,
+      },
+    ],
+  },
 };
 
 export default function PrivacyPage() {
   return (
-    <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
+    <main className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
       <h1 className="font-display text-4xl font-semibold text-ink md:text-5xl">
         Privacy Policy
       </h1>
@@ -35,6 +54,6 @@ export default function PrivacyPage() {
           contacting us via the Contact page.
         </p>
       </div>
-    </div>
+    </main>
   );
 }

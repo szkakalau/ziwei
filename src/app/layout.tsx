@@ -4,6 +4,7 @@ import Script from "next/script";
 import LayoutChrome from "@/components/LayoutChrome";
 import { BRAND_NAME, DEFAULT_META_DESCRIPTION } from "@/lib/brand";
 import { getSiteUrl } from "@/lib/site";
+import JsonLd from "@/components/JsonLd";
 import "./globals.css";
 
 const display = Fraunces({
@@ -102,6 +103,23 @@ export default function RootLayout({
             </Script>
           </>
         ) : null}
+        {/* JSON-LD Structured Data */}
+        <JsonLd
+          data={{
+            "@type": "Organization",
+            name: BRAND_NAME,
+            url: siteUrl.toString(),
+            description: DEFAULT_META_DESCRIPTION,
+            email: "support@destinyblueprint.xyz",
+          }}
+        />
+        <JsonLd
+          data={{
+            "@type": "WebSite",
+            name: BRAND_NAME,
+            url: siteUrl.toString(),
+          }}
+        />
         <LayoutChrome>{children}</LayoutChrome>
       </body>
     </html>

@@ -5,11 +5,31 @@ import {
   getAllPosts,
   type BlogCategory,
 } from "@/lib/blog";
+import { getSiteUrl } from "@/lib/site";
+import { BRAND_NAME } from "@/lib/brand";
+
+const site = getSiteUrl();
 
 export const metadata: Metadata = {
   title: "Blog",
   description:
     "Articles on Zi Wei Dou Shu (Purple Star astrology), the Chinese zodiac, five elements, love and compatibility—explained in plain English.",
+  alternates: { canonical: new URL("/blog", site).toString() },
+  openGraph: {
+    type: "website",
+    title: `Blog | ${BRAND_NAME}`,
+    description:
+      "Articles on Zi Wei Dou Shu (Purple Star astrology), the Chinese zodiac, five elements, love and compatibility—explained in plain English.",
+    url: new URL("/blog", site),
+    images: [
+      {
+        url: new URL("/opengraph-image", site).toString(),
+        width: 1200,
+        height: 630,
+        alt: `${BRAND_NAME} — Blog`,
+      },
+    ],
+  },
 };
 
 type Props = {
@@ -31,7 +51,7 @@ export default function BlogPage({ searchParams }: Props) {
   );
 
   return (
-    <div className="mx-auto max-w-5xl px-4 py-16 sm:px-6">
+    <main className="mx-auto max-w-5xl px-4 py-16 sm:px-6">
       <header>
         <h1 className="font-display text-4xl font-semibold tracking-tight text-ink md:text-5xl">
           Blog
@@ -100,6 +120,6 @@ export default function BlogPage({ searchParams }: Props) {
           No posts in this category yet.
         </p>
       )}
-    </div>
+    </main>
   );
 }

@@ -1,14 +1,34 @@
 import type { Metadata } from "next";
+import { getSiteUrl } from "@/lib/site";
+import { BRAND_NAME } from "@/lib/brand";
+
+const site = getSiteUrl();
 
 export const metadata: Metadata = {
   title: "About",
   description:
     "Our mission: make classical Chinese astrology accessible with AI—for reflection and entertainment.",
+  alternates: { canonical: new URL("/about", site).toString() },
+  openGraph: {
+    type: "website",
+    title: `About | ${BRAND_NAME}`,
+    description:
+      "Our mission: make classical Chinese astrology accessible with AI—for reflection and entertainment.",
+    url: new URL("/about", site),
+    images: [
+      {
+        url: new URL("/opengraph-image", site).toString(),
+        width: 1200,
+        height: 630,
+        alt: `${BRAND_NAME} — About`,
+      },
+    ],
+  },
 };
 
 export default function AboutPage() {
   return (
-    <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
+    <main className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
       <h1 className="font-display text-4xl font-semibold tracking-tight text-ink md:text-5xl">
         Our mission: make ancient astrology accessible
       </h1>
@@ -36,6 +56,6 @@ export default function AboutPage() {
           crisis support), please consult a qualified expert.
         </p>
       </div>
-    </div>
+    </main>
   );
 }

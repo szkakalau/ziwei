@@ -1,13 +1,32 @@
 import type { Metadata } from "next";
+import { getSiteUrl } from "@/lib/site";
+import { BRAND_NAME } from "@/lib/brand";
+
+const site = getSiteUrl();
 
 export const metadata: Metadata = {
   title: "Terms of Service",
   description: "Terms of use for DestinyBlueprint readings and website.",
+  alternates: { canonical: new URL("/terms", site).toString() },
+  openGraph: {
+    type: "website",
+    title: `Terms of Service | ${BRAND_NAME}`,
+    description: "Terms of use for DestinyBlueprint readings and website.",
+    url: new URL("/terms", site),
+    images: [
+      {
+        url: new URL("/opengraph-image", site).toString(),
+        width: 1200,
+        height: 630,
+        alt: `${BRAND_NAME} — Terms of Service`,
+      },
+    ],
+  },
 };
 
 export default function TermsPage() {
   return (
-    <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
+    <main className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
       <h1 className="font-display text-4xl font-semibold text-ink md:text-5xl">
         Terms of Service
       </h1>
@@ -35,6 +54,6 @@ export default function TermsPage() {
           from use of the service.
         </p>
       </div>
-    </div>
+    </main>
   );
 }
