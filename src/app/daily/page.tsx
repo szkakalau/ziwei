@@ -83,7 +83,7 @@ export default function DailyPage() {
       const results = await Promise.allSettled([
         fetch("/api/generate-daily", { method: "POST" }),
         fetch("/api/chart"),
-        fetch("/api/streak"),
+        fetch("/api/streak", { method: "POST" }),
       ]);
 
       const [h, c, s] = results;
@@ -123,10 +123,6 @@ export default function DailyPage() {
       if (s.status === "fulfilled" && s.value.ok) {
         const d = await s.value.json(); if (d.ok) setStreak(d.streak ?? 0);
       }
-      fetch("/api/streak", { method: "POST" })
-        .then(r => r.ok ? r.json() : null)
-        .then(d => { if (d?.ok) setStreak(d.streak); })
-        .catch(() => {});
     } catch {
       setError("Today's stars are taking longer than usual.");
     } finally {
