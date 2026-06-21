@@ -1,6 +1,6 @@
 import type { ChartLike } from "@/lib/personalitySnapshot";
 import { getDailyTransit, type DailyTransit } from "@/lib/dailyTransit";
-import { formatStarName } from "@/lib/zwdsNaming";
+
 
 export interface HoroscopeOutput {
   text: string;
@@ -68,7 +68,7 @@ async function callDeepSeek(systemPrompt: string, userPrompt: string): Promise<s
         { role: "system", content: systemPrompt },
         { role: "user", content: userPrompt },
       ],
-      max_tokens: 800,
+      max_tokens: 1200,
       temperature: 0.8,
     }),
     signal: AbortSignal.timeout(20_000),
@@ -92,7 +92,7 @@ async function callOpenAI(systemPrompt: string, userPrompt: string): Promise<str
         { role: "system", content: systemPrompt },
         { role: "user", content: userPrompt },
       ],
-      max_tokens: 800,
+      max_tokens: 1200,
       temperature: 0.8,
     }),
     signal: AbortSignal.timeout(20_000),
@@ -139,17 +139,45 @@ Today's stars remind us: flow with the opportunities, heed the cautions, and sta
 function validateHoroscope(text: string): string {
   const cleaned = text.trim();
   if (cleaned.length < 80) throw new Error("Horoscope too short");
-  if (cleaned.length > 1200) return cleaned.slice(0, 1200);
-  return cleaned;
+
+  const MAX_CHARS = 2000;
+  if (cleaned.length <= MAX_CHARS) return cleaned;
+
+  // Truncate at the last sentence boundary before MAX_CHARS.
+  // Search backwards from MAX_CHARS for `. `, `! `, `?\n`, `.\n`, or `\n\n`.
+  const truncateAt = cleaned.lastIndexOf(". ", MAX_CHARS);
+  const exclaim = cleaned.lastIndexOf("! ", MAX_CHARS);
+  const question = cleaned.lastIndexOf("? ", MAX_CHARS);
+  const dotNewline = cleaned.lastIndexOf(".\n", MAX_CHARS);
+  const para = cleaned.lastIndexOf("\n\n", MAX_CHARS);
+
+  const cut = Math.max(truncateAt, exclaim, question, dotNewline, para);
+
+  // If a reasonable sentence boundary found (within last 300 chars), use it.
+  // Otherwise fall back to the last space to avoid mid-word cut.
+  if (cut > MAX_CHARS - 300 && cut < MAX_CHARS) {
+    return cleaned.slice(0, cut + 1).trimEnd(); // +1 to keep the period
+  }
+
+  const lastSpace = cleaned.lastIndexOf(" ", MAX_CHARS);
+  if (lastSpace > MAX_CHARS - 100) {
+    return cleaned.slice(0, lastSpace).trimEnd() + "…";
+  }
+
+  return cleaned.slice(0, MAX_CHARS).trimEnd() + "…";
 }
 
-/** Format today's 四化 stars as display names for the UI. */
+/**
+ * Return today's 四化 stars as raw iztro canonical keys.
+ * The frontend resolves display names, briefs, and keywords from these keys
+ * via formatStarName(), getStarBrief(), and getStarKeywords().
+ */
 function formatHighlightedStars(daily: DailyTransit): string[] {
   return [
-    formatStarName(daily.sihua.hualu),
-    formatStarName(daily.sihua.huaquan),
-    formatStarName(daily.sihua.huake),
-    formatStarName(daily.sihua.huaji),
+    daily.sihua.hualu,
+    daily.sihua.huaquan,
+    daily.sihua.huake,
+    daily.sihua.huaji,
   ];
 }
 

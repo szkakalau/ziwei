@@ -24,15 +24,21 @@ describe("generateHoroscope", () => {
 
     expect(result.source).toBe("template");
     expect(result.text.length).toBeGreaterThan(60);
-    // highlightedStars now returns project display names "Pinyin · Alias"
-    // for today's 4 daily transformation stars (流日四化)
+    // highlightedStars returns raw iztro canonical keys for today's 4 daily
+    // transformation stars (流日四化). Frontend resolves display names, briefs,
+    // and keywords from these keys.
+    const VALID_KEYS = [
+      "emperor", "advisor", "sun", "general", "fortunate", "upright", "empress",
+      "moon", "wolf", "judge", "minister", "sage", "sevenkillings", "rebel",
+      "wenchang", "wenqu", "zuofu", "youbi",
+    ];
     expect(result.highlightedStars.length).toBe(4);
     result.highlightedStars.forEach((s) => {
-      expect(s).toMatch(/·/); // "Pinyin · Alias" format
+      expect(VALID_KEYS).toContain(s);
     });
   });
 
-  it("highlightedStars returns 4 daily transformation stars in display format", async () => {
+  it("highlightedStars returns 4 daily transformation stars as raw iztro keys", async () => {
     (global.fetch as ReturnType<typeof vi.fn>).mockRejectedValue(new Error("offline"));
 
     const { generateHoroscope } = await import("@/lib/horoscopeGenerator");
@@ -40,13 +46,18 @@ describe("generateHoroscope", () => {
 
     // Always returns exactly 4 stars (today's 四化)
     expect(result.highlightedStars.length).toBe(4);
-    // Each star is formatted as "Pinyin · Alias"
+    // Each star is a raw iztro canonical key (lowercase, no spaces, no special chars)
+    const VALID_KEYS = [
+      "emperor", "advisor", "sun", "general", "fortunate", "upright", "empress",
+      "moon", "wolf", "judge", "minister", "sage", "sevenkillings", "rebel",
+      "wenchang", "wenqu", "zuofu", "youbi",
+    ];
     result.highlightedStars.forEach((s) => {
-      expect(s).toMatch(/^[A-Z][a-z]+(?: [A-Z][a-z]+)* · [A-Z][a-z]+(?: [A-Z][a-z]+)*$/);
-    });
-    // Verify no raw iztro keys leak through
-    result.highlightedStars.forEach((s) => {
-      expect(s).not.toMatch(/^(emperor|wolf|rebel|judge|general|sun|moon|sage|advisor|fortunate|upright|minister|empress|sevenkillings)$/);
+      expect(typeof s).toBe("string");
+      expect(s).toBe(s.toLowerCase());
+      expect(s).not.toContain(" ");
+      expect(s).not.toContain("·");
+      expect(VALID_KEYS).toContain(s);
     });
   });
 
