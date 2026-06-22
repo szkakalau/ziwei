@@ -35,6 +35,11 @@ export function BirthdaySurprise({ birthDate, streak }: BirthdaySurpriseProps) {
   if (!isBirthday && !isBirthdayWeek) return null;
 
   const age = today.getFullYear() - by;
+  const ordinal = (n: number) => {
+    const s = ["th", "st", "nd", "rd"];
+    const v = n % 100;
+    return n + (s[(v - 20) % 10] || s[v] || s[0]);
+  };
   const dateLabel = today.toLocaleDateString("en-US", {
     weekday: "long",
     month: "long",
@@ -77,6 +82,22 @@ export function BirthdaySurprise({ birthDate, streak }: BirthdaySurpriseProps) {
               ? "Come back on your birthday for a special annual personal insight reading."
               : "Here's a special annual personal insight reading to close out your birthday week."}
           </p>
+          {/* After the birthday has passed, let them generate the reading now. */}
+          {today.getTime() > thisYearBirthday.getTime() && (
+            <button
+              onClick={handleGenerateReading}
+              disabled={loading}
+              className="px-5 py-2.5 rounded-xl bg-amber-500/20 text-amber-300 text-xs font-medium
+                         border border-amber-500/25 hover:bg-amber-500/30
+                         disabled:opacity-50 transition-colors inline-flex items-center gap-2"
+            >
+              {loading ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Gift className="h-3.5 w-3.5" />}
+              {loading ? "Reading the stars..." : "Reveal Your Reading"}
+            </button>
+          )}
+          {error && (
+            <p className="text-red-400/70 text-xs mt-3 text-center">{error}</p>
+          )}
         </div>
       )}
 
@@ -114,7 +135,7 @@ export function BirthdaySurprise({ birthDate, streak }: BirthdaySurpriseProps) {
           <div className="flex items-center gap-2 mb-4">
             <Sparkles className="h-4 w-4 text-amber-400" />
             <h2 className="text-amber-200/90 text-sm font-semibold uppercase tracking-wider">
-              Your {age}th Year — Annual Personal Insight Reading
+              Your {ordinal(age)} Year — Annual Personal Insight Reading
             </h2>
           </div>
 
@@ -126,7 +147,7 @@ export function BirthdaySurprise({ birthDate, streak }: BirthdaySurpriseProps) {
             <ShareCard
               horoscopeText={reading}
               highlightedStars={[]}
-              date={`My ${age}th Birthday — ${dateLabel}`}
+              date={`My ${ordinal(age)} Birthday — ${dateLabel}`}
               streak={streak}
             />
           </div>

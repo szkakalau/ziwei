@@ -57,11 +57,17 @@ export default function DailyPage() {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ sessionId }),
-        }).catch(() => null)
-      : Promise.resolve(null);
+          // Don't let a stalled request hang the page on the loading skeleton.
+          signal: AbortSignal.timeout(10_000),
+        })
+          .then(() => true)
+          .catch(() => false)
+      : Promise.resolve(true);
 
-    verifyPromise.then(() => {
-      if (sessionId) {
+    verifyPromise.then((verifyOk) => {
+      // Only strip session_id on success — on failure, keep it so the user
+      // can reload to retry verification instead of being silently stuck.
+      if (sessionId && verifyOk) {
         window.history.replaceState(null, "", "/daily");
       }
       fetch("/api/auth/me")
@@ -211,9 +217,9 @@ export default function DailyPage() {
   const handleStartTrial = async () => {
     // The trial requires a consultation (focusArea + question), which is only
     // collected on the snapshot page. /api/checkout rejects allowTrial=true
-    // without consultation data (CONSULTATION_REQUIRED). So route the user to
-    // the snapshot form instead of calling checkout directly.
-    window.location.href = "/#free-personality-snapshot";
+    // without consultation data (CONSULTATION_REQUIRED). Route the user to the
+    // birth form (which flows into /snapshot where consultation is collected).
+    window.location.href = "/#birth-form";
   };
 
   // Subscribe directly without a free trial (for users who already used one).
@@ -337,7 +343,7 @@ export default function DailyPage() {
             Enter your birth details to generate your personalized Zi Wei Dou Shu chart.
           </p>
           <Link
-            href="/#free-personality-snapshot"
+            href="/#birth-form"
             className="btn-cosmic inline-flex items-center gap-2"
           >
             Enter Birth Details <ArrowRight className="h-4 w-4" />
