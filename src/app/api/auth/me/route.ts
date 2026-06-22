@@ -5,7 +5,15 @@ export const dynamic = "force-dynamic";
 
 export async function GET() {
   try {
-    const { getCurrentUser } = await import("@/lib/auth");
+    // Ensure the database schema is up to date before querying — initDatabase
+    // uses IF NOT EXISTS / IF NOT EXISTS so it's idempotent and near-instant
+    // when there's nothing to migrate.
+    const [{ getCurrentUser }, { initDatabase }] = await Promise.all([
+      import("@/lib/auth"),
+      import("@/lib/db"),
+    ]);
+    await initDatabase();
+
     const user = await getCurrentUser();
     if (!user) {
       return NextResponse.json({ ok: false, error: "NOT_AUTHENTICATED" }, { status: 401 });

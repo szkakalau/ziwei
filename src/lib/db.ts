@@ -1,4 +1,4 @@
-import { neon } from "@neondatabase/serverless";
+﻿import { neon } from "@neondatabase/serverless";
 
 function getSql() {
   const url = process.env.DATABASE_URL;
@@ -11,9 +11,12 @@ function getSql() {
 }
 
 // Every export calls getSql() internally, so the connection is only created
-// when a DB function is actually invoked — not at import time.
+// when a DB function is actually invoked 鈥?not at import time.
 // The target must be callable so the Proxy's apply trap fires for sql`...` syntax.
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
+let _autoMigrated = false;
+
 const sql: any = new Proxy(
   (() => {}) as unknown as Record<string | symbol, unknown>,
   {
@@ -21,16 +24,29 @@ const sql: any = new Proxy(
       const client = getSql();
       return (client as unknown as Record<string | symbol, unknown>)[prop];
     },
-    apply(_t, _thisArg, args) {
+    async apply(_t, _thisArg, args) {
       const client = getSql();
+      if (!_autoMigrated) {
+        _autoMigrated = true;
+        try { await migrateSchema(client); } catch (e) {
+          _autoMigrated = false;
+          console.error("[db] auto-migration failed:", e);
+        }
+      }
       return (client as (...a: unknown[]) => unknown)(...args);
     },
   },
 );
 
-/** Initialize database tables (idempotent — uses IF NOT EXISTS). */
+/** Initialize database tables (idempotent — uses IF NOT EXISTS).
+ *  Public wrapper — calls migrateSchema with a fresh connection. */
 export async function initDatabase(): Promise<void> {
-  await sql`
+  await migrateSchema(getSql());
+}
+
+/** Internal: run DDL against a pre-existing connection (for auto-migration). */
+async function migrateSchema(c: ReturnType<typeof getSql>): Promise<void> {
+  await c`
     CREATE TABLE IF NOT EXISTS users (
       id TEXT PRIMARY KEY DEFAULT gen_random_uuid()::text,
       email TEXT UNIQUE NOT NULL,
@@ -46,7 +62,7 @@ export async function initDatabase(): Promise<void> {
     )
   `;
 
-  await sql`
+  await c`
     CREATE TABLE IF NOT EXISTS daily_horoscopes (
       id TEXT PRIMARY KEY DEFAULT gen_random_uuid()::text,
       user_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
@@ -59,7 +75,7 @@ export async function initDatabase(): Promise<void> {
     )
   `;
 
-  await sql`
+  await c`
     CREATE TABLE IF NOT EXISTS push_tokens (
       id TEXT PRIMARY KEY DEFAULT gen_random_uuid()::text,
       user_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
@@ -69,22 +85,22 @@ export async function initDatabase(): Promise<void> {
     )
   `;
   // Backfill the UNIQUE constraint for deployments where the table already
-  // exists without it. Dedupe first — CREATE UNIQUE INDEX throws if duplicate
+  // exists without it. Dedupe first 鈥?CREATE UNIQUE INDEX throws if duplicate
   // (user_id, onesignal_player_id) rows already exist (they could have
   // accumulated before the constraint existed, since the old ON CONFLICT DO
   // NOTHING had no target and silently allowed dupes).
-  await sql`
+  await c`
     DELETE FROM push_tokens p1 USING push_tokens p2
     WHERE p1.user_id = p2.user_id
       AND p1.onesignal_player_id = p2.onesignal_player_id
       AND p1.id > p2.id
   `;
-  await sql`
+  await c`
     CREATE UNIQUE INDEX IF NOT EXISTS push_tokens_user_player_uniq
     ON push_tokens (user_id, onesignal_player_id)
   `;
 
-  await sql`
+  await c`
     CREATE TABLE IF NOT EXISTS stripe_events (
       event_id TEXT PRIMARY KEY,
       event_type TEXT NOT NULL,
@@ -92,7 +108,7 @@ export async function initDatabase(): Promise<void> {
     )
   `;
 
-  await sql`
+  await c`
     CREATE TABLE IF NOT EXISTS streaks (
       user_id TEXT PRIMARY KEY REFERENCES users(id) ON DELETE CASCADE,
       current_streak INTEGER DEFAULT 0,
@@ -103,16 +119,16 @@ export async function initDatabase(): Promise<void> {
   `;
 
   // Add columns to users for existing deployments (idempotent).
-  // has_used_trial: prevents infinite-free-trial abuse — once a user has
+  // has_used_trial: prevents infinite-free-trial abuse 鈥?once a user has
   //   consumed a trial, /api/checkout rejects re-granting one.
   // consultation_focus / consultation_question: persisted from the snapshot
   //   consultation form so the human-written email reading can use them.
-  await sql`ALTER TABLE users ADD COLUMN IF NOT EXISTS has_used_trial BOOLEAN DEFAULT false`;
-  await sql`ALTER TABLE users ADD COLUMN IF NOT EXISTS consultation_focus TEXT`;
-  await sql`ALTER TABLE users ADD COLUMN IF NOT EXISTS consultation_question TEXT`;
+  await c`ALTER TABLE users ADD COLUMN IF NOT EXISTS has_used_trial BOOLEAN DEFAULT false`;
+  await c`ALTER TABLE users ADD COLUMN IF NOT EXISTS consultation_focus TEXT`;
+  await c`ALTER TABLE users ADD COLUMN IF NOT EXISTS consultation_question TEXT`;
   // Backfill has_used_trial for existing users who already consumed a trial
-  // before this column existed — otherwise they could grab another free trial.
-  await sql`
+  // before this column existed 鈥?otherwise they could grab another free trial.
+  await c`
     UPDATE users SET has_used_trial = true
     WHERE has_used_trial = false
       AND (subscription_status IN ('trial', 'active') OR trial_ends_at IS NOT NULL)
@@ -207,7 +223,7 @@ export async function updateUserChart(
   `;
 }
 
-/** Update subscription status. `status` is optional — when omitted, the
+/** Update subscription status. `status` is optional 鈥?when omitted, the
  *  existing subscription_status is preserved (used by webhook handlers that
  *  only want to record the Stripe customer id without touching status). */
 export async function updateSubscription(
@@ -238,7 +254,7 @@ export async function updateConsultation(
   `;
 }
 
-/** Get all active (trial or paid) users — for cron batch generation.
+/** Get all active (trial or paid) users 鈥?for cron batch generation.
  *  Excludes expired trials (status='trial' but trial_ends_at in the past) so
  *  we don't burn LLM calls generating horoscopes for users who can't access them. */
 export async function getActiveUsers(): Promise<Array<{ id: string; birth_date: string | null; birth_time: string | null; birth_place: unknown; chart_data: unknown }>> {
@@ -268,7 +284,7 @@ export async function updateStreak(
   }
 
   // The neon driver parses a DATE column (oid 1082) into a JS Date object,
-  // not a string. Normalize to a YYYY-MM-DD string using LOCAL components —
+  // not a string. Normalize to a YYYY-MM-DD string using LOCAL components 鈥?
   // toISOString().slice(0,10) would shift UTC+8 local-midnight back one day.
   const rawLast = row.last_check_date;
   const lastDate = rawLast instanceof Date
@@ -299,7 +315,7 @@ export async function updateStreak(
     return newStreak;
   }
 
-  // Streak broken — reset to 1 (checked today)
+  // Streak broken 鈥?reset to 1 (checked today)
   await sql`
     UPDATE streaks SET
       current_streak = 1,
@@ -311,3 +327,7 @@ export async function updateStreak(
 }
 
 export { sql };
+
+
+
+
