@@ -80,6 +80,12 @@ export async function POST() {
     const chartSummary = formatChartDetailed(user.chart_data as Parameters<typeof formatChartDetailed>[0]);
     const year = new Date().getFullYear();
 
+    // Chart fingerprint — if the user corrected their birth data mid-year, the
+    // cached yearly reading (computed from the old chart) must be invalidated.
+    // Embed the fingerprint in transit_summary and compare on cache hit.
+    const chartFingerprint = `${user.birth_date ?? ""}|${user.birth_time ?? ""}`;
+    const transitMarker = `Annual reading for ${year} · chart:${chartFingerprint}`;
+
     // Cache check
     const cacheKey = `${year}-01-01`;
     const { getHoroscope } = await import("@/lib/db");
@@ -89,7 +95,7 @@ export async function POST() {
     } catch {
       // Cache miss — generate fresh
     }
-    if (cached && cached.horoscope_text && cached.transit_summary && cached.transit_summary.startsWith("Annual reading for")) {
+    if (cached && cached.horoscope_text && cached.transit_summary === transitMarker) {
       return NextResponse.json({ ok: true, reading: cached.horoscope_text, year, cached: true });
     }
 
@@ -117,7 +123,7 @@ export async function POST() {
       userId: user.id,
       date: cacheKey,
       horoscopeText: reading,
-      transitSummary: `Annual reading for ${year}`,
+      transitSummary: transitMarker,
       highlightedStars: [],
     }).catch(() => {});
 

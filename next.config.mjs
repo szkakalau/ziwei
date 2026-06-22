@@ -21,7 +21,7 @@ const nextConfig = {
           // third-party scripts the app loads (OneSignal, GA4, Stripe) and the
           // endpoints they call. 'unsafe-inline' for script-src is needed for
           // next/script inline + OneSignal init; tighten to nonces later.
-          { key: "Content-Security-Policy", value: "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://cdn.onesignal.com https://js.stripe.com; connect-src 'self' https://onesignal.com https://api.stripe.com https://www.google-analytics.com https://www.googletagmanager.com; frame-src https://js.stripe.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:;" },
+          { key: "Content-Security-Policy", value: "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://cdn.onesignal.com https://js.stripe.com; connect-src 'self' https://onesignal.com https://api.stripe.com https://www.google-analytics.com https://www.googletagmanager.com; frame-src https://js.stripe.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none';" },
         ],
       },
     ];

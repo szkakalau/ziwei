@@ -93,8 +93,12 @@ export function formatChartCompact(chart: ChartLike): string {
 export function formatChartDetailed(chart: ChartLike): string {
   const palaces = chart.palaces ?? [];
 
-  // Key palaces first
-  const keyPalaces = ["命宫", "Self", "夫妻", "Spouse", "官禄", "Career", "财帛", "Wealth", "福德", "Fortune"];
+  // Key palaces first. iztro's en-US locale names these: soul (命宫/Self),
+  // spouse (夫妻), career (官禄), wealth (财帛), spirit (福德/Inner World).
+  // The old list used 'self'/'fortune' + Chinese, which never matched the
+  // en-US output — dropping the user's Self and Fortune palaces from the AI
+  // prompt. Use the actual en-US keys.
+  const keyPalaces = ["soul", "spouse", "career", "wealth", "spirit"];
   const keyLines: string[] = [];
 
   for (const palace of palaces) {

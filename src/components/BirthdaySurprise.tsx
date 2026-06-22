@@ -15,20 +15,25 @@ export function BirthdaySurprise({ birthDate, streak }: BirthdaySurpriseProps) {
   const [loading, setLoading] = useState(false);
 
   const today = new Date();
-  const birth = new Date(birthDate);
+  // Parse birthDate ('YYYY-MM-DD') as local calendar components, NOT via
+  // new Date(birthDate) which treats it as UTC and shifts the day in UTC-X
+  // timezones (the primary English-targeted audience).
+  const [by, bm, bd] = birthDate.split("-").map(Number);
+  const birthMonth = bm - 1; // Date months are 0-indexed
+  const birthDay = bd;
   const isBirthday =
-    today.getMonth() === birth.getMonth() &&
-    today.getDate() === birth.getDate();
+    today.getMonth() === birthMonth &&
+    today.getDate() === birthDay;
 
   // Also show "birthday week" — 3 days before and after
-  const thisYearBirthday = new Date(today.getFullYear(), birth.getMonth(), birth.getDate());
+  const thisYearBirthday = new Date(today.getFullYear(), birthMonth, birthDay);
   const diffMs = Math.abs(today.getTime() - thisYearBirthday.getTime());
   const dayDiff = Math.floor(diffMs / (1000 * 60 * 60 * 24));
   const isBirthdayWeek = dayDiff <= 3;
 
   if (!isBirthday && !isBirthdayWeek) return null;
 
-  const age = today.getFullYear() - birth.getFullYear();
+  const age = today.getFullYear() - by;
   const dateLabel = today.toLocaleDateString("en-US", {
     weekday: "long",
     month: "long",

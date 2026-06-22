@@ -18,6 +18,7 @@ export async function GET() {
         birthDate: user.birth_date,
         subscriptionStatus: user.subscription_status,
         trialEndsAt: user.trial_ends_at,
+        hasUsedTrial: user.has_used_trial === true,
       },
     });
   } catch (err) {

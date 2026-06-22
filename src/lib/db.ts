@@ -65,12 +65,20 @@ export async function initDatabase(): Promise<void> {
       user_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
       onesignal_player_id TEXT NOT NULL,
       platform TEXT DEFAULT 'web',
-      created_at TIMESTAMPTZ DEFAULT now(),
-      UNIQUE (user_id, onesignal_player_id)
+      created_at TIMESTAMPTZ DEFAULT now()
     )
   `;
   // Backfill the UNIQUE constraint for deployments where the table already
-  // exists without it (CREATE TABLE IF NOT EXISTS won't alter existing tables).
+  // exists without it. Dedupe first — CREATE UNIQUE INDEX throws if duplicate
+  // (user_id, onesignal_player_id) rows already exist (they could have
+  // accumulated before the constraint existed, since the old ON CONFLICT DO
+  // NOTHING had no target and silently allowed dupes).
+  await sql`
+    DELETE FROM push_tokens p1 USING push_tokens p2
+    WHERE p1.user_id = p2.user_id
+      AND p1.onesignal_player_id = p2.onesignal_player_id
+      AND p1.id > p2.id
+  `;
   await sql`
     CREATE UNIQUE INDEX IF NOT EXISTS push_tokens_user_player_uniq
     ON push_tokens (user_id, onesignal_player_id)
@@ -102,6 +110,13 @@ export async function initDatabase(): Promise<void> {
   await sql`ALTER TABLE users ADD COLUMN IF NOT EXISTS has_used_trial BOOLEAN DEFAULT false`;
   await sql`ALTER TABLE users ADD COLUMN IF NOT EXISTS consultation_focus TEXT`;
   await sql`ALTER TABLE users ADD COLUMN IF NOT EXISTS consultation_question TEXT`;
+  // Backfill has_used_trial for existing users who already consumed a trial
+  // before this column existed — otherwise they could grab another free trial.
+  await sql`
+    UPDATE users SET has_used_trial = true
+    WHERE has_used_trial = false
+      AND (subscription_status IN ('trial', 'active') OR trial_ends_at IS NOT NULL)
+  `;
 }
 
 /** Get a users daily horoscope for a specific date. */
