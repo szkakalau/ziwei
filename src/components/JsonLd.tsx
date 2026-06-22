@@ -4,7 +4,8 @@ type JsonLdObject = Record<string, unknown>;
 
 /**
  * Injects a JSON-LD structured data script tag.
- * Renders inside Next.js <Script> with strategy="beforeInteractive" for SEO.
+ * Uses default afterInteractive strategy — beforeInteractive is only valid
+ * in pages/_document.js and is unnecessary for JSON-LD (crawlers render JS).
  */
 export default function JsonLd({ data }: { data: JsonLdObject }) {
   return (
@@ -17,7 +18,6 @@ export default function JsonLd({ data }: { data: JsonLdObject }) {
           ...data,
         }),
       }}
-      strategy="beforeInteractive"
     />
   );
 }

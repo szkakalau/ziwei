@@ -16,7 +16,7 @@ const mockUser = {
 // Mocks — vitest hoists vi.mock() above imports
 vi.mock("@/lib/auth", () => ({ getCurrentUser: vi.fn(() => null) }));
 
-const mockCheckSubscription = vi.fn(() => null);
+const mockCheckSubscription = vi.fn(() => null as { ok: false; error: string; status: number } | null);
 vi.mock("@/lib/subscriptionGuard", () => ({ checkSubscription: mockCheckSubscription }));
 
 const mockGetHoroscope = vi.fn(() => null);
@@ -33,7 +33,7 @@ const mockGenerate = vi.fn(() => ({
   text: "Fresh horoscope text that is long enough for validation.",
   highlightedStars: ["Architect"],
   transitSummary: "Daily transit",
-  source: "deepseek" as const,
+  source: "deepseek" as "deepseek" | "openai" | "template",
 }));
 vi.mock("@/lib/horoscopeGenerator", () => ({ generateHoroscope: mockGenerate }));
 
@@ -66,7 +66,7 @@ describe("POST /api/generate-daily", () => {
       text: "Fresh horoscope text that is long enough for validation.",
       highlightedStars: ["Architect"],
       transitSummary: "Daily transit",
-      source: "deepseek" as const,
+      source: "deepseek" as "deepseek" | "openai" | "template",
     });
     mockUpsertHoroscope.mockResolvedValue(undefined);
     mockSendPush.mockResolvedValue(undefined);
