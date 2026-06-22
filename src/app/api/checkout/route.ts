@@ -145,7 +145,7 @@ export async function POST(request: Request) {
       line_items: [{ price: priceId, quantity: 1 }],
       subscription_data: subscriptionData,
       success_url: `${siteUrl}${successPath}?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${siteUrl}/#free-personality-snapshot`,
+      cancel_url: `${siteUrl}/#birth-form`,
       metadata: { userId: user.id },
       custom_text: {
         submit: {

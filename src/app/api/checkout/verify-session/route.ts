@@ -59,10 +59,13 @@ export async function POST(request: Request) {
           trialEndsAt: trialEnd,
         });
       } catch {
-        // Fallback: subscription retrieval failed. Only record the customer id
-        // — don't write status (a hard-coded "trial" with no trialEndsAt would
-        // lock out allowTrial=false subscribers). The webhook will set status.
+        // Subscription retrieval failed (transient Stripe error). The session
+        // was already verified complete (line 31) — payment succeeded — so
+        // optimistically grant access. The webhook will correct it if wrong.
+        // Writing nothing here would leave a paying user locked out (status
+        // stays "free") until the async webhook fires.
         await updateSubscription(user.id, {
+          status: "active",
           stripeCustomerId: customerId ?? undefined,
         });
       }

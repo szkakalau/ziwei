@@ -103,13 +103,23 @@ export async function notifyConsultationOrder(input: ConsultationInput): Promise
     );
   }
 
-  // Ops webhook (Slack/Discord/etc.) — only if configured. Send a redacted
-  // payload WITHOUT chartText (the full chart is PII; the webhook only needs
-  // order metadata). The email alert retains chartText for the operator.
+  // Ops webhook (Slack/Discord/etc.) — only if configured. Send ONLY minimal
+  // order metadata: no PII (birth data, question, chart, gender). The operator
+  // email alert carries the full details; the webhook is just a ping.
   if (process.env.OPS_WEBHOOK_URL) {
-    // Redact chartText (full chart is PII) from the webhook payload — the
-    // operator email retains it, the webhook only needs order metadata.
-    const webhookPayload = { ...payload, chartSummary: undefined };
+    const webhookPayload: OpsOrderPayload = {
+      sessionId: payload.sessionId,
+      customerEmail: payload.customerEmail,
+      focusArea: payload.focusArea,
+      question: "", // redacted — see the alert email for the full question
+      birthDate: "",
+      birthTime: "",
+      location: "",
+      gender: "male",
+      allowFallback: false,
+      deliveryWindow: payload.deliveryWindow,
+      customerReplyMailto: payload.customerReplyMailto,
+    };
     tasks.push(
       sendOpsWebhook(webhookPayload).catch((err) => console.error("[consultation] ops webhook failed:", err)),
     );

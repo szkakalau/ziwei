@@ -22,6 +22,7 @@ export async function POST(request: Request) {
     await initDatabase();
     return NextResponse.json({ ok: true, message: "Database tables created" });
   } catch (err) {
-    return NextResponse.json({ ok: false, error: String(err) }, { status: 500 });
+    console.error("[setup] initDatabase failed:", err);
+    return NextResponse.json({ ok: false, error: "INIT_DATABASE_FAILED" }, { status: 500 });
   }
 }

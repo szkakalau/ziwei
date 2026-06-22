@@ -145,8 +145,11 @@ export function ShareCard({ horoscopeText, highlightedStars, date, streak }: Sha
         a.click();
         URL.revokeObjectURL(url);
       }
-    } catch {
-      // User cancelled share — ignore
+    } catch (err) {
+      // AbortError = user cancelled the share sheet — ignore. Anything else
+      // (canvas/render failure) is a real error worth surfacing.
+      if (err instanceof DOMException && err.name === "AbortError") return;
+      console.error("[ShareCard] share failed:", err);
     } finally {
       setGenerating(false);
     }
