@@ -94,17 +94,19 @@ export function ShareCard({ horoscopeText, highlightedStars, date, streak }: Sha
       if (y > 1280) break;
     }
 
-    // Stars section
-    y += 80;
-    ctx.fillStyle = "rgba(255, 255, 255, 0.25)";
-    ctx.font = "400 20px system-ui, sans-serif";
-    ctx.fillText("Today's Stars", 540, y);
+    // Stars section — only render if there are stars (birthday cards pass [])
+    if (highlightedStars.length > 0) {
+      y += 80;
+      ctx.fillStyle = "rgba(255, 255, 255, 0.25)";
+      ctx.font = "400 20px system-ui, sans-serif";
+      ctx.fillText("Today's Stars", 540, y);
 
-    y += 50;
-    ctx.fillStyle = "rgba(251, 191, 36, 0.7)";
-    ctx.font = "500 26px system-ui, sans-serif";
-    const starText = highlightedStars.slice(0, 3).map((s) => formatStarName(s)).join("  ·  ");
-    ctx.fillText(starText, 540, y);
+      y += 50;
+      ctx.fillStyle = "rgba(251, 191, 36, 0.7)";
+      ctx.font = "500 26px system-ui, sans-serif";
+      const starText = highlightedStars.slice(0, 3).map((s) => formatStarName(s)).join("  ·  ");
+      ctx.fillText(starText, 540, y);
+    }
 
     // Bottom branding
     ctx.fillStyle = "rgba(255, 255, 255, 0.15)";

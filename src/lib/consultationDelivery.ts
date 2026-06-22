@@ -1,0 +1,84 @@
+/**
+ * Wire a paid consultation order to operator notification.
+ *
+ * The snapshot page collects focusArea + question; /api/checkout persists them
+ * and stashes them in Stripe metadata. This module fires the operator-facing
+ * notifications (Resend email, SMTP fallback, ops webhook) so a human-written
+ * reading actually gets produced and delivered. Fire-and-forget — checkout
+ * must not block or fail on delivery hiccups.
+ */
+import {
+  buildDeliveryWindow,
+  buildCustomerReplyMailto,
+  getOrderNotificationRecipients,
+  sendOpsWebhook,
+  type OpsOrderPayload,
+} from "@/lib/opsAutomation";
+
+type ConsultationInput = {
+  sessionId: string;
+  customerEmail: string;
+  focusArea: string;
+  question: string;
+  birthDate?: string;
+  birthTime?: string;
+  location?: string;
+  gender?: "male" | "female";
+  allowFallback?: boolean;
+};
+
+export async function notifyConsultationOrder(input: ConsultationInput): Promise<void> {
+  const orderedAtIso = new Date().toISOString();
+  const deliveryWindow = buildDeliveryWindow(orderedAtIso);
+  const customerReplyMailto = buildCustomerReplyMailto({
+    customerEmail: input.customerEmail,
+    sessionId: input.sessionId,
+  });
+
+  const payload: OpsOrderPayload = {
+    sessionId: input.sessionId,
+    customerEmail: input.customerEmail,
+    focusArea: input.focusArea,
+    question: input.question,
+    birthDate: input.birthDate ?? "",
+    birthTime: input.birthTime ?? "",
+    location: input.location ?? "",
+    gender: input.gender ?? "male",
+    allowFallback: input.allowFallback ?? false,
+    deliveryWindow,
+    customerReplyMailto,
+  };
+
+  const recipients = getOrderNotificationRecipients();
+  const tasks: Promise<unknown>[] = [];
+
+  // Prefer Resend if configured; fall back to SMTP (nodemailer).
+  if (process.env.RESEND_API_KEY) {
+    const { sendConsultationOrderAlertViaResend } = await import("@/lib/resendDelivery");
+    for (const to of recipients) {
+      tasks.push(
+        sendConsultationOrderAlertViaResend({ to, ...payload }).catch((err) =>
+          console.error("[consultation] Resend alert failed:", err),
+        ),
+      );
+    }
+  } else {
+    const { sendConsultationOrderAlertEmail } = await import("@/lib/email");
+    for (const to of recipients) {
+      tasks.push(
+        sendConsultationOrderAlertEmail({ to, ...payload }).catch((err) =>
+          console.error("[consultation] SMTP alert failed:", err),
+        ),
+      );
+    }
+  }
+
+  // Ops webhook (Slack/Discord/etc.) — only if configured.
+  if (process.env.OPS_WEBHOOK_URL) {
+    tasks.push(
+      sendOpsWebhook(payload).catch((err) => console.error("[consultation] ops webhook failed:", err)),
+    );
+  }
+
+  await Promise.allSettled(tasks);
+}

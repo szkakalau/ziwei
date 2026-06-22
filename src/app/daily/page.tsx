@@ -39,6 +39,7 @@ export default function DailyPage() {
   const [authMode, setAuthMode] = useState<"login" | "register">("register");
   const [userId, setUserId] = useState<string | undefined>();
   const [userBirthDate, setUserBirthDate] = useState<string | undefined>();
+  const [hasUsedTrial, setHasUsedTrial] = useState(false);
 
   const onesignalAppId = process.env.NEXT_PUBLIC_ONESIGNAL_APP_ID || "";
   const { pushState, requestPush } = useOneSignal(onesignalAppId, userId);
@@ -52,6 +53,7 @@ export default function DailyPage() {
 
         if (d.user?.id) setUserId(d.user.id);
         if (d.user?.birthDate) setUserBirthDate(d.user.birthDate);
+        if (d.user?.hasUsedTrial) setHasUsedTrial(true);
 
         // Clean up Stripe session_id from URL (status was already set by checkout API)
         const params = new URLSearchParams(window.location.search);
@@ -70,6 +72,10 @@ export default function DailyPage() {
   }, []);
 
   useEffect(() => {
+    // Keep the loading skeleton while auth status is still resolving —
+    // otherwise setLoading(false) fires before /api/auth/me returns, flashing
+    // the empty "being written" state to unauthenticated/no-subscription users.
+    if (authStatus === "checking") return;
     if (authStatus !== "ok") { setLoading(false); return; }
 
     fetchHoroscope();
@@ -188,18 +194,48 @@ export default function DailyPage() {
   const handleStartTrial = async () => {
     setTrialError(null);
     try {
-      const r = await fetch("/api/checkout", { method: "POST" });
+      const r = await fetch("/api/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ allowTrial: true }),
+      });
       const d = await r.json();
       if (d.ok && d.url) {
         window.location.href = d.url;
       } else if (d.error === "NOT_AUTHENTICATED") {
         setAuthStatus("unauthenticated");
-      } else if (d.error === "TRIAL_ACTIVE" || d.error === "TRIAL_USED") {
-        // User already has access (or already used their trial) — reload so
-        // /api/auth/me re-evaluates their subscription status.
+      } else if (d.error === "TRIAL_ACTIVE") {
+        // User already has access — reload so /api/auth/me re-evaluates.
         window.location.reload();
+      } else if (d.error === "TRIAL_USED") {
+        // Already used a trial — don't reload (would loop). Show subscribe prompt.
+        setTrialError("You've already used your free trial. Subscribe to continue.");
       } else {
         setTrialError("Could not start trial. Please try again.");
+      }
+    } catch {
+      setTrialError("Network error. Please try again later.");
+    }
+  };
+
+  // Subscribe directly without a free trial (for users who already used one).
+  const handleSubscribe = async () => {
+    setTrialError(null);
+    try {
+      const r = await fetch("/api/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ allowTrial: false }),
+      });
+      const d = await r.json();
+      if (d.ok && d.url) {
+        window.location.href = d.url;
+      } else if (d.error === "NOT_AUTHENTICATED") {
+        setAuthStatus("unauthenticated");
+      } else if (d.error === "TRIAL_ACTIVE") {
+        window.location.reload();
+      } else {
+        setTrialError("Could not start subscription. Please try again.");
       }
     } catch {
       setTrialError("Network error. Please try again later.");
@@ -332,13 +368,15 @@ export default function DailyPage() {
             <li>🔥 Streak tracking</li>
           </ul>
           <button
-            onClick={handleStartTrial}
+            onClick={hasUsedTrial ? handleSubscribe : handleStartTrial}
             className="w-full py-3 rounded-sm bg-gold/[0.08] text-gold text-sm font-medium
                        border border-gold/15 hover:bg-gold/[0.14] transition-colors mb-2"
           >
-            Start 7-Day Free Trial
+            {hasUsedTrial ? "Subscribe — $4.99/month" : "Start 7-Day Free Trial"}
           </button>
-          <p className="text-ink-dim/60 text-xs">Then $4.99/month. Cancel anytime.</p>
+          <p className="text-ink-dim/60 text-xs">
+            {hasUsedTrial ? "Cancel anytime." : "Then $4.99/month. Cancel anytime."}
+          </p>
           {trialError && (
             <p className="text-cinnabar/70 text-xs mt-3">{trialError}</p>
           )}

@@ -10,7 +10,8 @@ export async function GET(request: Request) {
     return NextResponse.json({ ok: false, error: "NOT_CONFIGURED" }, { status: 500 });
   }
   const headerSecret = request.headers.get("authorization")?.replace("Bearer ", "") ?? "";
-  if (headerSecret !== cronSecret) {
+  const { safeSecretEqual } = await import("@/lib/secretCompare");
+  if (!safeSecretEqual(headerSecret, cronSecret)) {
     return NextResponse.json({ ok: false, error: "UNAUTHORIZED" }, { status: 401 });
   }
 

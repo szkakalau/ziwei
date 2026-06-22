@@ -88,7 +88,9 @@ const SIHUA_TABLE: Record<string, SiHuaEntry> = {
  * where JDN of 1900-01-01 = 2415021 and 2415021 + 9 ≡ 0 (mod 10).
  */
 function computeDayStem(date: Date): string {
-  const jdn = gregorianToJDN(date.getFullYear(), date.getMonth() + 1, date.getDate());
+  // Use UTC components to match the cache key (toISOString().slice(0,10) is
+  // UTC). Local components would disagree with the date key on non-UTC servers.
+  const jdn = gregorianToJDN(date.getUTCFullYear(), date.getUTCMonth() + 1, date.getUTCDate());
   const stemIndex = (jdn + 9) % 10;
   return STEMS[stemIndex];
 }
