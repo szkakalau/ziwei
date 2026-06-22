@@ -99,7 +99,7 @@ export default function ReadingPage() {
         {status === "writing" && (
           <>
             <p className="text-white/40 text-sm">
-              We've received your order and our astrologer is working on it. The reading will be sent to your email as soon as your subscription becomes active after the 7-day trial.
+              We&rsquo;ve received your order and our astrologer is working on it. The reading will be sent to your email as soon as your subscription becomes active after the 7-day trial.
             </p>
             <Link
               href="/daily"
@@ -112,7 +112,7 @@ export default function ReadingPage() {
 
         {status === "delivered" && (
           <p className="text-white/40 text-sm">
-            Check your inbox and spam folder. If you still can't find it, email us at{" "}
+            Check your inbox and spam folder. If you still can&rsquo;t find it, email us at{" "}
             <a href="mailto:castro.liu@me.com" className="text-amber-400/60 hover:text-amber-300">
               castro.liu@me.com
             </a>.
