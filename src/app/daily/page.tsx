@@ -73,6 +73,9 @@ export default function DailyPage() {
     if (authStatus !== "ok") { setLoading(false); return; }
 
     fetchHoroscope();
+    // fetchHoroscope is intentionally omitted — it's recreated every render
+    // and we only want to refetch when authStatus flips to "ok".
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [authStatus]);
 
   const fetchHoroscope = async (skipSync = false) => {

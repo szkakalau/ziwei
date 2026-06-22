@@ -56,7 +56,7 @@ export function AskZiwei() {
       setLoading(false);
       sendingRef.current = false;
     }
-  }, [input, loading]);
+  }, [input]);
 
   return (
     <section className="mb-8" data-testid="ask-ziwei">
