@@ -489,6 +489,7 @@ export default function SnapshotClient() {
         pending={checkoutPending}
         onContinue={() => void startCheckout("sticky")}
         priceLabel={SUBSCRIPTION_PRICE_LABEL}
+        error={checkoutError}
       />
     </>
   );
