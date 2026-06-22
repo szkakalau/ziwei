@@ -36,10 +36,16 @@ export async function computeOrGetCachedChart(params: {
     allowFallback: params.allowFallback ?? true,
   });
 
-  // Persist computed chart to DB
+  // Persist computed chart to DB.
+  // Only write birth_date when the user doesn't already have one — this
+  // prevents fallback dates (e.g. "2000-01-01" from generate-daily) from
+  // silently overwriting a real birth date that was set via the birth form.
+  const birthDate = (typeof user?.birth_date === "string" && user.birth_date)
+    ? user.birth_date
+    : params.birthDate;
   if (result.ok) {
     await updateUserChart(params.userId, {
-      birthDate: params.birthDate,
+      birthDate,
       birthTime: params.birthTime,
       birthPlace: {
         lat: result.meta.latitude,

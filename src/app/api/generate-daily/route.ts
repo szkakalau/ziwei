@@ -66,18 +66,25 @@ export async function POST() {
   // Step 4: Build the best chart we can.
   // Try cached chart first, then compute from birth data, then empty fallback.
   // generateHoroscope handles empty charts fine (template fallback).
+  // IMPORTANT: only call computeOrGetCachedChart when birth_date exists.
+  // Passing a fabricated date (e.g. "2000-01-01") would cause chartCache to
+  // overwrite the user's real birth_date in the DB.
   let chart: ChartLike;
-  try {
-    const { computeOrGetCachedChart } = await import("@/lib/chartCache");
-    chart = await computeOrGetCachedChart({
-      userId: user.id,
-      birthDate: (user.birth_date as string) || "2000-01-01",
-      birthTime: (user.birth_time as string) || "12:00",
-      locationLabel: buildLocationLabel(user.birth_place),
-      allowFallback: true,
-    });
-  } catch {
-    chart = buildFallbackChart(user as Record<string, unknown>);
+  if (user.birth_date) {
+    try {
+      const { computeOrGetCachedChart } = await import("@/lib/chartCache");
+      chart = await computeOrGetCachedChart({
+        userId: user.id,
+        birthDate: user.birth_date as string,
+        birthTime: (user.birth_time as string) || "12:00",
+        locationLabel: buildLocationLabel(user.birth_place),
+        allowFallback: true,
+      });
+    } catch {
+      chart = buildFallbackChart(user as Record<string, unknown>);
+    }
+  } else {
+    chart = { palaces: [] };
   }
 
   // Step 5: Generate the horoscope.
