@@ -44,7 +44,7 @@ export default function PricingTable() {
           ))}
         </ul>
         <Link
-          href="/#birth-form"
+          href="/#hero-form"
           className="mt-8 inline-flex min-h-11 w-full items-center justify-center rounded-sm border border-white/[0.12] bg-white/[0.03] py-3 font-mono text-sm font-semibold uppercase tracking-wide text-ink-muted transition-all hover:border-gold/30 hover:text-ink"
         >
           Get Free Snapshot

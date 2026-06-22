@@ -12,5 +12,5 @@ export function getSiteUrl(): URL {
 export function getReadingUrl(): string {
   const raw = process.env.NEXT_PUBLIC_READING_URL?.trim();
   if (raw) return raw;
-  return "/#birth-form";
+  return "/#hero-form";
 }
