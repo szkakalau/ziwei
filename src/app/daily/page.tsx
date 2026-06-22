@@ -219,7 +219,7 @@ export default function DailyPage() {
     // collected on the snapshot page. /api/checkout rejects allowTrial=true
     // without consultation data (CONSULTATION_REQUIRED). Route the user to the
     // birth form (which flows into /snapshot where consultation is collected).
-    window.location.href = "/#birth-form";
+    window.location.href = "/#hero-form";
   };
 
   // Subscribe directly without a free trial (for users who already used one).
@@ -343,7 +343,7 @@ export default function DailyPage() {
             Enter your birth details to generate your personalized Zi Wei Dou Shu chart.
           </p>
           <Link
-            href="/#birth-form"
+            href="/#hero-form"
             className="btn-cosmic inline-flex items-center gap-2"
           >
             Enter Birth Details <ArrowRight className="h-4 w-4" />

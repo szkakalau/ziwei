@@ -298,7 +298,7 @@ export default function SnapshotClient() {
           We couldn&apos;t find your chart data. Please generate your snapshot from the form first.
         </p>
         <div className="mt-8">
-          <Button type="button" variant="cta" onClick={() => router.push("/#birth-form")}>
+          <Button type="button" variant="cta" onClick={() => router.push("/#hero-form")}>
             Go to Birth Form <ArrowRight className="h-4 w-4" aria-hidden />
           </Button>
         </div>
