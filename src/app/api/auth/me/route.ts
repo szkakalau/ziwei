@@ -22,6 +22,10 @@ export async function GET() {
       },
     });
   } catch (err) {
+    // Always log the raw error so Vercel runtime logs surface the real cause.
+    // Without this, a 500 is a black box — the client only sees INTERNAL_ERROR.
+    console.error("[me]", err instanceof Error ? err.stack : err);
+
     // Distinguish infrastructure failures from unknown errors.
     // AuthError with known codes → 503 (service misconfigured / unavailable).
     // Everything else → 500 (unexpected).

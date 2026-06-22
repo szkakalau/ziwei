@@ -49,11 +49,15 @@ let _buildSession: SessionData | null = null;
 async function getSession() {
   try {
     const cookieStore = await cookies();
-    return getIronSession<SessionData>(cookieStore, getSessionOptions());
+    return await getIronSession<SessionData>(cookieStore, getSessionOptions());
   } catch (err) {
     // Propagate configuration errors (e.g. SESSION_SECRET missing/too short)
     // so they surface as 503 instead of being silently swallowed as "logged out".
     if (err instanceof AuthError) throw err;
+    // At runtime: log the error so we know why getIronSession rejected.
+    // Then fall through to the mock — getCurrentUser will return null (401),
+    // which is safe: the user just sees "log in" instead of a 500 crash.
+    console.error("[getSession]", err instanceof Error ? err.stack : err);
     // Build-time: cookies() not available. Return a mock.
     if (!_buildSession) _buildSession = {};
     return {
