@@ -1,6 +1,7 @@
 "use client";
 
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import Hero from "@/components/landing/Hero";
 import LandingNavbar from "@/components/landing/LandingNavbar";
 import TrustBar from "@/components/landing/TrustBar";
@@ -15,6 +16,26 @@ import LandingFooter from "@/components/landing/LandingFooter";
 import StickyUnlockBar from "@/components/landing/StickyUnlockBar";
 
 export default function LandingPage() {
+  const pathname = usePathname();
+
+  // Next.js App Router client-side navigation to /#hash does NOT auto-scroll
+  // (Link navigation updates the URL but skips the native hash-scroll that a
+  // full page load would do). Scroll to the hash target manually on mount,
+  // on pathname change, and on hashchange.
+  useEffect(() => {
+    const scrollToHash = () => {
+      const hash = window.location.hash.slice(1);
+      if (!hash) return;
+      // Defer so the target element is painted after client navigation.
+      requestAnimationFrame(() => {
+        document.getElementById(hash)?.scrollIntoView({ behavior: "smooth" });
+      });
+    };
+    scrollToHash();
+    window.addEventListener("hashchange", scrollToHash);
+    return () => window.removeEventListener("hashchange", scrollToHash);
+  }, [pathname]);
+
   const scrollToHero = useCallback(() => {
     document.getElementById("hero-form")?.scrollIntoView({ behavior: "smooth" });
   }, []);
