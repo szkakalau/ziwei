@@ -52,8 +52,9 @@ export async function POST(request: Request) {
         if (sub.trial_end) {
           trialEnd = new Date(sub.trial_end * 1000).toISOString();
         }
+        const { mapStripeStatus } = await import("@/lib/stripeStatus");
         await updateSubscription(user.id, {
-          status: sub.status,
+          status: mapStripeStatus(sub.status),
           stripeCustomerId: customerId ?? undefined,
           trialEndsAt: trialEnd,
         });

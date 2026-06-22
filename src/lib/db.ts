@@ -183,17 +183,20 @@ export async function updateSubscription(
   await sql`
     UPDATE users SET
       subscription_status = ${params.status},
-      trial_ends_at = ${params.trialEndsAt ? new Date(params.trialEndsAt) : null}::timestamptz,
+      trial_ends_at = COALESCE(${params.trialEndsAt ? new Date(params.trialEndsAt) : null}::timestamptz, trial_ends_at),
       stripe_customer_id = COALESCE(${params.stripeCustomerId ?? null}, stripe_customer_id)
     WHERE id = ${userId}
   `;
 }
 
-/** Get all active (trial or paid) users — for cron batch generation. */
+/** Get all active (trial or paid) users — for cron batch generation.
+ *  Excludes expired trials (status='trial' but trial_ends_at in the past) so
+ *  we don't burn LLM calls generating horoscopes for users who can't access them. */
 export async function getActiveUsers(): Promise<Array<{ id: string; birth_date: string | null; birth_time: string | null; birth_place: unknown; chart_data: unknown }>> {
   return sql`
     SELECT id, birth_date, birth_time, birth_place, chart_data FROM users
-    WHERE subscription_status IN ('trial', 'active')
+    WHERE subscription_status = 'active'
+       OR (subscription_status = 'trial' AND trial_ends_at > now())
   ` as unknown as Promise<Array<{ id: string; birth_date: string | null; birth_time: string | null; birth_place: unknown; chart_data: unknown }>>;
 }
 

@@ -23,6 +23,20 @@ export async function POST() {
       );
     }
 
+    // DB guard against infinite-free-trial abuse: reject if the user already
+    // has an active subscription or an unexpired trial. Without this, a logged-in
+    // client could call /api/checkout every ~6 days to keep resetting
+    // trial_ends_at to +7d and never pay. Relies on getUserById returning
+    // subscription_status + trial_ends_at (it does).
+    const status = user.subscription_status;
+    const trialEndsAt = user.trial_ends_at ? new Date(user.trial_ends_at) : null;
+    if (status === "active" || (status === "trial" && trialEndsAt && trialEndsAt > new Date())) {
+      return NextResponse.json(
+        { ok: false, error: "TRIAL_ACTIVE" },
+        { status: 400 },
+      );
+    }
+
     const siteUrl = getSiteUrl().toString();
     const stripe = getStripe();
 
