@@ -52,7 +52,7 @@ export async function notifyConsultationOrder(input: ConsultationInput): Promise
   const recipients = getOrderNotificationRecipients();
   const tasks: Promise<unknown>[] = [];
 
-  // Prefer Resend if configured; fall back to SMTP (nodemailer).
+  // Operator-facing order alert. Prefer Resend if configured; fall back to SMTP.
   if (process.env.RESEND_API_KEY) {
     const { sendConsultationOrderAlertViaResend } = await import("@/lib/resendDelivery");
     for (const to of recipients) {
@@ -62,6 +62,18 @@ export async function notifyConsultationOrder(input: ConsultationInput): Promise
         ),
       );
     }
+    // Customer confirmation email (the success page promises this).
+    tasks.push(
+      (async () => {
+        const { sendConsultationConfirmationViaResend } = await import("@/lib/resendDelivery");
+        await sendConsultationConfirmationViaResend({
+          to: input.customerEmail,
+          focusArea: input.focusArea,
+          question: input.question,
+          deliveryWindow,
+        });
+      })().catch((err) => console.error("[consultation] Resend confirmation failed:", err)),
+    );
   } else {
     const { sendConsultationOrderAlertEmail } = await import("@/lib/email");
     for (const to of recipients) {
@@ -71,6 +83,18 @@ export async function notifyConsultationOrder(input: ConsultationInput): Promise
         ),
       );
     }
+    // Customer confirmation via SMTP fallback.
+    tasks.push(
+      (async () => {
+        const { sendConsultationConfirmationEmail } = await import("@/lib/email");
+        await sendConsultationConfirmationEmail({
+          to: input.customerEmail,
+          focusArea: input.focusArea,
+          question: input.question,
+          deliveryWindow,
+        });
+      })().catch((err) => console.error("[consultation] SMTP confirmation failed:", err)),
+    );
   }
 
   // Ops webhook (Slack/Discord/etc.) — only if configured.
