@@ -207,14 +207,16 @@ export async function updateUserChart(
   `;
 }
 
-/** Update subscription status. */
+/** Update subscription status. `status` is optional — when omitted, the
+ *  existing subscription_status is preserved (used by webhook handlers that
+ *  only want to record the Stripe customer id without touching status). */
 export async function updateSubscription(
   userId: string,
-  params: { status: string; trialEndsAt?: string; stripeCustomerId?: string; hasUsedTrial?: boolean },
+  params: { status?: string; trialEndsAt?: string; stripeCustomerId?: string; hasUsedTrial?: boolean },
 ): Promise<void> {
   await sql`
     UPDATE users SET
-      subscription_status = ${params.status},
+      subscription_status = COALESCE(${params.status ?? null}, subscription_status),
       trial_ends_at = COALESCE(${params.trialEndsAt ? new Date(params.trialEndsAt) : null}::timestamptz, trial_ends_at),
       stripe_customer_id = COALESCE(${params.stripeCustomerId ?? null}, stripe_customer_id),
       has_used_trial = COALESCE(${params.hasUsedTrial ?? null}, has_used_trial)
@@ -222,15 +224,16 @@ export async function updateSubscription(
   `;
 }
 
-/** Persist the snapshot consultation form (focus area + question). */
+/** Persist the snapshot consultation form (focus area + question). Overwrites
+ *  prior values so a re-checkout reflects the latest submission. */
 export async function updateConsultation(
   userId: string,
   params: { focusArea?: string; question?: string },
 ): Promise<void> {
   await sql`
     UPDATE users SET
-      consultation_focus = COALESCE(${params.focusArea ?? null}, consultation_focus),
-      consultation_question = COALESCE(${params.question ?? null}, consultation_question)
+      consultation_focus = ${params.focusArea ?? null},
+      consultation_question = ${params.question ?? null}
     WHERE id = ${userId}
   `;
 }

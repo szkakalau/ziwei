@@ -13,6 +13,7 @@ export function BirthdaySurprise({ birthDate, streak }: BirthdaySurpriseProps) {
   const [showReading, setShowReading] = useState(false);
   const [reading, setReading] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const today = new Date();
   // Parse birthDate ('YYYY-MM-DD') as local calendar components, NOT via
@@ -42,14 +43,17 @@ export function BirthdaySurprise({ birthDate, streak }: BirthdaySurpriseProps) {
 
   const handleGenerateReading = async () => {
     setLoading(true);
+    setError(null);
     try {
       const r = await fetch("/api/birthday-reading", { method: "POST" });
       const d = await r.json();
       if (d.ok) {
         setReading(d.reading);
+      } else {
+        setError("Could not load your birthday reading. Please try again.");
       }
     } catch {
-      // Silently fail
+      setError("Network error. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -92,6 +96,9 @@ export function BirthdaySurprise({ birthDate, streak }: BirthdaySurpriseProps) {
             {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Gift className="h-4 w-4" />}
             {loading ? "Reading the stars..." : "Reveal Your Annual Reading"}
           </button>
+          {error && (
+            <p className="text-red-400/70 text-xs mt-3 text-center">{error}</p>
+          )}
         </div>
       )}
 

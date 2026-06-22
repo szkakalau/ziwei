@@ -11,6 +11,8 @@ export async function startStripeCheckoutFromStored(options?: {
   offerStartAt?: number;
   focusArea?: string;
   question?: string;
+  /** When false, subscribe without a free trial (for users who already used one). Defaults true. */
+  allowTrial?: boolean;
 }): Promise<CheckoutStartResult> {
   const rawBirth =
     typeof window !== "undefined"
@@ -62,6 +64,7 @@ export async function startStripeCheckoutFromStored(options?: {
       offerStartAt: options?.offerStartAt ?? Date.now(),
       focusArea: options?.focusArea,
       question: options?.question,
+      allowTrial: options?.allowTrial ?? true,
     }),
   });
 

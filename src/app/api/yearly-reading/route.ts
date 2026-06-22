@@ -83,7 +83,7 @@ export async function POST() {
     // Chart fingerprint — if the user corrected their birth data mid-year, the
     // cached yearly reading (computed from the old chart) must be invalidated.
     // Embed the fingerprint in transit_summary and compare on cache hit.
-    const chartFingerprint = `${user.birth_date ?? ""}|${user.birth_time ?? ""}`;
+    const chartFingerprint = `${user.birth_date ?? ""}|${user.birth_time ?? ""}|${JSON.stringify(user.birth_place ?? null)}`;
     const transitMarker = `Annual reading for ${year} · chart:${chartFingerprint}`;
 
     // Cache check

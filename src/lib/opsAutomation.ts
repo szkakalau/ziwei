@@ -6,6 +6,10 @@ export type ChartSummary = {
   apparentSolarTime?: string;
   isApproximate?: boolean;
   errorCode?: string | null;
+  /** Pre-formatted full chart text (e.g. formatChartCompact output). When
+   *  present, operators get the full palace→star mapping instead of just
+   *  place/date/time, so they can write the reading without re-computing. */
+  chartText?: string;
 };
 
 export type DeliveryWindow = {

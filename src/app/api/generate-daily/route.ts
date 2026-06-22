@@ -125,6 +125,14 @@ export async function GET() {
       return NextResponse.json({ ok: false, error: "NOT_AUTHENTICATED" }, { status: 401 });
     }
 
+    // Subscription guard — lapsed users must not read cached horoscopes.
+    const { checkSubscription } = await import("@/lib/subscriptionGuard");
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const subError = checkSubscription(user as any);
+    if (subError) {
+      return NextResponse.json({ ok: false, error: subError.error }, { status: subError.status });
+    }
+
     const today = new Date().toISOString().slice(0, 10);
     const { getHoroscope } = await import("@/lib/db");
     const horoscope = await getHoroscope(user.id, today);

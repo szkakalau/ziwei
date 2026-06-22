@@ -30,6 +30,7 @@ function chartSummaryText(summary?: ChartSummary) {
   if (summary.errorCode) {
     return `Chart could not be prepared automatically. Error: ${summary.errorCode}`;
   }
+  if (summary.chartText) return summary.chartText;
   return [
     `Chart place: ${summary.placeLabel || "—"}`,
     `Apparent solar date: ${summary.apparentSolarDate || "—"}`,
@@ -69,10 +70,15 @@ export async function sendConsultationConfirmationViaResend(args: {
   focusArea: string;
   question: string;
   deliveryWindow: DeliveryWindow;
+  birthDate?: string;
+  birthTime?: string;
 }) {
   const { resend, from } = getResendClient();
   const supportEmail = getSupportEmail();
   const focusLabel = focusAreaLabel(args.focusArea);
+  const birthLine = args.birthDate
+    ? `<p style="margin:0 0 8px;"><strong>Birth data on file:</strong> ${escapeHtml(args.birthDate)}${args.birthTime ? " " + escapeHtml(args.birthTime) : ""}</p>`
+    : "";
   const html = `
     <div style="font-family:ui-sans-serif,system-ui,sans-serif;line-height:1.6;color:#111;">
       <h2 style="margin:0 0 12px;">We received your Zi Wei reading order</h2>
@@ -82,6 +88,7 @@ export async function sendConsultationConfirmationViaResend(args: {
       <p style="margin:0 0 8px;"><strong>Focus area:</strong> ${escapeHtml(focusLabel)}</p>
       <p style="margin:0 0 8px;"><strong>Your question:</strong></p>
       <div style="margin:0 0 16px;padding:12px 14px;border:1px solid #e5e5e5;border-radius:8px;background:#f7f7f8;white-space:pre-wrap;">${escapeHtml(args.question)}</div>
+      ${birthLine}
       <p style="margin:0 0 12px;">If you need to correct your birth data, email us at <a href="mailto:${escapeHtml(supportEmail)}">${escapeHtml(supportEmail)}</a> as soon as possible.</p>
       <p style="margin:0;font-size:12px;color:#666;">For personal insight and entertainment only.</p>
     </div>

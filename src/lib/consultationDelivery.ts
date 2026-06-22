@@ -25,6 +25,7 @@ type ConsultationInput = {
   location?: string;
   gender?: "male" | "female";
   allowFallback?: boolean;
+  chartText?: string;
 };
 
 export async function notifyConsultationOrder(input: ConsultationInput): Promise<void> {
@@ -47,6 +48,7 @@ export async function notifyConsultationOrder(input: ConsultationInput): Promise
     allowFallback: input.allowFallback ?? false,
     deliveryWindow,
     customerReplyMailto,
+    chartSummary: input.chartText ? { chartText: input.chartText } : undefined,
   };
 
   const recipients = getOrderNotificationRecipients();
@@ -71,6 +73,8 @@ export async function notifyConsultationOrder(input: ConsultationInput): Promise
           focusArea: input.focusArea,
           question: input.question,
           deliveryWindow,
+          birthDate: input.birthDate,
+          birthTime: input.birthTime,
         });
       })().catch((err) => console.error("[consultation] Resend confirmation failed:", err)),
     );
@@ -92,6 +96,8 @@ export async function notifyConsultationOrder(input: ConsultationInput): Promise
           focusArea: input.focusArea,
           question: input.question,
           deliveryWindow,
+          birthDate: input.birthDate,
+          birthTime: input.birthTime,
         });
       })().catch((err) => console.error("[consultation] SMTP confirmation failed:", err)),
     );

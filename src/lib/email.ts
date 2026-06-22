@@ -1,6 +1,6 @@
 import nodemailer from "nodemailer";
 import { getSupportEmail } from "@/lib/brand";
-import type { DeliveryWindow } from "@/lib/opsAutomation";
+import type { DeliveryWindow, ChartSummary } from "@/lib/opsAutomation";
 
 function escapeHtml(s: string) {
   return s
@@ -46,17 +46,12 @@ function focusAreaLabel(focusArea: string) {
   }
 }
 
-function chartSummaryText(summary?: {
-  placeLabel?: string;
-  apparentSolarDate?: string;
-  apparentSolarTime?: string;
-  isApproximate?: boolean;
-  errorCode?: string | null;
-}) {
+function chartSummaryText(summary?: ChartSummary) {
   if (!summary) return "Chart summary unavailable.";
   if (summary.errorCode) {
     return `Chart could not be prepared automatically. Error: ${summary.errorCode}`;
   }
+  if (summary.chartText) return summary.chartText;
   return [
     `Chart place: ${summary.placeLabel || "—"}`,
     `Apparent solar date: ${summary.apparentSolarDate || "—"}`,
@@ -105,9 +100,17 @@ export async function sendConsultationConfirmationEmail(args: {
   focusArea: string;
   question: string;
   deliveryWindow: DeliveryWindow;
+  birthDate?: string;
+  birthTime?: string;
 }) {
   const supportEmail = getSupportEmail();
   const focusLabel = focusAreaLabel(args.focusArea);
+  const birthLine = args.birthDate
+    ? `\nBirth data on file: ${args.birthDate}${args.birthTime ? " " + args.birthTime : ""}\n`
+    : "";
+  const birthLineHtml = args.birthDate
+    ? `<p style="margin: 0 0 8px;"><strong>Birth data on file:</strong> ${escapeHtml(args.birthDate)}${args.birthTime ? " " + escapeHtml(args.birthTime) : ""}</p>`
+    : "";
 
   await sendSmtpMail({
     to: args.to,
@@ -122,7 +125,7 @@ Delivery deadline: ${args.deliveryWindow.dueAtLabel}
 Focus area: ${focusLabel}
 Your question:
 ${args.question}
-
+${birthLine}
 If you need to correct your birth data, reply to ${supportEmail} as soon as possible.
 
 For personal insight and entertainment only.`,
@@ -135,6 +138,7 @@ For personal insight and entertainment only.`,
         <p style="margin: 0 0 8px;"><strong>Focus area:</strong> ${escapeHtml(focusLabel)}</p>
         <p style="margin: 0 0 8px;"><strong>Your question:</strong></p>
         <div style="margin:0 0 16px;padding:12px 14px;border:1px solid #e5e5e5;border-radius:8px;background:#f7f7f8;white-space:pre-wrap;">${escapeHtml(args.question)}</div>
+        ${birthLineHtml}
         <p style="margin: 0 0 12px;">If you need to correct your birth data, email us at <a href="mailto:${escapeHtml(supportEmail)}">${escapeHtml(supportEmail)}</a> as soon as possible.</p>
         <p style="margin: 0; font-size: 12px; color:#666;">For personal insight and entertainment only.</p>
       </div>
