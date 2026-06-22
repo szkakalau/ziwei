@@ -168,6 +168,7 @@ export async function POST(request: Request) {
       try {
         await notifyConsultationOrder({
           sessionId: session.id,
+          userId: user.id,
           customerEmail: user.email,
           focusArea: focusArea!,
           question: question!,

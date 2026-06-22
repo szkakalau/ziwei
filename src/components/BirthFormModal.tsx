@@ -577,7 +577,7 @@ export default function BirthFormModal({
             <div className="shrink-0 border-b border-white/10 bg-gradient-to-r from-void/50 via-transparent to-jade-dim/20 px-5 pb-4 pt-5 sm:px-6 sm:pb-5 sm:pt-6">
               <div className="flex flex-wrap items-end justify-between gap-3">
                 <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-gold/90">
-                  命盘 · Chart registry
+                  Chart Registry
                 </p>
                 <p className="font-mono text-[10px] uppercase tracking-widest text-ink-dim">
                   Step 1 of 2

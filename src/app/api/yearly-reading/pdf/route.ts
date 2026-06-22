@@ -30,6 +30,18 @@ export async function POST() {
       return NextResponse.json({ ok: false, error: subError.error }, { status: subError.status });
     }
 
+    // Yearly PDF downloads require a paid subscription (not trial).
+    if ((user as Record<string, unknown>).subscription_status === "trial") {
+      return NextResponse.json(
+        {
+          ok: false,
+          error: "UPGRADE_REQUIRED",
+          message: "Upgrade to a paid subscription to unlock yearly PDF downloads.",
+        },
+        { status: 402 },
+      );
+    }
+
     if (!user.chart_data) {
       return NextResponse.json({ ok: false, error: "CHART_NOT_FOUND" }, { status: 400 });
     }

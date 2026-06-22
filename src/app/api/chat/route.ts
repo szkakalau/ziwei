@@ -58,6 +58,22 @@ export async function POST(request: Request) {
       return NextResponse.json({ ok: false, error: subError.error }, { status: subError.status });
     }
 
+    // Trial users get 5 lifetime chat messages; paid users are unlimited.
+    if ((user as Record<string, unknown>).subscription_status === "trial") {
+      const { incrementChatCount } = await import("@/lib/db");
+      const limit = await incrementChatCount(user.id);
+      if (!limit.allowed) {
+        return NextResponse.json(
+          {
+            ok: false,
+            error: "CHAT_TRIAL_LIMIT",
+            message: `You've used all ${limit.used - 1} trial messages. Upgrade to a paid subscription for unlimited AI chat.`,
+          },
+          { status: 402 },
+        );
+      }
+    }
+
     if (!user.chart_data) {
       return NextResponse.json(
         { ok: false, error: "CHART_NOT_FOUND" },

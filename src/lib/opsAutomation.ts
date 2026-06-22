@@ -22,6 +22,7 @@ export type DeliveryWindow = {
 
 export type OpsOrderPayload = {
   sessionId: string;
+  userId?: string;
   customerEmail: string;
   focusArea: string;
   question: string;

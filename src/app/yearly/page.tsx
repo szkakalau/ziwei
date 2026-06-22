@@ -7,6 +7,8 @@ import Link from "next/link";
 
 export default function YearlyPage() {
   const [reading, setReading] = useState<string | null>(null);
+  const [preview, setPreview] = useState(false);
+  const [previewMessage, setPreviewMessage] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [year, setYear] = useState(new Date().getFullYear());
@@ -15,10 +17,21 @@ export default function YearlyPage() {
     fetch("/api/yearly-reading", { method: "POST" })
       .then(async (r) => {
         if (r.status === 401) { window.location.href = "/daily"; return; }
-        if (r.status === 402) { setError("Active subscription required for yearly reading."); return; }
+        if (r.status === 402) {
+          const d = await r.json().catch(() => ({}));
+          setError(d.message || "Active subscription required for yearly reading.");
+          return;
+        }
         if (!r.ok) throw new Error("Failed");
         const d = await r.json();
-        if (d.ok) { setReading(d.reading); setYear(d.year); }
+        if (d.ok) {
+          setReading(d.reading);
+          setYear(d.year);
+          if (d.preview) {
+            setPreview(true);
+            setPreviewMessage(d.previewMessage || null);
+          }
+        }
         else { setError(d.message || "Could not generate reading."); }
       })
       .catch(() => setError("The stars are taking longer than expected. Try again."))
@@ -44,9 +57,19 @@ export default function YearlyPage() {
     return (
       <main className="min-h-screen bg-[#0a0a0f] text-white px-5 py-8 pb-20 max-w-2xl mx-auto text-center">
         <p className="text-white/60 text-base mb-4">{error}</p>
-        <Link href="/daily" className="text-amber-400/60 text-sm hover:text-amber-300">
-          ← Back to daily horoscope
-        </Link>
+        {error.includes("Upgrade") && (
+          <Link
+            href="/daily"
+            className="inline-block px-6 py-3 rounded-xl bg-amber-500/15 text-amber-300 text-sm font-medium border border-amber-500/20 hover:bg-amber-500/25 transition-colors mb-4"
+          >
+            Upgrade now →
+          </Link>
+        )}
+        <div>
+          <Link href="/daily" className="text-amber-400/60 text-sm hover:text-amber-300">
+            ← Back to daily horoscope
+          </Link>
+        </div>
       </main>
     );
   }
@@ -89,6 +112,19 @@ export default function YearlyPage() {
           A comprehensive reading based on your birth chart
         </p>
       </div>
+
+      {/* Preview banner for trial users */}
+      {preview && previewMessage && (
+        <div className="mb-8 rounded-xl border border-amber-500/15 bg-amber-500/[0.04] p-5 text-center">
+          <p className="text-amber-200/70 text-sm mb-4">{previewMessage}</p>
+          <Link
+            href="/daily"
+            className="inline-block px-6 py-3 rounded-xl bg-amber-500/15 text-amber-300 text-sm font-medium border border-amber-500/20 hover:bg-amber-500/25 transition-colors"
+          >
+            Upgrade now — $4.99/mo →
+          </Link>
+        </div>
+      )}
 
       {/* Sections — two-column grid on desktop for scanability */}
       <div className="md:grid md:grid-cols-2 md:gap-5 space-y-5 md:space-y-0">

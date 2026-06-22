@@ -117,6 +117,16 @@ async function migrateSchema(c: ReturnType<typeof getSql>): Promise<void> {
     )
   `;
 
+  await c`
+    CREATE TABLE IF NOT EXISTS consultation_readings (
+      id TEXT PRIMARY KEY DEFAULT gen_random_uuid()::text,
+      user_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      content TEXT NOT NULL,
+      delivered_at TIMESTAMPTZ DEFAULT now(),
+      created_at TIMESTAMPTZ DEFAULT now()
+    )
+  `;
+
   // Add columns to users for existing deployments (idempotent).
   // has_used_trial: prevents infinite-free-trial abuse 鈥?once a user has
   //   consumed a trial, /api/checkout rejects re-granting one.
@@ -125,6 +135,7 @@ async function migrateSchema(c: ReturnType<typeof getSql>): Promise<void> {
   await c`ALTER TABLE users ADD COLUMN IF NOT EXISTS has_used_trial BOOLEAN DEFAULT false`;
   await c`ALTER TABLE users ADD COLUMN IF NOT EXISTS consultation_focus TEXT`;
   await c`ALTER TABLE users ADD COLUMN IF NOT EXISTS consultation_question TEXT`;
+  await c`ALTER TABLE users ADD COLUMN IF NOT EXISTS chat_count INTEGER DEFAULT 0`;
   // Backfill has_used_trial for existing users who already consumed a trial
   // before this column existed 鈥?otherwise they could grab another free trial.
   await c`
@@ -183,7 +194,7 @@ export async function getUserById(id: string) {
   const rows = await sql`
     SELECT id, email, birth_date, birth_time, birth_place, chart_data,
            subscription_status, trial_ends_at, stripe_customer_id, has_used_trial,
-           consultation_focus, consultation_question, created_at
+           consultation_focus, consultation_question, chat_count, created_at
     FROM users WHERE id = ${id} LIMIT 1
   `;
   return rows[0] ?? null;
@@ -251,6 +262,44 @@ export async function updateConsultation(
       consultation_question = ${params.question ?? null}
     WHERE id = ${userId}
   `;
+}
+
+/** Atomically increment a trial user's chat count. Returns the new count and
+ *  whether the user is still within the 5-message trial limit. Only meaningful
+ *  for trial users; paid users skip this check entirely. */
+export async function incrementChatCount(userId: string): Promise<{ allowed: boolean; used: number }> {
+  const rows = await sql`
+    UPDATE users SET chat_count = chat_count + 1
+    WHERE id = ${userId}
+    RETURNING chat_count
+  `;
+  const used = (rows[0]?.chat_count as number) ?? 0;
+  return { allowed: used <= 5, used };
+}
+
+/** Store a human-written consultation reading for a user (operator upload). */
+export async function storeConsultationReading(
+  userId: string,
+  content: string,
+): Promise<void> {
+  await sql`
+    INSERT INTO consultation_readings (user_id, content)
+    VALUES (${userId}, ${content})
+  `;
+}
+
+/** Get the most recent consultation reading for a user, or null. */
+export async function getConsultationReading(
+  userId: string,
+): Promise<{ id: string; content: string; delivered_at: string; created_at: string } | null> {
+  const rows = await sql`
+    SELECT id, content, delivered_at, created_at
+    FROM consultation_readings
+    WHERE user_id = ${userId}
+    ORDER BY created_at DESC
+    LIMIT 1
+  `;
+  return rows[0] ?? null;
 }
 
 /** Get all active (trial or paid) users 鈥?for cron batch generation.

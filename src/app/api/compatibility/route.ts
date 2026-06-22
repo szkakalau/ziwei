@@ -62,6 +62,8 @@ export async function POST(request: Request) {
       return NextResponse.json({ ok: false, error: subError.error }, { status: subError.status });
     }
 
+    const isTrial = (user as Record<string, unknown>).subscription_status === "trial";
+
     if (!user.chart_data) {
       return NextResponse.json({ ok: false, error: "CHART_NOT_FOUND" }, { status: 400 });
     }
@@ -127,13 +129,23 @@ export async function POST(request: Request) {
       analysis = templateCompat();
     }
 
-    return NextResponse.json({
-      ok: true,
-      analysis,
-      otherStars: (otherResult.chart as { palaces?: Array<{ majorStars?: Array<{ name?: string }> }> }).palaces
-        ?.flatMap((p) => (p.majorStars ?? []).map((s) => s?.name).filter(Boolean))
-        .slice(0, 5) ?? [],
-    });
+    const stars = (otherResult.chart as { palaces?: Array<{ majorStars?: Array<{ name?: string }> }> }).palaces
+      ?.flatMap((p) => (p.majorStars ?? []).map((s) => s?.name).filter(Boolean))
+      .slice(0, 5) ?? [];
+
+    if (isTrial) {
+      const third = Math.floor(analysis.length / 3);
+      const preview = analysis.slice(0, third).replace(/\s+\S*$/, "");
+      return NextResponse.json({
+        ok: true,
+        analysis: preview,
+        otherStars: stars,
+        preview: true,
+        previewMessage: "Upgrade to a paid subscription to unlock your full compatibility reading.",
+      });
+    }
+
+    return NextResponse.json({ ok: true, analysis, otherStars: stars });
   } catch {
     return NextResponse.json({ ok: false, error: "INTERNAL_ERROR" }, { status: 500 });
   }

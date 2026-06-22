@@ -91,7 +91,12 @@ function opsChecklistText(window: DeliveryWindow) {
     `1. Confirm the order is queued before ${window.dueAtLabel}.`,
     "2. Review the customer's question and chart summary.",
     "3. Write and send the final email reading.",
-    "4. Mark the order done in your own tracker after sending.",
+    "4. Store the reading via API so the customer can view it in-app:",
+    '   curl -X POST https://www.destinyblueprint.xyz/api/operator/store-reading \\',
+    `     -H "Authorization: Bearer $OPERATOR_API_SECRET" \\`,
+    `     -H "Content-Type: application/json" \\`,
+    `     -d \'{"userId":"<USER_ID>","content":"<READING_CONTENT>"}\'`,
+    "5. Mark the order done in your own tracker after storing.",
   ].join("\n");
 }
 
@@ -148,6 +153,7 @@ For personal insight and entertainment only.`,
 
 export async function sendConsultationOrderAlertEmail(args: {
   to: string;
+  userId?: string;
   customerEmail: string;
   sessionId: string;
   focusArea: string;
@@ -176,7 +182,7 @@ export async function sendConsultationOrderAlertEmail(args: {
     subject: `New Zi Wei consultation order · ${focusLabel}`,
     text: `A new Zi Wei consultation order has been received.
 
-Session ID: ${args.sessionId}
+Session ID: ${args.sessionId}${args.userId ? `\nUser ID: ${args.userId}` : ""}
 Customer email: ${args.customerEmail}
 Ordered at: ${args.deliveryWindow.orderedAtLabel}
 Due by: ${args.deliveryWindow.dueAtLabel}

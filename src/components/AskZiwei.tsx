@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect, useCallback } from "react";
 import { MessageCircle, Send } from "lucide-react";
+import Link from "next/link";
 
 interface Message {
   role: "user" | "assistant";
@@ -47,6 +48,10 @@ export function AskZiwei() {
 
       if (d.ok) {
         setMessages((prev) => [...prev, { role: "assistant", content: d.answer }]);
+      } else if (d.error === "CHAT_TRIAL_LIMIT") {
+        setError(d.message);
+        // Show upgrade CTA below the error
+        setMessages((prev) => [...prev, { role: "assistant", content: `Trial limit reached. Upgrade to a paid subscription for unlimited AI chat.` }]);
       } else {
         setError(d.message || "Unable to answer right now.");
       }
@@ -115,7 +120,17 @@ export function AskZiwei() {
         )}
 
         {error && (
-          <p className="text-red-400/70 text-xs text-center">{error}</p>
+          <div className="space-y-2">
+            <p className="text-red-400/70 text-xs text-center">{error}</p>
+            {error.includes("Upgrade") && (
+              <Link
+                href="/daily"
+                className="block text-center px-4 py-2 rounded-xl bg-amber-500/15 text-amber-300 text-xs font-medium border border-amber-500/20 hover:bg-amber-500/25 transition-colors"
+              >
+                Upgrade now →
+              </Link>
+            )}
+          </div>
         )}
 
         <div ref={endRef} />

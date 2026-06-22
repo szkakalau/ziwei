@@ -165,7 +165,7 @@ export function ChartCanvas({ palaces = [], soulPalaceLabel }: ChartCanvasProps)
           fontFamily="system-ui, sans-serif"
           className="pointer-events-none select-none"
         >
-          紫微
+          Zi Wei
         </text>
       </svg>
 

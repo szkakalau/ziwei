@@ -73,6 +73,8 @@ export async function POST() {
       return NextResponse.json({ ok: false, error: subError.error }, { status: subError.status });
     }
 
+    const isTrial = (user as Record<string, unknown>).subscription_status === "trial";
+
     if (!user.chart_data) {
       return NextResponse.json({ ok: false, error: "CHART_NOT_FOUND" }, { status: 400 });
     }
@@ -96,7 +98,20 @@ export async function POST() {
       // Cache miss — generate fresh
     }
     if (cached && cached.horoscope_text && cached.transit_summary === transitMarker) {
-      return NextResponse.json({ ok: true, reading: cached.horoscope_text, year, cached: true });
+      const fullReading = cached.horoscope_text as string;
+      if (isTrial) {
+        const third = Math.floor(fullReading.length / 3);
+        const preview = fullReading.slice(0, third).replace(/\s+\S*$/, "");
+        return NextResponse.json({
+          ok: true,
+          reading: preview,
+          year,
+          cached: true,
+          preview: true,
+          previewMessage: "Upgrade to a paid subscription to unlock your full yearly reading.",
+        });
+      }
+      return NextResponse.json({ ok: true, reading: fullReading, year, cached: true });
     }
 
     // AI call with template fallback
@@ -127,6 +142,17 @@ export async function POST() {
       highlightedStars: [],
     }).catch(() => {});
 
+    if (isTrial) {
+      const third = Math.floor(reading.length / 3);
+      const preview = reading.slice(0, third).replace(/\s+\S*$/, "");
+      return NextResponse.json({
+        ok: true,
+        reading: preview,
+        year,
+        preview: true,
+        previewMessage: "Upgrade to a paid subscription to unlock your full yearly reading.",
+      });
+    }
     return NextResponse.json({ ok: true, reading, year });
   } catch {
     return NextResponse.json({ ok: false, error: "AI_UNAVAILABLE" }, { status: 503 });

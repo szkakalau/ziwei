@@ -61,7 +61,12 @@ function opsChecklistText(window: DeliveryWindow) {
     `1. Confirm the order is queued before ${window.dueAtLabel}.`,
     "2. Review the customer's question and chart summary.",
     "3. Write and send the final email reading.",
-    "4. Mark the order done in your own tracker after sending.",
+    "4. Store the reading via API so the customer can view it in-app:",
+    '   curl -X POST https://www.destinyblueprint.xyz/api/operator/store-reading \\',
+    `     -H "Authorization: Bearer $OPERATOR_API_SECRET" \\`,
+    `     -H "Content-Type: application/json" \\`,
+    `     -d '{"userId":"<USER_ID>","content":"<READING_CONTENT>"}'`,
+    "5. Mark the order done in your own tracker after storing.",
   ].join("\n");
 }
 
@@ -113,6 +118,7 @@ export async function sendConsultationConfirmationViaResend(args: {
 
 export async function sendConsultationOrderAlertViaResend(args: {
   to: string;
+  userId?: string;
   customerEmail: string;
   sessionId: string;
   focusArea: string;
@@ -134,6 +140,7 @@ export async function sendConsultationOrderAlertViaResend(args: {
     <div style="font-family:ui-sans-serif,system-ui,sans-serif;line-height:1.6;color:#111;">
       <h2 style="margin:0 0 12px;">New Zi Wei consultation order</h2>
       <p style="margin:0 0 8px;"><strong>Session ID:</strong> ${escapeHtml(args.sessionId)}</p>
+      ${args.userId ? `<p style="margin:0 0 8px;"><strong>User ID:</strong> ${escapeHtml(args.userId)}</p>` : ""}
       <p style="margin:0 0 8px;"><strong>Customer email:</strong> ${escapeHtml(args.customerEmail)}</p>
       <p style="margin:0 0 8px;"><strong>Ordered at:</strong> ${escapeHtml(args.deliveryWindow.orderedAtLabel)}</p>
       <p style="margin:0 0 16px;"><strong>Due by:</strong> ${escapeHtml(args.deliveryWindow.dueAtLabel)}</p>

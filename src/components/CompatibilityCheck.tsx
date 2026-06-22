@@ -3,13 +3,14 @@
 import { useState } from "react";
 import { Heart, Loader2 } from "lucide-react";
 import { formatStarName } from "@/lib/zwdsNaming";
+import Link from "next/link";
 
 export function CompatibilityCheck() {
   const [birthDate, setBirthDate] = useState("");
   const [birthTime, setBirthTime] = useState("12:00");
   const [location, setLocation] = useState("");
   const [gender, setGender] = useState("male");
-  const [result, setResult] = useState<{ analysis: string; otherStars: string[] } | null>(null);
+  const [result, setResult] = useState<{ analysis: string; otherStars: string[]; preview?: boolean; previewMessage?: string } | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [showForm, setShowForm] = useState(false);
@@ -31,6 +32,8 @@ export function CompatibilityCheck() {
 
       if (d.ok) {
         setResult(d);
+      } else if (d.error === "UPGRADE_REQUIRED") {
+        setError(d.message);
       } else {
         setError(d.message || "Could not analyze compatibility.");
       }
@@ -141,7 +144,19 @@ export function CompatibilityCheck() {
             </button>
           </div>
 
-          {error && <p className="text-red-400/70 text-xs">{error}</p>}
+          {error && (
+            <div className="space-y-2">
+              <p className="text-red-400/70 text-xs">{error}</p>
+              {error.includes("Upgrade") && (
+                <Link
+                  href="/daily"
+                  className="inline-block px-4 py-2 rounded-xl bg-amber-500/15 text-amber-300 text-xs font-medium border border-amber-500/20 hover:bg-amber-500/25 transition-colors"
+                >
+                  Upgrade now →
+                </Link>
+              )}
+            </div>
+          )}
         </form>
       )}
 
@@ -150,6 +165,18 @@ export function CompatibilityCheck() {
           <p className="text-white/80 text-sm leading-relaxed whitespace-pre-line">
             {result.analysis}
           </p>
+
+          {result.preview && result.previewMessage && (
+            <div className="rounded-lg border border-amber-500/15 bg-amber-500/[0.04] p-4 text-center">
+              <p className="text-amber-200/70 text-xs mb-3">{result.previewMessage}</p>
+              <Link
+                href="/daily"
+                className="inline-block px-4 py-2 rounded-lg bg-amber-500/15 text-amber-300 text-xs font-medium border border-amber-500/20 hover:bg-amber-500/25 transition-colors"
+              >
+                Upgrade now — $4.99/mo →
+              </Link>
+            </div>
+          )}
 
           {result.otherStars.length > 0 && (
             <div className="flex flex-wrap gap-1.5">
