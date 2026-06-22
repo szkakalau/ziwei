@@ -215,7 +215,14 @@ export async function updateStreak(
     return 1;
   }
 
-  const lastDate = row.last_check_date as string;
+  // The neon driver parses a DATE column (oid 1082) into a JS Date object,
+  // not a string. Normalize to a YYYY-MM-DD string using LOCAL components —
+  // toISOString().slice(0,10) would shift UTC+8 local-midnight back one day.
+  const rawLast = row.last_check_date;
+  const lastDate = rawLast instanceof Date
+    ? `${rawLast.getFullYear()}-${String(rawLast.getMonth() + 1).padStart(2, "0")}-${String(rawLast.getDate()).padStart(2, "0")}`
+    : rawLast ? String(rawLast).slice(0, 10) : null;
+
   // String-based yesterday calculation (avoids timezone bugs with Date objects)
   const todayDate = new Date(today + "T12:00:00");
   const yesterdayDate = new Date(todayDate);
