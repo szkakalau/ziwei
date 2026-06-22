@@ -81,9 +81,38 @@ export async function startStripeCheckoutFromStored(options?: {
   }
 
   if (!res.ok || !data.ok || !data.url) {
+    // Surface the actual error from the API so the user knows what to fix
+    // instead of seeing a generic "please try again" message.
+    const apiError = (data as { error?: string; message?: string } | null);
+    const code = apiError?.error;
+    const detail = apiError?.message;
+    if (code === "NOT_AUTHENTICATED") {
+      return {
+        ok: false,
+        message: "You need to sign up or log in first. Please register or log in from the daily page, then come back.",
+      };
+    }
+    if (code === "CONSULTATION_REQUIRED") {
+      return {
+        ok: false,
+        message: detail || "Please select a focus area and describe your question (at least 10 characters).",
+      };
+    }
+    if (code === "TRIAL_ACTIVE") {
+      return {
+        ok: false,
+        message: "You already have an active trial or subscription. Check your account page for details.",
+      };
+    }
+    if (code === "TRIAL_USED") {
+      return {
+        ok: false,
+        message: "You've already used your free trial. Please subscribe directly — we'll still deliver your human reading.",
+      };
+    }
     return {
       ok: false,
-      message: "We couldn't start checkout. Please try again in a moment.",
+      message: `Checkout failed (${code || res.status}). Please try again or contact support.`,
     };
   }
 
