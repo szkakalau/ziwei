@@ -65,8 +65,15 @@ export async function initDatabase(): Promise<void> {
       user_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
       onesignal_player_id TEXT NOT NULL,
       platform TEXT DEFAULT 'web',
-      created_at TIMESTAMPTZ DEFAULT now()
+      created_at TIMESTAMPTZ DEFAULT now(),
+      UNIQUE (user_id, onesignal_player_id)
     )
+  `;
+  // Backfill the UNIQUE constraint for deployments where the table already
+  // exists without it (CREATE TABLE IF NOT EXISTS won't alter existing tables).
+  await sql`
+    CREATE UNIQUE INDEX IF NOT EXISTS push_tokens_user_player_uniq
+    ON push_tokens (user_id, onesignal_player_id)
   `;
 
   await sql`
@@ -86,6 +93,15 @@ export async function initDatabase(): Promise<void> {
       updated_at TIMESTAMPTZ DEFAULT now()
     )
   `;
+
+  // Add columns to users for existing deployments (idempotent).
+  // has_used_trial: prevents infinite-free-trial abuse — once a user has
+  //   consumed a trial, /api/checkout rejects re-granting one.
+  // consultation_focus / consultation_question: persisted from the snapshot
+  //   consultation form so the human-written email reading can use them.
+  await sql`ALTER TABLE users ADD COLUMN IF NOT EXISTS has_used_trial BOOLEAN DEFAULT false`;
+  await sql`ALTER TABLE users ADD COLUMN IF NOT EXISTS consultation_focus TEXT`;
+  await sql`ALTER TABLE users ADD COLUMN IF NOT EXISTS consultation_question TEXT`;
 }
 
 /** Get a users daily horoscope for a specific date. */
@@ -136,7 +152,8 @@ export async function getUserByEmail(email: string) {
 export async function getUserById(id: string) {
   const rows = await sql`
     SELECT id, email, birth_date, birth_time, birth_place, chart_data,
-           subscription_status, trial_ends_at, stripe_customer_id, created_at
+           subscription_status, trial_ends_at, stripe_customer_id, has_used_trial,
+           consultation_focus, consultation_question, created_at
     FROM users WHERE id = ${id} LIMIT 1
   `;
   return rows[0] ?? null;
@@ -178,13 +195,27 @@ export async function updateUserChart(
 /** Update subscription status. */
 export async function updateSubscription(
   userId: string,
-  params: { status: string; trialEndsAt?: string; stripeCustomerId?: string },
+  params: { status: string; trialEndsAt?: string; stripeCustomerId?: string; hasUsedTrial?: boolean },
 ): Promise<void> {
   await sql`
     UPDATE users SET
       subscription_status = ${params.status},
       trial_ends_at = COALESCE(${params.trialEndsAt ? new Date(params.trialEndsAt) : null}::timestamptz, trial_ends_at),
-      stripe_customer_id = COALESCE(${params.stripeCustomerId ?? null}, stripe_customer_id)
+      stripe_customer_id = COALESCE(${params.stripeCustomerId ?? null}, stripe_customer_id),
+      has_used_trial = COALESCE(${params.hasUsedTrial ?? null}, has_used_trial)
+    WHERE id = ${userId}
+  `;
+}
+
+/** Persist the snapshot consultation form (focus area + question). */
+export async function updateConsultation(
+  userId: string,
+  params: { focusArea?: string; question?: string },
+): Promise<void> {
+  await sql`
+    UPDATE users SET
+      consultation_focus = COALESCE(${params.focusArea ?? null}, consultation_focus),
+      consultation_question = COALESCE(${params.question ?? null}, consultation_question)
     WHERE id = ${userId}
   `;
 }

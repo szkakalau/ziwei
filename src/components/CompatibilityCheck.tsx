@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Heart, Loader2 } from "lucide-react";
+import { formatStarName } from "@/lib/zwdsNaming";
 
 export function CompatibilityCheck() {
   const [birthDate, setBirthDate] = useState("");
@@ -156,7 +157,7 @@ export function CompatibilityCheck() {
                 <span key={s} className="px-2.5 py-1 rounded-full text-[11px]
                                          bg-amber-500/8 text-amber-300/60
                                          border border-amber-500/10">
-                  {s}
+                  {formatStarName(s)}
                 </span>
               ))}
             </div>

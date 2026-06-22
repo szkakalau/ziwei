@@ -20,7 +20,7 @@ export function StreakBadge({ streak }: StreakBadgeProps) {
         className={`flex items-center gap-1.5 text-sm font-medium transition-colors ${achievement.color}`}
       >
         <span>{achievement.icon}</span>
-        <span>Day {streak || 1}</span>
+        <span>{streak > 0 ? `Day ${streak}` : "Start your streak"}</span>
       </button>
 
       {showAchievement && (

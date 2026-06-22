@@ -4,7 +4,7 @@ import { getStripe } from "@/lib/stripeServer";
 
 export const runtime = "nodejs";
 
-export async function POST() {
+export async function POST(request: Request) {
   try {
     const priceId = process.env.STRIPE_SUBSCRIPTION_PRICE_ID;
     if (!priceId) {
@@ -23,18 +23,31 @@ export async function POST() {
       );
     }
 
-    // DB guard against infinite-free-trial abuse: reject if the user already
-    // has an active subscription or an unexpired trial. Without this, a logged-in
-    // client could call /api/checkout every ~6 days to keep resetting
-    // trial_ends_at to +7d and never pay. Relies on getUserById returning
-    // subscription_status + trial_ends_at (it does).
+    // Guard against infinite-free-trial abuse: once a user has consumed a
+    // trial (has_used_trial=true), they can't get another one unless they have
+    // an active subscription. Also reject if already active or trial unexpired.
     const status = user.subscription_status;
     const trialEndsAt = user.trial_ends_at ? new Date(user.trial_ends_at) : null;
-    if (status === "active" || (status === "trial" && trialEndsAt && trialEndsAt > new Date())) {
-      return NextResponse.json(
-        { ok: false, error: "TRIAL_ACTIVE" },
-        { status: 400 },
-      );
+    if (status === "active") {
+      return NextResponse.json({ ok: false, error: "TRIAL_ACTIVE" }, { status: 400 });
+    }
+    if (status === "trial" && trialEndsAt && trialEndsAt > new Date()) {
+      return NextResponse.json({ ok: false, error: "TRIAL_ACTIVE" }, { status: 400 });
+    }
+    if (user.has_used_trial === true) {
+      return NextResponse.json({ ok: false, error: "TRIAL_USED" }, { status: 400 });
+    }
+
+    // Parse the consultation form (focusArea/question) sent from the snapshot
+    // page so the human-written email reading can use them.
+    let focusArea: string | undefined;
+    let question: string | undefined;
+    try {
+      const body = await request.json();
+      if (typeof body?.focusArea === "string") focusArea = body.focusArea.slice(0, 100);
+      if (typeof body?.question === "string") question = body.question.slice(0, 1000);
+    } catch {
+      /* no body or invalid JSON — proceed without consultation data */
     }
 
     const siteUrl = getSiteUrl().toString();
@@ -49,13 +62,17 @@ export async function POST() {
     }
 
     // Grant trial access immediately — don't wait for the async webhook.
-    // If the user abandons checkout, they get 7 free days. Acceptable.
-    const { updateSubscription } = await import("@/lib/db");
+    // Mark has_used_trial=true so this user can never get another free trial.
+    const { updateSubscription, updateConsultation } = await import("@/lib/db");
     await updateSubscription(user.id, {
       status: "trial",
       trialEndsAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(),
       stripeCustomerId: customerId,
+      hasUsedTrial: true,
     });
+    if (focusArea || question) {
+      await updateConsultation(user.id, { focusArea, question });
+    }
 
     const session = await stripe.checkout.sessions.create({
       mode: "subscription",
@@ -63,7 +80,7 @@ export async function POST() {
       line_items: [{ price: priceId, quantity: 1 }],
       subscription_data: {
         trial_period_days: 7,
-        metadata: { userId: user.id },
+        metadata: { userId: user.id, focusArea: focusArea ?? "", question: question ?? "" },
       },
       success_url: `${siteUrl}/daily?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${siteUrl}/#free-personality-snapshot`,

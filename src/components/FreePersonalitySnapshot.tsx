@@ -52,11 +52,18 @@ export default function FreePersonalitySnapshot() {
 
       // Persist chart to DB if user is authenticated
       const meta = loadChartMetaFromStorage();
+      // birthDate lives inside the userBirthInput JSON object, not a top-level
+      // "userBirthDate" key (which is never written). Read it from there.
+      let birthDate: string | undefined;
+      try {
+        const bi = JSON.parse(sessionStorage.getItem("userBirthInput") || "null");
+        if (bi?.birthDate) birthDate = bi.birthDate;
+      } catch { /* ignore */ }
       fetch("/api/chart", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          birthDate: sessionStorage.getItem("userBirthDate") ?? undefined,
+          birthDate,
           birthTime: meta?.birthTime ?? "12:00",
           birthPlace: meta ? { lat: meta.latitude, lng: meta.longitude, tz: meta.timezone } : undefined,
           chartData: chart,

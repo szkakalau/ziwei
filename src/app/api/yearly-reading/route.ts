@@ -89,7 +89,7 @@ export async function POST() {
     } catch {
       // Cache miss — generate fresh
     }
-    if (cached && cached.horoscope_text) {
+    if (cached && cached.horoscope_text && cached.transit_summary && cached.transit_summary.startsWith("Annual reading for")) {
       return NextResponse.json({ ok: true, reading: cached.horoscope_text, year, cached: true });
     }
 
