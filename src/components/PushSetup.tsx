@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Bell, BellOff } from "lucide-react";
 
 type PushState = "unsupported" | "denied" | "granted" | "prompt" | "loading";
@@ -27,6 +27,11 @@ declare global {
 export function useOneSignal(appId: string, userId?: string) {
   const [pushState, setPushState] = useState<PushState>("loading");
   const [initialized, setInitialized] = useState(false);
+
+  // Keep a ref to userId so the subscriptionChange callback (registered once
+  // at SDK load) always sees the latest value instead of a stale closure.
+  const userIdRef = useRef<string | undefined>(userId);
+  userIdRef.current = userId;
 
   useEffect(() => {
     if (!appId || initialized) return;
@@ -62,7 +67,8 @@ export function useOneSignal(appId: string, userId?: string) {
             setPushState("granted");
             // Register player ID with backend
             window.OneSignal?.getRegistrationId().then((playerId: string) => {
-              if (userId && playerId) registerToken(userId, playerId);
+              const uid = userIdRef.current;
+              if (uid && playerId) registerToken(uid, playerId);
             });
           } else {
             setPushState("prompt");
@@ -88,7 +94,19 @@ export function useOneSignal(appId: string, userId?: string) {
     return () => {
       if (script.parentNode) script.parentNode.removeChild(script);
     };
-  }, [appId, userId, initialized]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [appId]);
+
+  // When userId resolves (after /api/auth/me) and the SDK is loaded, set the
+  // external user id — without re-running the SDK-load effect above.
+  useEffect(() => {
+    if (!initialized || !userId || !window.OneSignal) return;
+    try {
+      window.OneSignal.setExternalUserId(userId);
+    } catch {
+      /* non-critical */
+    }
+  }, [initialized, userId]);
 
   const requestPush = async () => {
     if (!window.OneSignal) return;

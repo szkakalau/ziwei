@@ -35,7 +35,11 @@ export async function POST(request: Request) {
       return NextResponse.json({ ok: false, error: "DUPLICATE_EMAIL" }, { status: 409 });
     }
     if (err && typeof err === "object" && "code" in err) {
-      return NextResponse.json({ ok: false, error: (err as { code: string }).code }, { status: 400 });
+      const code = (err as { code: string }).code;
+      if (code === "SESSION_MISCONFIGURED") {
+        return NextResponse.json({ ok: false, error: code }, { status: 503 });
+      }
+      return NextResponse.json({ ok: false, error: code }, { status: 400 });
     }
     return NextResponse.json({ ok: false, error: "INTERNAL_ERROR" }, { status: 500 });
   }

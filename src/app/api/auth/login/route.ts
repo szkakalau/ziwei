@@ -33,7 +33,12 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: true, user });
   } catch (err) {
     if (err && typeof err === "object" && "code" in err) {
-      return NextResponse.json({ ok: false, error: (err as { code: string }).code }, { status: 401 });
+      const code = (err as { code: string }).code;
+      // Server misconfiguration is a 503, not an auth failure (401).
+      if (code === "SESSION_MISCONFIGURED") {
+        return NextResponse.json({ ok: false, error: code }, { status: 503 });
+      }
+      return NextResponse.json({ ok: false, error: code }, { status: 401 });
     }
     return NextResponse.json({ ok: false, error: "INTERNAL_ERROR" }, { status: 500 });
   }

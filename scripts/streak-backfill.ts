@@ -38,11 +38,12 @@ async function loadEnv() {
 }
 
 function toYMD(d: Date): string {
-  // Local components — but daily_horoscopes.date was stored from server UTC
-  // toISOString().slice(0,10), so we treat the stored DATE values as UTC dates
-  // and compare purely as strings once normalized. Neon returns Date objects
-  // for DATE columns; converting via getUTC* keeps the stored calendar day.
-  return `${d.getUTCFullYear()}-${String(d.getUTCMonth() + 1).padStart(2, "0")}-${String(d.getUTCDate()).padStart(2, "0")}`;
+  // Neon's pg-types parseDate constructs DATE values via the LOCAL-midnight
+  // constructor (new Date(y, m, d)), so to recover the stored calendar day we
+  // must read LOCAL components — NOT getUTC*. Using getUTC* shifts the day
+  // back by one in positive-offset timezones (e.g. UTC+8 China). This mirrors
+  // src/lib/db.ts updateStreak's local-component normalization.
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
 }
 
 async function main() {

@@ -25,17 +25,18 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: false, error: "INVALID_SIGNATURE" }, { status: 400 });
   }
 
-  // Idempotency: atomic check-and-insert. ON CONFLICT DO NOTHING RETURNING id
-  // returns a row only on the first insert; concurrent retries (Stripe resends
-  // or duplicate delivery to multiple instances) get no row and exit early.
   const { sql } = await import("@/lib/db");
-  const inserted = await sql`
-    INSERT INTO stripe_events (event_id, event_type, created_at)
-    VALUES (${event.id}, ${event.type}, now())
-    ON CONFLICT (event_id) DO NOTHING
-    RETURNING id
-  `.catch(() => [] as Array<{ id: string }>);
-  if (inserted.length === 0) {
+
+  // Idempotency: check FIRST (read-only). If already processed, exit without
+  // re-running side effects. We record the event AFTER processing succeeds —
+  // recording before processing meant a handler failure permanently lost the
+  // event (Stripe's retry would see the committed row and skip). Processing is
+  // idempotent on its own (updateSubscription uses COALESCE), so re-processing
+  // on retry is safe.
+  const already = await sql`
+    SELECT 1 FROM stripe_events WHERE event_id = ${event.id} LIMIT 1
+  `;
+  if (already.length > 0) {
     return NextResponse.json({ ok: true }); // Already processed
   }
 
@@ -107,6 +108,15 @@ export async function POST(request: Request) {
         break;
       }
     }
+
+    // Record successful processing. A unique-violation here means a concurrent
+    // instance already processed this event — treat as success, not an error.
+    // Other DB errors propagate to the outer catch (500) so Stripe retries.
+    await sql`
+      INSERT INTO stripe_events (event_id, event_type, created_at)
+      VALUES (${event.id}, ${event.type}, now())
+      ON CONFLICT (event_id) DO NOTHING
+    `;
   } catch (err) {
     console.error("[stripe-webhook]", err);
     return NextResponse.json({ ok: false, error: "WEBHOOK_HANDLER_ERROR" }, { status: 500 });

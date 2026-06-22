@@ -28,9 +28,6 @@ export function BirthdaySurprise({ birthDate, streak }: BirthdaySurpriseProps) {
 
   if (!isBirthday && !isBirthdayWeek) return null;
 
-  // Don't show the "week" version if it's actually the birthday
-  if (isBirthdayWeek && !isBirthday && !showReading && !reading) return null;
-
   const age = today.getFullYear() - birth.getFullYear();
   const dateLabel = today.toLocaleDateString("en-US", {
     weekday: "long",

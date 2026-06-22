@@ -63,25 +63,36 @@ export function ShareCard({ horoscopeText, highlightedStars, date, streak }: Sha
     ctx.font = "400 36px system-ui, -apple-system, sans-serif";
     ctx.textAlign = "center";
 
-    const words = horoscopeText.split(" ");
+    // Wrap text honoring paragraph breaks (\n). Canvas fillText ignores
+    // newlines, so split into paragraphs first, then word-wrap each.
+    const paragraphs = horoscopeText.split(/\n+/);
     let line = "";
     let y = 220;
     const lineHeight = 52;
     const maxWidth = 800;
 
-    for (const word of words) {
-      if (y > 1280) break; // Overflow guard — stop rendering beyond canvas
-      const testLine = line ? `${line} ${word}` : word;
-      const metrics = ctx.measureText(testLine);
-      if (metrics.width > maxWidth && line) {
-        ctx.fillText(line, 540, y);
-        line = word;
-        y += lineHeight;
-      } else {
-        line = testLine;
+    for (const para of paragraphs) {
+      const words = para.split(" ");
+      for (const word of words) {
+        if (y > 1280) break; // Overflow guard
+        const testLine = line ? `${line} ${word}` : word;
+        const metrics = ctx.measureText(testLine);
+        if (metrics.width > maxWidth && line) {
+          ctx.fillText(line, 540, y);
+          line = word;
+          y += lineHeight;
+        } else {
+          line = testLine;
+        }
       }
+      // Flush the last line of this paragraph, then advance for the next.
+      if (line && y <= 1280) {
+        ctx.fillText(line, 540, y);
+        y += lineHeight;
+      }
+      line = "";
+      if (y > 1280) break;
     }
-    if (line && y <= 1280) ctx.fillText(line, 540, y);
 
     // Stars section
     y += 80;

@@ -8,17 +8,18 @@ import { getSiteUrl } from "@/lib/site";
 import { BRAND_NAME } from "@/lib/brand";
 import JsonLd from "@/components/JsonLd";
 
-type Props = { params: { slug: string } };
+type Props = { params: Promise<{ slug: string }> };
 
 export function generateStaticParams() {
   return getPostSlugs().map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const post = getPostBySlug(params.slug);
+  const { slug } = await params;
+  const post = getPostBySlug(slug);
   if (!post) return {};
   const site = getSiteUrl();
-  const url = new URL(`/blog/${params.slug}`, site);
+  const url = new URL(`/blog/${slug}`, site);
   const ogImage = new URL("/opengraph-image", site);
 
   return {
@@ -57,7 +58,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function BlogPostPage({ params }: Props) {
-  const post = getPostBySlug(params.slug);
+  const { slug } = await params;
+  const post = getPostBySlug(slug);
   if (!post) notFound();
 
   const { content } = await compileMDX({
@@ -70,7 +72,7 @@ export default async function BlogPostPage({ params }: Props) {
   });
 
   const site = getSiteUrl();
-  const postUrl = new URL(`/blog/${params.slug}`, site).toString();
+  const postUrl = new URL(`/blog/${slug}`, site).toString();
   const blogUrl = new URL("/blog", site).toString();
 
   const articleJsonLd = {
@@ -125,7 +127,7 @@ export default async function BlogPostPage({ params }: Props) {
       </div>
 
       {/* Related posts — internal linking boost for crawl depth */}
-      <RelatedPosts currentSlug={params.slug} category={post.meta.category} />
+      <RelatedPosts currentSlug={slug} category={post.meta.category} />
     </main>
   );
 }

@@ -34,15 +34,15 @@ export const metadata: Metadata = {
 };
 
 type Props = {
-  searchParams: { category?: string | string[] };
+  searchParams: Promise<{ category?: string | string[] }>;
 };
 
 function isCategory(value: string): value is BlogCategory {
   return (BLOG_CATEGORIES as readonly string[]).includes(value);
 }
 
-export default function BlogPage({ searchParams }: Props) {
-  const raw = searchParams.category;
+export default async function BlogPage({ searchParams }: Props) {
+  const { category: raw } = await searchParams;
   const categoryParam = Array.isArray(raw) ? raw[0] : raw;
   const activeCategory =
     categoryParam && isCategory(categoryParam) ? categoryParam : null;

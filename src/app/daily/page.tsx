@@ -97,7 +97,10 @@ export default function DailyPage() {
         if (h.value.status === 400 && !skipSync) {
           const synced = await syncChartFromStorage();
           if (synced) {
-            fetchHoroscope(true);
+            // Await the recursive fetch so the outer finally (setLoading(false))
+            // doesn't fire while the retry is still pending — which would flash
+            // the empty/error state mid-fetch.
+            await fetchHoroscope(true);
             return;
           }
           setAuthStatus("no_chart"); setLoading(false); return;
@@ -191,6 +194,10 @@ export default function DailyPage() {
         window.location.href = d.url;
       } else if (d.error === "NOT_AUTHENTICATED") {
         setAuthStatus("unauthenticated");
+      } else if (d.error === "TRIAL_ACTIVE" || d.error === "TRIAL_USED") {
+        // User already has access (or already used their trial) — reload so
+        // /api/auth/me re-evaluates their subscription status.
+        window.location.reload();
       } else {
         setTrialError("Could not start trial. Please try again.");
       }
@@ -216,6 +223,8 @@ export default function DailyPage() {
       } else {
         setAuthError(d.error === "DUPLICATE_EMAIL"
           ? "Email already registered. Try logging in."
+          : d.error === "WEAK_PASSWORD"
+          ? "Password must be 10+ chars with uppercase, lowercase, and a digit."
           : d.message || "Authentication failed");
       }
     } catch {
@@ -248,7 +257,7 @@ export default function DailyPage() {
           />
           <input
             type="password"
-            placeholder={authMode === "login" ? "Password" : "Password (min 10 characters)"}
+            placeholder={authMode === "login" ? "Password" : "10+ chars: upper, lower, digit"}
             value={authMode === "login" ? loginPassword : signupPassword}
             onChange={(e) => authMode === "login"
               ? setLoginPassword(e.target.value) : setSignupPassword(e.target.value)}

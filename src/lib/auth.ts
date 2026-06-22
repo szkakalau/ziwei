@@ -50,7 +50,10 @@ async function getSession() {
   try {
     const cookieStore = await cookies();
     return getIronSession<SessionData>(cookieStore, getSessionOptions());
-  } catch {
+  } catch (err) {
+    // Propagate configuration errors (e.g. SESSION_SECRET missing/too short)
+    // so they surface as 503 instead of being silently swallowed as "logged out".
+    if (err instanceof AuthError) throw err;
     // Build-time: cookies() not available. Return a mock.
     if (!_buildSession) _buildSession = {};
     return {
