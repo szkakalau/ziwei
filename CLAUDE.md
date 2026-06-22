@@ -64,7 +64,15 @@ Next.js 14 App Router, deployed on Vercel. Neon serverless PostgreSQL via `@neon
 
 ### Database
 
-[db.ts](src/lib/db.ts) uses a `Proxy` over `neon()` for lazy connection — no DB connection at import time. Tables: `users` (with chart_data JSONB), `daily_horoscopes` (with highlighted_stars JSONB). All functions are exported individually (no ORM).
+[db.ts](src/lib/db.ts) uses a `Proxy` over `neon()` for lazy connection — no DB connection at import time. Tables: `users` (with chart_data JSONB), `daily_horoscopes` (with highlighted_stars JSONB), `streaks` (current_streak / longest_streak / last_check_date). All functions are exported individually (no ORM).
+
+### Critical invariants (踩坑记录 — 改前必读)
+
+**DB DATE 列返回 JS `Date` 对象，不是字符串。** Neon 驱动（`@neondatabase/serverless`）对 `DATE` 列（oid 1082）用 `pg-types` 的 `parseDate` 解析成 JS `Date`，不是 `YYYY-MM-DD` 字符串。任何从 `streaks.last_check_date`、`daily_horoscopes.date` 等 DATE 列读回的值，与字符串做 `===` 比较恒为 `false`。`updateStreak()` 曾因此把每次访问都判为"断签"重置成 1（streak 永远 Day 1）——前三次修复都改前端顺序，改错了层。读回 DATE 列后必须先归一化成字符串再比较，且用**本地日期分量**（`getFullYear/getMonth/getDate`）而非 `toISOString().slice(0,10)`，否则 UTC+8 本地零点会被推回前一天。
+
+**"今天"全系统统一用服务端 UTC。** streak 的 `bumpStreak`、运势缓存 key（[generate-daily/route.ts](src/app/api/generate-daily/route.ts)）、每日四化（[dailyTransit.ts](src/lib/dailyTransit.ts)）三者都用 `new Date().toISOString().slice(0, 10)`，日界线落在北京 08:00。这是设计选择不是 bug——三者必须同时切换。**不要只改 streak 一处**改用本地时区，否则 streak 与运势脱钩（读到新一天运势但 streak 没涨）。要改就得三处一起改 + 客户端传时区。
+
+**测试 mock 必须反映真实驱动行为。** [streak.test.ts](src/lib/__tests__/streak.test.ts) 曾把 `last_check_date` mock 成字符串，与真实驱动的 `Date` 对象相反，导致 DATE 类型 bug 长期隐藏。mock DB 返回值时按真实 Neon 类型来：DATE→`Date`、TIMESTAMPTZ→`Date`、JSONB→对象、TEXT/INTEGER→基本类型。
 
 ### Key patterns
 
