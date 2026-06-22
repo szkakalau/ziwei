@@ -208,7 +208,9 @@ export default function DailyPage() {
         // User already has access — reload so /api/auth/me re-evaluates.
         window.location.reload();
       } else if (d.error === "TRIAL_USED") {
-        // Already used a trial — don't reload (would loop). Show subscribe prompt.
+        // Already used a trial — flip state so the Subscribe button shows
+        // immediately (no reload needed). Show a clear message too.
+        setHasUsedTrial(true);
         setTrialError("You've already used your free trial. Subscribe to continue.");
       } else {
         setTrialError("Could not start trial. Please try again.");

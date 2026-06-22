@@ -220,6 +220,7 @@ export default function SnapshotClient() {
   const [question, setQuestion] = useState("");
   const [checkoutPending, setCheckoutPending] = useState(false);
   const [checkoutError, setCheckoutError] = useState<string | null>(null);
+  const [hasUsedTrial, setHasUsedTrial] = useState(false);
 
   const structured = useMemo(() => (snapshot ? buildStructured(snapshot) : null), [snapshot]);
   const shouldShowUnknownTimeModule = Boolean(
@@ -238,6 +239,13 @@ export default function SnapshotClient() {
     if (c) {
       setSnapshot(buildPersonalitySnapshot(c));
     }
+    // Fetch whether the user already used a trial so checkout can pass
+    // allowTrial=false and avoid a TRIAL_USED rejection (which would otherwise
+    // block post-trial users from buying the email reading at all).
+    fetch("/api/auth/me")
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d) => { if (d?.user?.hasUsedTrial) setHasUsedTrial(true); })
+      .catch(() => {});
     track("snapshot_page_view");
   }, []);
 
@@ -264,6 +272,7 @@ export default function SnapshotClient() {
         const result = await startStripeCheckoutFromStored({
           focusArea,
           question: trimmedQuestion,
+          allowTrial: !hasUsedTrial,
         });
         if (!result.ok) {
           setCheckoutError(result.message);
@@ -276,7 +285,7 @@ export default function SnapshotClient() {
         setCheckoutPending(false);
       }
     },
-    [focusArea, question],
+    [focusArea, question, hasUsedTrial],
   );
 
   if (!birthInput || !snapshot || !structured) {

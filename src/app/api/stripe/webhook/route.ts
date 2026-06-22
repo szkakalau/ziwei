@@ -54,11 +54,13 @@ export async function POST(request: Request) {
           if (userId) {
             const customerId = typeof obj.customer === "string" ? obj.customer : null;
             const { updateSubscription } = await import("@/lib/db");
-            // No trialEndsAt here — updateSubscription uses COALESCE, so the
-            // trial_ends_at set by /api/checkout (now+7d) is preserved instead
-            // of being nulled out.
+            // Only record the Stripe customer id here. Do NOT write status —
+            // writing "trial" unconditionally locks out allowTrial=false
+            // subscribers (their trial_ends_at is null/past, so the guard
+            // fail-closes). Status is owned by customer.subscription.created/
+            // updated below, which call mapStripeStatus to set trial/active
+            // correctly based on the actual subscription state.
             await updateSubscription(userId, {
-              status: "trial",
               stripeCustomerId: customerId ?? undefined,
             });
           }

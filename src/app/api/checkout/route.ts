@@ -75,6 +75,18 @@ export async function POST(request: Request) {
       return NextResponse.json({ ok: false, error: "TRIAL_USED" }, { status: 400 });
     }
 
+    // Server-side validation: a consultation order (focusArea/question) is
+    // required on the trial path (snapshot form enforces it client-side, but
+    // the server is the trust boundary). The allowTrial=false path (direct
+    // subscribe from /daily) legitimately omits consultation data.
+    const hasConsultation = !!(focusArea && question && question.trim().length >= 10);
+    if (allowTrial && !hasConsultation) {
+      return NextResponse.json(
+        { ok: false, error: "CONSULTATION_REQUIRED", message: "Focus area and a 10+ char question are required." },
+        { status: 400 },
+      );
+    }
+
     const siteUrl = getSiteUrl().toString();
     const stripe = getStripe();
 
@@ -107,8 +119,8 @@ export async function POST(request: Request) {
         stripeCustomerId: customerId,
       });
     }
-    if (focusArea || question) {
-      await updateConsultation(user.id, { focusArea, question });
+    if (hasConsultation) {
+      await updateConsultation(user.id, { focusArea: focusArea!, question: question! });
     }
 
     const subscriptionData: { trial_period_days?: number; metadata: Record<string, string> } = {
@@ -116,12 +128,18 @@ export async function POST(request: Request) {
     };
     if (allowTrial) subscriptionData.trial_period_days = 7;
 
+    // Consultation orders land on /success (which explains the 24-48h human
+    // reading). Pure subscription checkouts (allowTrial=false from /daily)
+    // land on /daily so the user reaches their horoscope — /success would
+    // falsely promise a human reading that won't come.
+    const successPath = hasConsultation ? "/success" : "/daily";
+
     const session = await stripe.checkout.sessions.create({
       mode: "subscription",
       customer: customerId,
       line_items: [{ price: priceId, quantity: 1 }],
       subscription_data: subscriptionData,
-      success_url: `${siteUrl}/success?session_id={CHECKOUT_SESSION_ID}`,
+      success_url: `${siteUrl}${successPath}?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${siteUrl}/#free-personality-snapshot`,
       metadata: { userId: user.id },
       custom_text: {
@@ -133,21 +151,31 @@ export async function POST(request: Request) {
       },
     });
 
-    // Fire operator notification for the human-written email consultation.
-    // Fire-and-forget — must not block checkout or fail the response.
-    if (focusArea || question) {
+    // Operator notification for the human-written email consultation. Await so
+    // the emails actually send — Vercel serverless can kill un-awaited promises
+    // after the response returns. Failure is caught so checkout still succeeds.
+    if (hasConsultation) {
       const { notifyConsultationOrder } = await import("@/lib/consultationDelivery");
-      notifyConsultationOrder({
-        sessionId: session.id,
-        customerEmail: user.email,
-        focusArea: focusArea ?? "",
-        question: question ?? "",
-        birthDate,
-        birthTime,
-        location,
-        gender,
-        allowFallback,
-      }).catch((err) => console.error("[checkout] consultation notification failed:", err));
+      const { formatChartCompact } = await import("@/lib/chartFormatter");
+      const chartText = user.chart_data
+        ? formatChartCompact(user.chart_data as Parameters<typeof formatChartCompact>[0])
+        : undefined;
+      try {
+        await notifyConsultationOrder({
+          sessionId: session.id,
+          customerEmail: user.email,
+          focusArea: focusArea!,
+          question: question!,
+          birthDate,
+          birthTime,
+          location,
+          gender,
+          allowFallback,
+          chartText,
+        });
+      } catch (err) {
+        console.error("[checkout] consultation notification failed:", err);
+      }
     }
 
     return NextResponse.json({ ok: true, url: session.url });
