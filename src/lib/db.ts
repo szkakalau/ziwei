@@ -117,16 +117,6 @@ async function migrateSchema(c: ReturnType<typeof getSql>): Promise<void> {
     )
   `;
 
-  await c`
-    CREATE TABLE IF NOT EXISTS consultation_readings (
-      id TEXT PRIMARY KEY DEFAULT gen_random_uuid()::text,
-      user_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-      content TEXT NOT NULL,
-      delivered_at TIMESTAMPTZ DEFAULT now(),
-      created_at TIMESTAMPTZ DEFAULT now()
-    )
-  `;
-
   // Add columns to users for existing deployments (idempotent).
   // has_used_trial: prevents infinite-free-trial abuse 鈥?once a user has
   //   consumed a trial, /api/checkout rejects re-granting one.
@@ -275,31 +265,6 @@ export async function incrementChatCount(userId: string): Promise<{ allowed: boo
   `;
   const used = (rows[0]?.chat_count as number) ?? 0;
   return { allowed: used <= 5, used };
-}
-
-/** Store a human-written consultation reading for a user (operator upload). */
-export async function storeConsultationReading(
-  userId: string,
-  content: string,
-): Promise<void> {
-  await sql`
-    INSERT INTO consultation_readings (user_id, content)
-    VALUES (${userId}, ${content})
-  `;
-}
-
-/** Get the most recent consultation reading for a user, or null. */
-export async function getConsultationReading(
-  userId: string,
-): Promise<{ id: string; content: string; delivered_at: string; created_at: string } | null> {
-  const rows = await sql`
-    SELECT id, content, delivered_at, created_at
-    FROM consultation_readings
-    WHERE user_id = ${userId}
-    ORDER BY created_at DESC
-    LIMIT 1
-  `;
-  return rows[0] ?? null;
 }
 
 /** Get all active (trial or paid) users 鈥?for cron batch generation.

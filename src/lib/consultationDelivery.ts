@@ -17,7 +17,6 @@ import {
 
 type ConsultationInput = {
   sessionId: string;
-  userId?: string;
   customerEmail: string;
   focusArea: string;
   question: string;
@@ -39,7 +38,6 @@ export async function notifyConsultationOrder(input: ConsultationInput): Promise
 
   const payload: OpsOrderPayload = {
     sessionId: input.sessionId,
-    userId: input.userId ?? "",
     customerEmail: input.customerEmail,
     focusArea: input.focusArea,
     question: input.question,

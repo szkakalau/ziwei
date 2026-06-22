@@ -1,14 +1,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Sparkles, Mail, Lock } from "lucide-react";
+import { Sparkles, Mail, Clock, CheckCircle } from "lucide-react";
 import { AppNav } from "@/components/AppNav";
 import Link from "next/link";
 
-type ReadingData =
-  | { status: "pending" }
-  | { status: "locked"; message: string }
-  | { status: "full"; content: string; deliveredAt: string };
+type ReadingData = {
+  status: "no_order" | "writing" | "delivered" | "expired";
+  message: string;
+};
 
 export default function ReadingPage() {
   const [data, setData] = useState<ReadingData | null>(null);
@@ -26,7 +26,7 @@ export default function ReadingPage() {
         if (d.ok) {
           setData(d as ReadingData);
         } else {
-          setError(d.message || "Could not load reading.");
+          setError(d.message || "Could not load reading status.");
         }
       })
       .catch(() => setError("Network error. Please try again."))
@@ -37,7 +37,7 @@ export default function ReadingPage() {
     return (
       <main className="min-h-screen bg-[#0a0a0f] text-white px-5 py-20 max-w-2xl mx-auto text-center">
         <Sparkles className="h-8 w-8 text-amber-400/50 mx-auto mb-4 animate-pulse" />
-        <p className="text-white/60 text-base">Loading your reading...</p>
+        <p className="text-white/60 text-base">Loading...</p>
       </main>
     );
   }
@@ -47,113 +47,77 @@ export default function ReadingPage() {
       <main className="min-h-screen bg-[#0a0a0f] text-white px-5 py-20 max-w-2xl mx-auto text-center">
         <p className="text-red-400/70 text-sm mb-4">{error}</p>
         <Link href="/daily" className="text-amber-400/60 text-sm hover:text-amber-300">
-          ← Back to daily horoscope
+          Back to daily horoscope
         </Link>
       </main>
     );
   }
 
-  // ── Pending: reading not yet delivered ──
-  if (!data || data.status === "pending") {
-    return (
-      <main className="min-h-screen bg-[#0a0a0f] text-white px-5 py-16 max-w-2xl mx-auto">
-        <div className="text-center mb-10">
-          <Mail className="h-10 w-10 text-amber-400/40 mx-auto mb-4" />
-          <h1 className="text-amber-200/90 text-xl md:text-2xl font-semibold">
-            Your Email Reading
-          </h1>
-          <p className="text-white/40 text-sm mt-3 max-w-md mx-auto">
-            Your personalized Zi Wei Dou Shu reading is being written by our
-            astrologer. You&apos;ll receive it via email within 24–48 hours of
-            subscribing.
-          </p>
-        </div>
+  const status = data?.status ?? "no_order";
 
-        <div className="rounded-xl bg-white/[0.02] border border-white/[0.05] p-6 space-y-4">
-          <div className="flex items-center gap-3">
-            <div className="w-3 h-3 rounded-full bg-amber-500/30 animate-pulse" />
-            <p className="text-white/50 text-sm">Reading in progress...</p>
-          </div>
-          <p className="text-white/25 text-xs leading-relaxed">
-            Once delivered, you can view it here or check your inbox. Make sure
-            to check your spam folder if you don&apos;t see it within the
-            estimated window.
-          </p>
-        </div>
+  const icons: Record<string, React.ReactNode> = {
+    no_order: <Mail className="h-10 w-10 text-amber-400/30 mx-auto mb-4" />,
+    writing: <Clock className="h-10 w-10 text-amber-400/50 mx-auto mb-4" />,
+    delivered: <CheckCircle className="h-10 w-10 text-green-400/50 mx-auto mb-4" />,
+    expired: <Mail className="h-10 w-10 text-white/20 mx-auto mb-4" />,
+  };
 
-        <div className="mt-8 text-center">
-          <Link
-            href="/daily"
-            className="text-amber-400/50 text-sm hover:text-amber-300 transition-colors"
-          >
-            ← Back to daily horoscope
-          </Link>
-        </div>
+  const titles: Record<string, string> = {
+    no_order: "Your Email Reading",
+    writing: "Your Reading Is Being Written",
+    delivered: "Your Reading Has Been Delivered",
+    expired: "Subscription Ended",
+  };
 
-        <AppNav />
-      </main>
-    );
-  }
-
-  // ── Locked (trial user, reading exists but not yet accessible) ──
-  if (data.status === "locked") {
-    return (
-      <main className="min-h-screen bg-[#0a0a0f] text-white px-5 py-16 max-w-2xl mx-auto">
-        <div className="text-center mb-10">
-          <Lock className="h-10 w-10 text-amber-400/40 mx-auto mb-4" />
-          <h1 className="text-amber-200/90 text-xl md:text-2xl font-semibold">
-            Your Email Reading
-          </h1>
-          <p className="text-white/50 text-sm mt-4 max-w-md mx-auto leading-relaxed">
-            {data.message}
-          </p>
-        </div>
-
-        <div className="rounded-xl border border-amber-500/10 bg-amber-500/[0.03] p-6 text-center">
-          <p className="text-white/60 text-sm mb-5">
-            Our astrologer has started working on your personalized Zi Wei Dou Shu reading. Subscribe now to receive the complete reading via email and unlock it here.
-          </p>
-          <Link
-            href="/daily"
-            className="inline-block px-6 py-3 rounded-xl bg-amber-500/15 text-amber-300 text-sm font-medium border border-amber-500/20 hover:bg-amber-500/25 transition-colors"
-          >
-            Upgrade now — $4.99/mo →
-          </Link>
-        </div>
-
-        <div className="mt-8 text-center">
-          <Link
-            href="/daily"
-            className="text-amber-400/50 text-sm hover:text-amber-300 transition-colors"
-          >
-            ← Back to daily horoscope
-          </Link>
-        </div>
-
-        <AppNav />
-      </main>
-    );
-  }
-
-  // ── Full reading (active subscriber) ──
   return (
     <main className="min-h-screen bg-[#0a0a0f] text-white px-5 py-16 max-w-2xl mx-auto">
-      <div className="text-center mb-8">
-        <Sparkles className="h-8 w-8 text-amber-400/50 mx-auto mb-3" />
+      <div className="text-center mb-10">
+        {icons[status]}
         <h1 className="text-amber-200/90 text-xl md:text-2xl font-semibold">
-          Your Email Reading
+          {titles[status]}
         </h1>
-        <p className="text-white/40 text-sm mt-2">
-          Delivered {data.deliveredAt ? new Date(data.deliveredAt).toLocaleDateString() : "recently"}
+        <p className="text-white/50 text-sm mt-4 max-w-md mx-auto leading-relaxed">
+          {data?.message}
         </p>
       </div>
 
-      <div className="rounded-xl bg-white/[0.02] border border-amber-500/10 p-6 md:p-8">
-        <div className="prose prose-invert prose-sm max-w-none">
-          <p className="text-white/80 text-sm leading-relaxed whitespace-pre-line">
-            {data.content}
+      <div className="rounded-xl border border-amber-500/10 bg-amber-500/[0.03] p-6 text-center space-y-4">
+        {(status === "no_order" || status === "expired") && (
+          <>
+            <p className="text-white/50 text-sm">
+              Our astrologer writes a personalized Zi Wei Dou Shu reading based on your birth chart and your specific question. Delivered via email within 24-48 hours of subscribing.
+            </p>
+            <Link
+              href="/daily"
+              className="inline-block px-6 py-3 rounded-xl bg-amber-500/15 text-amber-300 text-sm font-medium border border-amber-500/20 hover:bg-amber-500/25 transition-colors"
+            >
+              Subscribe now — $4.99/mo
+            </Link>
+          </>
+        )}
+
+        {status === "writing" && (
+          <>
+            <p className="text-white/40 text-sm">
+              We've received your order and our astrologer is working on it. The reading will be sent to your email as soon as your subscription becomes active after the 7-day trial.
+            </p>
+            <Link
+              href="/daily"
+              className="inline-block px-6 py-3 rounded-xl bg-amber-500/15 text-amber-300 text-sm font-medium border border-amber-500/20 hover:bg-amber-500/25 transition-colors"
+            >
+              Go to daily horoscope
+            </Link>
+          </>
+        )}
+
+        {status === "delivered" && (
+          <p className="text-white/40 text-sm">
+            Check your inbox and spam folder. If you still can't find it, email us at{" "}
+            <a href="mailto:castro.liu@me.com" className="text-amber-400/60 hover:text-amber-300">
+              castro.liu@me.com
+            </a>.
           </p>
-        </div>
+        )}
       </div>
 
       <div className="mt-8 text-center">
@@ -161,7 +125,7 @@ export default function ReadingPage() {
           href="/daily"
           className="text-amber-400/50 text-sm hover:text-amber-300 transition-colors"
         >
-          ← Back to daily horoscope
+          Back to daily horoscope
         </Link>
       </div>
 
