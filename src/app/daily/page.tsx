@@ -45,30 +45,47 @@ export default function DailyPage() {
   const { pushState, requestPush } = useOneSignal(onesignalAppId, userId);
 
   useEffect(() => {
-    fetch("/api/auth/me")
-      .then(async (r) => {
-        if (r.status === 401) { setAuthStatus("unauthenticated"); return; }
-        const d = await r.json();
-        if (!d.ok) { setAuthStatus("unauthenticated"); return; }
+    const params = new URLSearchParams(window.location.search);
+    const sessionId = params.get("session_id");
 
-        if (d.user?.id) setUserId(d.user.id);
-        if (d.user?.birthDate) setUserBirthDate(d.user.birthDate);
-        if (d.user?.hasUsedTrial) setHasUsedTrial(true);
+    // Returning from Stripe checkout: synchronously verify the session so the
+    // subscription status is updated from Stripe BEFORE we read /api/auth/me.
+    // Without this, an allowTrial=false subscriber lands here with status
+    // still "free" (the webhook hasn't fired yet) and sees the paywall again.
+    const verifyPromise = sessionId
+      ? fetch("/api/checkout/verify-session", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ sessionId }),
+        }).catch(() => null)
+      : Promise.resolve(null);
 
-        // Clean up Stripe session_id from URL (status was already set by checkout API)
-        const params = new URLSearchParams(window.location.search);
-        if (params.has("session_id")) {
-          window.history.replaceState(null, "", "/daily");
-        }
+    verifyPromise.then(() => {
+      if (sessionId) {
+        window.history.replaceState(null, "", "/daily");
+      }
+      fetch("/api/auth/me")
+        .then(async (r) => {
+          if (r.status === 401) { setAuthStatus("unauthenticated"); return; }
+          const d = await r.json();
+          if (!d.ok) { setAuthStatus("unauthenticated"); return; }
 
-        const status = d.user?.subscriptionStatus;
-        if (!status || status === "free" || status === "canceled" || status === "expired") {
-          setAuthStatus("no_subscription");
-        } else {
-          setAuthStatus("ok");
-        }
-      })
-      .catch(() => setAuthStatus("unauthenticated"));
+          if (d.user?.id) setUserId(d.user.id);
+          if (d.user?.birthDate) setUserBirthDate(d.user.birthDate);
+          if (d.user?.hasUsedTrial) setHasUsedTrial(true);
+
+          // Use the same logic as subscriptionGuard: only trial/active grant
+          // access. past_due is mapped to active by mapStripeStatus, so it
+          // won't appear here as a raw value.
+          const status = d.user?.subscriptionStatus;
+          if (status === "trial" || status === "active") {
+            setAuthStatus("ok");
+          } else {
+            setAuthStatus("no_subscription");
+          }
+        })
+        .catch(() => setAuthStatus("unauthenticated"));
+    });
   }, []);
 
   useEffect(() => {
@@ -192,32 +209,11 @@ export default function DailyPage() {
   const [trialError, setTrialError] = useState<string | null>(null);
 
   const handleStartTrial = async () => {
-    setTrialError(null);
-    try {
-      const r = await fetch("/api/checkout", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ allowTrial: true }),
-      });
-      const d = await r.json();
-      if (d.ok && d.url) {
-        window.location.href = d.url;
-      } else if (d.error === "NOT_AUTHENTICATED") {
-        setAuthStatus("unauthenticated");
-      } else if (d.error === "TRIAL_ACTIVE") {
-        // User already has access — reload so /api/auth/me re-evaluates.
-        window.location.reload();
-      } else if (d.error === "TRIAL_USED") {
-        // Already used a trial — flip state so the Subscribe button shows
-        // immediately (no reload needed). Show a clear message too.
-        setHasUsedTrial(true);
-        setTrialError("You've already used your free trial. Subscribe to continue.");
-      } else {
-        setTrialError("Could not start trial. Please try again.");
-      }
-    } catch {
-      setTrialError("Network error. Please try again later.");
-    }
+    // The trial requires a consultation (focusArea + question), which is only
+    // collected on the snapshot page. /api/checkout rejects allowTrial=true
+    // without consultation data (CONSULTATION_REQUIRED). So route the user to
+    // the snapshot form instead of calling checkout directly.
+    window.location.href = "/#free-personality-snapshot";
   };
 
   // Subscribe directly without a free trial (for users who already used one).

@@ -21,8 +21,13 @@ export async function POST() {
       return NextResponse.json({ ok: false, error: "NOT_AUTHENTICATED" }, { status: 401 });
     }
 
-    if (!user.subscription_status || (user.subscription_status !== "trial" && user.subscription_status !== "active")) {
-      return NextResponse.json({ ok: false, error: "SUBSCRIPTION_REQUIRED" }, { status: 402 });
+    // Use the shared guard so expired trials (status=trial but trial_ends_at
+    // in the past) are rejected — the old hand-written check missed that.
+    const { checkSubscription } = await import("@/lib/subscriptionGuard");
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const subError = checkSubscription(user as any);
+    if (subError) {
+      return NextResponse.json({ ok: false, error: subError.error }, { status: subError.status });
     }
 
     if (!user.chart_data) {

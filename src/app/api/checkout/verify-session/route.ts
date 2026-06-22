@@ -59,15 +59,16 @@ export async function POST(request: Request) {
           trialEndsAt: trialEnd,
         });
       } catch {
-        // Fallback: at minimum set trial status
+        // Fallback: subscription retrieval failed. Only record the customer id
+        // — don't write status (a hard-coded "trial" with no trialEndsAt would
+        // lock out allowTrial=false subscribers). The webhook will set status.
         await updateSubscription(user.id, {
-          status: "trial",
           stripeCustomerId: customerId ?? undefined,
         });
       }
     } else {
+      // No subscription id on the session — only record the customer id.
       await updateSubscription(user.id, {
-        status: "trial",
         stripeCustomerId: customerId ?? undefined,
       });
     }

@@ -49,6 +49,7 @@ export function BirthdaySurprise({ birthDate, streak }: BirthdaySurpriseProps) {
       const d = await r.json();
       if (d.ok) {
         setReading(d.reading);
+        setShowReading(true);
       } else {
         setError("Could not load your birthday reading. Please try again.");
       }
@@ -67,10 +68,14 @@ export function BirthdaySurprise({ birthDate, streak }: BirthdaySurpriseProps) {
                         border border-amber-500/15 p-5 text-center">
           <Gift className="h-5 w-5 text-amber-400/70 mx-auto mb-2" />
           <p className="text-amber-200/70 text-sm font-medium mb-1">
-            Your birthday is coming up! 🎂
+            {today.getTime() < thisYearBirthday.getTime()
+              ? "Your birthday is coming up! 🎂"
+              : "Hope you had a great birthday! 🎂"}
           </p>
           <p className="text-white/40 text-xs mb-3">
-            Come back on your birthday for a special annual personal insight reading.
+            {today.getTime() < thisYearBirthday.getTime()
+              ? "Come back on your birthday for a special annual personal insight reading."
+              : "Here's a special annual personal insight reading to close out your birthday week."}
           </p>
         </div>
       )}
@@ -87,7 +92,7 @@ export function BirthdaySurprise({ birthDate, streak }: BirthdaySurpriseProps) {
             You&apos;re turning {age}. Let your personality patterns reveal what your next year holds.
           </p>
           <button
-            onClick={() => { setShowReading(true); handleGenerateReading(); }}
+            onClick={handleGenerateReading}
             disabled={loading}
             className="px-6 py-3 rounded-xl bg-amber-500/20 text-amber-300 text-sm font-medium
                        border border-amber-500/25 hover:bg-amber-500/30

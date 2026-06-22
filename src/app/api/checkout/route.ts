@@ -55,7 +55,12 @@ export async function POST(request: Request) {
     let allowFallback = false;
     let allowTrial = true;
     try {
-      const body = await request.json();
+      const body = await request.json() as Record<string, unknown>;
+      // Defense against oversized payloads (Content-Length is client-controlled
+      // and can be missing/understated). Cap the parsed JSON size.
+      if (JSON.stringify(body).length > 16_384) {
+        return NextResponse.json({ ok: false, error: "BODY_TOO_LARGE" }, { status: 413 });
+      }
       if (typeof body?.focusArea === "string") focusArea = body.focusArea.slice(0, 100);
       // Stripe metadata values cap at 500 chars; slice to match.
       if (typeof body?.question === "string") question = body.question.slice(0, 500);

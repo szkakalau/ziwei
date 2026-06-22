@@ -17,5 +17,9 @@
 export function mapStripeStatus(raw: string): string {
   if (raw === "trialing") return "trial";
   if (raw === "past_due") return "active";
+  // "incomplete" = payment pending (e.g. 3DS challenge); Stripe still
+  // considers the subscription active-ish and retries. Keep access so the
+  // user isn't locked out mid-payment-flow.
+  if (raw === "incomplete") return "active";
   return raw;
 }

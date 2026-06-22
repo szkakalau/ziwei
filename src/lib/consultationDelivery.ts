@@ -103,12 +103,23 @@ export async function notifyConsultationOrder(input: ConsultationInput): Promise
     );
   }
 
-  // Ops webhook (Slack/Discord/etc.) — only if configured.
+  // Ops webhook (Slack/Discord/etc.) — only if configured. Send a redacted
+  // payload WITHOUT chartText (the full chart is PII; the webhook only needs
+  // order metadata). The email alert retains chartText for the operator.
   if (process.env.OPS_WEBHOOK_URL) {
+    // Redact chartText (full chart is PII) from the webhook payload — the
+    // operator email retains it, the webhook only needs order metadata.
+    const webhookPayload = { ...payload, chartSummary: undefined };
     tasks.push(
-      sendOpsWebhook(payload).catch((err) => console.error("[consultation] ops webhook failed:", err)),
+      sendOpsWebhook(webhookPayload).catch((err) => console.error("[consultation] ops webhook failed:", err)),
     );
   }
 
-  await Promise.allSettled(tasks);
+  // Await with a timeout guard so a slow email server can't block checkout
+  // indefinitely (Vercel serverless function timeout). Tasks that don't
+  // finish in time are abandoned but already-sent emails still deliver.
+  await Promise.race([
+    Promise.allSettled(tasks),
+    new Promise<void>((resolve) => setTimeout(resolve, 8_000)),
+  ]);
 }
