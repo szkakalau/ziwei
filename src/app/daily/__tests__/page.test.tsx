@@ -65,10 +65,10 @@ describe("DailyPage", () => {
     });
   });
 
-  it("shows trial CTA when subscription is cancelled", async () => {
+  it("shows trial CTA when subscription is canceled", async () => {
     vi.mocked(global.fetch).mockResolvedValueOnce({
       status: 200, ok: true,
-      json: async () => ({ ok: true, user: { id: "u1", subscriptionStatus: "cancelled", birthDate: null } }),
+      json: async () => ({ ok: true, user: { id: "u1", subscriptionStatus: "canceled", birthDate: null } }),
     } as Response);
 
     const DailyPage = (await import("../page")).default;

@@ -1,9 +1,17 @@
 /**
  * In-memory rate limiter. Uses a simple sliding window per key (IP or userId).
  *
- * **IMPORTANT**: In-memory Map is unsuitable for serverless production (Vercel).
- * Multiple function instances have isolated memory — rate limiting will not be
- * effective globally. Replace with a distributed store before deploying:
+ * **KNOWN LIMITATION — serverless ineffectiveness (accepted tech debt):**
+ * On Vercel each function instance has its own isolated Map, so the effective
+ * per-user/per-IP limit is multiplied by the number of warm instances. Global
+ * enforcement is NOT reliable. This is acceptable as a first line of defense
+ * (same-instance requests are still capped), but mission-critical gates must
+ * not rely on it alone — e.g. /api/checkout uses a DB guard (reject if trial
+ * already active) instead of this limiter to prevent infinite-free-trial abuse.
+ *
+ * TODO(serverless): replace with a distributed store (Upstash Redis or Vercel KV)
+ * to get true global rate limiting. Until then, pair this limiter with a
+ * server-side guard for any abuse-sensitive endpoint.
  *
  * @example Upstash Redis
  *   import { Redis } from "@upstash/redis";

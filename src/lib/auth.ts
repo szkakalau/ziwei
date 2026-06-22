@@ -12,6 +12,12 @@ function getSessionPassword(): string {
   if (!secret) {
     throw new AuthError("SESSION_SECRET environment variable is required", "SESSION_MISCONFIGURED");
   }
+  // iron-session requires the password to be at least 32 characters; it throws
+  // at request time otherwise. Validate here so misconfiguration fails fast
+  // with a clear error instead of a confusing runtime throw.
+  if (secret.length < 32) {
+    throw new AuthError("SESSION_SECRET must be at least 32 characters long", "SESSION_MISCONFIGURED");
+  }
   return secret;
 }
 

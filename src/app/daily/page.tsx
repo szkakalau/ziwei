@@ -60,7 +60,7 @@ export default function DailyPage() {
         }
 
         const status = d.user?.subscriptionStatus;
-        if (!status || status === "free" || status === "cancelled" || status === "expired") {
+        if (!status || status === "free" || status === "canceled" || status === "expired") {
           setAuthStatus("no_subscription");
         } else {
           setAuthStatus("ok");

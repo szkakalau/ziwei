@@ -62,7 +62,7 @@ export default function AccountPage() {
     switch (s) {
       case "trial": return { label: "Trial", color: "text-amber-300/80 bg-amber-500/10 border-amber-500/15" };
       case "active": return { label: "Active", color: "text-emerald-300/80 bg-emerald-500/10 border-emerald-500/15" };
-      case "cancelled": return { label: "Cancelled", color: "text-red-300/70 bg-red-500/10 border-red-500/15" };
+      case "canceled": return { label: "Canceled", color: "text-red-300/70 bg-red-500/10 border-red-500/15" };
       case "expired": return { label: "Expired", color: "text-white/40 bg-white/[0.03] border-white/[0.06]" };
       default: return { label: "None", color: "text-white/40 bg-white/[0.03] border-white/[0.06]" };
     }
@@ -144,7 +144,7 @@ export default function AccountPage() {
           </button>
         ) : null}
 
-        {info.subscriptionStatus === "cancelled" || info.subscriptionStatus === "expired" ? (
+        {info.subscriptionStatus === "canceled" || info.subscriptionStatus === "expired" ? (
           <Link
             href="/daily"
             className="mt-3 ml-7 inline-block text-amber-400/60 text-xs hover:text-amber-300 transition-colors"
