@@ -72,6 +72,14 @@ export async function startStripeCheckoutFromStored(options?: {
     | { ok: true; url: string | null }
     | { ok: false; error: string };
 
+  // If the user already used a trial (race: hasUsedTrial hadn't resolved when
+  // the caller set allowTrial=true), retry once with allowTrial=false so they
+  // can still subscribe (and get the email reading) instead of hitting a dead
+  // end. Only retry once to avoid a loop.
+  if (data.ok === false && data.error === "TRIAL_USED" && options?.allowTrial !== false) {
+    return startStripeCheckoutFromStored({ ...options, allowTrial: false });
+  }
+
   if (!res.ok || !data.ok || !data.url) {
     return {
       ok: false,

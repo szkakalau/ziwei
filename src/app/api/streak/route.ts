@@ -11,6 +11,14 @@ export async function GET() {
       return NextResponse.json({ ok: true, streak: 0 });
     }
 
+    // Consistent with POST: lapsed users don't get streak data.
+    const { checkSubscription } = await import("@/lib/subscriptionGuard");
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const subError = checkSubscription(user as any);
+    if (subError) {
+      return NextResponse.json({ ok: false, error: subError.error }, { status: subError.status });
+    }
+
     const { getStreak } = await import("@/lib/streak");
     const streak = await getStreak(user.id);
     return NextResponse.json({ ok: true, streak });
