@@ -132,7 +132,7 @@ export default function WhyZiWeiBetter() {
                 key={c.title}
                 className={`group relative rounded-sm border ${colors.border} ${colors.glow} backdrop-blur-sm transition-all duration-500`}
                 style={{
-                  background: `linear-gradient(135deg, oklch(0.12 0.035 265 / 0.7) 0%, oklch(0.14 0.04 268 / 0.5) 100%)`,
+                  background: `linear-gradient(135deg, oklch(0.34 0.13 282 / 0.06) 0%, oklch(0.42 0.09 278 / 0.04) 100%)`,
                 }}
               >
                 {/* Accent corner */}

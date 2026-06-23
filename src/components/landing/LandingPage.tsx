@@ -46,7 +46,7 @@ export default function LandingPage() {
       <div className="pointer-events-none fixed inset-0 z-0 bg-grid-fine bg-grid opacity-[0.15]" aria-hidden />
 
       {/* Ambient gradients — deeper cosmic: dark void + subtle gold edge */}
-      <div className="pointer-events-none fixed inset-0 z-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-10%,oklch(0.12_0.02_265/0.6),transparent_50%),radial-gradient(ellipse_40%_40%_at_100%_50%,oklch(0.74_0.12_78/0.02),transparent_50%)]" aria-hidden />
+      <div className="pointer-events-none fixed inset-0 z-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-10%,oklch(0.34_0.13_282/0.04),transparent_50%),radial-gradient(ellipse_40%_40%_at_100%_50%,oklch(0.34_0.13_282/0.02),transparent_50%)]" aria-hidden />
 
       <div className="relative z-10">
         <LandingNavbar />

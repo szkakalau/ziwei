@@ -191,7 +191,7 @@ export default function Hero() {
   return (
     <section className="relative overflow-hidden px-5 pt-20 pb-24 sm:px-6 sm:pt-28 sm:pb-32 md:pt-36 md:pb-40">
       {/* Background — deep cosmic: dark void with subtle warm core */}
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-10%,oklch(0.12_0.025_270/0.8),oklch(0.10_0.02_265/0.9)_30%,transparent_70%),radial-gradient(ellipse_40%_30%_at_50%_50%,oklch(0.74_0.12_78/0.03),transparent_60%)]" aria-hidden />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-10%,oklch(0.34_0.13_282/0.06),transparent_50%),radial-gradient(ellipse_40%_30%_at_50%_50%,oklch(0.34_0.13_282/0.03),transparent_60%)]" aria-hidden />
 
       <div className="relative mx-auto max-w-3xl text-center">
         {/* Pill badge */}

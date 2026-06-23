@@ -492,7 +492,7 @@ export default function DailyPage() {
         {/* ── Left: Main Reading (7/12) ── */}
         <div className="md:col-span-7">
           {/* Horoscope card — spacious, prominent */}
-          <div className="relative rounded-sm border border-gold/[0.12] bg-[oklch(0.11_0.03_265/0.80)] shadow-[0_0_80px_-24px_oklch(0.74_0.12_78/0.05)] backdrop-blur-md overflow-hidden">
+          <div className="relative rounded-sm border border-gold/[0.12] bg-white shadow-[0_2px_12px_-4px_rgba(0,0,0,0.06)] overflow-hidden">
             <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-gold/25 to-transparent" aria-hidden />
             <div className="p-6 md:p-8">
               <p className="text-ink text-[19px] md:text-[22px] leading-relaxed md:leading-loose whitespace-pre-line">
