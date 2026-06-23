@@ -81,7 +81,7 @@ export default function ProductShowcase() {
         </div>
 
         <div className="mt-10 text-center">
-          <Link href="/daily" className="gold-leaf inline-flex items-center gap-2 rounded-sm px-8 py-4 font-mono text-sm font-semibold uppercase tracking-wide text-ink transition-all hover:brightness-110">
+          <Link href="/daily" className="inline-flex items-center gap-2 rounded-sm bg-gold px-8 py-4 font-body text-lg font-semibold tracking-wide text-void transition-all hover:bg-gold/85">
             Start 7-Day Free Trial — $4.99/month
             <ArrowRight className="h-4 w-4" aria-hidden />
           </Link>

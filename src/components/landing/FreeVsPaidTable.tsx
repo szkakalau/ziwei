@@ -73,7 +73,7 @@ export default function FreeVsPaidTable() {
                 </li>
               ))}
             </ul>
-            <Link href="/daily" className="gold-leaf mt-6 flex w-full items-center justify-center gap-2 rounded-sm py-3 font-mono text-sm font-semibold uppercase tracking-wide text-ink transition-all hover:brightness-110">
+            <Link href="/daily" className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-sm bg-gold px-8 py-4 font-body text-lg font-semibold tracking-wide text-void transition-all hover:bg-gold/85">
               Start 7-Day Free Trial
               <ArrowRight className="h-4 w-4" aria-hidden />
             </Link>
