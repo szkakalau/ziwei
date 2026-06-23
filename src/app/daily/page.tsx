@@ -311,8 +311,7 @@ export default function DailyPage() {
 
           <button
             onClick={() => handleAuth(authMode)}
-            className="w-full py-3 rounded-sm bg-gold/[0.08] text-gold text-sm font-medium
-                       border border-gold/15 hover:bg-gold/[0.14] transition-colors mb-3"
+            className="w-full py-3 rounded-sm bg-gold text-void text-sm font-medium hover:bg-gold/85 transition-colors mb-3"
           >
             {authMode === "register" ? "Start 7-Day Free Trial" : "Log In"}
           </button>
@@ -373,8 +372,7 @@ export default function DailyPage() {
           </ul>
           <button
             onClick={hasUsedTrial ? handleSubscribe : handleStartTrial}
-            className="w-full py-3 rounded-sm bg-gold/[0.08] text-gold text-sm font-medium
-                       border border-gold/15 hover:bg-gold/[0.14] transition-colors mb-2"
+            className="w-full py-3 rounded-sm bg-gold text-void text-sm font-medium hover:bg-gold/85 transition-colors mb-2"
           >
             {hasUsedTrial ? "Subscribe — $4.99/month" : "Start 7-Day Free Trial"}
           </button>
