@@ -615,7 +615,7 @@ export default function BirthFormModal({
           className="relative z-50"
         >
           <div className="fixed inset-0 flex items-center justify-center p-3 sm:p-4">
-            <DialogBackdrop className="fixed inset-0 bg-void/85 backdrop-blur-sm" />
+            <DialogBackdrop className="fixed inset-0 bg-black/40 backdrop-blur-sm" />
 
             <DialogPanel
               lang="en-US"
