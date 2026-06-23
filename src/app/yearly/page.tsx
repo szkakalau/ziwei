@@ -60,13 +60,13 @@ export default function YearlyPage() {
         {error.includes("Upgrade") && (
           <Link
             href="/daily"
-            className="inline-block px-6 py-3 rounded-xl bg-amber-500/15 text-amber-700 text-sm font-medium border border-amber-500/20 hover:bg-amber-500/25 transition-colors mb-4"
+            className="inline-block px-6 py-3 rounded-xl bg-gold/[0.08] text-gold text-sm font-medium border border-gold/15 hover:bg-gold/[0.14] transition-colors mb-4"
           >
             Upgrade now →
           </Link>
         )}
         <div>
-          <Link href="/daily" className="text-amber-600/60 text-sm hover:text-amber-600">
+          <Link href="/daily" className="text-gold/60 text-sm hover:text-amber-600">
             ← Back to daily horoscope
           </Link>
         </div>
@@ -78,7 +78,7 @@ export default function YearlyPage() {
     return (
       <main className="min-h-screen bg-void text-ink px-5 py-8 pb-20 max-w-2xl mx-auto text-center">
         <p className="text-ink-dim text-sm">No reading available. Please try again.</p>
-        <a href="/daily" className="text-amber-600/60 text-sm mt-4 inline-block">← Back to horoscope</a>
+        <a href="/daily" className="text-gold/60 text-sm mt-4 inline-block">← Back to horoscope</a>
       </main>
     );
   }
@@ -98,13 +98,13 @@ export default function YearlyPage() {
         </Link>
         <div className="flex items-center gap-2">
           <Calendar className="h-4 w-4 text-amber-600/50" />
-          <span className="text-amber-600/60 text-sm font-medium">{year} Annual Reading</span>
+          <span className="text-gold/60 text-sm font-medium">{year} Annual Reading</span>
         </div>
       </div>
 
       {/* Title */}
       <div className="text-center mb-8 md:mb-10">
-        <Sparkles className="h-6 w-6 text-amber-600/60 mx-auto mb-3" />
+        <Sparkles className="h-6 w-6 text-gold/60 mx-auto mb-3" />
         <h1 className="text-amber-700/90 text-xl md:text-2xl font-semibold">
           Your {year} Zi Wei Dou Shu Forecast
         </h1>
@@ -115,11 +115,11 @@ export default function YearlyPage() {
 
       {/* Preview banner for trial users */}
       {preview && previewMessage && (
-        <div className="mb-8 rounded-xl border border-amber-500/15 bg-amber-500/[0.04] p-5 text-center">
+        <div className="mb-8 rounded-xl border border-gold/10 bg-gold/[0.03] p-5 text-center">
           <p className="text-amber-700/70 text-sm mb-4">{previewMessage}</p>
           <Link
             href="/daily"
-            className="inline-block px-6 py-3 rounded-xl bg-amber-500/15 text-amber-700 text-sm font-medium border border-amber-500/20 hover:bg-amber-500/25 transition-colors"
+            className="inline-block px-6 py-3 rounded-xl bg-gold/[0.08] text-gold text-sm font-medium border border-gold/15 hover:bg-gold/[0.14] transition-colors"
           >
             Upgrade now — $4.99/mo →
           </Link>

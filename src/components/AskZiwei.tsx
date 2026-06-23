@@ -125,7 +125,7 @@ export function AskZiwei() {
             {error.includes("Upgrade") && (
               <Link
                 href="/daily"
-                className="block text-center px-4 py-2 rounded-xl bg-amber-500/15 text-amber-700 text-xs font-medium border border-amber-500/20 hover:bg-amber-500/25 transition-colors"
+                className="block text-center px-4 py-2 rounded-xl bg-gold/[0.08] text-gold text-xs font-medium border border-gold/15 hover:bg-gold/[0.14] transition-colors"
               >
                 Upgrade now →
               </Link>
@@ -146,12 +146,12 @@ export function AskZiwei() {
           placeholder="Ask about your chart..."
           className="flex-1 px-4 py-3 rounded-xl bg-black/[0.04] border border-black/5
                      text-ink text-sm placeholder:text-ink-dim/60
-                     focus:outline-none focus:border-amber-500/20"
+                     focus:outline-none focus:border-gold/15"
         />
         <button
           onClick={() => handleSend()}
           disabled={!input.trim() || loading}
-          className="px-4 py-3 rounded-xl bg-amber-500/10 border border-amber-500/15
+          className="px-4 py-3 rounded-xl bg-amber-500/10 border border-gold/10
                      text-amber-400/70 hover:bg-amber-500/20 disabled:opacity-30
                      transition-colors"
         >

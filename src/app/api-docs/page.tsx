@@ -15,7 +15,7 @@ export default function ApiDocsPage() {
   return (
     <main className="min-h-screen bg-void text-ink px-5 py-8 max-w-2xl mx-auto">
       <div className="flex items-center gap-3 mb-2">
-        <Code className="h-5 w-5 text-amber-600/60" />
+        <Code className="h-5 w-5 text-gold/60" />
         <h1 className="text-ink text-lg font-semibold">Zi Wei Dou Shu API</h1>
       </div>
       <p className="text-ink-dim text-sm mb-8">
@@ -29,7 +29,7 @@ export default function ApiDocsPage() {
           <Key className="h-4 w-4" /> Authentication
         </h2>
         <p className="text-ink-dim text-xs mb-3">
-          All API requests require an API key passed in the <code className="text-amber-600/60 bg-black/[0.04] px-1.5 py-0.5 rounded text-[11px]">X-API-Key</code> header.
+          All API requests require an API key passed in the <code className="text-gold/60 bg-black/[0.04] px-1.5 py-0.5 rounded text-[11px]">X-API-Key</code> header.
         </p>
         <div className="rounded-lg bg-black/[0.03] border border-black/5 p-3 font-mono text-xs text-ink-muted">
           curl -H &quot;X-API-Key: zwds_xxxx&quot; https://api.destinyblueprint.xyz/v1/chart
@@ -67,7 +67,7 @@ export default function ApiDocsPage() {
         ].map((ep) => (
           <div key={ep.path} className="mb-4 rounded-xl bg-black/[0.02] border border-black/5 overflow-hidden">
             <div className="flex items-center gap-3 px-4 py-3 border-b border-white/[0.04]">
-              <span className="text-[10px] font-bold uppercase px-2 py-0.5 rounded bg-amber-500/15 text-amber-700/80">
+              <span className="text-[10px] font-bold uppercase px-2 py-0.5 rounded bg-gold/[0.06] text-gold/80">
                 {ep.method}
               </span>
               <code className="text-ink text-sm font-mono">{ep.path}</code>

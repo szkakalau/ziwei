@@ -60,7 +60,7 @@ export default function AccountPage() {
 
   const statusLabel = (s: string | null) => {
     switch (s) {
-      case "trial": return { label: "Trial", color: "text-amber-700/80 bg-amber-500/10 border-amber-500/15" };
+      case "trial": return { label: "Trial", color: "text-gold/80 bg-gold/[0.06] border-gold/10" };
       case "active": return { label: "Active", color: "text-emerald-300/80 bg-emerald-500/10 border-emerald-500/15" };
       case "canceled": return { label: "Canceled", color: "text-red-300/70 bg-red-500/10 border-red-500/15" };
       case "expired": return { label: "Expired", color: "text-ink-dim bg-black/[0.03] border-black/5" };
@@ -85,7 +85,7 @@ export default function AccountPage() {
       <main className="min-h-screen bg-void text-ink px-5 py-8 pb-20 max-w-3xl mx-auto text-center">
         <AlertCircle className="h-8 w-8 text-ink-dim/60 mx-auto mb-3" />
         <p className="text-ink-muted">Could not load account info.</p>
-        <Link href="/daily" className="text-amber-600/60 text-sm mt-4 inline-block">
+        <Link href="/daily" className="text-gold/60 text-sm mt-4 inline-block">
           ← Back to daily
         </Link>
       </main>
@@ -147,7 +147,7 @@ export default function AccountPage() {
         {info.subscriptionStatus === "canceled" || info.subscriptionStatus === "expired" ? (
           <Link
             href="/daily"
-            className="mt-3 ml-7 inline-block text-amber-600/60 text-xs hover:text-amber-700 transition-colors"
+            className="mt-3 ml-7 inline-block text-gold/60 text-xs hover:text-amber-700 transition-colors"
           >
             Reactivate subscription →
           </Link>

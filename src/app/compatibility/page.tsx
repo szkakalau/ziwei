@@ -32,7 +32,7 @@ export default function CompatibilityPage() {
     return (
       <main className="min-h-screen bg-void text-ink px-5 py-8 pb-20 max-w-3xl mx-auto text-center">
         <p className="text-ink-dim text-sm">Please log in to use compatibility.</p>
-        <a href="/daily" className="text-amber-600/60 text-sm mt-4 inline-block">← Go to daily</a>
+        <a href="/daily" className="text-gold/60 text-sm mt-4 inline-block">← Go to daily</a>
       </main>
     );
   }
@@ -40,7 +40,7 @@ export default function CompatibilityPage() {
   return (
     <main className="min-h-screen bg-void text-ink px-5 pt-8 pb-24 max-w-3xl mx-auto">
       <div className="flex items-center gap-3 mb-8">
-        <Heart className="h-5 w-5 text-amber-600/60" />
+        <Heart className="h-5 w-5 text-gold/60" />
         <h1 className="text-ink text-lg font-semibold">Compatibility</h1>
       </div>
 

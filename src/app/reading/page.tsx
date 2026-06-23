@@ -46,7 +46,7 @@ export default function ReadingPage() {
     return (
       <main className="min-h-screen bg-void text-ink px-5 py-20 max-w-2xl mx-auto text-center">
         <p className="text-red-400/70 text-sm mb-4">{error}</p>
-        <Link href="/daily" className="text-amber-600/60 text-sm hover:text-amber-600">
+        <Link href="/daily" className="text-gold/60 text-sm hover:text-amber-600">
           Back to daily horoscope
         </Link>
       </main>
@@ -81,7 +81,7 @@ export default function ReadingPage() {
         </p>
       </div>
 
-      <div className="rounded-xl border border-amber-500/10 bg-amber-500/[0.03] p-6 text-center space-y-4">
+      <div className="rounded-xl border border-gold/08 bg-gold/[0.02] p-6 text-center space-y-4">
         {(status === "no_order" || status === "expired") && (
           <>
             <p className="text-ink-muted text-sm">
@@ -89,7 +89,7 @@ export default function ReadingPage() {
             </p>
             <Link
               href="/daily"
-              className="inline-block px-6 py-3 rounded-xl bg-amber-500/15 text-amber-700 text-sm font-medium border border-amber-500/20 hover:bg-amber-500/25 transition-colors"
+              className="inline-block px-6 py-3 rounded-xl bg-gold/[0.08] text-gold text-sm font-medium border border-gold/15 hover:bg-gold/[0.14] transition-colors"
             >
               Subscribe now — $4.99/mo
             </Link>
@@ -103,7 +103,7 @@ export default function ReadingPage() {
             </p>
             <Link
               href="/daily"
-              className="inline-block px-6 py-3 rounded-xl bg-amber-500/15 text-amber-700 text-sm font-medium border border-amber-500/20 hover:bg-amber-500/25 transition-colors"
+              className="inline-block px-6 py-3 rounded-xl bg-gold/[0.08] text-gold text-sm font-medium border border-gold/15 hover:bg-gold/[0.14] transition-colors"
             >
               Go to daily horoscope
             </Link>
@@ -113,7 +113,7 @@ export default function ReadingPage() {
         {status === "delivered" && (
           <p className="text-ink-dim text-sm">
             Check your inbox and spam folder. If you still can&rsquo;t find it, email us at{" "}
-            <a href="mailto:castro.liu@me.com" className="text-amber-600/60 hover:text-amber-600">
+            <a href="mailto:castro.liu@me.com" className="text-gold/60 hover:text-amber-600">
               castro.liu@me.com
             </a>.
           </p>

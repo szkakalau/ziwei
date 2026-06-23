@@ -70,7 +70,7 @@ export function BirthdaySurprise({ birthDate, streak }: BirthdaySurpriseProps) {
       {/* Birthday Week Teaser */}
       {isBirthdayWeek && !isBirthday && !showReading && (
         <div className="mb-6 rounded-2xl bg-gradient-to-b from-amber-500/[0.06] to-amber-500/[0.01]
-                        border border-amber-500/15 p-5 text-center">
+                        border border-gold/10 p-5 text-center">
           <Gift className="h-5 w-5 text-amber-400/70 mx-auto mb-2" />
           <p className="text-amber-700/70 text-sm font-medium mb-1">
             {today.getTime() < thisYearBirthday.getTime()
@@ -104,7 +104,7 @@ export function BirthdaySurprise({ birthDate, streak }: BirthdaySurpriseProps) {
       {/* Birthday Day — Prompt to generate */}
       {isBirthday && !showReading && !reading && (
         <div className="mb-6 rounded-2xl bg-gradient-to-b from-amber-500/[0.08] to-amber-500/[0.02]
-                        border border-amber-500/20 p-6 text-center">
+                        border border-gold/15 p-6 text-center">
           <Sparkles className="h-6 w-6 text-amber-400 mx-auto mb-3" />
           <h2 className="text-amber-700 text-lg font-semibold mb-1">
             Happy Birthday! 🎉
@@ -131,7 +131,7 @@ export function BirthdaySurprise({ birthDate, streak }: BirthdaySurpriseProps) {
       {/* Birthday Reading Result */}
       {reading && (
         <div className="mb-6 rounded-2xl bg-gradient-to-b from-amber-500/[0.06] to-transparent
-                        border border-amber-500/15 p-6">
+                        border border-gold/10 p-6">
           <div className="flex items-center gap-2 mb-4">
             <Sparkles className="h-4 w-4 text-amber-400" />
             <h2 className="text-amber-700/90 text-sm font-semibold uppercase tracking-wider">

@@ -171,7 +171,7 @@ export function ChartCanvas({ palaces = [], soulPalaceLabel }: ChartCanvasProps)
 
       {/* Expanded star detail panel (in-place, below chart) */}
       {selectedPalace && expandedStars.length > 0 && (
-        <div className="mt-4 mx-4 p-4 rounded-xl bg-white/[0.03] border border-amber-500/10">
+        <div className="mt-4 mx-4 p-4 rounded-xl bg-white/[0.03] border border-gold/08">
           <h3 className="text-amber-700/80 text-sm font-medium mb-2">
             {selectedPalace} Palace
           </h3>
@@ -181,7 +181,7 @@ export function ChartCanvas({ palaces = [], soulPalaceLabel }: ChartCanvasProps)
                 key={star}
                 className="px-2.5 py-1 rounded-full text-xs
                            bg-amber-500/10 text-amber-700/80
-                           border border-amber-500/15"
+                           border border-gold/10"
               >
                 {star}
               </span>

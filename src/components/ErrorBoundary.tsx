@@ -38,7 +38,7 @@ export class ErrorBoundary extends Component<Props, State> {
                 window.location.reload();
               }}
               className="px-5 py-2.5 rounded-xl bg-amber-500/15 text-amber-700 text-sm
-                         border border-amber-500/20 hover:bg-amber-500/25 transition-colors"
+                         border border-gold/15 hover:bg-amber-500/25 transition-colors"
             >
               Refresh
             </button>

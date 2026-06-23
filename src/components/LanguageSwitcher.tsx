@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { Globe } from "lucide-react";
 import { useState } from "react";
@@ -31,8 +31,8 @@ export function LanguageSwitcher() {
                 onClick={() => { setLocale(l.key); setOpen(false); }}
                 className={`w-full flex items-center gap-2 px-4 py-2 text-xs transition-colors
                             ${l.key === locale
-                              ? "text-amber-300/90 bg-amber-500/[0.06]"
-                              : "text-white/50 hover:text-white/70 hover:bg-white/[0.03]"
+                              ? "text-gold bg-gold/[0.06]"
+                              : "text-ink-dim hover:text-ink-muted hover:bg-black/[0.03]"
                             }`}
               >
                 <span>{l.flag}</span>

@@ -251,7 +251,7 @@ export default function FreePersonalitySnapshot() {
                 </div>
 
                 {/* Daily Insight CTA */}
-                <div className="mt-6 rounded-xl border border-amber-500/20 bg-amber-500/[0.03] p-5 sm:p-6">
+                <div className="mt-6 rounded-xl border border-gold/15 bg-gold/[0.02] p-5 sm:p-6">
                   <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-amber-300/70">
                     🌅 Daily insight
                   </p>
@@ -263,7 +263,7 @@ export default function FreePersonalitySnapshot() {
                     <Link
                       href="/daily"
                       className="inline-flex items-center gap-2 rounded-xl bg-amber-500/15 px-5 py-3
-                                 text-sm font-medium text-amber-700 border border-amber-500/20
+                                 text-sm font-medium text-amber-700 border border-gold/15
                                  hover:bg-amber-500/25 transition-colors"
                     >
                       Get Your Daily Insight →

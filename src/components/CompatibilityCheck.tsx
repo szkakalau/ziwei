@@ -75,7 +75,7 @@ export function CompatibilityCheck() {
             required
             className="w-full px-4 py-3 rounded-xl bg-black/[0.05] border border-black/6
                        text-ink text-sm [color-scheme:light]
-                       focus:outline-none focus:border-amber-500/20"
+                       focus:outline-none focus:border-gold/15"
           />
 
           <input
@@ -84,7 +84,7 @@ export function CompatibilityCheck() {
             onChange={(e) => setBirthTime(e.target.value)}
             className="w-full px-4 py-3 rounded-xl bg-black/[0.05] border border-black/6
                        text-ink text-sm [color-scheme:light]
-                       focus:outline-none focus:border-amber-500/20"
+                       focus:outline-none focus:border-gold/15"
           />
 
           <input
@@ -95,7 +95,7 @@ export function CompatibilityCheck() {
             required
             className="w-full px-4 py-3 rounded-xl bg-black/[0.05] border border-black/6
                        text-ink text-sm placeholder:text-ink-dim/60
-                       focus:outline-none focus:border-amber-500/20"
+                       focus:outline-none focus:border-gold/15"
           />
 
           <div className="flex gap-2">
@@ -104,7 +104,7 @@ export function CompatibilityCheck() {
               onClick={() => setGender("male")}
               className={`flex-1 py-2.5 rounded-xl text-xs border transition-colors ${
                 gender === "male"
-                  ? "bg-amber-500/10 border-amber-500/20 text-amber-300"
+                  ? "bg-gold/[0.06] border-gold/15 text-gold"
                   : "bg-black/[0.02] border-black/5 text-ink-dim"
               }`}
             >
@@ -115,7 +115,7 @@ export function CompatibilityCheck() {
               onClick={() => setGender("female")}
               className={`flex-1 py-2.5 rounded-xl text-xs border transition-colors ${
                 gender === "female"
-                  ? "bg-amber-500/10 border-amber-500/20 text-amber-300"
+                  ? "bg-gold/[0.06] border-gold/15 text-gold"
                   : "bg-black/[0.02] border-black/5 text-ink-dim"
               }`}
             >
@@ -128,7 +128,7 @@ export function CompatibilityCheck() {
               type="submit"
               disabled={loading || !birthDate || !location}
               className="flex-1 py-3 rounded-xl bg-amber-500/15 text-amber-700 text-sm font-medium
-                         border border-amber-500/20 hover:bg-amber-500/25
+                         border border-gold/15 hover:bg-amber-500/25
                          disabled:opacity-30 transition-colors flex items-center justify-center gap-2"
             >
               {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Heart className="h-4 w-4" />}
@@ -150,7 +150,7 @@ export function CompatibilityCheck() {
               {error.includes("Upgrade") && (
                 <Link
                   href="/daily"
-                  className="inline-block px-4 py-2 rounded-xl bg-amber-500/15 text-amber-700 text-xs font-medium border border-amber-500/20 hover:bg-amber-500/25 transition-colors"
+                  className="inline-block px-4 py-2 rounded-xl bg-gold/[0.08] text-gold text-xs font-medium border border-gold/15 hover:bg-gold/[0.14] transition-colors"
                 >
                   Upgrade now →
                 </Link>
@@ -161,17 +161,17 @@ export function CompatibilityCheck() {
       )}
 
       {result && (
-        <div className="rounded-xl bg-black/[0.02] border border-amber-500/10 p-5 space-y-4">
+        <div className="rounded-xl bg-black/[0.02] border border-gold/08 p-5 space-y-4">
           <p className="text-ink text-sm leading-relaxed whitespace-pre-line">
             {result.analysis}
           </p>
 
           {result.preview && result.previewMessage && (
-            <div className="rounded-lg border border-amber-500/15 bg-amber-500/[0.04] p-4 text-center">
+            <div className="rounded-lg border border-gold/10 bg-gold/[0.03] p-4 text-center">
               <p className="text-amber-700/70 text-xs mb-3">{result.previewMessage}</p>
               <Link
                 href="/daily"
-                className="inline-block px-4 py-2 rounded-lg bg-amber-500/15 text-amber-700 text-xs font-medium border border-amber-500/20 hover:bg-amber-500/25 transition-colors"
+                className="inline-block px-4 py-2 rounded-lg bg-gold/[0.08] text-gold text-xs font-medium border border-gold/15 hover:bg-gold/[0.14] transition-colors"
               >
                 Upgrade now — $4.99/mo →
               </Link>
@@ -182,8 +182,8 @@ export function CompatibilityCheck() {
             <div className="flex flex-wrap gap-1.5">
               {result.otherStars.map((s) => (
                 <span key={s} className="px-2.5 py-1 rounded-full text-[11px]
-                                         bg-amber-500/8 text-amber-600/60
-                                         border border-amber-500/10">
+                                         bg-amber-500/8 text-gold/60
+                                         border border-gold/08">
                   {formatStarName(s)}
                 </span>
               ))}

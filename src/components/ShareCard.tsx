@@ -164,8 +164,8 @@ export function ShareCard({ horoscopeText, highlightedStars, date, streak }: Sha
         onClick={handleShare}
         disabled={generating}
         className="flex items-center gap-2 px-5 py-3 rounded-xl
-                   border border-amber-500/15 text-amber-300/70 text-sm
-                   hover:border-amber-500/30 hover:text-amber-600
+                   border border-gold/15 text-gold/70 text-sm
+                   hover:border-gold/30 hover:text-gold
                    disabled:opacity-40 transition-colors"
       >
         {generating ? (
