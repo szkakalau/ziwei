@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from "react";
 import { Calendar, Sparkles, ArrowLeft } from "lucide-react";
@@ -40,13 +40,13 @@ export default function YearlyPage() {
 
   if (loading) {
     return (
-      <main className="min-h-screen bg-[#0a0a0f] text-white px-5 py-12 pb-20 max-w-2xl mx-auto text-center">
-        <Sparkles className="h-8 w-8 text-amber-400/50 mx-auto mb-4 animate-pulse" />
-        <p className="text-white/60 text-base mb-2">Writing your annual reading...</p>
-        <p className="text-white/25 text-xs">This takes about 20 seconds. Worth the wait.</p>
+      <main className="min-h-screen bg-void text-ink px-5 py-12 pb-20 max-w-2xl mx-auto text-center">
+        <Sparkles className="h-8 w-8 text-amber-600/50 mx-auto mb-4 animate-pulse" />
+        <p className="text-ink-muted text-base mb-2">Writing your annual reading...</p>
+        <p className="text-ink-dim/70 text-xs">This takes about 20 seconds. Worth the wait.</p>
         <div className="mt-8 space-y-3">
           {[1,2,3,4,5].map(i => (
-            <div key={i} className="h-4 bg-white/[0.03] rounded animate-pulse" style={{ width: `${60 + i * 8}%` }} />
+            <div key={i} className="h-4 bg-black/[0.03] rounded animate-pulse" style={{ width: `${60 + i * 8}%` }} />
           ))}
         </div>
       </main>
@@ -55,18 +55,18 @@ export default function YearlyPage() {
 
   if (error) {
     return (
-      <main className="min-h-screen bg-[#0a0a0f] text-white px-5 py-8 pb-20 max-w-2xl mx-auto text-center">
-        <p className="text-white/60 text-base mb-4">{error}</p>
+      <main className="min-h-screen bg-void text-ink px-5 py-8 pb-20 max-w-2xl mx-auto text-center">
+        <p className="text-ink-muted text-base mb-4">{error}</p>
         {error.includes("Upgrade") && (
           <Link
             href="/daily"
-            className="inline-block px-6 py-3 rounded-xl bg-amber-500/15 text-amber-300 text-sm font-medium border border-amber-500/20 hover:bg-amber-500/25 transition-colors mb-4"
+            className="inline-block px-6 py-3 rounded-xl bg-amber-500/15 text-amber-700 text-sm font-medium border border-amber-500/20 hover:bg-amber-500/25 transition-colors mb-4"
           >
             Upgrade now →
           </Link>
         )}
         <div>
-          <Link href="/daily" className="text-amber-400/60 text-sm hover:text-amber-300">
+          <Link href="/daily" className="text-amber-600/60 text-sm hover:text-amber-600">
             ← Back to daily horoscope
           </Link>
         </div>
@@ -76,9 +76,9 @@ export default function YearlyPage() {
 
   if (!reading) {
     return (
-      <main className="min-h-screen bg-[#0a0a0f] text-white px-5 py-8 pb-20 max-w-2xl mx-auto text-center">
-        <p className="text-white/40 text-sm">No reading available. Please try again.</p>
-        <a href="/daily" className="text-amber-400/60 text-sm mt-4 inline-block">← Back to horoscope</a>
+      <main className="min-h-screen bg-void text-ink px-5 py-8 pb-20 max-w-2xl mx-auto text-center">
+        <p className="text-ink-dim text-sm">No reading available. Please try again.</p>
+        <a href="/daily" className="text-amber-600/60 text-sm mt-4 inline-block">← Back to horoscope</a>
       </main>
     );
   }
@@ -90,25 +90,25 @@ export default function YearlyPage() {
   });
 
   return (
-    <main className="min-h-screen bg-[#0a0a0f] text-white px-5 py-8 pb-20 md:px-8 md:py-12 max-w-4xl mx-auto">
+    <main className="min-h-screen bg-void text-ink px-5 py-8 pb-20 md:px-8 md:py-12 max-w-4xl mx-auto">
       {/* Header */}
       <div className="flex items-center justify-between mb-8 md:mb-10">
-        <Link href="/daily" className="text-white/30 hover:text-white/50 transition-colors">
+        <Link href="/daily" className="text-ink-dim hover:text-ink-muted transition-colors">
           <ArrowLeft className="h-5 w-5" />
         </Link>
         <div className="flex items-center gap-2">
-          <Calendar className="h-4 w-4 text-amber-400/50" />
-          <span className="text-amber-200/60 text-sm font-medium">{year} Annual Reading</span>
+          <Calendar className="h-4 w-4 text-amber-600/50" />
+          <span className="text-amber-600/60 text-sm font-medium">{year} Annual Reading</span>
         </div>
       </div>
 
       {/* Title */}
       <div className="text-center mb-8 md:mb-10">
-        <Sparkles className="h-6 w-6 text-amber-400/60 mx-auto mb-3" />
-        <h1 className="text-amber-200/90 text-xl md:text-2xl font-semibold">
+        <Sparkles className="h-6 w-6 text-amber-600/60 mx-auto mb-3" />
+        <h1 className="text-amber-700/90 text-xl md:text-2xl font-semibold">
           Your {year} Zi Wei Dou Shu Forecast
         </h1>
-        <p className="text-white/30 text-sm mt-2">
+        <p className="text-ink-dim text-sm mt-2">
           A comprehensive reading based on your birth chart
         </p>
       </div>
@@ -116,10 +116,10 @@ export default function YearlyPage() {
       {/* Preview banner for trial users */}
       {preview && previewMessage && (
         <div className="mb-8 rounded-xl border border-amber-500/15 bg-amber-500/[0.04] p-5 text-center">
-          <p className="text-amber-200/70 text-sm mb-4">{previewMessage}</p>
+          <p className="text-amber-700/70 text-sm mb-4">{previewMessage}</p>
           <Link
             href="/daily"
-            className="inline-block px-6 py-3 rounded-xl bg-amber-500/15 text-amber-300 text-sm font-medium border border-amber-500/20 hover:bg-amber-500/25 transition-colors"
+            className="inline-block px-6 py-3 rounded-xl bg-amber-500/15 text-amber-700 text-sm font-medium border border-amber-500/20 hover:bg-amber-500/25 transition-colors"
           >
             Upgrade now — $4.99/mo →
           </Link>
@@ -131,12 +131,12 @@ export default function YearlyPage() {
         {sections.map((s) => (
           <section
             key={s.heading}
-            className="rounded-xl bg-white/[0.02] border border-white/[0.05] p-5 md:p-6"
+            className="rounded-xl bg-black/[0.02] border border-black/5 p-5 md:p-6"
           >
-            <h2 className="text-amber-300/80 text-sm font-semibold mb-3 tracking-wide">
+            <h2 className="text-amber-700/80 text-sm font-semibold mb-3 tracking-wide">
               {s.heading}
             </h2>
-            <p className="text-white/75 text-[15px] leading-relaxed whitespace-pre-line">
+            <p className="text-ink text-[15px] leading-relaxed whitespace-pre-line">
               {s.body}
             </p>
           </section>
@@ -144,14 +144,14 @@ export default function YearlyPage() {
       </div>
 
       {/* Footer */}
-      <div className="mt-10 pt-6 border-t border-white/[0.06] text-center">
+      <div className="mt-10 pt-6 border-t border-black/5 text-center">
         <Link
           href="/daily"
-          className="text-amber-400/50 text-xs hover:text-amber-300 transition-colors"
+          className="text-amber-600/50 text-xs hover:text-amber-700 transition-colors"
         >
           ← Back to daily horoscope
         </Link>
-        <p className="text-white/15 text-[10px] mt-4">
+        <p className="text-ink-dim/50 text-[10px] mt-4">
           DestinyBlueprint — Zi Wei Dou Shu
         </p>
       </div>

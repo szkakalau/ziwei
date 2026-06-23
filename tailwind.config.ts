@@ -61,11 +61,11 @@ const config: Config = {
       },
       backgroundImage: {
         "grid-fine":
-          "linear-gradient(oklch(0.80 0.14 82 / 0.06) 1px, transparent 1px), linear-gradient(90deg, oklch(0.80 0.14 82 / 0.06) 1px, transparent 1px)",
+          "linear-gradient(oklch(0.34 0.13 282 / 0.05) 1px, transparent 1px), linear-gradient(90deg, oklch(0.34 0.13 282 / 0.05) 1px, transparent 1px)",
         "radial-mist":
-          "radial-gradient(ellipse 100% 70% at 50% -30%, oklch(0.60 0.12 170 / 0.14), transparent 55%), radial-gradient(ellipse 60% 45% at 100% 20%, oklch(0.56 0.22 32 / 0.10), transparent), radial-gradient(ellipse 50% 40% at 0% 80%, oklch(0.80 0.14 82 / 0.06), transparent)",
+          "radial-gradient(ellipse 100% 70% at 50% -30%, oklch(0.34 0.13 282 / 0.06), transparent 55%), radial-gradient(ellipse 60% 45% at 100% 20%, oklch(0.30 0.07 285 / 0.05), transparent)",
         "cosmic-gradient":
-          "radial-gradient(ellipse 55% 35% at 12% 8%, oklch(0.52 0.18 250 / 0.08), transparent 55%), radial-gradient(ellipse 60% 45% at 92% 22%, oklch(0.28 0.08 310 / 0.14), transparent 50%), radial-gradient(ellipse 50% 40% at 15% 85%, oklch(0.80 0.14 82 / 0.04), transparent 50%)",
+          "radial-gradient(ellipse 55% 35% at 12% 8%, oklch(0.34 0.13 282 / 0.04), transparent 55%), radial-gradient(ellipse 60% 45% at 92% 22%, oklch(0.30 0.07 285 / 0.06), transparent 50%), radial-gradient(ellipse 50% 40% at 15% 85%, oklch(0.34 0.13 282 / 0.03), transparent 50%)",
       },
       backgroundSize: {
         grid: "56px 56px",
@@ -151,11 +151,11 @@ const config: Config = {
         },
       },
       boxShadow: {
-        glow: "0 0 60px -12px oklch(0.56 0.22 30 / 0.28), 0 0 80px -20px oklch(0.60 0.12 170 / 0.12)",
+        glow: "0 0 40px -8px oklch(0.34 0.13 282 / 0.12)",
         panel:
-          "0 24px 48px -24px oklch(0.10 0.04 260 / 0.7), inset 0 1px 0 oklch(0.80 0.14 82 / 0.08)",
+          "0 8px 32px -12px oklch(0.15 0.01 260 / 0.08), 0 1px 2px oklch(0.15 0.01 260 / 0.04)",
         cosmic:
-          "0 0 60px -15px oklch(0.52 0.18 250 / 0.15), 0 0 100px -30px oklch(0.28 0.08 310 / 0.12)",
+          "0 0 40px -10px oklch(0.34 0.13 282 / 0.08)",
       },
     },
   },

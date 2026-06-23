@@ -9,7 +9,7 @@ export const Card = React.forwardRef<
   <div
     ref={ref}
     className={cn(
-      "rounded-sm border border-white/10 bg-panel shadow-panel backdrop-blur-sm",
+      "rounded-sm border border-black/5 bg-white/80 shadow-panel backdrop-blur-sm",
       className,
     )}
     {...props}

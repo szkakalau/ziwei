@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useRef, useState, useCallback } from "react";
 
@@ -43,7 +43,7 @@ export function ChartCanvas({ palaces = [], soulPalaceLabel }: ChartCanvasProps)
 
   if (!palaces || palaces.length === 0) {
     return (
-      <div className="flex items-center justify-center h-64 text-white/30 text-sm">
+      <div className="flex items-center justify-center h-64 text-ink-dim text-sm">
         No chart data available
       </div>
     );
@@ -94,10 +94,10 @@ export function ChartCanvas({ palaces = [], soulPalaceLabel }: ChartCanvasProps)
               {/* Palace wedge */}
               <path
                 d={`M ${x1} ${y1} L ${x2} ${y2} A ${radius} ${radius} 0 0 1 ${nx2} ${ny2} L ${nx1} ${ny1} A ${innerRadius} ${innerRadius} 0 0 0 ${x1} ${y1}`}
-                fill={isSelected ? "rgba(251,191,36,0.08)" : "rgba(255,255,255,0.015)"}
-                stroke={isSoul ? "rgba(251,191,36,0.3)" : "rgba(255,255,255,0.06)"}
+                fill={isSelected ? "rgba(251,191,36,0.08)" : "rgba(0,0,0,0.015)"}
+                stroke={isSoul ? "rgba(251,191,36,0.3)" : "rgba(0,0,0,0.08)"}
                 strokeWidth={isSoul ? 1.5 : 0.5}
-                className="cursor-pointer transition-colors hover:fill-white/[0.04]"
+                className="cursor-pointer transition-colors hover:fill-black/[0.04]"
                 onClick={() => handlePalaceClick(name, allStars)}
               />
               {/* Palace name */}
@@ -106,7 +106,7 @@ export function ChartCanvas({ palaces = [], soulPalaceLabel }: ChartCanvasProps)
                 y={centerY + labelR * Math.sin(midRad)}
                 textAnchor="middle"
                 dominantBaseline="middle"
-                fill={isSoul ? "#fbbf24" : "rgba(255,255,255,0.45)"}
+                fill={isSoul ? "#b45309" : "rgba(0,0,0,0.55)"}
                 fontSize="10"
                 fontWeight={isSoul ? 600 : 400}
                 fontFamily="system-ui, sans-serif"
@@ -123,7 +123,7 @@ export function ChartCanvas({ palaces = [], soulPalaceLabel }: ChartCanvasProps)
                     cx={centerX + dotR * Math.cos(midRad)}
                     cy={centerY + dotR * Math.sin(midRad)}
                     r={2}
-                    fill={majorStars.includes(star) ? "#fbbf24" : "rgba(255,255,255,0.35)"}
+                    fill={majorStars.includes(star) ? "#b45309" : "rgba(0,0,0,0.40)"}
                     className="pointer-events-none"
                   />
                 );
@@ -134,7 +134,7 @@ export function ChartCanvas({ palaces = [], soulPalaceLabel }: ChartCanvasProps)
                   y={centerY + (radius - 52 - 28) * Math.sin(midRad)}
                   textAnchor="middle"
                   dominantBaseline="middle"
-                  fill="rgba(255,255,255,0.2)"
+                  fill="rgba(0,0,0,0.25)"
                   fontSize="7"
                   className="pointer-events-none select-none"
                 >
@@ -150,8 +150,8 @@ export function ChartCanvas({ palaces = [], soulPalaceLabel }: ChartCanvasProps)
           cx={centerX}
           cy={centerY}
           r={innerRadius - 5}
-          fill="rgba(0,0,0,0.3)"
-          stroke="rgba(251,191,36,0.12)"
+          fill="rgba(0,0,0,0.04)"
+          stroke="rgba(180,83,9,0.15)"
           strokeWidth={0.5}
         />
         <text
@@ -159,7 +159,7 @@ export function ChartCanvas({ palaces = [], soulPalaceLabel }: ChartCanvasProps)
           y={centerY}
           textAnchor="middle"
           dominantBaseline="middle"
-          fill="rgba(251,191,36,0.6)"
+          fill="#b45309"
           fontSize="13"
           fontWeight={600}
           fontFamily="system-ui, sans-serif"
@@ -172,7 +172,7 @@ export function ChartCanvas({ palaces = [], soulPalaceLabel }: ChartCanvasProps)
       {/* Expanded star detail panel (in-place, below chart) */}
       {selectedPalace && expandedStars.length > 0 && (
         <div className="mt-4 mx-4 p-4 rounded-xl bg-white/[0.03] border border-amber-500/10">
-          <h3 className="text-amber-200/80 text-sm font-medium mb-2">
+          <h3 className="text-amber-700/80 text-sm font-medium mb-2">
             {selectedPalace} Palace
           </h3>
           <div className="flex flex-wrap gap-1.5">
@@ -180,7 +180,7 @@ export function ChartCanvas({ palaces = [], soulPalaceLabel }: ChartCanvasProps)
               <span
                 key={star}
                 className="px-2.5 py-1 rounded-full text-xs
-                           bg-amber-500/10 text-amber-300/80
+                           bg-amber-500/10 text-amber-700/80
                            border border-amber-500/15"
               >
                 {star}

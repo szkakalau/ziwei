@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useRef, useState } from "react";
 import { Bell, BellOff } from "lucide-react";
@@ -146,7 +146,7 @@ export function PushPrompt({
   if (pushState === "granted") {
     return (
       <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-amber-500/[0.06] border border-amber-500/10">
-        <Bell className="h-3.5 w-3.5 text-amber-400/60" />
+        <Bell className="h-3.5 w-3.5 text-amber-600/60" />
         <span className="text-[11px] text-amber-300/50">Push notifications enabled</span>
       </div>
     );
@@ -154,9 +154,9 @@ export function PushPrompt({
 
   if (pushState === "denied") {
     return (
-      <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/[0.02] border border-white/[0.04]">
-        <BellOff className="h-3.5 w-3.5 text-white/20" />
-        <span className="text-[11px] text-white/25">
+      <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-black/[0.02] border border-white/[0.04]">
+        <BellOff className="h-3.5 w-3.5 text-ink-dim/60" />
+        <span className="text-[11px] text-ink-dim/70">
           Notifications blocked. Enable in browser settings.
         </span>
       </div>
@@ -169,7 +169,7 @@ export function PushPrompt({
       onClick={onEnable}
       className="flex items-center gap-2 px-4 py-2.5 rounded-xl
                  bg-amber-500/10 border border-amber-500/15
-                 text-amber-300/80 text-xs font-medium
+                 text-amber-700/80 text-xs font-medium
                  hover:bg-amber-500/20 transition-colors"
     >
       <Bell className="h-3.5 w-3.5" />

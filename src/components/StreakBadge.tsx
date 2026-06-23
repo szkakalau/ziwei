@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { getAchievement, getNextAchievement } from "@/lib/achievements";
@@ -25,24 +25,24 @@ export function StreakBadge({ streak }: StreakBadgeProps) {
 
       {showAchievement && (
         <div className="absolute right-0 top-8 z-10 w-64 rounded-xl bg-[#12141c] border border-white/[0.1] p-4 shadow-2xl">
-          <p className="text-[10px] uppercase tracking-wider text-white/30 mb-1">Achievement</p>
+          <p className="text-[10px] uppercase tracking-wider text-ink-dim mb-1">Achievement</p>
           <p className={`text-sm font-semibold ${achievement.color}`}>
             {achievement.icon} {achievement.name}{" "}
-            <span className="text-white/25 text-xs">({achievement.nameZh})</span>
+            <span className="text-ink-dim/70 text-xs">({achievement.nameZh})</span>
           </p>
-          <p className="text-white/40 text-xs mt-1">{achievement.description}</p>
+          <p className="text-ink-dim text-xs mt-1">{achievement.description}</p>
 
           {next && (
-            <div className="mt-3 pt-3 border-t border-white/[0.06]">
-              <p className="text-[10px] uppercase tracking-wider text-white/20 mb-1">Next</p>
-              <p className="text-white/30 text-xs">
+            <div className="mt-3 pt-3 border-t border-black/5">
+              <p className="text-[10px] uppercase tracking-wider text-ink-dim/60 mb-1">Next</p>
+              <p className="text-ink-dim text-xs">
                 {next.icon} {next.name} — {next.minStreak - streak} more {next.minStreak - streak === 1 ? "day" : "days"}
               </p>
             </div>
           )}
 
           {!next && (
-            <div className="mt-3 pt-3 border-t border-white/[0.06]">
+            <div className="mt-3 pt-3 border-t border-black/5">
               <p className="text-amber-300/50 text-xs">All achievements unlocked!</p>
             </div>
           )}

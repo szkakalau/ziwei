@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useRef, useEffect, useCallback } from "react";
 import { MessageCircle, Send } from "lucide-react";
@@ -65,7 +65,7 @@ export function AskZiwei() {
 
   return (
     <section className="mb-8" data-testid="ask-ziwei">
-      <h2 className="text-white/40 text-xs uppercase tracking-wider mb-4 font-medium flex items-center gap-2">
+      <h2 className="text-ink-dim text-xs uppercase tracking-wider mb-4 font-medium flex items-center gap-2">
         <MessageCircle className="h-3.5 w-3.5" />
         Ask Zi Wei
       </h2>
@@ -74,15 +74,15 @@ export function AskZiwei() {
       <div className="space-y-4 mb-4 max-h-80 overflow-y-auto">
         {messages.length === 0 && (
           <div className="space-y-2">
-            <p className="text-white/30 text-xs mb-2">Try asking:</p>
+            <p className="text-ink-dim text-xs mb-2">Try asking:</p>
             {SUGGESTED_QUESTIONS.map((q) => (
               <button
                 key={q}
                 onClick={() => handleSend(q)}
                 className="block w-full text-left px-4 py-2.5 rounded-xl
-                           bg-white/[0.02] border border-white/[0.04]
-                           text-white/50 text-xs hover:text-white/70
-                           hover:border-white/[0.08] transition-colors"
+                           bg-black/[0.02] border border-white/[0.04]
+                           text-ink-muted text-xs hover:text-ink
+                           hover:border-black/6 transition-colors"
               >
                 {q}
               </button>
@@ -99,7 +99,7 @@ export function AskZiwei() {
               className={`max-w-[85%] px-4 py-3 rounded-2xl text-sm leading-relaxed ${
                 msg.role === "user"
                   ? "bg-amber-500/15 text-amber-100/90 rounded-br-md"
-                  : "bg-white/[0.04] text-white/80 rounded-bl-md border border-white/[0.05]"
+                  : "bg-black/[0.04] text-ink rounded-bl-md border border-black/5"
               }`}
             >
               {msg.content}
@@ -109,7 +109,7 @@ export function AskZiwei() {
 
         {loading && (
           <div className="flex justify-start">
-            <div className="bg-white/[0.04] border border-white/[0.05] rounded-2xl rounded-bl-md px-4 py-3">
+            <div className="bg-black/[0.04] border border-black/5 rounded-2xl rounded-bl-md px-4 py-3">
               <div className="flex gap-1.5">
                 <span className="w-2 h-2 rounded-full bg-amber-400/40 animate-bounce" style={{ animationDelay: "0ms" }} />
                 <span className="w-2 h-2 rounded-full bg-amber-400/40 animate-bounce" style={{ animationDelay: "150ms" }} />
@@ -125,7 +125,7 @@ export function AskZiwei() {
             {error.includes("Upgrade") && (
               <Link
                 href="/daily"
-                className="block text-center px-4 py-2 rounded-xl bg-amber-500/15 text-amber-300 text-xs font-medium border border-amber-500/20 hover:bg-amber-500/25 transition-colors"
+                className="block text-center px-4 py-2 rounded-xl bg-amber-500/15 text-amber-700 text-xs font-medium border border-amber-500/20 hover:bg-amber-500/25 transition-colors"
               >
                 Upgrade now →
               </Link>
@@ -144,8 +144,8 @@ export function AskZiwei() {
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={(e) => { if (e.key === "Enter") handleSend(); }}
           placeholder="Ask about your chart..."
-          className="flex-1 px-4 py-3 rounded-xl bg-white/[0.04] border border-white/[0.06]
-                     text-white/80 text-sm placeholder:text-white/20
+          className="flex-1 px-4 py-3 rounded-xl bg-black/[0.04] border border-black/5
+                     text-ink text-sm placeholder:text-ink-dim/60
                      focus:outline-none focus:border-amber-500/20"
         />
         <button

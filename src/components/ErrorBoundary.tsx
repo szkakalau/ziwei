@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { Component, type ReactNode } from "react";
 
@@ -26,10 +26,10 @@ export class ErrorBoundary extends Component<Props, State> {
     if (this.state.hasError) {
       if (this.props.fallback) return this.props.fallback;
       return (
-        <div className="min-h-screen bg-[#0a0a0f] flex items-center justify-center px-5">
+        <div className="min-h-screen bg-void flex items-center justify-center px-5">
           <div className="text-center max-w-sm">
-            <p className="text-white/60 text-base mb-2">Something went wrong</p>
-            <p className="text-white/30 text-sm mb-4">
+            <p className="text-ink-muted text-base mb-2">Something went wrong</p>
+            <p className="text-ink-dim text-sm mb-4">
               Please refresh the page or try again later.
             </p>
             <button
@@ -37,7 +37,7 @@ export class ErrorBoundary extends Component<Props, State> {
                 this.setState({ hasError: false });
                 window.location.reload();
               }}
-              className="px-5 py-2.5 rounded-xl bg-amber-500/15 text-amber-300 text-sm
+              className="px-5 py-2.5 rounded-xl bg-amber-500/15 text-amber-700 text-sm
                          border border-amber-500/20 hover:bg-amber-500/25 transition-colors"
             >
               Refresh

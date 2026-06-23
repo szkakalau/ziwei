@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useRef, useState, useCallback } from "react";
 import { Download } from "lucide-react";
@@ -165,7 +165,7 @@ export function ShareCard({ horoscopeText, highlightedStars, date, streak }: Sha
         disabled={generating}
         className="flex items-center gap-2 px-5 py-3 rounded-xl
                    border border-amber-500/15 text-amber-300/70 text-sm
-                   hover:border-amber-500/30 hover:text-amber-200
+                   hover:border-amber-500/30 hover:text-amber-600
                    disabled:opacity-40 transition-colors"
       >
         {generating ? (

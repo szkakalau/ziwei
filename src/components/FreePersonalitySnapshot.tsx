@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import BirthFormModal from "@/components/BirthFormModal";
 import { SUBSCRIPTION_PRICE_LABEL } from "@/lib/brand";
@@ -263,7 +263,7 @@ export default function FreePersonalitySnapshot() {
                     <Link
                       href="/daily"
                       className="inline-flex items-center gap-2 rounded-xl bg-amber-500/15 px-5 py-3
-                                 text-sm font-medium text-amber-300 border border-amber-500/20
+                                 text-sm font-medium text-amber-700 border border-amber-500/20
                                  hover:bg-amber-500/25 transition-colors"
                     >
                       Get Your Daily Insight →

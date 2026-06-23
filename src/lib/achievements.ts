@@ -1,4 +1,4 @@
-export interface Achievement {
+﻿export interface Achievement {
   key: string;
   name: string;
   nameZh: string;
@@ -33,7 +33,7 @@ export const ACHIEVEMENTS: Achievement[] = [
     nameZh: "斗数修行者",
     minStreak: 30,
     icon: "⭐",
-    color: "text-amber-200/90",
+    color: "text-amber-700/90",
     description: "A full month with Zi Wei. The ancients would be proud.",
   },
   {

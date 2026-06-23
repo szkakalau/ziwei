@@ -1,4 +1,4 @@
-import { getSupportEmail } from "@/lib/brand";
+﻿import { getSupportEmail } from "@/lib/brand";
 
 function IconShield({ className }: { className?: string }) {
   return (
@@ -81,7 +81,7 @@ function IconStripe({ className }: { className?: string }) {
         d="M8 20h32"
         stroke="currentColor"
         strokeWidth="1"
-        className="text-white/20"
+        className="text-ink-dim/60"
       />
       <rect x="12" y="26" width="10" height="3" rx="1" fill="currentColor" className="text-jade/90" />
       <rect x="26" y="26" width="10" height="3" rx="1" fill="currentColor" className="text-ink-dim" />
@@ -160,7 +160,7 @@ export default function RiskReversalSection() {
             return (
               <article
                 key={card.title}
-                className="group relative flex flex-col overflow-hidden rounded-xl border border-white/[0.08] bg-gradient-to-b from-void/90 to-mist/60 p-6 shadow-panel backdrop-blur-sm transition-[border-color,box-shadow] duration-300 hover:border-jade/30 hover:shadow-[0_0_48px_-16px_rgba(61,155,132,0.2)] md:p-7"
+                className="group relative flex flex-col overflow-hidden rounded-xl border border-black/6 bg-gradient-to-b from-void/90 to-mist/60 p-6 shadow-panel backdrop-blur-sm transition-[border-color,box-shadow] duration-300 hover:border-jade/30 hover:shadow-[0_0_48px_-16px_rgba(61,155,132,0.2)] md:p-7"
               >
                 <div
                   className="pointer-events-none absolute -left-10 -top-10 h-36 w-36 rounded-full bg-jade/10 blur-3xl opacity-70 transition-opacity group-hover:opacity-100"

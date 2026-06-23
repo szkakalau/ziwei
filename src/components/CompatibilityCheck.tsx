@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { Heart, Loader2 } from "lucide-react";
@@ -46,7 +46,7 @@ export function CompatibilityCheck() {
 
   return (
     <section className="mb-8" data-testid="compat-check">
-      <h2 className="text-white/40 text-xs uppercase tracking-wider mb-4 font-medium flex items-center gap-2">
+      <h2 className="text-ink-dim text-xs uppercase tracking-wider mb-4 font-medium flex items-center gap-2">
         <Heart className="h-3.5 w-3.5" />
         Compatibility Check
       </h2>
@@ -54,8 +54,8 @@ export function CompatibilityCheck() {
       {!showForm && !result && (
         <button
           onClick={() => setShowForm(true)}
-          className="w-full py-4 rounded-xl bg-white/[0.02] border border-white/[0.06]
-                     text-white/60 text-sm hover:text-white/80 hover:border-white/[0.1]
+          className="w-full py-4 rounded-xl bg-black/[0.02] border border-black/5
+                     text-ink-muted text-sm hover:text-ink hover:border-black/10
                      transition-colors text-center"
         >
           Check compatibility with someone →
@@ -63,8 +63,8 @@ export function CompatibilityCheck() {
       )}
 
       {showForm && !result && (
-        <form onSubmit={handleSubmit} className="rounded-xl bg-white/[0.02] border border-white/[0.06] p-5 space-y-4">
-          <p className="text-white/40 text-xs">
+        <form onSubmit={handleSubmit} className="rounded-xl bg-black/[0.02] border border-black/5 p-5 space-y-4">
+          <p className="text-ink-dim text-xs">
             Enter the other person&apos;s birth details to see how your charts interact.
           </p>
 
@@ -73,8 +73,8 @@ export function CompatibilityCheck() {
             value={birthDate}
             onChange={(e) => setBirthDate(e.target.value)}
             required
-            className="w-full px-4 py-3 rounded-xl bg-white/[0.05] border border-white/[0.08]
-                       text-white/80 text-sm [color-scheme:dark]
+            className="w-full px-4 py-3 rounded-xl bg-black/[0.05] border border-black/6
+                       text-ink text-sm [color-scheme:light]
                        focus:outline-none focus:border-amber-500/20"
           />
 
@@ -82,8 +82,8 @@ export function CompatibilityCheck() {
             type="time"
             value={birthTime}
             onChange={(e) => setBirthTime(e.target.value)}
-            className="w-full px-4 py-3 rounded-xl bg-white/[0.05] border border-white/[0.08]
-                       text-white/80 text-sm [color-scheme:dark]
+            className="w-full px-4 py-3 rounded-xl bg-black/[0.05] border border-black/6
+                       text-ink text-sm [color-scheme:light]
                        focus:outline-none focus:border-amber-500/20"
           />
 
@@ -93,8 +93,8 @@ export function CompatibilityCheck() {
             onChange={(e) => setLocation(e.target.value)}
             placeholder="Birth place (city, country)"
             required
-            className="w-full px-4 py-3 rounded-xl bg-white/[0.05] border border-white/[0.08]
-                       text-white/80 text-sm placeholder:text-white/20
+            className="w-full px-4 py-3 rounded-xl bg-black/[0.05] border border-black/6
+                       text-ink text-sm placeholder:text-ink-dim/60
                        focus:outline-none focus:border-amber-500/20"
           />
 
@@ -105,7 +105,7 @@ export function CompatibilityCheck() {
               className={`flex-1 py-2.5 rounded-xl text-xs border transition-colors ${
                 gender === "male"
                   ? "bg-amber-500/10 border-amber-500/20 text-amber-300"
-                  : "bg-white/[0.02] border-white/[0.06] text-white/40"
+                  : "bg-black/[0.02] border-black/5 text-ink-dim"
               }`}
             >
               Male
@@ -116,7 +116,7 @@ export function CompatibilityCheck() {
               className={`flex-1 py-2.5 rounded-xl text-xs border transition-colors ${
                 gender === "female"
                   ? "bg-amber-500/10 border-amber-500/20 text-amber-300"
-                  : "bg-white/[0.02] border-white/[0.06] text-white/40"
+                  : "bg-black/[0.02] border-black/5 text-ink-dim"
               }`}
             >
               Female
@@ -127,7 +127,7 @@ export function CompatibilityCheck() {
             <button
               type="submit"
               disabled={loading || !birthDate || !location}
-              className="flex-1 py-3 rounded-xl bg-amber-500/15 text-amber-300 text-sm font-medium
+              className="flex-1 py-3 rounded-xl bg-amber-500/15 text-amber-700 text-sm font-medium
                          border border-amber-500/20 hover:bg-amber-500/25
                          disabled:opacity-30 transition-colors flex items-center justify-center gap-2"
             >
@@ -137,8 +137,8 @@ export function CompatibilityCheck() {
             <button
               type="button"
               onClick={() => setShowForm(false)}
-              className="px-4 py-3 rounded-xl bg-white/[0.02] border border-white/[0.06]
-                         text-white/30 text-sm hover:text-white/50 transition-colors"
+              className="px-4 py-3 rounded-xl bg-black/[0.02] border border-black/5
+                         text-ink-dim text-sm hover:text-ink-muted transition-colors"
             >
               Cancel
             </button>
@@ -150,7 +150,7 @@ export function CompatibilityCheck() {
               {error.includes("Upgrade") && (
                 <Link
                   href="/daily"
-                  className="inline-block px-4 py-2 rounded-xl bg-amber-500/15 text-amber-300 text-xs font-medium border border-amber-500/20 hover:bg-amber-500/25 transition-colors"
+                  className="inline-block px-4 py-2 rounded-xl bg-amber-500/15 text-amber-700 text-xs font-medium border border-amber-500/20 hover:bg-amber-500/25 transition-colors"
                 >
                   Upgrade now →
                 </Link>
@@ -161,17 +161,17 @@ export function CompatibilityCheck() {
       )}
 
       {result && (
-        <div className="rounded-xl bg-white/[0.02] border border-amber-500/10 p-5 space-y-4">
-          <p className="text-white/80 text-sm leading-relaxed whitespace-pre-line">
+        <div className="rounded-xl bg-black/[0.02] border border-amber-500/10 p-5 space-y-4">
+          <p className="text-ink text-sm leading-relaxed whitespace-pre-line">
             {result.analysis}
           </p>
 
           {result.preview && result.previewMessage && (
             <div className="rounded-lg border border-amber-500/15 bg-amber-500/[0.04] p-4 text-center">
-              <p className="text-amber-200/70 text-xs mb-3">{result.previewMessage}</p>
+              <p className="text-amber-700/70 text-xs mb-3">{result.previewMessage}</p>
               <Link
                 href="/daily"
-                className="inline-block px-4 py-2 rounded-lg bg-amber-500/15 text-amber-300 text-xs font-medium border border-amber-500/20 hover:bg-amber-500/25 transition-colors"
+                className="inline-block px-4 py-2 rounded-lg bg-amber-500/15 text-amber-700 text-xs font-medium border border-amber-500/20 hover:bg-amber-500/25 transition-colors"
               >
                 Upgrade now — $4.99/mo →
               </Link>
@@ -182,7 +182,7 @@ export function CompatibilityCheck() {
             <div className="flex flex-wrap gap-1.5">
               {result.otherStars.map((s) => (
                 <span key={s} className="px-2.5 py-1 rounded-full text-[11px]
-                                         bg-amber-500/8 text-amber-300/60
+                                         bg-amber-500/8 text-amber-600/60
                                          border border-amber-500/10">
                   {formatStarName(s)}
                 </span>
@@ -192,8 +192,8 @@ export function CompatibilityCheck() {
 
           <button
             onClick={() => { setResult(null); setShowForm(true); }}
-            className="w-full py-2.5 rounded-xl bg-white/[0.02] border border-white/[0.06]
-                       text-white/40 text-xs hover:text-white/60 transition-colors"
+            className="w-full py-2.5 rounded-xl bg-black/[0.02] border border-black/5
+                       text-ink-dim text-xs hover:text-ink-muted transition-colors"
           >
             Check with someone else
           </button>
