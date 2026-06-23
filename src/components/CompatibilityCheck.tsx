@@ -102,9 +102,9 @@ export function CompatibilityCheck() {
             <button
               type="button"
               onClick={() => setGender("male")}
-              className={`flex-1 py-2.5 rounded-xl text-xs border transition-colors ${
+              className={`flex-1 py-2.5 rounded-sm text-xs border transition-colors ${
                 gender === "male"
-                  ? "bg-gold/[0.06] border-gold/15 text-gold"
+                  ? "bg-gold text-void border-gold"
                   : "bg-black/[0.02] border-black/5 text-ink-dim"
               }`}
             >
@@ -113,9 +113,9 @@ export function CompatibilityCheck() {
             <button
               type="button"
               onClick={() => setGender("female")}
-              className={`flex-1 py-2.5 rounded-xl text-xs border transition-colors ${
+              className={`flex-1 py-2.5 rounded-sm text-xs border transition-colors ${
                 gender === "female"
-                  ? "bg-gold/[0.06] border-gold/15 text-gold"
+                  ? "bg-gold text-void border-gold"
                   : "bg-black/[0.02] border-black/5 text-ink-dim"
               }`}
             >
@@ -150,7 +150,7 @@ export function CompatibilityCheck() {
               {error.includes("Upgrade") && (
                 <Link
                   href="/daily"
-                  className="inline-block px-4 py-2 rounded-xl bg-gold/[0.08] text-gold text-xs font-medium border border-gold/15 hover:bg-gold/[0.14] transition-colors"
+                  className="inline-block px-4 py-2 rounded-xl bg-gold text-void text-xs font-medium hover:bg-gold/85 transition-colors"
                 >
                   Upgrade now →
                 </Link>
@@ -171,7 +171,7 @@ export function CompatibilityCheck() {
               <p className="text-amber-700/70 text-xs mb-3">{result.previewMessage}</p>
               <Link
                 href="/daily"
-                className="inline-block px-4 py-2 rounded-lg bg-gold/[0.08] text-gold text-xs font-medium border border-gold/15 hover:bg-gold/[0.14] transition-colors"
+                className="inline-block px-4 py-2 rounded-lg bg-gold text-void text-xs font-medium hover:bg-gold/85 transition-colors"
               >
                 Upgrade now — $4.99/mo →
               </Link>

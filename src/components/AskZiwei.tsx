@@ -125,7 +125,7 @@ export function AskZiwei() {
             {error.includes("Upgrade") && (
               <Link
                 href="/daily"
-                className="block text-center px-4 py-2 rounded-xl bg-gold/[0.08] text-gold text-xs font-medium border border-gold/15 hover:bg-gold/[0.14] transition-colors"
+                className="block text-center px-4 py-2 rounded-xl bg-gold text-void text-xs font-medium hover:bg-gold/85 transition-colors"
               >
                 Upgrade now →
               </Link>
@@ -151,8 +151,7 @@ export function AskZiwei() {
         <button
           onClick={() => handleSend()}
           disabled={!input.trim() || loading}
-          className="px-4 py-3 rounded-xl bg-gold/[0.08] border border-gold/15
-                     text-gold/80 hover:bg-gold/[0.16] disabled:opacity-30
+          className="px-4 py-3 rounded-sm bg-gold text-void hover:bg-gold/85 disabled:opacity-50
                      transition-colors"
         >
           <Send className="h-4 w-4" />

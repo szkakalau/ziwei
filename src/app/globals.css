@@ -233,17 +233,24 @@ body::before {
     transform: none;
   }
 
-  /* Secondary button — outline style */
+  /* Secondary button — same solid indigo, unified look */
   .btn-cosmic {
-    @apply relative inline-flex items-center justify-center rounded-sm border px-6 py-3 font-body text-sm font-medium transition-all duration-200;
-    border-color: oklch(0.34 0.13 282 / 0.20);
-    background: transparent;
-    color: var(--color-gold);
+    @apply relative inline-flex items-center justify-center rounded-sm px-8 py-4 font-body text-lg font-semibold tracking-wide transition-all duration-200;
+    color: oklch(0.98 0.003 92);
+    background: var(--color-gold);
+    box-shadow: 0 1px 2px oklch(0.34 0.13 282 / 0.18),
+                0 4px 12px -4px oklch(0.34 0.13 282 / 0.12);
   }
 
   .btn-cosmic:hover {
-    border-color: oklch(0.34 0.13 282 / 0.40);
-    background: oklch(0.34 0.13 282 / 0.05);
+    background: oklch(0.30 0.14 282);
+    box-shadow: 0 2px 4px oklch(0.34 0.13 282 / 0.22),
+                0 8px 20px -4px oklch(0.34 0.13 282 / 0.18);
+    transform: translateY(-0.5px);
+  }
+
+  .btn-cosmic:active {
+    transform: translateY(0);
   }
 
   /* Form inputs — dark text on white, indigo focus */

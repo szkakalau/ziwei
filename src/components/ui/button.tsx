@@ -10,12 +10,13 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          "bg-ink text-void shadow hover:bg-ink/85",
+          "bg-gold text-void shadow-sm hover:bg-gold/85",
         cta: "btn-cta",
         outline:
-          "border border-black/8 bg-transparent text-ink-muted hover:border-gold/40 hover:text-ink",
-        ghost: "text-ink-muted hover:bg-gold/[0.06] hover:text-ink",
-        cosmic: "btn-cosmic",
+          "bg-gold text-void shadow-sm hover:bg-gold/85",
+        ghost:
+          "bg-gold text-void shadow-sm hover:bg-gold/85",
+        cosmic: "btn-cta",
       },
       size: {
         default: "h-11 px-4 py-2",

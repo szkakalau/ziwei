@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { Mail, ArrowRight, Check } from "lucide-react";
@@ -63,7 +63,7 @@ export default function EmailCapture() {
           />
           <button
             type="submit"
-            className="inline-flex shrink-0 items-center gap-1.5 rounded-sm border border-gold/20 bg-gold/[0.08] px-4 py-3 font-mono text-xs font-medium uppercase tracking-wider text-gold transition-colors hover:bg-gold/[0.14]"
+            className="inline-flex shrink-0 items-center gap-1.5 rounded-sm bg-gold text-void px-4 py-3 font-mono text-xs font-medium uppercase tracking-wider hover:bg-gold/85 transition-colors"
           >
             Send <ArrowRight className="h-3.5 w-3.5" />
           </button>
