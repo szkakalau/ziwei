@@ -130,7 +130,7 @@ export default function RiskReversalSection() {
   return (
     <section
       id="risk-reversal"
-      className="relative scroll-mt-28 border-y border-jade/15 bg-gradient-to-b from-[#060a0e] via-mist/40 to-[#05080c] py-20 md:py-24"
+      className="relative scroll-mt-28 border-y border-gold/10 bg-mist/30 py-20 md:py-24"
     >
       <div
         className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_90%_60%_at_50%_0%,rgba(61,155,132,0.12),transparent_55%)]"
@@ -166,7 +166,7 @@ export default function RiskReversalSection() {
                   className="pointer-events-none absolute -left-10 -top-10 h-36 w-36 rounded-full bg-jade/10 blur-3xl opacity-70 transition-opacity group-hover:opacity-100"
                   aria-hidden
                 />
-                <div className="relative flex h-14 w-14 items-center justify-center rounded-lg border border-jade/25 bg-void/90 shadow-[inset_0_1px_0_rgba(255,255,255,0.05)]">
+                <div className="relative flex h-14 w-14 items-center justify-center rounded-lg border border-jade/25 bg-jade/[0.06] shadow-[inset_0_1px_0_rgba(0,0,0,0.04)]">
                   <Icon className="h-10 w-10" />
                 </div>
                 <h3 className="relative mt-5 font-display text-lg font-semibold leading-snug text-ink md:text-xl">

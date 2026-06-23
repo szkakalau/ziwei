@@ -303,12 +303,12 @@ export default function BirthFormModal({
   ) {
     const fieldShell =
       variant === "inline"
-        ? "rounded-sm border border-gold/15 bg-void/50 p-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] backdrop-blur-sm transition-[border-color,box-shadow] duration-300 focus-within:border-gold/40 focus-within:shadow-[0_0_0_1px_rgba(201,167,94,0.14),inset_0_1px_0_rgba(255,255,255,0.08)]"
-        : "rounded-sm border border-white/10 bg-void/40 p-3";
+        ? "rounded-sm border border-gold/15 bg-white p-3 shadow-[inset_0_1px_0_rgba(0,0,0,0.04)] backdrop-blur-sm transition-[border-color,box-shadow] duration-300 focus-within:border-gold/40 focus-within:shadow-[0_0_0_1px_rgba(55,48,163,0.14),inset_0_1px_0_rgba(0,0,0,0.06)]"
+        : "rounded-sm border border-black/8 bg-white p-3";
 
     const footerShell =
       variant === "inline"
-        ? "shrink-0 space-y-2 border-t border-gold/20 bg-gradient-to-b from-mist/90 via-void/95 to-[#06080c] px-4 py-4 backdrop-blur-md sm:px-5"
+        ? "shrink-0 space-y-2 border-t border-black/5 bg-white/90 px-4 py-4 backdrop-blur-md sm:px-5"
         : "shrink-0 space-y-2 border-t border-white/10 bg-mist/95 px-4 py-3 backdrop-blur-md sm:px-5";
 
     return (
@@ -543,7 +543,7 @@ export default function BirthFormModal({
       {variant === "inline" ? (
         <div
           lang="en-US"
-          className={`group relative flex w-full flex-col overflow-hidden rounded-sm border border-gold/35 bg-[linear-gradient(168deg,rgba(20,28,36,0.96)_0%,rgba(8,11,15,0.92)_48%,rgba(14,18,24,0.96)_100%)] shadow-[0_32px_90px_-40px_rgba(0,0,0,0.78),0_0_0_1px_rgba(201,167,94,0.14),inset_0_1px_0_rgba(255,255,255,0.07)] backdrop-blur-xl ring-1 ring-inset ring-white/[0.08] ${className ?? ""}`}
+          className={`group relative flex w-full flex-col overflow-hidden rounded-sm border border-gold/20 bg-white shadow-[0_8px_32px_-12px_rgba(0,0,0,0.12),0_1px_2px_rgba(0,0,0,0.06)] backdrop-blur-xl ${className ?? ""}`}
         >
           <div
             className="pointer-events-none absolute inset-0 bg-radial-mist opacity-[0.55]"

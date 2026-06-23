@@ -144,7 +144,7 @@ export default function FreePersonalitySnapshot() {
 
         {snapshot ? (
           <div ref={resultRef} className="mt-14">
-            <div className="relative overflow-hidden rounded-2xl border border-gold/25 bg-gradient-to-br from-[#12141c] via-void to-[#0c0e14] p-1 shadow-[0_24px_80px_-24px_rgba(0,0,0,0.75),inset_0_1px_0_rgba(255,255,255,0.06)]">
+            <div className="relative overflow-hidden rounded-2xl border border-gold/20 bg-white p-1 shadow-[0_8px_32px_-12px_rgba(0,0,0,0.08)]">
               <div
                 className="pointer-events-none absolute -right-20 -top-20 h-56 w-56 rounded-full bg-cinnabar/20 blur-3xl"
                 aria-hidden

@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
   page: {
     padding: 48,
     fontFamily: "Inter",
-    backgroundColor: "#0a0a0f",
+    backgroundColor: "#FBF9F6",
     color: "#e5e5e5",
   },
   brand: {
@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
   },
   subtitle: {
     fontSize: 12,
-    color: "rgba(255,255,255,0.4)",
+    color: "rgba(0,0,0,0.45)",
     marginBottom: 32,
   },
   divider: {
@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
   body: {
     fontSize: 12,
     lineHeight: 1.7,
-    color: "rgba(255,255,255,0.75)",
+    color: "rgba(0,0,0,0.80)",
     marginBottom: 12,
   },
   footer: {
@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
     left: 48,
     right: 48,
     fontSize: 8,
-    color: "rgba(255,255,255,0.15)",
+    color: "rgba(0,0,0,0.20)",
     textAlign: "center" as const,
   },
 });

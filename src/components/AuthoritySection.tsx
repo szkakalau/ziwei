@@ -180,7 +180,7 @@ export default function AuthoritySection() {
   return (
     <section
       id="authority-zi-wei"
-      className="relative scroll-mt-28 border-y border-white/10 bg-[#05070b] py-20 md:py-28"
+      className="relative scroll-mt-28 border-y border-black/5 bg-mist/40 py-20 md:py-28"
     >
       <div
         className="pointer-events-none absolute inset-0 bg-radial-mist opacity-90"
@@ -220,7 +220,7 @@ export default function AuthoritySection() {
                   className="pointer-events-none absolute -right-8 -top-8 h-32 w-32 rounded-full bg-cinnabar/10 blur-2xl transition-opacity group-hover:opacity-100"
                   aria-hidden
                 />
-                <div className="relative flex h-14 w-14 items-center justify-center rounded-lg border border-gold/20 bg-void/80 text-gold shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]">
+                <div className="relative flex h-14 w-14 items-center justify-center rounded-lg border border-gold/20 bg-gold/[0.06] text-gold shadow-[inset_0_1px_0_rgba(0,0,0,0.04)]">
                   <Icon className="h-10 w-10" />
                 </div>
                 <h3 className="relative mt-6 font-display text-xl font-semibold leading-snug text-ink">

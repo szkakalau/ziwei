@@ -27,7 +27,7 @@ export function ShareCard({ horoscopeText, highlightedStars, date, streak }: Sha
     canvas.height = 1350;
 
     // Dark background
-    ctx.fillStyle = "#0a0a0f";
+    ctx.fillStyle = "#FBF9F6";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     // Subtle radial gradient
@@ -59,7 +59,7 @@ export function ShareCard({ horoscopeText, highlightedStars, date, streak }: Sha
     ctx.stroke();
 
     // Horoscope text
-    ctx.fillStyle = "rgba(255, 255, 255, 0.85)";
+    ctx.fillStyle = "rgba(0, 0, 0, 0.85)";
     ctx.font = "400 36px system-ui, -apple-system, sans-serif";
     ctx.textAlign = "center";
 
@@ -97,7 +97,7 @@ export function ShareCard({ horoscopeText, highlightedStars, date, streak }: Sha
     // Stars section — only render if there are stars (birthday cards pass [])
     if (highlightedStars.length > 0) {
       y += 80;
-      ctx.fillStyle = "rgba(255, 255, 255, 0.25)";
+      ctx.fillStyle = "rgba(0, 0, 0, 0.25)";
       ctx.font = "400 20px system-ui, sans-serif";
       ctx.fillText("Today's Stars", 540, y);
 
@@ -109,7 +109,7 @@ export function ShareCard({ horoscopeText, highlightedStars, date, streak }: Sha
     }
 
     // Bottom branding
-    ctx.fillStyle = "rgba(255, 255, 255, 0.15)";
+    ctx.fillStyle = "rgba(0, 0, 0, 0.15)";
     ctx.font = "400 20px system-ui, sans-serif";
     ctx.fillText("DestinyBlueprint — Zi Wei Dou Shu Daily", 540, 1300);
 

@@ -24,7 +24,7 @@ export function StreakBadge({ streak }: StreakBadgeProps) {
       </button>
 
       {showAchievement && (
-        <div className="absolute right-0 top-8 z-10 w-64 rounded-xl bg-[#12141c] border border-white/[0.1] p-4 shadow-2xl">
+        <div className="absolute right-0 top-8 z-10 w-64 rounded-xl bg-white border border-black/5 p-4 shadow-lg">
           <p className="text-[10px] uppercase tracking-wider text-ink-dim mb-1">Achievement</p>
           <p className={`text-sm font-semibold ${achievement.color}`}>
             {achievement.icon} {achievement.name}{" "}
