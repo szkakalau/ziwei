@@ -14,11 +14,11 @@ const styles = StyleSheet.create({
     padding: 48,
     fontFamily: "Inter",
     backgroundColor: "#FBF9F6",
-    color: "#e5e5e5",
+    color: "#1C1C1C",
   },
   brand: {
     fontSize: 10,
-    color: "#fbbf24",
+    color: "#b45309",
     textTransform: "uppercase" as const,
     letterSpacing: 3,
     marginBottom: 8,
@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 28,
     fontWeight: 600,
-    color: "#f5f5f5",
+    color: "#1C1C1C",
     marginBottom: 4,
   },
   subtitle: {

@@ -10,7 +10,7 @@ export default function Image() {
     (
       <div
         style={{
-          background: "#0c0c14",
+          background: "#FBF9F6",
           width: "100%",
           height: "100%",
           display: "flex",
@@ -22,7 +22,7 @@ export default function Image() {
           fontFamily: "Georgia, serif",
         }}
       >
-        {/* Top gold accent line */}
+        {/* Top indigo accent line */}
         <div
           style={{
             position: "absolute",
@@ -30,7 +30,7 @@ export default function Image() {
             left: 0,
             right: 0,
             height: 3,
-            background: "linear-gradient(90deg, transparent 0%, #d4a843 50%, transparent 100%)",
+            background: "linear-gradient(90deg, transparent 0%, #3730A3 50%, transparent 100%)",
           }}
         />
 
@@ -45,19 +45,19 @@ export default function Image() {
             zIndex: 10,
           }}
         >
-          {/* Compass icon (CSS-drawn simplified compass) */}
+          {/* Compass icon */}
           <div
             style={{
               width: 64,
               height: 64,
               borderRadius: "50%",
-              border: "2px solid rgba(212, 168, 67, 0.3)",
-              background: "rgba(212, 168, 67, 0.08)",
+              border: "2px solid rgba(55, 48, 163, 0.25)",
+              background: "rgba(55, 48, 163, 0.06)",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
               fontSize: 32,
-              color: "#d4a843",
+              color: "#3730A3",
             }}
           >
             DB
@@ -68,7 +68,7 @@ export default function Image() {
             style={{
               fontSize: 72,
               fontWeight: 700,
-              color: "#e8e4f0",
+              color: "#1C1C1C",
               letterSpacing: "-0.02em",
             }}
           >
@@ -79,7 +79,7 @@ export default function Image() {
           <div
             style={{
               fontSize: 28,
-              color: "rgba(212, 168, 67, 0.85)",
+              color: "#3730A3",
               letterSpacing: "0.02em",
             }}
           >
@@ -90,7 +90,7 @@ export default function Image() {
           <div
             style={{
               fontSize: 20,
-              color: "rgba(180, 175, 200, 0.6)",
+              color: "rgba(0, 0, 0, 0.45)",
               marginTop: 8,
               fontFamily: "sans-serif",
             }}
@@ -105,7 +105,7 @@ export default function Image() {
             position: "absolute",
             bottom: 32,
             fontSize: 18,
-            color: "rgba(180, 175, 200, 0.35)",
+            color: "rgba(0, 0, 0, 0.25)",
             fontFamily: "monospace",
           }}
         >
