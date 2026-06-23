@@ -87,8 +87,8 @@ export function BirthdaySurprise({ birthDate, streak }: BirthdaySurpriseProps) {
             <button
               onClick={handleGenerateReading}
               disabled={loading}
-              className="px-5 py-2.5 rounded-xl bg-amber-500/20 text-amber-700 text-xs font-medium
-                         border border-amber-500/25 hover:bg-amber-500/30
+              className="px-5 py-2.5 rounded-xl bg-gold/[0.10] text-gold text-xs font-medium
+                         border border-gold/20 hover:bg-gold/[0.18]
                          disabled:opacity-50 transition-colors inline-flex items-center gap-2"
             >
               {loading ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Gift className="h-3.5 w-3.5" />}
@@ -115,8 +115,8 @@ export function BirthdaySurprise({ birthDate, streak }: BirthdaySurpriseProps) {
           <button
             onClick={handleGenerateReading}
             disabled={loading}
-            className="px-6 py-3 rounded-xl bg-amber-500/20 text-amber-700 text-sm font-medium
-                       border border-amber-500/25 hover:bg-amber-500/30
+            className="px-6 py-3 rounded-xl bg-gold/[0.10] text-gold text-sm font-medium
+                       border border-gold/20 hover:bg-gold/[0.18]
                        disabled:opacity-50 transition-colors flex items-center gap-2 mx-auto"
           >
             {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Gift className="h-4 w-4" />}

@@ -127,8 +127,8 @@ export function CompatibilityCheck() {
             <button
               type="submit"
               disabled={loading || !birthDate || !location}
-              className="flex-1 py-3 rounded-xl bg-amber-500/15 text-amber-700 text-sm font-medium
-                         border border-gold/15 hover:bg-amber-500/25
+              className="flex-1 py-3 rounded-xl bg-gold/[0.08] text-gold text-sm font-medium
+                         border border-gold/15 hover:bg-gold/[0.14]
                          disabled:opacity-30 transition-colors flex items-center justify-center gap-2"
             >
               {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Heart className="h-4 w-4" />}

@@ -168,9 +168,9 @@ export function PushPrompt({
     <button
       onClick={onEnable}
       className="flex items-center gap-2 px-4 py-2.5 rounded-xl
-                 bg-amber-500/10 border border-gold/10
-                 text-amber-700/80 text-xs font-medium
-                 hover:bg-amber-500/20 transition-colors"
+                 bg-gold/[0.06] border border-gold/15
+                 text-gold/80 text-xs font-medium
+                 hover:bg-gold/[0.12] transition-colors"
     >
       <Bell className="h-3.5 w-3.5" />
       Get daily horoscope notifications

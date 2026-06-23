@@ -80,9 +80,9 @@ export function AskZiwei() {
                 key={q}
                 onClick={() => handleSend(q)}
                 className="block w-full text-left px-4 py-2.5 rounded-xl
-                           bg-black/[0.02] border border-white/[0.04]
+                           bg-black/[0.02] border border-black/5
                            text-ink-muted text-xs hover:text-ink
-                           hover:border-black/6 transition-colors"
+                           hover:border-black/10 transition-colors"
               >
                 {q}
               </button>
@@ -151,8 +151,8 @@ export function AskZiwei() {
         <button
           onClick={() => handleSend()}
           disabled={!input.trim() || loading}
-          className="px-4 py-3 rounded-xl bg-amber-500/10 border border-gold/10
-                     text-amber-400/70 hover:bg-amber-500/20 disabled:opacity-30
+          className="px-4 py-3 rounded-xl bg-gold/[0.08] border border-gold/15
+                     text-gold/80 hover:bg-gold/[0.16] disabled:opacity-30
                      transition-colors"
         >
           <Send className="h-4 w-4" />
