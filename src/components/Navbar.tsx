@@ -39,7 +39,7 @@ export default function Navbar() {
         <div className="flex shrink-0 items-center gap-2 sm:gap-3">
           <ReadingNavLink
             href={readingUrl}
-            className="inline-flex min-h-11 min-w-[44px] items-center justify-center rounded-sm border border-cinnabar/40 bg-gradient-to-br from-cinnabar to-cinnabar-deep px-3 py-2.5 font-mono text-[10px] font-medium uppercase tracking-wider text-ink shadow-[0_0_24px_-4px_rgba(201,84,60,0.45)] transition-all hover:border-cinnabar/60 hover:brightness-110 sm:px-4 sm:text-xs"
+            className="inline-flex min-h-11 min-w-[44px] items-center justify-center rounded-sm border border-gold/20 bg-gold px-3 py-2.5 font-mono text-[10px] font-medium uppercase tracking-wider text-void shadow-[0_0_24px_-4px_rgba(55,48,163,0.25)] transition-all hover:bg-gold/85 hover:border-gold/30 sm:px-4 sm:text-xs"
           >
             Get my reading
           </ReadingNavLink>

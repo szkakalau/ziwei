@@ -41,7 +41,7 @@ export default function YearlyPage() {
   if (loading) {
     return (
       <main className="min-h-screen bg-void text-ink px-5 py-12 pb-20 max-w-2xl mx-auto text-center">
-        <Sparkles className="h-8 w-8 text-amber-600/50 mx-auto mb-4 animate-pulse" />
+        <Sparkles className="h-8 w-8 text-gold/50 mx-auto mb-4 animate-pulse" />
         <p className="text-ink-muted text-base mb-2">Writing your annual reading...</p>
         <p className="text-ink-dim/70 text-xs">This takes about 20 seconds. Worth the wait.</p>
         <div className="mt-8 space-y-3">
@@ -66,7 +66,7 @@ export default function YearlyPage() {
           </Link>
         )}
         <div>
-          <Link href="/daily" className="text-gold/60 text-sm hover:text-amber-600">
+          <Link href="/daily" className="text-gold/60 text-sm hover:text-gold">
             ← Back to daily horoscope
           </Link>
         </div>
@@ -97,7 +97,7 @@ export default function YearlyPage() {
           <ArrowLeft className="h-5 w-5" />
         </Link>
         <div className="flex items-center gap-2">
-          <Calendar className="h-4 w-4 text-amber-600/50" />
+          <Calendar className="h-4 w-4 text-gold/50" />
           <span className="text-gold/60 text-sm font-medium">{year} Annual Reading</span>
         </div>
       </div>
@@ -105,7 +105,7 @@ export default function YearlyPage() {
       {/* Title */}
       <div className="text-center mb-8 md:mb-10">
         <Sparkles className="h-6 w-6 text-gold/60 mx-auto mb-3" />
-        <h1 className="text-amber-700/90 text-xl md:text-2xl font-semibold">
+        <h1 className="text-gold text-xl md:text-2xl font-semibold">
           Your {year} Zi Wei Dou Shu Forecast
         </h1>
         <p className="text-ink-dim text-sm mt-2">
@@ -116,7 +116,7 @@ export default function YearlyPage() {
       {/* Preview banner for trial users */}
       {preview && previewMessage && (
         <div className="mb-8 rounded-xl border border-gold/10 bg-gold/[0.03] p-5 text-center">
-          <p className="text-amber-700/70 text-sm mb-4">{previewMessage}</p>
+          <p className="text-gold/70 text-sm mb-4">{previewMessage}</p>
           <Link
             href="/daily"
             className="inline-block px-6 py-3 rounded-xl bg-gold/[0.08] text-gold text-sm font-medium border border-gold/15 hover:bg-gold/[0.14] transition-colors"
@@ -133,7 +133,7 @@ export default function YearlyPage() {
             key={s.heading}
             className="rounded-xl bg-black/[0.02] border border-black/5 p-5 md:p-6"
           >
-            <h2 className="text-amber-700/80 text-sm font-semibold mb-3 tracking-wide">
+            <h2 className="text-gold/80 text-sm font-semibold mb-3 tracking-wide">
               {s.heading}
             </h2>
             <p className="text-ink text-[15px] leading-relaxed whitespace-pre-line">
@@ -147,7 +147,7 @@ export default function YearlyPage() {
       <div className="mt-10 pt-6 border-t border-black/5 text-center">
         <Link
           href="/daily"
-          className="text-amber-600/50 text-xs hover:text-amber-700 transition-colors"
+          className="text-gold/50 text-xs hover:text-gold transition-colors"
         >
           ← Back to daily horoscope
         </Link>

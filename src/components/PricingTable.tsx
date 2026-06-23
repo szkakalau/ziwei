@@ -78,7 +78,7 @@ export default function PricingTable() {
         </ul>
         <Link
           href="/daily"
-          className="mt-8 inline-flex min-h-11 w-full items-center justify-center rounded-sm bg-gradient-to-br from-cinnabar to-cinnabar-deep py-3 font-mono text-sm font-semibold uppercase tracking-wide text-ink shadow-[0_0_32px_-8px_rgba(201,84,60,0.45)] transition-all hover:brightness-110"
+          className="mt-8 inline-flex min-h-11 w-full items-center justify-center rounded-sm bg-gold py-3 font-mono text-sm font-semibold uppercase tracking-wide text-void shadow-[0_4px_16px_-4px_rgba(55,48,163,0.25)] transition-all hover:bg-gold/85"
         >
           Start 7-Day Free Trial
         </Link>

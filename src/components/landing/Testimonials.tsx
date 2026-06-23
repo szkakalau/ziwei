@@ -135,7 +135,7 @@ export default function Testimonials() {
         <div className="mt-16 text-center">
           <Link
             href="/daily"
-            className="inline-flex items-center gap-2 rounded-sm bg-gradient-to-br from-cinnabar to-cinnabar-deep px-8 py-4 font-mono text-sm font-semibold uppercase tracking-wide text-ink shadow-[0_0_32px_-8px_rgba(201,84,60,0.45)] transition-all hover:brightness-110"
+            className="inline-flex items-center gap-2 rounded-sm bg-gold px-8 py-4 font-mono text-sm font-semibold uppercase tracking-wide text-void shadow-[0_4px_16px_-4px_rgba(55,48,163,0.25)] transition-all hover:bg-gold/85"
           >
             Start 7-Day Free Trial
             <ArrowRight className="h-4 w-4" aria-hidden />

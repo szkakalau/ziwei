@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useEffect, useState } from "react";
 import { Sparkles, Mail, Clock, CheckCircle } from "lucide-react";
@@ -36,7 +36,7 @@ export default function ReadingPage() {
   if (loading) {
     return (
       <main className="min-h-screen bg-void text-ink px-5 py-20 max-w-2xl mx-auto text-center">
-        <Sparkles className="h-8 w-8 text-amber-600/50 mx-auto mb-4 animate-pulse" />
+        <Sparkles className="h-8 w-8 text-gold/50 mx-auto mb-4 animate-pulse" />
         <p className="text-ink-muted text-base">Loading...</p>
       </main>
     );
@@ -45,8 +45,8 @@ export default function ReadingPage() {
   if (error) {
     return (
       <main className="min-h-screen bg-void text-ink px-5 py-20 max-w-2xl mx-auto text-center">
-        <p className="text-red-400/70 text-sm mb-4">{error}</p>
-        <Link href="/daily" className="text-gold/60 text-sm hover:text-amber-600">
+        <p className="text-cinnabar text-sm mb-4">{error}</p>
+        <Link href="/daily" className="text-gold/60 text-sm hover:text-gold">
           Back to daily horoscope
         </Link>
       </main>
@@ -56,8 +56,8 @@ export default function ReadingPage() {
   const status = data?.status ?? "no_order";
 
   const icons: Record<string, React.ReactNode> = {
-    no_order: <Mail className="h-10 w-10 text-amber-400/30 mx-auto mb-4" />,
-    writing: <Clock className="h-10 w-10 text-amber-600/50 mx-auto mb-4" />,
+    no_order: <Mail className="h-10 w-10 text-gold/30 mx-auto mb-4" />,
+    writing: <Clock className="h-10 w-10 text-gold/50 mx-auto mb-4" />,
     delivered: <CheckCircle className="h-10 w-10 text-green-400/50 mx-auto mb-4" />,
     expired: <Mail className="h-10 w-10 text-ink-dim/60 mx-auto mb-4" />,
   };
@@ -73,7 +73,7 @@ export default function ReadingPage() {
     <main className="min-h-screen bg-void text-ink px-5 py-16 max-w-2xl mx-auto">
       <div className="text-center mb-10">
         {icons[status]}
-        <h1 className="text-amber-700/90 text-xl md:text-2xl font-semibold">
+        <h1 className="text-ink text-xl md:text-2xl font-semibold">
           {titles[status]}
         </h1>
         <p className="text-ink-muted text-sm mt-4 max-w-md mx-auto leading-relaxed">
@@ -89,7 +89,7 @@ export default function ReadingPage() {
             </p>
             <Link
               href="/daily"
-              className="inline-block px-6 py-3 rounded-xl bg-gold/[0.08] text-gold text-sm font-medium border border-gold/15 hover:bg-gold/[0.14] transition-colors"
+              className="inline-block px-6 py-3 rounded-sm bg-gold text-void text-sm font-medium hover:bg-gold/85 transition-colors"
             >
               Subscribe now — $4.99/mo
             </Link>
@@ -103,7 +103,7 @@ export default function ReadingPage() {
             </p>
             <Link
               href="/daily"
-              className="inline-block px-6 py-3 rounded-xl bg-gold/[0.08] text-gold text-sm font-medium border border-gold/15 hover:bg-gold/[0.14] transition-colors"
+              className="inline-block px-6 py-3 rounded-sm bg-gold text-void text-sm font-medium hover:bg-gold/85 transition-colors"
             >
               Go to daily horoscope
             </Link>
@@ -113,7 +113,7 @@ export default function ReadingPage() {
         {status === "delivered" && (
           <p className="text-ink-dim text-sm">
             Check your inbox and spam folder. If you still can&rsquo;t find it, email us at{" "}
-            <a href="mailto:castro.liu@me.com" className="text-gold/60 hover:text-amber-600">
+            <a href="mailto:castro.liu@me.com" className="text-gold/70 hover:text-gold">
               castro.liu@me.com
             </a>.
           </p>
@@ -123,7 +123,7 @@ export default function ReadingPage() {
       <div className="mt-8 text-center">
         <Link
           href="/daily"
-          className="text-amber-600/50 text-sm hover:text-amber-700 transition-colors"
+          className="text-gold/50 text-sm hover:text-gold transition-colors"
         >
           Back to daily horoscope
         </Link>
