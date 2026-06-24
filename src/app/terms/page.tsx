@@ -33,7 +33,7 @@ export default function TermsPage() {
       <p className="mt-6 font-mono text-sm text-ink-dim">
         Last updated: April 8, 2026
       </p>
-      <div className="prose prose-invert mt-10 max-w-none text-sm prose-headings:font-display prose-headings:text-ink prose-p:text-ink-muted prose-li:text-ink-muted prose-strong:text-ink">
+      <div className="prose mt-10 max-w-none text-sm prose-headings:font-display prose-headings:text-ink prose-p:text-ink-muted prose-li:text-ink-muted prose-strong:text-ink">
         <p>
           This placeholder is not legal advice. Replace with counsel-approved
           terms before scaling paid acquisition.
