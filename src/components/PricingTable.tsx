@@ -1,4 +1,4 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import { Check, Star, MessageCircle, Heart, Calendar, Gift, Flame, Bell, Mail } from "lucide-react";
 
 const freePlan = [
@@ -78,7 +78,7 @@ export default function PricingTable() {
         </ul>
         <Link
           href="/daily"
-          className="mt-8 inline-flex min-h-11 w-full items-center justify-center rounded-sm bg-gold py-3 font-mono text-sm font-semibold uppercase tracking-wide text-void shadow-[0_4px_16px_-4px_rgba(55,48,163,0.25)] transition-all hover:bg-gold/85"
+          className="btn-cta mt-8 w-full py-3"
         >
           Start 7-Day Free Trial
         </Link>

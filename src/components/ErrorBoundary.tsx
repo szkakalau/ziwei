@@ -37,7 +37,7 @@ export class ErrorBoundary extends Component<Props, State> {
                 this.setState({ hasError: false });
                 window.location.reload();
               }}
-              className="px-5 py-2.5 rounded-sm bg-gold text-void text-sm hover:bg-gold/85 transition-colors"
+              className="btn-cta px-5 py-2.5 text-sm"
             >
               Refresh
             </button>

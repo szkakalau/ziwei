@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { MessageCircle, Mail, Sparkles, ArrowRight } from "lucide-react";
 import Link from "next/link";
@@ -81,7 +81,7 @@ export default function ProductShowcase() {
         </div>
 
         <div className="mt-10 text-center">
-          <Link href="/daily" className="inline-flex items-center gap-2 rounded-sm bg-gold px-8 py-4 font-body text-lg font-semibold tracking-wide text-void transition-all hover:bg-gold/85">
+          <Link href="/daily" className="btn-cta px-8 py-4">
             Start 7-Day Free Trial — $4.99/month
             <ArrowRight className="h-4 w-4" aria-hidden />
           </Link>

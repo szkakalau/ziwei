@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Link from "next/link";
 import { Check, Sparkles, ArrowRight } from "lucide-react";
@@ -73,7 +73,7 @@ export default function FreeVsPaidTable() {
                 </li>
               ))}
             </ul>
-            <Link href="/daily" className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-sm bg-gold px-8 py-4 font-body text-lg font-semibold tracking-wide text-void transition-all hover:bg-gold/85">
+            <Link href="/daily" className="btn-cta mt-6 w-full">
               Start 7-Day Free Trial
               <ArrowRight className="h-4 w-4" aria-hidden />
             </Link>

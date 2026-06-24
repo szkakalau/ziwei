@@ -60,7 +60,7 @@ export default function YearlyPage() {
         {error.includes("Upgrade") && (
           <Link
             href="/daily"
-            className="inline-block px-6 py-3 rounded-xl bg-gold text-void text-sm font-medium hover:bg-gold/85 transition-colors mb-4"
+            className="btn-cta px-6 py-3 text-sm mb-4"
           >
             Upgrade now →
           </Link>
@@ -119,7 +119,7 @@ export default function YearlyPage() {
           <p className="text-gold/70 text-sm mb-4">{previewMessage}</p>
           <Link
             href="/daily"
-            className="inline-block px-6 py-3 rounded-xl bg-gold text-void text-sm font-medium hover:bg-gold/85 transition-colors"
+            className="btn-cta px-6 py-3 text-sm"
           >
             Upgrade now — $4.99/mo →
           </Link>

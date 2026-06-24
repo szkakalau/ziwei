@@ -311,7 +311,7 @@ export default function DailyPage() {
 
           <button
             onClick={() => handleAuth(authMode)}
-            className="w-full py-3 rounded-sm bg-gold text-void text-sm font-medium hover:bg-gold/85 transition-colors mb-3"
+            className="btn-cta w-full py-3 text-sm mb-3"
           >
             {authMode === "register" ? "Start 7-Day Free Trial" : "Log In"}
           </button>
@@ -372,7 +372,7 @@ export default function DailyPage() {
           </ul>
           <button
             onClick={hasUsedTrial ? handleSubscribe : handleStartTrial}
-            className="w-full py-3 rounded-sm bg-gold text-void text-sm font-medium hover:bg-gold/85 transition-colors mb-2"
+            className="btn-cta w-full py-3 text-sm mb-2"
           >
             {hasUsedTrial ? "Subscribe — $4.99/month" : "Start 7-Day Free Trial"}
           </button>
@@ -534,13 +534,13 @@ export default function DailyPage() {
 
           {/* Action buttons */}
           <div className="flex flex-wrap gap-3 mt-5">
-            <button onClick={handleShare} className="inline-flex items-center gap-2 rounded-sm bg-gold text-void px-5 py-2.5 text-sm hover:bg-gold/85 transition-colors">
+            <button onClick={handleShare} className="btn-cta px-5 py-2.5 text-sm">
               <Share2 className="h-4 w-4" />
               Share
             </button>
             <ShareCard horoscopeText={data.horoscope} highlightedStars={data.highlightedStars} date={dateLabel} streak={streak} />
             {chartPalaces.length > 0 && (
-              <button onClick={() => setShowChart(!showChart)} className="inline-flex items-center gap-2 rounded-sm bg-gold text-void px-5 py-2.5 text-sm hover:bg-gold/85 transition-colors">
+              <button onClick={() => setShowChart(!showChart)} className="btn-cta px-5 py-2.5 text-sm">
                 <Eye className="h-4 w-4" />
                 {showChart ? "Hide Chart" : "View Chart"}
               </button>

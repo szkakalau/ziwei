@@ -125,7 +125,7 @@ export function AskZiwei() {
             {error.includes("Upgrade") && (
               <Link
                 href="/daily"
-                className="block text-center px-4 py-2 rounded-xl bg-gold text-void text-xs font-medium hover:bg-gold/85 transition-colors"
+                className="btn-cta px-4 py-2 text-xs"
               >
                 Upgrade now →
               </Link>

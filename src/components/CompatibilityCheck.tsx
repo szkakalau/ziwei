@@ -149,7 +149,7 @@ export function CompatibilityCheck() {
               {error.includes("Upgrade") && (
                 <Link
                   href="/daily"
-                  className="inline-block px-4 py-2 rounded-xl bg-gold text-void text-xs font-medium hover:bg-gold/85 transition-colors"
+                  className="btn-cta px-4 py-2 text-xs"
                 >
                   Upgrade now →
                 </Link>
@@ -170,7 +170,7 @@ export function CompatibilityCheck() {
               <p className="text-amber-700/70 text-xs mb-3">{result.previewMessage}</p>
               <Link
                 href="/daily"
-                className="inline-block px-4 py-2 rounded-lg bg-gold text-void text-xs font-medium hover:bg-gold/85 transition-colors"
+                className="btn-cta px-4 py-2 text-xs"
               >
                 Upgrade now — $4.99/mo →
               </Link>

@@ -137,8 +137,7 @@ export default function AccountPage() {
           <button
             onClick={handleManageBilling}
             disabled={managingBilling}
-            className="mt-3 ml-7 text-ink-dim text-xs hover:text-ink-muted transition-colors
-                       disabled:opacity-50"
+            className="mt-3 ml-7 btn-cta px-3 py-1.5 text-xs"
           >
             {managingBilling ? "Loading..." : "Manage billing →"}
           </button>

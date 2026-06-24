@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from "react";
 import { Sparkles, Mail, Clock, CheckCircle } from "lucide-react";
@@ -89,7 +89,7 @@ export default function ReadingPage() {
             </p>
             <Link
               href="/daily"
-              className="inline-block px-6 py-3 rounded-sm bg-gold text-void text-sm font-medium hover:bg-gold/85 transition-colors"
+              className="btn-cta px-6 py-3 text-sm"
             >
               Subscribe now — $4.99/mo
             </Link>
@@ -103,7 +103,7 @@ export default function ReadingPage() {
             </p>
             <Link
               href="/daily"
-              className="inline-block px-6 py-3 rounded-sm bg-gold text-void text-sm font-medium hover:bg-gold/85 transition-colors"
+              className="btn-cta px-6 py-3 text-sm"
             >
               Go to daily horoscope
             </Link>
