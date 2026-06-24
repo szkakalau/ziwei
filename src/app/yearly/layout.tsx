@@ -5,12 +5,12 @@ import { getSiteUrl } from "@/lib/site";
 const site = getSiteUrl();
 
 export const metadata: Metadata = {
-  title: `Yearly Forecast | ${BRAND_NAME}`,
+  title: "Yearly Forecast",
   description:
     "Your annual Zi Wei Dou Shu forecast based on your birth chart. Discover what the year ahead holds for career, relationships, and luck cycles.",
   alternates: { canonical: new URL("/yearly", site).toString() },
   openGraph: {
-    title: `Yearly Forecast | ${BRAND_NAME}`,
+    title: "Yearly Forecast",
     description:
       "Your annual Zi Wei Dou Shu forecast based on your birth chart.",
     url: new URL("/yearly", site),

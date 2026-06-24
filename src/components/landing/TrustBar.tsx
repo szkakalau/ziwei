@@ -34,8 +34,8 @@ function AnimatedCounter({
   return (
     <span className="font-semibold text-ink">
       {count.toLocaleString()}
-      {suffix || ""}
-      <span className="ml-1 font-normal text-ink-muted">{label}</span>
+      {suffix ? `${suffix} ` : ""}
+      <span className="font-normal text-ink-muted">{label}</span>
     </span>
   );
 }

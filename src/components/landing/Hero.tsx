@@ -85,7 +85,7 @@ export default function Hero() {
   const [month, setMonth] = useState("");
   const [day, setDay] = useState("");
   const [hour, setHour] = useState("");
-  const [minute, setMinute] = useState("");
+  const [minute, setMinute] = useState("0");
   const [location, setLocation] = useState("");
   const [gender, setGender] = useState<"male" | "female">("female");
   const [unknownTime, setUnknownTime] = useState(false);
@@ -280,7 +280,6 @@ export default function Hero() {
                       {hours.map((h) => <option key={h} value={String(h)}>{String(h).padStart(2, "0")}</option>)}
                     </select>
                     <select id="hero-minute" className="input-ink" value={minute} onChange={(e) => setMinute(e.target.value)} disabled={unknownTime}>
-                      <option value="">Min</option>
                       {minutes.map((m) => <option key={m} value={String(m)}>{String(m).padStart(2, "0")}</option>)}
                     </select>
                   </div>

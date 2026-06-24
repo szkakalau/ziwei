@@ -108,8 +108,7 @@ export default function WhyZiWeiBetter() {
                 className="absolute -inset-x-2 bottom-0 h-2 bg-cinnabar/20 blur-[2px]"
                 aria-hidden
               />
-            </span>
-            .<br />
+            </span>.<br />
             This is the{" "}
             <span className="bg-gradient-to-r from-gold via-gold/90 to-cinnabar bg-clip-text text-transparent bg-[length:200%_200%] animate-gradient-shift">
               full cosmic map

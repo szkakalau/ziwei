@@ -5,12 +5,12 @@ import { getSiteUrl } from "@/lib/site";
 const site = getSiteUrl();
 
 export const metadata: Metadata = {
-  title: `Daily Horoscope | ${BRAND_NAME}`,
+  title: "Daily Horoscope",
   description:
     "Your personalized daily Zi Wei Dou Shu horoscope based on your birth chart. AI-powered Purple Star astrology readings every morning.",
   alternates: { canonical: new URL("/daily", site).toString() },
   openGraph: {
-    title: `Daily Horoscope | ${BRAND_NAME}`,
+    title: "Daily Horoscope",
     description:
       "Personalized daily Zi Wei Dou Shu horoscope based on your birth chart.",
     url: new URL("/daily", site),
