@@ -16,7 +16,7 @@ export default function StickyUnlockBar({ onContinue, pending, priceLabel = "$4.
         className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-gold/20 to-transparent"
         aria-hidden
       />
-      <div className="mx-auto flex max-w-6xl flex-col gap-3 px-4 py-4 sm:flex-row sm:items-center sm:justify-between sm:gap-6 sm:px-6">
+      <div className="mx-auto flex max-w-6xl flex-col gap-3 px-5 py-4 sm:flex-row sm:items-center sm:justify-between sm:gap-6 sm:px-6">
         <p className="font-body text-sm text-ink-muted">
           Unlock your full Zi Wei reading — {priceLabel} with a 7-day free trial. Includes daily AI horoscopes + a human-written email reading.
         </p>

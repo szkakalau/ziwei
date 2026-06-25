@@ -54,7 +54,7 @@ export default function FAQ() {
         aria-hidden
       />
 
-      <div className="relative mx-auto max-w-3xl px-4 sm:px-6">
+      <div className="relative mx-auto max-w-3xl px-5 sm:px-6">
         {/* Header */}
         <div className="flex items-start gap-4">
           <span className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-cinnabar/[0.15] bg-cinnabar/[0.06]">

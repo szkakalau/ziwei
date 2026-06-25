@@ -45,7 +45,7 @@ const cards = [
 
 export default function ProductShowcase() {
   return (
-    <section className="relative overflow-hidden px-4 py-20 sm:px-6 sm:py-28">
+    <section className="relative overflow-hidden px-5 py-20 sm:px-6 sm:py-24 md:py-32">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_50%_40%_at_50%_30%,oklch(0.80_0.14_82/0.03),transparent_55%)]" aria-hidden />
 
       <div className="relative mx-auto max-w-5xl">

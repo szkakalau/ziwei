@@ -43,7 +43,7 @@ function AnimatedCounter({
 export default function TrustBar() {
   return (
     <section className="relative border-b border-gold/[0.06] bg-gold/[0.02]">
-      <div className="mx-auto max-w-6xl px-4 py-5 sm:px-6 sm:py-6">
+      <div className="mx-auto max-w-6xl px-5 py-5 sm:px-6 sm:py-6">
         <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-2 text-sm sm:gap-x-12">
           <div className="flex items-center gap-2">
             <Users className="h-4 w-4 text-gold/60" aria-hidden />
