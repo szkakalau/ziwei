@@ -1,0 +1,17 @@
+[     443ms] [INFO] %cDownload the React DevTools for a better development experience: https://reactjs.org/link/react-devtools font-weight:bold @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/compiled/react-dom/cjs/react-dom.development.js:38559
+[  263448ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/react-dev-overlay/app/hot-reloader-client.js:186
+[  263677ms] [LOG] [Fast Refresh] done in 229ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/react-dev-overlay/app/hot-reloader-client.js:43
+[  524675ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/react-dev-overlay/app/hot-reloader-client.js:186
+[  524907ms] [LOG] [Fast Refresh] done in 233ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/react-dev-overlay/app/hot-reloader-client.js:43
+[  524981ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/react-dev-overlay/app/hot-reloader-client.js:186
+[  525236ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3001/terms?_rsc=ihycl:0
+[  525248ms] [LOG] [Fast Refresh] done in 268ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/react-dev-overlay/app/hot-reloader-client.js:43
+[  525269ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3001/terms?_rsc=ihycl:0
+[  525357ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3001/terms:0
+[  525388ms] [ERROR] Refused to apply style from 'http://localhost:3001/_next/static/css/app/layout.css?v=1780474505452' because its MIME type ('text/html') is not a supported stylesheet MIME type, and strict MIME checking is enabled. @ http://localhost:3001/terms:0
+[  525410ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3001/_next/static/chunks/main-app.js?v=1780474505452:0
+[  525410ms] [ERROR] Refused to execute script from 'http://localhost:3001/_next/static/chunks/main-app.js?v=1780474505452' because its MIME type ('text/html') is not executable, and strict MIME type checking is enabled. @ http://localhost:3001/terms:0
+[  525410ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3001/_next/static/chunks/app/not-found.js:0
+[  525410ms] [ERROR] Refused to execute script from 'http://localhost:3001/_next/static/chunks/app/not-found.js' because its MIME type ('text/html') is not executable, and strict MIME type checking is enabled. @ http://localhost:3001/terms:0
+[  525410ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3001/_next/static/chunks/app-pages-internals.js:0
+[  525410ms] [ERROR] Refused to execute script from 'http://localhost:3001/_next/static/chunks/app-pages-internals.js' because its MIME type ('text/html') is not executable, and strict MIME type checking is enabled. @ http://localhost:3001/terms:0

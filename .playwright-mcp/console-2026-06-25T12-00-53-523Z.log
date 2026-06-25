@@ -1,0 +1,9 @@
+[     440ms] EvalError: Evaluating a string as JavaScript violates the following Content Security Policy directive because 'unsafe-eval' is not an allowed source of script: script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://cdn.onesignal.com https://js.stripe.com".
+
+    at (app-pages-browser)/./node_modules/next/dist/compiled/@next/react-refresh-utils/dist/runtime.js (http://localhost:3000/_next/static/chunks/main-app.js?v=1782388853556:1139:26)
+    at options.factory (http://localhost:3000/_next/static/chunks/webpack.js?v=1782388853556:704:31)
+    at __webpack_require__ (http://localhost:3000/_next/static/chunks/webpack.js?v=1782388853556:29:33)
+    at __webpack_exec__ (http://localhost:3000/_next/static/chunks/main-app.js?v=1782388853556:1878:48)
+    at http://localhost:3000/_next/static/chunks/main-app.js?v=1782388853556:1879:37
+    at webpackJsonpCallback (http://localhost:3000/_next/static/chunks/webpack.js?v=1782388853556:1380:39)
+    at http://localhost:3000/_next/static/chunks/main-app.js?v=1782388853556:9:61

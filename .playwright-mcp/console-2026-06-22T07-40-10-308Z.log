@@ -1,0 +1,4 @@
+[    1881ms] [ERROR] Failed to load resource: the server responded with a status of 500 () @ https://www.destinyblueprint.xyz/api/auth/me:0
+[    1991ms] [VERBOSE] [DOM] Password field is not contained in a form: (More info: https://goo.gl/9p2vKq) %o @ https://www.destinyblueprint.xyz/daily:0
+[  194762ms] [ERROR] Failed to load resource: the server responded with a status of 500 () @ https://www.destinyblueprint.xyz/api/auth/me:0
+[  638733ms] [ERROR] Failed to load resource: the server responded with a status of 500 () @ https://www.destinyblueprint.xyz/api/auth/me:0

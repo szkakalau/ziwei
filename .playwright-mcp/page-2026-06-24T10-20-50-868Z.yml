@@ -1,0 +1,148 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]:
+      - link "DestinyBlueprint.xyz" [ref=e4] [cursor=pointer]:
+        - /url: /
+      - link "Get my reading" [ref=e6] [cursor=pointer]:
+        - /url: /#hero-form
+    - navigation [ref=e7]:
+      - link "Blog" [ref=e8] [cursor=pointer]:
+        - /url: /blog
+      - link "Pricing" [ref=e9] [cursor=pointer]:
+        - /url: /pricing
+      - link "FAQ" [ref=e10] [cursor=pointer]:
+        - /url: /faq
+      - link "About" [ref=e11] [cursor=pointer]:
+        - /url: /about
+  - main [ref=e12]:
+    - main [ref=e13]:
+      - generic [ref=e14]:
+        - heading "Blog" [level=1] [ref=e15]
+        - paragraph [ref=e16]: Short reads on Purple Star (Zi Wei) charts, timing, love and career themes, and how they differ from Western sun-sign astrology—without the fluff.
+      - generic [ref=e17]:
+        - link "All" [ref=e18] [cursor=pointer]:
+          - /url: /blog
+        - link "Purple Star Astrology" [ref=e19] [cursor=pointer]:
+          - /url: /blog?category=Purple%20Star%20Astrology
+        - link "Astrology vs Western" [ref=e20] [cursor=pointer]:
+          - /url: /blog?category=Astrology%20vs%20Western
+        - link "Chinese Zodiac" [ref=e21] [cursor=pointer]:
+          - /url: /blog?category=Chinese%20Zodiac
+        - link "Five Elements" [ref=e22] [cursor=pointer]:
+          - /url: /blog?category=Five%20Elements
+        - link "Relationship astrology" [ref=e23] [cursor=pointer]:
+          - /url: /blog?category=Relationship%20astrology
+      - list [ref=e24]:
+        - listitem [ref=e25]:
+          - article [ref=e26]:
+            - paragraph [ref=e27]: Purple Star Astrology
+            - heading "What is Zi Wei Dou Shu? A straight beginner guide to Purple Star astrology" [level=2] [ref=e28]:
+              - link "What is Zi Wei Dou Shu? A straight beginner guide to Purple Star astrology" [ref=e29] [cursor=pointer]:
+                - /url: /blog/what-is-zi-wei-dou-shu-beginners-guide
+            - paragraph [ref=e30]: "Zi Wei Dou Shu (Purple Star astrology) explained in plain English: what it maps, what it needs from your birth data, and how it differs from a daily horoscope."
+            - time [ref=e31]: 2026-04-20
+        - listitem [ref=e32]:
+          - article [ref=e33]:
+            - paragraph [ref=e34]: Purple Star Astrology
+            - 'heading "The 12 life palaces in Zi Wei Dou Shu: what each area is actually about" [level=2] [ref=e35]':
+              - 'link "The 12 life palaces in Zi Wei Dou Shu: what each area is actually about" [ref=e36] [cursor=pointer]':
+                - /url: /blog/twelve-life-palaces-zi-wei-explained
+            - paragraph [ref=e37]: A plain-English tour of the twelve palaces used in Purple Star (Zi Wei) astrology—career, wealth, relationships, timing layers, and how readers use them together.
+            - time [ref=e38]: 2026-04-19
+        - listitem [ref=e39]:
+          - article [ref=e40]:
+            - paragraph [ref=e41]: Astrology vs Western
+            - 'heading "Zi Wei Dou Shu vs Western astrology: what is actually different?" [level=2] [ref=e42]':
+              - 'link "Zi Wei Dou Shu vs Western astrology: what is actually different?" [ref=e43] [cursor=pointer]':
+                - /url: /blog/zi-wei-vs-western-astrology-differences
+            - paragraph [ref=e44]: "A clear comparison: sun signs vs Purple Star charts, what each system optimizes for, birth data requirements, and why the ‘accuracy’ debate misses the point."
+            - time [ref=e45]: 2026-04-18
+        - listitem [ref=e46]:
+          - article [ref=e47]:
+            - paragraph [ref=e48]: Astrology vs Western
+            - heading "Why birth time matters in Purple Star (Zi Wei) astrology more than you think" [level=2] [ref=e49]:
+              - link "Why birth time matters in Purple Star (Zi Wei) astrology more than you think" [ref=e50] [cursor=pointer]:
+                - /url: /blog/why-birth-time-matters-purple-star-astrology
+            - paragraph [ref=e51]: How birth time shifts a Zi Wei Dou Shu chart, what ‘unknown time’ really means, solar time vs clock time, and practical steps to improve accuracy without stress.
+            - time [ref=e52]: 2026-04-17
+        - listitem [ref=e53]:
+          - article [ref=e54]:
+            - paragraph [ref=e55]: Purple Star Astrology
+            - 'heading "10-year luck cycles in Zi Wei Dou Shu: how timing actually shows up in readings" [level=2] [ref=e56]':
+              - 'link "10-year luck cycles in Zi Wei Dou Shu: how timing actually shows up in readings" [ref=e57] [cursor=pointer]':
+                - /url: /blog/ten-year-luck-cycles-zi-wei-timing
+            - paragraph [ref=e58]: A relaxed explainer of decade-style luck periods in Purple Star astrology—what readers mean by ‘luck,’ how cycles interact with palaces, and how to use timing without superstition.
+            - time [ref=e59]: 2026-04-16
+        - listitem [ref=e60]:
+          - article [ref=e61]:
+            - paragraph [ref=e62]: Purple Star Astrology
+            - 'heading "AI and classical Zi Wei charts: what software can (and can’t) replace" [level=2] [ref=e63]':
+              - 'link "AI and classical Zi Wei charts: what software can (and can’t) replace" [ref=e64] [cursor=pointer]':
+                - /url: /blog/ai-and-classical-zi-wei-charts-explained
+            - paragraph [ref=e65]: "How AI tools fit into Purple Star astrology: rule-based chart calculation vs narrative interpretation, trust signals for readers, and why ‘AI-generated’ isn’t automatically fake."
+            - time [ref=e66]: 2026-04-15
+        - listitem [ref=e67]:
+          - article [ref=e68]:
+            - paragraph [ref=e69]: Relationship astrology
+            - 'heading "Love and partnership in Zi Wei Dou Shu: patterns, not promises" [level=2] [ref=e70]':
+              - 'link "Love and partnership in Zi Wei Dou Shu: patterns, not promises" [ref=e71] [cursor=pointer]':
+                - /url: /blog/love-partnership-patterns-zi-wei-dou-shu
+            - paragraph [ref=e72]: How Purple Star astrology talks about relationships—marriage palace themes, compatibility without sun-sign games, boundaries, and what a reading can’t ethically claim.
+            - time [ref=e73]: 2026-04-14
+        - listitem [ref=e74]:
+          - article [ref=e75]:
+            - paragraph [ref=e76]: Purple Star Astrology
+            - 'heading "Career and wealth in Zi Wei Dou Shu: what the palaces are really pointing at" [level=2] [ref=e77]':
+              - 'link "Career and wealth in Zi Wei Dou Shu: what the palaces are really pointing at" [ref=e78] [cursor=pointer]':
+                - /url: /blog/career-wealth-palaces-zi-wei-overview
+            - paragraph [ref=e79]: A practical overview of Career and Wealth palaces in Purple Star astrology—ambition styles, money psychology, risk timing, and how to translate chart language into decisions.
+            - time [ref=e80]: 2026-04-13
+        - listitem [ref=e81]:
+          - article [ref=e82]:
+            - paragraph [ref=e83]: Chinese Zodiac
+            - 'heading "Chinese zodiac animals vs Purple Star astrology: do you need both?" [level=2] [ref=e84]':
+              - 'link "Chinese zodiac animals vs Purple Star astrology: do you need both?" [ref=e85] [cursor=pointer]':
+                - /url: /blog/chinese-zodiac-vs-purple-star-astrology
+            - paragraph [ref=e86]: How the 12-year animal cycle differs from Zi Wei Dou Shu, what each is good for, common confusion online, and a simple way to combine them without contradictions.
+            - time [ref=e87]: 2026-04-12
+        - listitem [ref=e88]:
+          - article [ref=e89]:
+            - paragraph [ref=e90]: Purple Star Astrology
+            - 'heading "Zi Wei charts online: red flags, healthy skepticism, and how to spot serious tools" [level=2] [ref=e91]':
+              - 'link "Zi Wei charts online: red flags, healthy skepticism, and how to spot serious tools" [ref=e92] [cursor=pointer]':
+                - /url: /blog/zi-wei-chart-online-red-flags-skepticism
+            - paragraph [ref=e93]: "A practical skeptic’s checklist for Purple Star astrology apps and AI readings: birth data, transparent rules, hype language, refunds, and what serious Zi Wei looks like in English."
+            - time [ref=e94]: 2026-04-11
+        - listitem [ref=e95]:
+          - article [ref=e96]:
+            - paragraph [ref=e97]: Five Elements
+            - heading "What is a fire element personality in Five Elements thinking?" [level=2] [ref=e98]:
+              - link "What is a fire element personality in Five Elements thinking?" [ref=e99] [cursor=pointer]:
+                - /url: /blog/fire-element-personality
+            - paragraph [ref=e100]: "A plain-English overview of Fire in Wu Xing (Five Elements): energy, communication style, stress patterns, and balance ideas."
+            - time [ref=e101]: 2026-04-03
+        - listitem [ref=e102]:
+          - article [ref=e103]:
+            - paragraph [ref=e104]: Chinese Zodiac
+            - 'heading "Year of the Dragon personality: a clear, practical guide" [level=2] [ref=e105]':
+              - 'link "Year of the Dragon personality: a clear, practical guide" [ref=e106] [cursor=pointer]':
+                - /url: /blog/year-of-the-dragon-personality
+            - paragraph [ref=e107]: What 'Year of the Dragon' usually describes in Chinese zodiac culture—traits, compatibility themes, and common misconceptions.
+            - time [ref=e108]: 2026-04-01
+  - contentinfo [ref=e109]:
+    - generic [ref=e111]:
+      - paragraph [ref=e112]: © 2026 DestinyBlueprint.xyz. For reflection and entertainment only—not medical, legal, or financial advice.
+      - list [ref=e113]:
+        - listitem [ref=e114]:
+          - link "Privacy Policy" [ref=e115] [cursor=pointer]:
+            - /url: /privacy
+        - listitem [ref=e116]:
+          - link "Terms" [ref=e117] [cursor=pointer]:
+            - /url: /terms
+        - listitem [ref=e118]:
+          - link "Contact" [ref=e119] [cursor=pointer]:
+            - /url: /contact
+        - listitem [ref=e120]:
+          - link "Affiliate" [ref=e121] [cursor=pointer]:
+            - /url: /affiliate
+  - alert [ref=e122]

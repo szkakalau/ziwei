@@ -1,0 +1,74 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]:
+      - link "DestinyBlueprint" [ref=e4] [cursor=pointer]:
+        - /url: /
+      - navigation [ref=e5]:
+        - link "Blog" [ref=e6] [cursor=pointer]:
+          - /url: /blog
+        - link "Pricing" [ref=e7] [cursor=pointer]:
+          - /url: /pricing
+        - link "FAQ" [ref=e8] [cursor=pointer]:
+          - /url: /faq
+        - link "About" [ref=e9] [cursor=pointer]:
+          - /url: /about
+      - link "Get my reading" [ref=e11] [cursor=pointer]:
+        - /url: /#free-personality-snapshot
+  - main [ref=e12]:
+    - generic [ref=e13]:
+      - heading "Frequently asked questions" [level=1] [ref=e14]
+      - paragraph [ref=e15]: Transparency for ads, payments, and trust.
+      - generic [ref=e16]:
+        - generic [ref=e17]:
+          - heading "About the reading" [level=2] [ref=e18]
+          - generic [ref=e19]:
+            - group [ref=e20]:
+              - generic "What is Chinese astrology? +" [ref=e21] [cursor=pointer]
+            - group [ref=e22]:
+              - generic "Is this fortune telling? +" [ref=e23] [cursor=pointer]
+            - group [ref=e24]:
+              - generic "Is it scientifically proven? +" [ref=e25] [cursor=pointer]
+        - generic [ref=e26]:
+          - heading "Accuracy" [level=2] [ref=e27]
+          - generic [ref=e28]:
+            - group [ref=e29]:
+              - generic "Do I need birth time? +" [ref=e30] [cursor=pointer]
+            - group [ref=e31]:
+              - generic "How accurate is the reading? +" [ref=e32] [cursor=pointer]
+            - group [ref=e33]:
+              - generic "Should I use this for major life decisions? +" [ref=e34] [cursor=pointer]
+        - generic [ref=e35]:
+          - heading "Purchase" [level=2] [ref=e36]
+          - generic [ref=e37]:
+            - group [ref=e38]:
+              - generic "How do I receive my reading? +" [ref=e39] [cursor=pointer]
+            - group [ref=e40]:
+              - generic "What is your refund policy? +" [ref=e41] [cursor=pointer]
+            - group [ref=e42]:
+              - generic "What currency are prices in? +" [ref=e43] [cursor=pointer]
+        - generic [ref=e44]:
+          - heading "Privacy" [level=2] [ref=e45]
+          - generic [ref=e46]:
+            - group [ref=e47]:
+              - generic "Do you store birth data? +" [ref=e48] [cursor=pointer]
+            - group [ref=e49]:
+              - generic "Who can access my information? +" [ref=e50] [cursor=pointer]
+            - group [ref=e51]:
+              - generic "Can I request deletion? +" [ref=e52] [cursor=pointer]
+  - contentinfo [ref=e53]:
+    - generic [ref=e55]:
+      - paragraph [ref=e56]: © 2026 DestinyBlueprint. For reflection and entertainment only—not medical, legal, or financial advice.
+      - list [ref=e57]:
+        - listitem [ref=e58]:
+          - link "Privacy Policy" [ref=e59] [cursor=pointer]:
+            - /url: /privacy
+        - listitem [ref=e60]:
+          - link "Terms" [ref=e61] [cursor=pointer]:
+            - /url: /terms
+        - listitem [ref=e62]:
+          - link "Contact" [ref=e63] [cursor=pointer]:
+            - /url: /contact
+        - listitem [ref=e64]:
+          - link "Affiliate" [ref=e65] [cursor=pointer]:
+            - /url: /affiliate
+  - alert [ref=e66]

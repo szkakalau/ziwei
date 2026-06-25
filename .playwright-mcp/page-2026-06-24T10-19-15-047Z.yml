@@ -1,0 +1,38 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]:
+      - link "DestinyBlueprint.xyz" [ref=e4] [cursor=pointer]:
+        - /url: /
+      - navigation [ref=e5]:
+        - link "Blog" [ref=e6] [cursor=pointer]:
+          - /url: /blog
+        - link "Pricing" [ref=e7] [cursor=pointer]:
+          - /url: /pricing
+        - link "FAQ" [ref=e8] [cursor=pointer]:
+          - /url: /faq
+        - link "About" [ref=e9] [cursor=pointer]:
+          - /url: /about
+      - link "Get my reading" [ref=e11] [cursor=pointer]:
+        - /url: /#hero-form
+  - main [ref=e12]:
+    - main [ref=e13]:
+      - img [ref=e14]
+      - paragraph [ref=e17]: Writing your annual reading...
+      - paragraph [ref=e18]: This takes about 20 seconds. Worth the wait.
+  - contentinfo [ref=e25]:
+    - generic [ref=e27]:
+      - paragraph [ref=e28]: © 2026 DestinyBlueprint.xyz. For reflection and entertainment only—not medical, legal, or financial advice.
+      - list [ref=e29]:
+        - listitem [ref=e30]:
+          - link "Privacy Policy" [ref=e31] [cursor=pointer]:
+            - /url: /privacy
+        - listitem [ref=e32]:
+          - link "Terms" [ref=e33] [cursor=pointer]:
+            - /url: /terms
+        - listitem [ref=e34]:
+          - link "Contact" [ref=e35] [cursor=pointer]:
+            - /url: /contact
+        - listitem [ref=e36]:
+          - link "Affiliate" [ref=e37] [cursor=pointer]:
+            - /url: /affiliate
+  - alert [ref=e38]

@@ -40,6 +40,8 @@ export default function DailyPage() {
   const [userId, setUserId] = useState<string | undefined>();
   const [userBirthDate, setUserBirthDate] = useState<string | undefined>();
   const [hasUsedTrial, setHasUsedTrial] = useState(false);
+  const [currentStatus, setCurrentStatus] = useState<string>("");
+  const [hasStripeId, setHasStripeId] = useState(false);
 
   const onesignalAppId = process.env.NEXT_PUBLIC_ONESIGNAL_APP_ID || "";
   const { pushState, requestPush } = useOneSignal(onesignalAppId, userId);
@@ -79,6 +81,8 @@ export default function DailyPage() {
           if (d.user?.id) setUserId(d.user.id);
           if (d.user?.birthDate) setUserBirthDate(d.user.birthDate);
           if (d.user?.hasUsedTrial) setHasUsedTrial(true);
+          if (d.user?.subscriptionStatus) setCurrentStatus(d.user.subscriptionStatus);
+          if (d.user?.hasStripeId) setHasStripeId(true);
 
           // Use the same logic as subscriptionGuard: only trial/active grant
           // access. past_due is mapped to active by mapStripeStatus, so it
@@ -394,7 +398,25 @@ export default function DailyPage() {
             <p className="text-cinnabar/70 text-xs mt-3">{trialError}</p>
           )}
         </div>
+        {currentStatus && (
+          <p className="mt-5 text-ink-dim/50 text-[11px]">
+            Account status: <span className="font-mono">{currentStatus}</span>
+            {hasStripeId ? " · Stripe connected" : ""}
+          </p>
+        )}
         <div className="mt-6 text-center space-y-2">
+          {hasStripeId && (
+            <button
+              onClick={async () => {
+                setLoading(true);
+                await fetch("/api/auth/me");
+                window.location.reload();
+              }}
+              className="block w-full text-ink-dim text-xs hover:text-ink-muted transition-colors"
+            >
+              Refresh subscription status
+            </button>
+          )}
           <button
             onClick={async () => {
               await fetch("/api/auth/logout", { method: "POST" });

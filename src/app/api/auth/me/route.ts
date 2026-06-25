@@ -19,11 +19,13 @@ export async function GET() {
       return NextResponse.json({ ok: false, error: "NOT_AUTHENTICATED" }, { status: 401 });
     }
 
-    // If the user has a Stripe customer ID but their local status is still
-    // "free" (webhook not yet received, or webhook missed), sync from Stripe
-    // so paying users aren't locked out behind the paywall.
+    // If the user has a Stripe customer ID but their local status is not
+    // "trial" or "active" (webhook not yet received, webhook missed, or
+    // status reverted), sync from Stripe so paying users aren't locked out.
+    const localStatus = user.subscription_status;
     if (
-      user.subscription_status === "free" &&
+      localStatus !== "trial" &&
+      localStatus !== "active" &&
       typeof user.stripe_customer_id === "string" &&
       user.stripe_customer_id.length > 0
     ) {
@@ -62,6 +64,7 @@ export async function GET() {
                   subscriptionStatus: refreshed.subscription_status,
                   trialEndsAt: refreshed.trial_ends_at,
                   hasUsedTrial: refreshed.has_used_trial === true,
+                  hasStripeId: true,
                 },
               });
             }
@@ -84,6 +87,7 @@ export async function GET() {
         subscriptionStatus: user.subscription_status,
         trialEndsAt: user.trial_ends_at,
         hasUsedTrial: user.has_used_trial === true,
+        hasStripeId: typeof user.stripe_customer_id === "string" && user.stripe_customer_id.length > 0,
       },
     });
   } catch (err) {

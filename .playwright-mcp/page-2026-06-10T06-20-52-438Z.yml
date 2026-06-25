@@ -1,0 +1,792 @@
+- generic [active] [ref=e1]:
+  - main [ref=e2]:
+    - generic [ref=e3]:
+      - generic [ref=e5]:
+        - link "DB" [ref=e6] [cursor=pointer]:
+          - /url: /#top
+          - img [ref=e7]
+          - generic [ref=e10]: DB
+        - link "Free Snapshot" [ref=e12] [cursor=pointer]:
+          - /url: "#birth-form"
+          - generic [ref=e13]: Free Snapshot
+      - generic [ref=e16]:
+        - generic [ref=e17]:
+          - paragraph [ref=e18]:
+            - img [ref=e19]
+            - text: Not 1 of 12 Sun Signs
+          - paragraph [ref=e22]: 100+ Stars · Exact Birth Time · True Solar Time
+        - heading "A daily horoscope written for you , not 1/12th of the planet." [level=1] [ref=e23]:
+          - text: A daily horoscope
+          - generic [ref=e24]: written for you
+          - text: ","
+          - text: not 1/12th of the planet.
+        - paragraph [ref=e26]: Zi Wei Dou Shu maps 100+ stars to your exact birth time and location. Every morning you get a personalized reading based on YOUR chart — not a generic paragraph written for millions of people who happen to share your birth month.
+        - generic [ref=e27]:
+          - generic [ref=e28]:
+            - generic [ref=e29]:
+              - img [ref=e30]
+              - img [ref=e32]
+              - img [ref=e34]
+              - img [ref=e36]
+              - img [ref=e38]
+            - generic [ref=e40]: 4.9 · 2,400+ readings delivered
+          - generic [ref=e41]: Free snapshot · No credit card
+        - generic [ref=e42]:
+          - generic [ref=e43]:
+            - link "Get My Free Snapshot" [ref=e44] [cursor=pointer]:
+              - /url: "#birth-form"
+              - text: Get My Free Snapshot
+              - img
+            - paragraph [ref=e45]: 30 seconds · No signup · 100% private
+          - generic [ref=e47]:
+            - generic [ref=e48]:
+              - img [ref=e49]
+              - generic [ref=e52]: Your Daily Horoscope
+              - generic [ref=e53]: Sample
+            - generic [ref=e54]:
+              - paragraph [ref=e55]: Your Career Palace is activated today. A conversation about direction or ambition may surface — what people reveal matters more than what they say. Tian Ji in your Travel Palace suggests movement within 72 hours.
+              - generic [ref=e56]:
+                - generic [ref=e57]:
+                  - img [ref=e58]
+                  - text: Zi Wei
+                - generic [ref=e60]:
+                  - img [ref=e61]
+                  - text: Tian Fu
+                - generic [ref=e63]:
+                  - img [ref=e64]
+                  - text: Wu Qu
+        - generic [ref=e66]:
+          - generic [ref=e67]:
+            - paragraph [ref=e68]: 100+
+            - paragraph [ref=e69]: Stars in your chart
+          - generic [ref=e70]:
+            - paragraph [ref=e71]: Daily
+            - paragraph [ref=e72]: AI horoscopes
+          - generic [ref=e73]:
+            - paragraph [ref=e74]: 24-48h
+            - paragraph [ref=e75]: Human reading delivery
+          - generic [ref=e76]:
+            - paragraph [ref=e77]: $4.99
+            - paragraph [ref=e78]: Per month after trial
+      - generic [ref=e81]:
+        - generic [ref=e82]:
+          - img [ref=e83]
+          - generic [ref=e88]: 0+charts generated
+        - generic [ref=e89]:
+          - img [ref=e90]
+          - generic [ref=e93]: 100% private · no signup required
+      - generic [ref=e96]:
+        - generic [ref=e97]:
+          - generic [ref=e98]:
+            - img [ref=e99]
+            - generic [ref=e102]: What You Get Every Day
+          - heading "This is what $4.99/month actually looks like." [level=2] [ref=e103]:
+            - text: This is what $4.99/month
+            - text: actually looks like.
+          - paragraph [ref=e104]: No vague promises. Here are real previews of every feature included in your subscription — all powered by your unique birth chart.
+        - generic [ref=e105]:
+          - generic [ref=e106]:
+            - generic [ref=e107]:
+              - generic [ref=e108]:
+                - heading "Daily AI Horoscope" [level=3] [ref=e109]
+                - paragraph [ref=e110]: Every morning, a personalized reading based on your chart and the day's transits.
+              - generic [ref=e111]: Included
+            - generic [ref=e112]:
+              - generic [ref=e113]:
+                - generic [ref=e114]:
+                  - img [ref=e115]
+                  - generic [ref=e121]: Wednesday, June 10
+                - generic [ref=e122]:
+                  - img [ref=e123]
+                  - text: AI Generated
+              - generic [ref=e126]:
+                - paragraph [ref=e127]: The Wealth Palace is activated today by a favorable Earth star transit. A conversation about money or resources may surface unexpectedly — pay attention to what people reveal, not just what they say. Your Career Palace suggests a window of opportunity within the next 72 hours. Trust your instinct on timing.
+                - generic [ref=e128]:
+                  - generic [ref=e129]:
+                    - img [ref=e130]
+                    - text: Zi Wei
+                  - generic [ref=e132]:
+                    - img [ref=e133]
+                    - text: Tian Fu
+                  - generic [ref=e135]:
+                    - img [ref=e136]
+                    - text: Wu Qu
+              - paragraph [ref=e139]: New horoscope every morning · based on your chart
+          - generic [ref=e140]:
+            - generic [ref=e141]:
+              - generic [ref=e142]:
+                - heading "Ask Ziwei Chat" [level=3] [ref=e143]
+                - paragraph [ref=e144]: Ask anything about your chart, stars, or life direction. The AI has full context of your 12 palaces.
+              - generic [ref=e145]: Included
+            - generic [ref=e146]:
+              - generic [ref=e148]:
+                - img [ref=e149]
+                - generic [ref=e151]: Ask Ziwei · AI Chat
+              - generic [ref=e152]:
+                - paragraph [ref=e154]: Should I change jobs in the next 3 months based on my Career Palace?
+                - paragraph [ref=e156]: "Your Career Palace shows Tian Liang (天梁) in a supportive position — this suggests stability is currently serving you well. However, the traveling star Yi Ma (驿马) appears in your 3-month transit, indicating movement. Short answer: wait 6-8 weeks for a clearer signal, then decide."
+              - paragraph [ref=e158]: Unlimited questions · understands your full birth chart
+          - generic [ref=e159]:
+            - generic [ref=e160]:
+              - generic [ref=e161]:
+                - heading "Compatibility Check" [level=3] [ref=e162]
+                - paragraph [ref=e163]: Compare your chart with anyone. See how your stars interact across palaces.
+              - generic [ref=e164]: Included
+            - generic [ref=e165]:
+              - generic [ref=e167]:
+                - img [ref=e168]
+                - generic [ref=e170]: Compatibility Check
+              - generic [ref=e171]:
+                - generic [ref=e172]:
+                  - generic [ref=e173]:
+                    - img [ref=e175]
+                    - paragraph [ref=e181]: You
+                  - generic [ref=e182]:
+                    - generic [ref=e183]: 💫
+                    - generic [ref=e184]: 82%
+                  - generic [ref=e185]:
+                    - img [ref=e187]
+                    - paragraph [ref=e189]: Partner
+                - generic [ref=e190]:
+                  - generic [ref=e191]:
+                    - generic [ref=e192]: Emotional match
+                    - generic [ref=e193]: Strong
+                  - generic [ref=e194]:
+                    - generic [ref=e195]: Career synergy
+                    - generic [ref=e196]: High
+                  - generic [ref=e197]:
+                    - generic [ref=e198]: Communication
+                    - generic [ref=e199]: Good
+              - paragraph [ref=e201]: Compare with anyone · based on both charts
+          - generic [ref=e202]:
+            - generic [ref=e203]:
+              - generic [ref=e204]:
+                - heading "Yearly Forecast + PDF" [level=3] [ref=e205]
+                - paragraph [ref=e206]: A full annual reading covering career, love, health, and wealth.
+              - generic [ref=e207]: Included
+            - generic [ref=e208]:
+              - generic [ref=e210]:
+                - img [ref=e211]
+                - generic [ref=e213]: Yearly Forecast + PDF
+              - generic [ref=e215]:
+                - generic [ref=e216]: 📄
+                - paragraph [ref=e217]: 2026 Annual Reading
+                - paragraph [ref=e218]: Career · Love · Wealth · Health
+              - paragraph [ref=e225]: Downloadable PDF · updated yearly
+          - generic [ref=e226]:
+            - generic [ref=e227]:
+              - generic [ref=e228]:
+                - heading "Human Email Reading" [level=3] [ref=e229]
+                - paragraph [ref=e230]: One-time deep analysis by a real Zi Wei practitioner, delivered within 24-48 hours.
+              - generic [ref=e231]: Included
+            - generic [ref=e232]:
+              - generic [ref=e234]:
+                - img [ref=e235]
+                - generic [ref=e238]: Human-Written Email Reading
+                - generic [ref=e239]: Most Popular
+              - region "Sample email reading text preview" [ref=e241]:
+                - article [ref=e242]:
+                  - heading "Personality Analysis of a Man with Imperial Aura and Subversive Impulses from Psychological and Philosophical Perspectives" [level=3] [ref=e243]
+                  - generic [ref=e244]:
+                    - 'heading "I. Core Personality: A Duet of Will to Power and Nihilism" [level=4] [ref=e245]'
+                    - paragraph [ref=e246]: The inner world of this man presents a rare tension. He has an extreme desire for order and control, yet harbors a destructive impulse to constantly overthrow existing structures. He is neither a simple conservative nor a pure rebel, but a complex being who "builds a kingdom on the ruins and then demolishes it with his own hands."
+                    - paragraph [ref=e247]: 1. Manifestation of the Will to Power
+                    - paragraph [ref=e248]: He has a strong need to confirm his self-worth, longing to be respected and followed. He often sees himself as a "center" or "axis" in his heart. This tendency is not just superficial arrogance, but a persistent pursuit of meaning and order. He is naturally good at organizing, integrating, and allocating resources, and can attract others to gather around his vision. However, he cannot stand stillness and repetition. Once the environment becomes stable, he feels suffocated, which gives rise to the impulse to destroy the existing structure. This cycle of "building and then demolishing, and then building again" becomes the core expression of his vitality.
+                    - paragraph [ref=e249]: 2. Hidden Flames and Emptiness
+                    - paragraph [ref=e250]: Beneath his gentle, proper, and even somewhat slick appearance (which is his mask for social occasions), there lies an intermittent outburst of anxiety and suspicion. He is prone to secretly doubting the loyalty or ability of others and accumulating dissatisfaction. When this hidden fire is ignited, he will vent in a highly impactful way, and often fall into regret or self-alienation afterwards. In addition, his spiritual world is often occupied by a lofty but hard-to-realize idealism. He can conceive grand blueprints, but there is always a huge gap between these blueprints and reality, which leads him to repeatedly experience the mental journey of "setting out with passion → being frustrated midway → being invaded by a sense of nihilism." What makes him more profound than a simple idealist is that he has a sober premonition and ridicule of this disappointment, so he is more likely to slide into existential emptiness.
+                    - paragraph [ref=e251]: 3. The Tug-of-War between Desire and Discipline
+                    - paragraph [ref=e252]: His motivation for career comes from a strong desire for achievement, influence, and material enjoyment. At the same time, he has excellent social skills and aesthetic intuition, and is good at obtaining resources through connections and creativity. However, he has a tendency to be eager for quick success. He hopes to skip the accumulation process and directly pick the fruits, which makes him prone to choosing high-risk paths at critical moments. Interestingly, he also has a strong sense of self-preservation and can leave himself a way out or make reserves while charging forward. This state of "a gambler's courage + a hamster's food storage" often leads to a fierce debate in his heart between "taking one more gamble" and "quitting while ahead."
+                    - paragraph [ref=e253]: 4. The Fate of Wealth and Disruption
+                    - paragraph [ref=e254]: "His way of dealing with the material world is like a hunter who licks blood on the tip of a knife. He is decisive in his actions, dares to place bets, and pursues efficiency. But fate (or his personality) always arranges unexpected blows when he seems about to succeed: plans are interrupted, earnings suddenly disappear, and partners change their minds… These experiences of \"losing the cooked duck\" occur repeatedly, making him both have a strong desire to control money and feel a kind of helpless nihilism. He may squander money to prove his strength on the one hand, while deeply experiencing the desolation of \"all gains will eventually pass away\" on the other hand."
+                  - generic [ref=e255]:
+                    - heading "II. Personality Portrait and Daily Performance" [level=4] [ref=e256]
+                    - paragraph [ref=e257]: First Impression on Outsiders
+                    - paragraph [ref=e258]: He appears proper, calm, and good at cooperation, even with a touch of gentle politeness. But those who are observant can detect a hidden restlessness and alienation from his occasionally sharp eyes and sporadic words.
+                    - paragraph [ref=e259]: The Real Dimensions after In-depth Interaction
+                    - list [ref=e260]:
+                      - listitem [ref=e261]: "Extreme Emotional Swings: On normal days, he can be a generous leader and a humorous friend. Once he feels offended, his plan is blocked, or his authority is challenged, he will instantly turn into an enraged \"table-flipper,\" with harsh words and decisive actions. However, after the storm, he may fall into silence, regret, or even self-loathing."
+                      - listitem [ref=e262]: "The Gap between Vision and Execution: He is good at describing an exciting future, but is prone to deviate from the track during the execution process due to emotional fluctuations or boredom with details. Often, when a project is only half-completed, he has been attracted by a new idea."
+                      - listitem [ref=e263]: "The Paradox of Interpersonal Relationships: There is never a shortage of followers or partners around him. His charm and resource-integrating ability make him a natural center. But it is difficult for him to truly trust anyone in his heart, and he often doubts the motives of those around him. Some once-close partners may leave because of his sudden coldness or suspicion, which in turn confirms his inner prophecy that \"no one is reliable.\""
+                      - listitem [ref=e264]: "The Spiritual Crisis during Solitude: After stopping being busy and socializing, he is often overwhelmed by a huge sense of emptiness. He needs to constantly fill the void in his heart with new projects, new relationships, and new adventures, otherwise he will feel that life has lost its weight."
+                    - paragraph [ref=e265]: The Pattern of Coping with Setbacks
+                    - paragraph [ref=e266]: Instead of quietly reflecting and adjusting strategies, he tends to attribute the blame externally and restart in a self-destructive way, such as breaking off relationships with others, suddenly quitting his job, or taking a desperate gamble. He can hardly accept the concept of "slowly repairing" and would rather tear everything down and start over.
+                    - paragraph [ref=e267]: The Characteristics of Emotional Relationships
+                    - paragraph [ref=e268]: In front of his partner, he usually maintains politeness and a sense of responsibility, but it is difficult for him to truly open his heart. He is afraid of exposing his vulnerability and insecurity, so he uses a cold-and-hot, distant-and-close approach to maintain a sense of control. At the same time, he is easily attracted to charming or resourceful opposite-sex individuals, and his emotional boundaries are sometimes blurred, making him prone to getting involved in love triangles.
+                  - generic [ref=e269]:
+                    - heading "III. Core Advantages and Fatal Challenges" [level=4] [ref=e270]
+                    - paragraph [ref=e271]: Advantages (The Sharp Weapons in His Hands)
+                    - list [ref=e272]:
+                      - listitem [ref=e273]: "Excellent Leadership and Reform Ability: He can quickly establish a new order in chaos and drive the team to charge towards the goal. He is especially good at breaking deadlocks and promoting transformation."
+                      - listitem [ref=e274]: "A Strong Magnet for Benefactors: Whether male or female, there are always people of higher status or with more resources willing to support him."
+                      - listitem [ref=e275]: "Versatile Talents: He is good at both interpersonal games and creative planning, and can also handle practical affairs himself. He is not a daydreamer."
+                      - listitem [ref=e276]: "Unique Original Thinking: He is good at capturing possibilities that others cannot see from nothingness and is suitable for engaging in subversive and pioneering fields."
+                    - paragraph [ref=e277]: Challenges (The Cracks Always Open under His Feet)
+                    - list [ref=e278]:
+                      - listitem [ref=e279]: "Emotional Volcano and Internal-Consumption Black Hole: His unstable emotional state seriously interferes with his judgment and interpersonal sense of security, and he is in a state of hidden anxiety for a long time."
+                      - listitem [ref=e280]: "Disconnection between Ideal and Reality: He often formulates plans that exceed his ability or resource boundaries, resulting in repeated failures and damage to his self-efficacy."
+                      - listitem [ref=e281]: "The \"Bottomless Pit\" Effect of Wealth: His money-making methods are radical, and he cannot keep his achievements. He is likely to return to the starting point due to an impulsive decision and even fall into debt."
+                      - listitem [ref=e282]: "Continuous Loss of Meaning: No matter how great his achievements are, he soon finds them boring and cannot experience lasting satisfaction."
+                      - listitem [ref=e283]: "Prone to Getting Involved in Disputes: His over-confident adventures and the mentality of challenging rules make him prone to attracting lawsuits, villains, or backlashes of interests."
+                  - generic [ref=e284]:
+                    - heading "IV. Life Lessons and Spiritual Cultivation Suggestions" [level=4] [ref=e285]
+                    - paragraph [ref=e286]: 1. Find a Sacred Container for "Nothingness"
+                    - paragraph [ref=e287]: If the lingering sense of nihilism in his heart cannot be directed towards creative expression, it will turn into a destructive impulse. It is recommended that he choose an activity that requires long-term concentration and depth, such as music, painting, woodworking, gardening, or even philosophical writing, to transform this "empty" energy into tangible art or thought. This is not just a hobby, but a spiritual anchor.
+                    - paragraph [ref=e288]: 2. Install a Delay-Ignition Device for the "Hidden Flames"
+                    - paragraph [ref=e289]: "Every time he feels extremely angry or has an impulse to flip the table, he should force himself to perform a physical action: leave the scene and do something that requires physical strength but not much thinking (such as walking quickly, doing push-ups, or washing his face with cold water). Set a 30-minute cooling-off period, during which he should not contact anyone or make any decisions. After the peak of his emotions, he can often see new possibilities."
+                    - paragraph [ref=e290]: 3. Establish Three Non-Infringing Wealth Accounts
+                    - list [ref=e291]:
+                      - listitem [ref=e292]: "Foundation Account (50%): Long-term savings or insurance that cannot be used under any circumstances, used to provide basic security."
+                      - listitem [ref=e293]: "Adventure Account (30%): Capital that can accept risks, but a stop-loss line must be preset (for example, leave unconditionally when the loss reaches 15%)."
+                      - listitem [ref=e294]: "Spending Account (20%): Used for enjoyment at will, and no other accounts are allowed to be used even if it is spent."
+                    - paragraph [ref=e295]: At the same time, it is absolutely forbidden to borrow money for investment or guarantee for others—this is the bottom line.
+                    - paragraph [ref=e296]: 4. Find a "Reverse Balancer" as a Partner
+                    - paragraph [ref=e297]: He needs a partner who is naturally stable, detail-oriented, and highly sensitive to risks (not necessarily a partner, but can be a business partner or an advisor). This "brakeman" does not need to be extremely talented, but must have the courage to calmly say "no" when he is fanatical, and he should be willing to authorize the partner to have the right of veto in specific matters in advance.
+                    - paragraph [ref=e298]: 5. Daily Anchoring Practice
+                    - paragraph [ref=e299]: Sit quietly for 15 minutes every morning or before going to bed, without any imagination or analysis, just being aware of one's own breathing. This is not a religious practice, but a direct training to combat the "restless mind." After three months of consistent practice, he will find that his ability to control emotions and thoughts has been significantly improved.
+                    - paragraph [ref=e300]: 6. Practice "Limited Trust" in Intimate Relationships
+                    - paragraph [ref=e301]: Choose a safe person (such as a long-term psychological counselor or an extremely tolerant close friend) and actively expose his vulnerable and suspicious side. Start with "telling three true words once a week" and gradually expand the radius of trust. At the same time, clearly define the physical and psychological boundaries when interacting with the opposite sex to avoid putting himself in an ambiguous situation.
+                  - generic [ref=e302]:
+                    - heading "V. The Final Portrait of His Personality" [level=4] [ref=e303]
+                    - paragraph [ref=e304]: He is like a king holding thunderbolts and standing on quicksand. A roar from him can change the world, but he finds that the ground under his feet is silently collapsing. His life is destined to be magnificent, with many ups and downs. The ultimate salvation does not lie in conquering how many external enemies or accumulating how much wealth, but in whether he can reach a reconciliation with the crazy and empty beast in his heart, and turn it into a mastiff guarding the temple instead of a flame burning down his home.
+                    - paragraph [ref=e305]: "If he can meet a wise mentor in his youth or actively contact existentialist philosophy and Jungian psychology, it will play a key role in integrating his life. This is not just a personality analysis, but also an invitation to existence: let the hidden flames and nothingness that seem like curses become the fuel for forging a unique soul."
+                  - paragraph [ref=e306]: The above is only about 30% of the total content.
+              - paragraph [ref=e308]: Delivered in 24-48 hours · written by a real Zi Wei practitioner
+        - generic [ref=e309]:
+          - link "Start 7-Day Free Trial — See Your Real Reading" [ref=e310] [cursor=pointer]:
+            - /url: /daily
+            - text: Start 7-Day Free Trial — See Your Real Reading
+            - img [ref=e311]
+          - paragraph [ref=e313]: All previews above are samples. Your real chart produces unique results.
+      - generic [ref=e316]:
+        - generic [ref=e317]:
+          - heading "Get Your Free Personality Snapshot — No Signup Required" [level=2] [ref=e318]
+          - paragraph [ref=e319]: Takes less than 60 seconds to generate your personalized Zi Wei chart
+        - generic [ref=e320]:
+          - paragraph [ref=e321]:
+            - img [ref=e322]
+            - generic [ref=e325]: Fill in 3 steps → Get your FREE personalized Zi Wei personality snapshot instantly
+          - generic [ref=e326]:
+            - generic [ref=e327]: "Step 1: Birth Date"
+            - generic [ref=e328]: "Step 2: Birth Time"
+            - generic [ref=e329]: "Step 3: Birth Place"
+          - paragraph [ref=e330]:
+            - img [ref=e331]
+            - generic [ref=e334]: 100% Private · No signup required · We never share your birth data
+        - generic [ref=e335]:
+          - generic [ref=e336]:
+            - generic [ref=e337]:
+              - paragraph [ref=e338]: Step 1 of 3
+              - paragraph [ref=e339]: ~60 sec · private
+            - 'heading "Step 1: Enter Your Birth Date" [level=3] [ref=e340]'
+            - paragraph [ref=e341]: Your birth date is the foundation of your Zi Wei chart
+          - generic [ref=e343]:
+            - generic [ref=e344]:
+              - generic [ref=e345]:
+                - generic [ref=e346]: Year
+                - combobox "Year" [ref=e347]:
+                  - option "Select"
+                  - option "2026"
+                  - option "2025"
+                  - option "2024"
+                  - option "2023"
+                  - option "2022"
+                  - option "2021"
+                  - option "2020"
+                  - option "2019"
+                  - option "2018"
+                  - option "2017"
+                  - option "2016"
+                  - option "2015"
+                  - option "2014"
+                  - option "2013"
+                  - option "2012"
+                  - option "2011"
+                  - option "2010"
+                  - option "2009"
+                  - option "2008" [selected]
+                  - option "2007"
+                  - option "2006"
+                  - option "2005"
+                  - option "2004"
+                  - option "2003"
+                  - option "2002"
+                  - option "2001"
+                  - option "2000"
+                  - option "1999"
+                  - option "1998"
+                  - option "1997"
+                  - option "1996"
+                  - option "1995"
+                  - option "1994"
+                  - option "1993"
+                  - option "1992"
+                  - option "1991"
+                  - option "1990"
+                  - option "1989"
+                  - option "1988"
+                  - option "1987"
+                  - option "1986"
+                  - option "1985"
+                  - option "1984"
+                  - option "1983"
+                  - option "1982"
+                  - option "1981"
+                  - option "1980"
+                  - option "1979"
+                  - option "1978"
+                  - option "1977"
+                  - option "1976"
+                  - option "1975"
+                  - option "1974"
+                  - option "1973"
+                  - option "1972"
+                  - option "1971"
+                  - option "1970"
+                  - option "1969"
+                  - option "1968"
+                  - option "1967"
+                  - option "1966"
+                  - option "1965"
+                  - option "1964"
+                  - option "1963"
+                  - option "1962"
+                  - option "1961"
+                  - option "1960"
+                  - option "1959"
+                  - option "1958"
+                  - option "1957"
+                  - option "1956"
+                  - option "1955"
+                  - option "1954"
+                  - option "1953"
+                  - option "1952"
+                  - option "1951"
+                  - option "1950"
+                  - option "1949"
+                  - option "1948"
+                  - option "1947"
+                  - option "1946"
+                  - option "1945"
+                  - option "1944"
+                  - option "1943"
+                  - option "1942"
+                  - option "1941"
+                  - option "1940"
+                  - option "1939"
+                  - option "1938"
+                  - option "1937"
+                  - option "1936"
+                  - option "1935"
+                  - option "1934"
+                  - option "1933"
+                  - option "1932"
+                  - option "1931"
+                  - option "1930"
+                  - option "1929"
+                  - option "1928"
+                  - option "1927"
+                  - option "1926"
+              - generic [ref=e348]:
+                - generic [ref=e349]: Month
+                - combobox "Month" [ref=e350]:
+                  - option "Select" [selected]
+                  - option "1"
+                  - option "2"
+                  - option "3"
+                  - option "4"
+                  - option "5"
+                  - option "6"
+                  - option "7"
+                  - option "8"
+                  - option "9"
+                  - option "10"
+                  - option "11"
+                  - option "12"
+              - generic [ref=e351]:
+                - generic [ref=e352]: Day
+                - combobox "Day" [ref=e353]:
+                  - option "Select" [selected]
+                  - option "1"
+                  - option "2"
+                  - option "3"
+                  - option "4"
+                  - option "5"
+                  - option "6"
+                  - option "7"
+                  - option "8"
+                  - option "9"
+                  - option "10"
+                  - option "11"
+                  - option "12"
+                  - option "13"
+                  - option "14"
+                  - option "15"
+                  - option "16"
+                  - option "17"
+                  - option "18"
+                  - option "19"
+                  - option "20"
+                  - option "21"
+                  - option "22"
+                  - option "23"
+                  - option "24"
+                  - option "25"
+                  - option "26"
+                  - option "27"
+                  - option "28"
+                  - option "29"
+                  - option "30"
+                  - option "31"
+            - generic [ref=e354]:
+              - generic [ref=e355]: Gender
+              - generic [ref=e356]:
+                - generic [ref=e357] [cursor=pointer]:
+                  - radio "Female" [checked] [ref=e358]
+                  - paragraph [ref=e359]: Female
+                - generic [ref=e360] [cursor=pointer]:
+                  - radio "Male" [ref=e361]
+                  - paragraph [ref=e362]: Male
+            - button "Next → Tell Me My Birth Time" [disabled]:
+              - text: Next → Tell Me My Birth Time
+              - img
+        - generic [ref=e363]:
+          - paragraph [ref=e364]:
+            - generic [ref=e365]:
+              - img [ref=e366]
+              - img [ref=e368]
+              - img [ref=e370]
+              - img [ref=e372]
+              - img [ref=e374]
+            - generic [ref=e376]: "\"Took 30 seconds, and the free snapshot was scarily accurate\" — Early Reader"
+          - paragraph [ref=e377]:
+            - img [ref=e378]
+            - generic [ref=e381]: 7-Day Free Trial · Cancel Anytime
+      - generic [ref=e383]:
+        - generic:
+          - img
+        - generic [ref=e384]:
+          - generic [ref=e385]:
+            - paragraph [ref=e388]: Why Zi Wei Dou Shu
+            - heading "Your sun sign is a postcard . This is the full cosmic map." [level=2] [ref=e389]:
+              - text: Your sun sign is a
+              - generic [ref=e390]: postcard
+              - text: .
+              - text: This is the full cosmic map.
+            - paragraph [ref=e392]: Western sun-sign astrology is designed for mass appeal — one reading for 1/12th of humanity. Zi Wei Dou Shu generates a unique chart for every person on Earth, down to the minute and location of their birth.
+          - generic [ref=e393]:
+            - article [ref=e394]:
+              - generic [ref=e397]:
+                - generic [ref=e398]:
+                  - img [ref=e400]
+                  - generic [ref=e406]: "01"
+                - heading "See all 100+ stars that actually shape your personality" [level=3] [ref=e407]
+                - paragraph [ref=e408]: Western sun signs use 1 data point and produce 12 archetypes. Your Zi Wei chart maps 100+ stars to your exact birth time and location — giving you a reading as unique as your fingerprint.
+            - article [ref=e409]:
+              - generic [ref=e412]:
+                - generic [ref=e413]:
+                  - img [ref=e415]
+                  - generic [ref=e417]: "02"
+                - heading "Wake up to a horoscope written for YOUR chart, every day" [level=3] [ref=e418]
+                - paragraph [ref=e419]: Not a mass paragraph for 1/12th of humanity. Every morning, AI reads YOUR star placements against the day's transits. You get specific star names, palace references, and timing that reflects your real chart.
+            - article [ref=e420]:
+              - generic [ref=e423]:
+                - generic [ref=e424]:
+                  - img [ref=e426]
+                  - generic [ref=e428]: "03"
+                - heading "1,000 years of refinement. Applied to your life today." [level=3] [ref=e429]
+                - paragraph [ref=e430]: Zi Wei Dou Shu was the decision-making tool of Chinese emperors and generals. We apply that same imperial-level rigor — combining ancient star science with modern AI to give you actionable daily guidance.
+            - article [ref=e431]:
+              - generic [ref=e434]:
+                - generic [ref=e435]:
+                  - img [ref=e437]
+                  - generic [ref=e440]: "04"
+                - heading "Your chart is computed to the minute you were born" [level=3] [ref=e441]
+                - paragraph [ref=e442]: We geocode your birthplace, correct for timezone, and apply the equation of time to calculate your true apparent solar time. This precision means your chart is genuinely yours — not an approximation.
+          - generic [ref=e444]:
+            - img [ref=e445]
+            - paragraph [ref=e450]: The math matters. A Zi Wei chart maps 12 palaces × 100+ stars × your exact birth time and geographic location. The result is a chart unique to you — not one of 12 archetypes like a sun sign.
+      - generic [ref=e453]:
+        - generic [ref=e454]:
+          - generic [ref=e455]:
+            - img [ref=e456]
+            - generic [ref=e459]: Simple Pricing
+          - heading "Free to start. $4.99/month to go deeper." [level=2] [ref=e460]:
+            - text: Free to start.
+            - text: $4.99/month to go deeper.
+          - paragraph [ref=e461]: One plan. Everything included. 7-day free trial — no charge until you decide to stay.
+        - generic [ref=e462]:
+          - article [ref=e463]:
+            - generic [ref=e464]:
+              - paragraph [ref=e465]: Free Snapshot
+              - paragraph [ref=e466]: $0
+              - paragraph [ref=e467]: No credit card. No signup. Instant.
+            - generic [ref=e468]:
+              - list [ref=e469]:
+                - listitem [ref=e470]:
+                  - img [ref=e471]
+                  - generic [ref=e473]: Personalized birth chart (100+ stars, 12 palaces)
+                - listitem [ref=e474]:
+                  - img [ref=e475]
+                  - generic [ref=e477]: Core personality traits & hidden strengths
+                - listitem [ref=e478]:
+                  - img [ref=e479]
+                  - generic [ref=e481]: True solar time geocoding
+                - listitem [ref=e482]:
+                  - img [ref=e483]
+                  - generic [ref=e485]: No credit card. No signup. Instant.
+              - paragraph [ref=e487]: Everything below is Premium only — daily horoscopes, AI chat, compatibility, yearly forecast PDF, birthday surprises, streaks, and human-written email reading.
+            - link "Get Free Snapshot" [ref=e489] [cursor=pointer]:
+              - /url: "#birth-form"
+              - text: Get Free Snapshot
+              - img [ref=e490]
+          - article [ref=e492]:
+            - generic [ref=e494]: Most Popular
+            - generic [ref=e495]:
+              - paragraph [ref=e496]: DestinyBlueprint Premium
+              - generic [ref=e497]:
+                - generic [ref=e498]: $4.99
+                - generic [ref=e499]: /month
+              - paragraph [ref=e500]: 7-day free trial. Cancel anytime.
+            - list [ref=e502]:
+              - listitem [ref=e503]:
+                - img [ref=e504]
+                - generic [ref=e506]: Interactive 12-Palace Birth Chart
+              - listitem [ref=e507]:
+                - img [ref=e508]
+                - generic [ref=e511]: Core Personality Traits & Strengths
+              - listitem [ref=e512]:
+                - img [ref=e513]
+                - generic [ref=e516]: Growth Areas & Blind Spots
+              - listitem [ref=e517]:
+                - img [ref=e518]
+                - generic [ref=e520]: True Solar Time Correction
+              - listitem [ref=e521]:
+                - img [ref=e522]
+                - generic [ref=e524]: No signup required for snapshot
+              - listitem [ref=e525]:
+                - img [ref=e526]
+                - generic [ref=e529]: Daily AI Horoscope
+              - listitem [ref=e530]:
+                - img [ref=e531]
+                - generic [ref=e533]: AI Chat — Ask Ziwei About Your Chart
+              - listitem [ref=e534]:
+                - img [ref=e535]
+                - generic [ref=e537]: Compatibility Check (Two-Person)
+              - listitem [ref=e538]:
+                - img [ref=e539]
+                - generic [ref=e541]: Yearly Forecast + Downloadable PDF
+              - listitem [ref=e542]:
+                - img [ref=e543]
+                - generic [ref=e547]: Birthday Surprise Reading
+              - listitem [ref=e548]:
+                - img [ref=e549]
+                - generic [ref=e551]: Streak Tracking & Achievements
+              - listitem [ref=e552]:
+                - img [ref=e553]
+                - generic [ref=e556]: Human-Written Email Reading
+              - listitem [ref=e557]:
+                - img [ref=e558]
+                - generic [ref=e561]: Cancel Anytime
+            - generic [ref=e562]:
+              - link "Start 7-Day Free Trial" [ref=e563] [cursor=pointer]:
+                - /url: /daily
+                - text: Start 7-Day Free Trial
+                - img [ref=e564]
+              - paragraph [ref=e566]: No charge until your trial ends. Cancel with one click.
+        - generic [ref=e567]:
+          - img [ref=e568]
+          - paragraph [ref=e570]: Everything in one plan. Daily horoscopes, AI chat, compatibility, yearly forecast, birthday surprises, push notifications, streak tracking, and a human-written email reading — all included with your subscription. No upgrades. No add-ons.
+      - generic [ref=e573]:
+        - generic [ref=e574]:
+          - generic [ref=e575]:
+            - img [ref=e576]
+            - generic [ref=e578]: How It Works
+          - heading "From birth chart to daily guidance in 3 steps." [level=2] [ref=e579]:
+            - text: From birth chart
+            - text: to daily guidance in 3 steps.
+          - paragraph [ref=e580]: No AI generates your birth chart — we use iztro, an open-source Zi Wei Dou Shu computation library, with true solar time correction via the equation of time.
+        - generic [ref=e581]:
+          - article [ref=e582]:
+            - generic [ref=e583]:
+              - img [ref=e585]
+              - generic [ref=e589]: "01"
+            - heading "Enter your birth details" [level=3] [ref=e590]
+            - paragraph [ref=e591]: Date, time, and place. Takes 30 seconds. No signup required — we compute your Zi Wei Dou Shu chart with true solar time correction.
+          - article [ref=e592]:
+            - generic [ref=e593]:
+              - img [ref=e595]
+              - generic [ref=e598]: "02"
+            - heading "Get your free personality snapshot" [level=3] [ref=e599]
+            - paragraph [ref=e600]: Instantly see your core traits, key strengths, and growth areas — deterministically mapped from your unique chart of 100+ stars across 12 life palaces.
+          - article [ref=e601]:
+            - generic [ref=e602]:
+              - img [ref=e604]
+              - generic [ref=e606]: "03"
+            - heading "Unlock everything with a 7-day free trial" [level=3] [ref=e607]
+            - paragraph [ref=e608]: Daily AI horoscopes, AI chat, compatibility checks, yearly forecasts, birthday surprises, push notifications, and a one-time human-written email reading — all for $4.99/month after the trial.
+        - generic [ref=e609]:
+          - generic [ref=e610]:
+            - generic [ref=e611]:
+              - img [ref=e612]
+              - generic [ref=e616]: Everything Included
+            - heading "One subscription. Every feature." [level=3] [ref=e617]
+          - generic [ref=e618]:
+            - generic [ref=e619]:
+              - img [ref=e621]
+              - heading "Daily AI Horoscope" [level=4] [ref=e623]
+              - paragraph [ref=e624]: Every morning, a personalized reading based on your chart and the day's transits. DeepSeek-powered with OpenAI fallback.
+            - generic [ref=e625]:
+              - img [ref=e627]
+              - heading "Ask Ziwei Chat" [level=4] [ref=e629]
+              - paragraph [ref=e630]: Ask anything about your chart, stars, or life direction. The AI has full context of your 12 palaces and star placements.
+            - generic [ref=e631]:
+              - img [ref=e633]
+              - heading "Compatibility Check" [level=4] [ref=e635]
+              - paragraph [ref=e636]: Compare your chart with a partner, friend, or crush. See how your stars interact across palaces.
+            - generic [ref=e637]:
+              - img [ref=e639]
+              - heading "Yearly Forecast + PDF" [level=4] [ref=e641]
+              - paragraph [ref=e642]: A full annual reading covering career, love, health, and wealth. Download as PDF to reference anytime.
+            - generic [ref=e643]:
+              - img [ref=e645]
+              - heading "Human-Written Email Reading" [level=4] [ref=e648]
+              - paragraph [ref=e649]: One-time deep analysis by a real Zi Wei practitioner. Delivered within 24-48 hours of subscribing.
+            - generic [ref=e650]:
+              - img [ref=e652]
+              - heading "Streaks & Achievements" [level=4] [ref=e654]
+              - paragraph [ref=e655]: Track your daily check-ins. Earn achievements as you deepen your practice with the stars.
+        - generic [ref=e656]:
+          - link "Start 7-Day Free Trial" [ref=e657] [cursor=pointer]:
+            - /url: /daily
+            - text: Start 7-Day Free Trial
+            - img [ref=e658]
+          - paragraph [ref=e660]: $4.99/month after trial. Cancel anytime.
+      - generic [ref=e663]:
+        - generic [ref=e664]:
+          - generic [ref=e665]:
+            - img [ref=e666]
+            - generic [ref=e669]: Risk-Free Trial
+          - heading "Try everything for 7 days. If it doesn't change your perspective, cancel and walk away." [level=2] [ref=e670]:
+            - text: Try everything for 7 days.
+            - generic [ref=e671]: If it doesn't
+            - text: change your perspective, cancel and walk away.
+        - generic [ref=e672]:
+          - generic [ref=e673]:
+            - img [ref=e675]
+            - heading "7-Day Free Trial — No Charge Upfront" [level=3] [ref=e678]
+            - paragraph [ref=e679]: Start your subscription and explore everything risk-free for 7 days. If it's not for you, cancel before the trial ends and you'll never be charged a cent.
+          - generic [ref=e680]:
+            - img [ref=e682]
+            - heading "Human Reading Delivered Within 24-48 Hours" [level=3] [ref=e685]
+            - paragraph [ref=e686]: You'll receive an order confirmation immediately after subscribing. Your human-written Zi Wei email reading arrives within 24-48 hours to the email you provide at checkout.
+          - generic [ref=e687]:
+            - img [ref=e689]
+            - heading "Secure, Private Checkout" [level=3] [ref=e692]
+            - paragraph [ref=e693]: All payments processed by Stripe. Your birth data is encrypted and never shared. Cancel anytime from your account page with one click.
+        - generic [ref=e694]:
+          - img [ref=e695]
+          - paragraph [ref=e698]: "The guarantee is simple: You get 7 full days to explore everything — daily horoscopes, AI chat, compatibility, yearly forecast, and your human-written email reading. If you're not convinced, cancel before the trial ends. No charges. No hassle."
+      - generic [ref=e701]:
+        - generic [ref=e702]:
+          - img [ref=e704]
+          - generic [ref=e707]:
+            - paragraph [ref=e708]: FAQ
+            - heading "Everything you want to ask" [level=2] [ref=e709]
+            - paragraph [ref=e710]:
+              - text: Don't see your question?
+              - link "Email us" [ref=e711] [cursor=pointer]:
+                - /url: mailto:support@destinyblueprint.xyz
+              - text: — we'll get back to you.
+        - generic [ref=e712]:
+          - heading "01What is Zi Wei Dou Shu? Is it like Western astrology?" [level=3] [ref=e714]:
+            - button "01What is Zi Wei Dou Shu? Is it like Western astrology?" [ref=e715] [cursor=pointer]:
+              - generic [ref=e716]: 01What is Zi Wei Dou Shu? Is it like Western astrology?
+              - img [ref=e717]
+          - heading "02Is this AI or human-powered?" [level=3] [ref=e720]:
+            - button "02Is this AI or human-powered?" [ref=e721] [cursor=pointer]:
+              - generic [ref=e722]: 02Is this AI or human-powered?
+              - img [ref=e723]
+          - heading "03Do I need my exact birth time?" [level=3] [ref=e726]:
+            - button "03Do I need my exact birth time?" [ref=e727] [cursor=pointer]:
+              - generic [ref=e728]: 03Do I need my exact birth time?
+              - img [ref=e729]
+          - heading "04What's the difference between the free snapshot and the subscription?" [level=3] [ref=e732]:
+            - button "04What's the difference between the free snapshot and the subscription?" [ref=e733] [cursor=pointer]:
+              - generic [ref=e734]: 04What's the difference between the free snapshot and the subscription?
+              - img [ref=e735]
+          - heading "05What if I'm not satisfied?" [level=3] [ref=e738]:
+            - button "05What if I'm not satisfied?" [ref=e739] [cursor=pointer]:
+              - generic [ref=e740]: 05What if I'm not satisfied?
+              - img [ref=e741]
+          - heading "06Is this scientifically validated?" [level=3] [ref=e744]:
+            - button "06Is this scientifically validated?" [ref=e745] [cursor=pointer]:
+              - generic [ref=e746]: 06Is this scientifically validated?
+              - img [ref=e747]
+          - heading "07How long does the reading take to arrive?" [level=3] [ref=e750]:
+            - button "07How long does the reading take to arrive?" [ref=e751] [cursor=pointer]:
+              - generic [ref=e752]: 07How long does the reading take to arrive?
+              - img [ref=e753]
+          - heading "08What's 'apparent solar time' and why does it matter?" [level=3] [ref=e756]:
+            - button "08What's 'apparent solar time' and why does it matter?" [ref=e757] [cursor=pointer]:
+              - generic [ref=e758]: 08What's 'apparent solar time' and why does it matter?
+              - img [ref=e759]
+        - generic [ref=e761]:
+          - img [ref=e762]
+          - paragraph [ref=e764]:
+            - text: Still have questions? We're happy to help. Email
+            - link "support@destinyblueprint.xyz" [ref=e765] [cursor=pointer]:
+              - /url: mailto:support@destinyblueprint.xyz
+            - text: and we'll get back to you.
+      - generic [ref=e768]:
+        - img [ref=e770]
+        - heading "Not ready to fill out your birth details?" [level=3] [ref=e773]
+        - paragraph [ref=e774]: Drop your email and we'll send you a free sample personality reading — no birth data needed.
+        - generic [ref=e775]:
+          - textbox "you@example.com" [ref=e776]
+          - button "Send" [ref=e777] [cursor=pointer]:
+            - text: Send
+            - img [ref=e778]
+        - paragraph [ref=e780]: No spam. Unsubscribe anytime. We'll send one sample, then you decide.
+      - generic [ref=e783]:
+        - generic [ref=e784]:
+          - link "DestinyBlueprint" [ref=e785] [cursor=pointer]:
+            - /url: /#top
+            - img [ref=e786]
+            - text: DestinyBlueprint
+          - paragraph [ref=e789]: Ancient Zi Wei Dou Shu astrology, delivered with modern precision. Daily AI horoscopes and human-written email readings based on your unique birth chart.
+          - paragraph [ref=e790]: © 2026 DestinyBlueprint. All rights reserved.
+        - generic [ref=e791]:
+          - generic [ref=e792]:
+            - paragraph [ref=e793]: Pages
+            - list [ref=e794]:
+              - listitem [ref=e795]:
+                - link "Home" [ref=e796] [cursor=pointer]:
+                  - /url: /#top
+              - listitem [ref=e797]:
+                - link "About" [ref=e798] [cursor=pointer]:
+                  - /url: /about
+              - listitem [ref=e799]:
+                - link "Blog" [ref=e800] [cursor=pointer]:
+                  - /url: /blog
+              - listitem [ref=e801]:
+                - link "Pricing" [ref=e802] [cursor=pointer]:
+                  - /url: /pricing
+          - generic [ref=e803]:
+            - paragraph [ref=e804]: Legal
+            - list [ref=e805]:
+              - listitem [ref=e806]:
+                - link "Privacy Policy" [ref=e807] [cursor=pointer]:
+                  - /url: /privacy
+              - listitem [ref=e808]:
+                - link "Terms of Service" [ref=e809] [cursor=pointer]:
+                  - /url: /terms
+              - listitem [ref=e810]:
+                - link "Contact" [ref=e811] [cursor=pointer]:
+                  - /url: /contact
+        - generic [ref=e812]:
+          - paragraph [ref=e813]: Get in touch
+          - link "support@destinyblueprint.xyz" [ref=e814] [cursor=pointer]:
+            - /url: mailto:support@destinyblueprint.xyz
+            - img [ref=e815]
+            - text: support@destinyblueprint.xyz
+  - alert [ref=e818]

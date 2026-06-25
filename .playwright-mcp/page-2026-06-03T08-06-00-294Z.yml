@@ -1,0 +1,40 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e4]:
+      - link "DestinyBlueprint" [ref=e5] [cursor=pointer]:
+        - /url: /
+      - link "Get my reading" [ref=e7] [cursor=pointer]:
+        - /url: /#free-personality-snapshot
+    - navigation [ref=e8]:
+      - link "Blog" [ref=e9] [cursor=pointer]:
+        - /url: /blog
+      - link "Pricing" [ref=e10] [cursor=pointer]:
+        - /url: /pricing
+      - link "FAQ" [ref=e11] [cursor=pointer]:
+        - /url: /faq
+      - link "About" [ref=e12] [cursor=pointer]:
+        - /url: /about
+  - main [ref=e13]:
+    - generic [ref=e14]:
+      - heading "Contact" [level=1] [ref=e15]
+      - paragraph [ref=e16]:
+        - text: For support, privacy requests, or partnership inquiries, email
+        - link "support@destinyblueprint.xyz" [ref=e17] [cursor=pointer]:
+          - /url: mailto:support@destinyblueprint.xyz
+        - text: .
+  - contentinfo [ref=e18]:
+    - generic [ref=e20]:
+      - paragraph [ref=e21]: © 2026 DestinyBlueprint. For reflection and entertainment only—not medical, legal, or financial advice.
+      - list [ref=e22]:
+        - listitem [ref=e23]:
+          - link "Privacy Policy" [ref=e24] [cursor=pointer]:
+            - /url: /privacy
+        - listitem [ref=e25]:
+          - link "Terms" [ref=e26] [cursor=pointer]:
+            - /url: /terms
+        - listitem [ref=e27]:
+          - link "Contact" [ref=e28] [cursor=pointer]:
+            - /url: /contact
+        - listitem [ref=e29]:
+          - link "Affiliate" [ref=e30] [cursor=pointer]:
+            - /url: /affiliate

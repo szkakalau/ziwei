@@ -1,0 +1,64 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]:
+      - link "DestinyBlueprint.xyz" [ref=e4] [cursor=pointer]:
+        - /url: /
+      - link "Get my reading" [ref=e6] [cursor=pointer]:
+        - /url: /#hero-form
+    - navigation [ref=e7]:
+      - link "Blog" [ref=e8] [cursor=pointer]:
+        - /url: /blog
+      - link "Pricing" [ref=e9] [cursor=pointer]:
+        - /url: /pricing
+      - link "FAQ" [ref=e10] [cursor=pointer]:
+        - /url: /faq
+      - link "About" [ref=e11] [cursor=pointer]:
+        - /url: /about
+  - main [ref=e12]:
+    - main [ref=e13]:
+      - 'heading "Our mission: make ancient astrology accessible" [level=1] [ref=e14]'
+      - generic [ref=e15]:
+        - paragraph [ref=e16]:
+          - text: Zi Wei Dou Shu and related traditions are part of East Asian cultural heritage. We treat them as
+          - strong [ref=e17]: cultural wisdom
+          - text: ": symbolic language for describing personality patterns, relationships, and life phases—not a claim of supernatural authority."
+        - paragraph [ref=e18]:
+          - text: Our product is built for
+          - strong [ref=e19]: self-reflection
+          - text: and
+          - strong [ref=e20]: entertainment
+          - text: . We aim to reduce confusion, avoid fear-based messaging, and give you structured prompts you can use in real conversations—with yourself and people you trust.
+        - paragraph [ref=e21]:
+          - strong [ref=e22]: AI technology
+          - text: helps us translate complex chart logic into clear sections you can actually read. The model does not replace human judgment; it scales explanation so more people can benefit from the underlying framework.
+        - paragraph [ref=e23]: If you need professional help (health, legal, financial, or crisis support), please consult a qualified expert.
+        - heading "How the reading works" [level=2] [ref=e24]
+        - paragraph [ref=e25]:
+          - text: You submit your birth date, time, and location. Our system calculates your
+          - strong [ref=e26]: Zi Wei Dou Shu chart
+          - text: — a map of over 100 symbolic stars distributed across 12 life palaces covering self, career, wealth, relationships, health, and more. The chart is generated using classical rules refined over centuries.
+        - paragraph [ref=e27]: "The AI then interprets your chart against over 100 documented personality patterns, highlighting the themes most relevant to your configuration. This is not generic: two people born on the same calendar day will receive different readings if their birth times or locations differ."
+        - paragraph [ref=e28]:
+          - text: With a subscription, each morning’s
+          - strong [ref=e29]: daily horoscope
+          - text: is personalized to your chart — not a one-size-fits-all paragraph for millions of people. You also get a human-written email reading delivered by a trained astrologer, covering your core patterns in plain English.
+        - heading "Why Zi Wei Dou Shu instead of Western astrology?" [level=2] [ref=e30]
+        - paragraph [ref=e31]: "Western sun-sign astrology maps one celestial body to your birth month. Zi Wei Dou Shu maps over 100 stars to your exact birth hour and location across 12 life palaces. The resulting profile is far more granular: it distinguishes career pressure points from relationship timing, and luck cycles from health windows — each with separate interpretive rules."
+        - paragraph [ref=e32]: Neither system is “better” in an absolute sense — they serve different purposes. Zi Wei Dou Shu is particularly suited for structured self-reflection because its output is chart-based and rule-driven rather than intuitive.
+  - contentinfo [ref=e33]:
+    - generic [ref=e35]:
+      - paragraph [ref=e36]: © 2026 DestinyBlueprint.xyz. For reflection and entertainment only—not medical, legal, or financial advice.
+      - list [ref=e37]:
+        - listitem [ref=e38]:
+          - link "Privacy Policy" [ref=e39] [cursor=pointer]:
+            - /url: /privacy
+        - listitem [ref=e40]:
+          - link "Terms" [ref=e41] [cursor=pointer]:
+            - /url: /terms
+        - listitem [ref=e42]:
+          - link "Contact" [ref=e43] [cursor=pointer]:
+            - /url: /contact
+        - listitem [ref=e44]:
+          - link "Affiliate" [ref=e45] [cursor=pointer]:
+            - /url: /affiliate
+  - alert [ref=e46]

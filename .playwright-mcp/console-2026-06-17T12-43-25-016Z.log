@@ -1,0 +1,13 @@
+[    1807ms] [ERROR] Failed to load resource: the server responded with a status of 401 () @ https://www.destinyblueprint.xyz/api/auth/me:0
+[    1914ms] [VERBOSE] [DOM] Password field is not contained in a form: (More info: https://goo.gl/9p2vKq) %o @ https://www.destinyblueprint.xyz/daily:0
+[   44685ms] [ERROR] Failed to load resource: the server responded with a status of 401 () @ https://www.destinyblueprint.xyz/api/generate-daily:0
+[  120824ms] [ERROR] Failed to load resource: the server responded with a status of 401 () @ https://www.destinyblueprint.xyz/api/generate-daily:0
+[  194180ms] [ERROR] Failed to load resource: the server responded with a status of 402 () @ https://www.destinyblueprint.xyz/api/generate-daily:0
+[ 5119194ms] [ERROR] Failed to load resource: the server responded with a status of 400 () @ https://www.destinyblueprint.xyz/api/auth/register:0
+[ 5146628ms] TypeError: window.OneSignal.on is not a function
+    at a.onload (https://www.destinyblueprint.xyz/_next/static/chunks/app/daily/page-d58b21ccde5dbf8c.js:1:19272)
+[ 5146917ms] [ERROR] Failed to load resource: the server responded with a status of 400 () @ https://www.destinyblueprint.xyz/api/chart:0
+[ 5147864ms] [ERROR] Failed to load resource: the server responded with a status of 402 () @ https://www.destinyblueprint.xyz/api/generate-daily:0
+[ 5150475ms] [ERROR] Failed to load resource: the server responded with a status of 402 () @ https://www.destinyblueprint.xyz/api/generate-daily:0
+[ 5150712ms] [ERROR] Failed to load resource: the server responded with a status of 400 () @ https://www.destinyblueprint.xyz/api/chart:0
+[ 5213399ms] [ERROR] Failed to load resource: the server responded with a status of 402 () @ https://www.destinyblueprint.xyz/api/generate-daily:0

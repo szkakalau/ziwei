@@ -1,0 +1,51 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]:
+      - link "DestinyBlueprint" [ref=e4] [cursor=pointer]:
+        - /url: /
+      - navigation [ref=e5]:
+        - link "Blog" [ref=e6] [cursor=pointer]:
+          - /url: /blog
+        - link "Pricing" [ref=e7] [cursor=pointer]:
+          - /url: /pricing
+        - link "FAQ" [ref=e8] [cursor=pointer]:
+          - /url: /faq
+        - link "About" [ref=e9] [cursor=pointer]:
+          - /url: /about
+      - link "Get my reading" [ref=e11] [cursor=pointer]:
+        - /url: /#free-personality-snapshot
+  - main [ref=e12]:
+    - generic [ref=e13]:
+      - 'heading "Our mission: make ancient astrology accessible" [level=1] [ref=e14]'
+      - generic [ref=e15]:
+        - paragraph [ref=e16]:
+          - text: Zi Wei Dou Shu and related traditions are part of East Asian cultural heritage. We treat them as
+          - strong [ref=e17]: cultural wisdom
+          - text: ": symbolic language for describing personality patterns, relationships, and life phases—not a claim of supernatural authority."
+        - paragraph [ref=e18]:
+          - text: Our product is built for
+          - strong [ref=e19]: self-reflection
+          - text: and
+          - strong [ref=e20]: entertainment
+          - text: . We aim to reduce confusion, avoid fear-based messaging, and give you structured prompts you can use in real conversations—with yourself and people you trust.
+        - paragraph [ref=e21]:
+          - strong [ref=e22]: AI technology
+          - text: helps us translate complex chart logic into clear sections you can actually read. The model does not replace human judgment; it scales explanation so more people can benefit from the underlying framework.
+        - paragraph [ref=e23]: If you need professional help (health, legal, financial, or crisis support), please consult a qualified expert.
+  - contentinfo [ref=e24]:
+    - generic [ref=e26]:
+      - paragraph [ref=e27]: © 2026 DestinyBlueprint. For reflection and entertainment only—not medical, legal, or financial advice.
+      - list [ref=e28]:
+        - listitem [ref=e29]:
+          - link "Privacy Policy" [ref=e30] [cursor=pointer]:
+            - /url: /privacy
+        - listitem [ref=e31]:
+          - link "Terms" [ref=e32] [cursor=pointer]:
+            - /url: /terms
+        - listitem [ref=e33]:
+          - link "Contact" [ref=e34] [cursor=pointer]:
+            - /url: /contact
+        - listitem [ref=e35]:
+          - link "Affiliate" [ref=e36] [cursor=pointer]:
+            - /url: /affiliate
+  - alert [ref=e37]

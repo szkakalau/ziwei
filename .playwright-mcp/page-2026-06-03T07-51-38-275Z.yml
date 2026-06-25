@@ -1,0 +1,44 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e4]:
+      - link "DestinyBlueprint" [ref=e5] [cursor=pointer]:
+        - /url: /
+      - link "Get my reading" [ref=e7] [cursor=pointer]:
+        - /url: /#free-personality-snapshot
+    - navigation [ref=e8]:
+      - link "Blog" [ref=e9] [cursor=pointer]:
+        - /url: /blog
+      - link "Pricing" [ref=e10] [cursor=pointer]:
+        - /url: /pricing
+      - link "FAQ" [ref=e11] [cursor=pointer]:
+        - /url: /faq
+      - link "About" [ref=e12] [cursor=pointer]:
+        - /url: /about
+  - main [ref=e13]:
+    - generic [ref=e14]:
+      - heading "Privacy Policy" [level=1] [ref=e15]
+      - paragraph [ref=e16]: "Last updated: April 8, 2026"
+      - generic [ref=e17]:
+        - paragraph [ref=e18]: This placeholder summarizes our intent before legal review. Replace with counsel-approved text before running paid ads at scale.
+        - heading "What we collect" [level=2] [ref=e19]
+        - paragraph [ref=e20]: We may collect account, payment, and birth data needed to generate readings and deliver your purchase.
+        - heading "How we use data" [level=2] [ref=e21]
+        - paragraph [ref=e22]: Data is used to provide the service, improve product quality, comply with law, and communicate about your order.
+        - heading "Your choices" [level=2] [ref=e23]
+        - paragraph [ref=e24]: You may request access, correction, or deletion where applicable by contacting us via the Contact page.
+  - contentinfo [ref=e25]:
+    - generic [ref=e27]:
+      - paragraph [ref=e28]: © 2026 DestinyBlueprint. For reflection and entertainment only—not medical, legal, or financial advice.
+      - list [ref=e29]:
+        - listitem [ref=e30]:
+          - link "Privacy Policy" [ref=e31] [cursor=pointer]:
+            - /url: /privacy
+        - listitem [ref=e32]:
+          - link "Terms" [ref=e33] [cursor=pointer]:
+            - /url: /terms
+        - listitem [ref=e34]:
+          - link "Contact" [ref=e35] [cursor=pointer]:
+            - /url: /contact
+        - listitem [ref=e36]:
+          - link "Affiliate" [ref=e37] [cursor=pointer]:
+            - /url: /affiliate

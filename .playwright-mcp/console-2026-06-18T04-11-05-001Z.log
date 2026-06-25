@@ -1,0 +1,101 @@
+[     378ms] [INFO] %cDownload the React DevTools for a better development experience: https://reactjs.org/link/react-devtools font-weight:bold @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/compiled/react-dom/cjs/react-dom.development.js:38559
+[  123306ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/react-dev-overlay/app/hot-reloader-client.js:186
+[  123512ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/react-dev-overlay/app/hot-reloader-client.js:186
+[  123530ms] [LOG] [Fast Refresh] done in 17ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/react-dev-overlay/app/hot-reloader-client.js:43
+[  123783ms] [LOG] [Fast Refresh] done in 270ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/react-dev-overlay/app/hot-reloader-client.js:43
+[  125297ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/react-dev-overlay/app/hot-reloader-client.js:186
+[  125570ms] [LOG] [Fast Refresh] done in 274ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/react-dev-overlay/app/hot-reloader-client.js:43
+[ 1539508ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/react-dev-overlay/app/hot-reloader-client.js:186
+[ 1539771ms] [ERROR] ./src/components/landing/Hero.tsx
+Error: 
+  x Unexpected token `section`. Expected jsx identifier
+     ,-[C:\Users\castr\Desktop\OPC Project\ziwei\src\components\landing\Hero.tsx:190:1]
+ 190 |   }, [year, month, day, hour, minute, location, gender, unknownTime, router]);
+ 191 | 
+ 192 |   return (
+ 193 |     <section className="relative overflow-hidden px-4 pt-16 pb-20 sm:px-6 sm:pt-28 sm:pb-32 md:pt-36 md:pb-40">
+     :      ^^^^^^^
+ 194 |       {/* Background — deep cosmic: dark void with subtle warm core */}
+ 195 |       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-10%,oklch(0.12_0.025_270/0.8),oklch(0.10_0.02_265/0.9)_30%,transparent_70%),radial-gradient(ellipse_40%_30%_at_50%_50%,oklch(0.74_0.12_78/0.03),transparent_60%)]" aria-hidden />
+     `----
+
+Caused by:
+    Syntax Error
+
+Import trace for requested module:
+./src/components/landing/Hero.tsx
+./src/components/landing/LandingPage.tsx @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/app-index.js:32
+[ 1539899ms] [ERROR] ./src/components/landing/Hero.tsx
+Error: 
+  x Unexpected token `section`. Expected jsx identifier
+     ,-[C:\Users\castr\Desktop\OPC Project\ziwei\src\components\landing\Hero.tsx:190:1]
+ 190 |   }, [year, month, day, hour, minute, location, gender, unknownTime, router]);
+ 191 | 
+ 192 |   return (
+ 193 |     <section className="relative overflow-hidden px-4 pt-16 pb-20 sm:px-6 sm:pt-28 sm:pb-32 md:pt-36 md:pb-40">
+     :      ^^^^^^^
+ 194 |       {/* Background — deep cosmic: dark void with subtle warm core */}
+ 195 |       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-10%,oklch(0.12_0.025_270/0.8),oklch(0.10_0.02_265/0.9)_30%,transparent_70%),radial-gradient(ellipse_40%_30%_at_50%_50%,oklch(0.74_0.12_78/0.03),transparent_60%)]" aria-hidden />
+     `----
+
+Caused by:
+    Syntax Error
+
+Import trace for requested module:
+./src/components/landing/Hero.tsx
+./src/components/landing/LandingPage.tsx @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/app-index.js:32
+[ 1558586ms] [ERROR] ./src/components/landing/Hero.tsx
+Error: 
+  x Unexpected token `section`. Expected jsx identifier
+     ,-[C:\Users\castr\Desktop\OPC Project\ziwei\src\components\landing\Hero.tsx:190:1]
+ 190 |   }, [year, month, day, hour, minute, location, gender, unknownTime, router]);
+ 191 | 
+ 192 |   return (
+ 193 |     <section className="relative overflow-hidden px-4 pt-16 pb-20 sm:px-6 sm:pt-28 sm:pb-32 md:pt-36 md:pb-40">
+     :      ^^^^^^^
+ 194 |       {/* Background — deep cosmic: dark void with subtle warm core */}
+ 195 |       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-10%,oklch(0.12_0.025_270/0.8),oklch(0.10_0.02_265/0.9)_30%,transparent_70%),radial-gradient(ellipse_40%_30%_at_50%_50%,oklch(0.74_0.12_78/0.03),transparent_60%)]" aria-hidden />
+     `----
+
+Caused by:
+    Syntax Error
+
+Import trace for requested module:
+./src/components/landing/Hero.tsx
+./src/components/landing/LandingPage.tsx @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/app-index.js:32
+[ 1558952ms] [LOG] [Fast Refresh] done in 19444ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/react-dev-overlay/app/hot-reloader-client.js:43
+[ 1571675ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/react-dev-overlay/app/hot-reloader-client.js:186
+[ 1571995ms] [LOG] [Fast Refresh] done in 321ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/react-dev-overlay/app/hot-reloader-client.js:43
+[ 1926229ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/react-dev-overlay/app/hot-reloader-client.js:186
+[ 1926434ms] [LOG] [Fast Refresh] done in 204ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/react-dev-overlay/app/hot-reloader-client.js:43
+[ 1926698ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/react-dev-overlay/app/hot-reloader-client.js:186
+[ 1926860ms] [LOG] [Fast Refresh] done in 162ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/react-dev-overlay/app/hot-reloader-client.js:43
+[ 1926871ms] [ERROR] Refused to apply style from 'http://localhost:3000/_next/static/css/app/layout.css' because its MIME type ('text/html') is not a supported stylesheet MIME type, and strict MIME checking is enabled. @ http://localhost:3000/:0
+[ 1926945ms] [ERROR] Refused to apply style from 'http://localhost:3000/_next/static/css/app/layout.css' because its MIME type ('text/html') is not a supported stylesheet MIME type, and strict MIME checking is enabled. @ http://localhost:3000/:0
+[ 1926949ms] Event
+[ 2247296ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/react-dev-overlay/app/hot-reloader-client.js:186
+[ 2247906ms] [LOG] [Fast Refresh] done in 610ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/react-dev-overlay/app/hot-reloader-client.js:43
+[ 2249061ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/react-dev-overlay/app/hot-reloader-client.js:186
+[ 2249778ms] [LOG] [Fast Refresh] done in 718ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/react-dev-overlay/app/hot-reloader-client.js:43
+[ 2250166ms] [ERROR] Refused to apply style from 'http://localhost:3000/_next/static/css/app/layout.css?v=1781758112930' because its MIME type ('text/html') is not a supported stylesheet MIME type, and strict MIME checking is enabled. @ http://localhost:3000/:0
+[ 2250276ms] [ERROR] Refused to apply style from 'http://localhost:3000/_next/static/css/app/layout.css?v=1781758115243' because its MIME type ('text/html') is not a supported stylesheet MIME type, and strict MIME checking is enabled. @ http://localhost:3000/:0
+[ 2250300ms] [ERROR] Refused to apply style from 'http://localhost:3000/_next/static/css/app/layout.css?v=1781758115243' because its MIME type ('text/html') is not a supported stylesheet MIME type, and strict MIME checking is enabled. @ http://localhost:3000/:0
+[ 2250306ms] Event
+[ 4236444ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/react-dev-overlay/app/hot-reloader-client.js:186
+[ 4236675ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/react-dev-overlay/app/hot-reloader-client.js:186
+[ 4236690ms] [LOG] [Fast Refresh] done in 15ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/react-dev-overlay/app/hot-reloader-client.js:43
+[ 4237074ms] [LOG] [Fast Refresh] done in 398ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/react-dev-overlay/app/hot-reloader-client.js:43
+[ 4237090ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/react-dev-overlay/app/hot-reloader-client.js:186
+[ 4237159ms] [LOG] [Fast Refresh] done in 70ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/react-dev-overlay/app/hot-reloader-client.js:43
+[ 4237232ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/?_rsc=1p60s:0
+[ 4237269ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/:0
+[ 4237374ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/_next/static/chunks/fallback/main.js:0
+[ 4237374ms] [ERROR] Refused to execute script from 'http://localhost:3000/_next/static/chunks/fallback/main.js' because its MIME type ('text/html') is not executable, and strict MIME type checking is enabled. @ http://localhost:3000/:0
+[ 4237374ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/_next/static/chunks/fallback/react-refresh.js:0
+[ 4237374ms] [ERROR] Refused to execute script from 'http://localhost:3000/_next/static/chunks/fallback/react-refresh.js' because its MIME type ('text/html') is not executable, and strict MIME type checking is enabled. @ http://localhost:3000/:0
+[ 4237375ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/_next/static/chunks/fallback/webpack.js:0
+[ 4237375ms] [ERROR] Refused to execute script from 'http://localhost:3000/_next/static/chunks/fallback/webpack.js' because its MIME type ('text/html') is not executable, and strict MIME type checking is enabled. @ http://localhost:3000/:0
+[ 4237375ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/_next/static/chunks/fallback/pages/_app.js:0
+[ 4237375ms] [ERROR] Refused to execute script from 'http://localhost:3000/_next/static/chunks/fallback/pages/_app.js' because its MIME type ('text/html') is not executable, and strict MIME type checking is enabled. @ http://localhost:3000/:0
+[ 4237375ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/_next/static/chunks/fallback/pages/_error.js:0
+[ 4237375ms] [ERROR] Refused to execute script from 'http://localhost:3000/_next/static/chunks/fallback/pages/_error.js' because its MIME type ('text/html') is not executable, and strict MIME type checking is enabled. @ http://localhost:3000/:0
