@@ -54,7 +54,7 @@ export function CompatibilityCheck() {
       {!showForm && !result && (
         <button
           onClick={() => setShowForm(true)}
-          className="w-full py-4 rounded-xl bg-black/[0.02] border border-gold/10
+          className="w-full py-4 rounded-xl bg-gold/[0.02] border border-gold/10
                      text-ink-muted text-sm hover:text-ink hover:border-gold/15
                      transition-colors text-center"
         >
@@ -63,7 +63,7 @@ export function CompatibilityCheck() {
       )}
 
       {showForm && !result && (
-        <form onSubmit={handleSubmit} className="rounded-xl bg-black/[0.02] border border-gold/10 p-5 space-y-4">
+        <form onSubmit={handleSubmit} className="rounded-xl bg-gold/[0.02] border border-gold/10 p-5 space-y-4">
           <p className="text-ink-dim text-xs">
             Enter the other person&apos;s birth details to see how your charts interact.
           </p>
@@ -73,7 +73,7 @@ export function CompatibilityCheck() {
             value={birthDate}
             onChange={(e) => setBirthDate(e.target.value)}
             required
-            className="w-full px-4 py-3 rounded-xl bg-black/[0.05] border border-gold/[0.08]
+            className="w-full px-4 py-3 rounded-xl bg-gold/[0.05] border border-gold/[0.08]
                        text-ink text-sm [color-scheme:light]
                        focus:outline-none focus:border-gold/15"
           />
@@ -82,7 +82,7 @@ export function CompatibilityCheck() {
             type="time"
             value={birthTime}
             onChange={(e) => setBirthTime(e.target.value)}
-            className="w-full px-4 py-3 rounded-xl bg-black/[0.05] border border-gold/[0.08]
+            className="w-full px-4 py-3 rounded-xl bg-gold/[0.05] border border-gold/[0.08]
                        text-ink text-sm [color-scheme:light]
                        focus:outline-none focus:border-gold/15"
           />
@@ -93,7 +93,7 @@ export function CompatibilityCheck() {
             onChange={(e) => setLocation(e.target.value)}
             placeholder="Birth place (city, country)"
             required
-            className="w-full px-4 py-3 rounded-xl bg-black/[0.05] border border-gold/[0.08]
+            className="w-full px-4 py-3 rounded-xl bg-gold/[0.05] border border-gold/[0.08]
                        text-ink text-sm placeholder:text-ink-dim/60
                        focus:outline-none focus:border-gold/15"
           />
@@ -105,7 +105,7 @@ export function CompatibilityCheck() {
               className={`flex-1 py-2.5 rounded-sm text-xs border transition-colors ${
                 gender === "male"
                   ? "bg-gold text-void border-gold"
-                  : "bg-black/[0.02] border-gold/10 text-ink-dim"
+                  : "bg-gold/[0.02] border-gold/10 text-ink-dim"
               }`}
             >
               Male
@@ -116,7 +116,7 @@ export function CompatibilityCheck() {
               className={`flex-1 py-2.5 rounded-sm text-xs border transition-colors ${
                 gender === "female"
                   ? "bg-gold text-void border-gold"
-                  : "bg-black/[0.02] border-gold/10 text-ink-dim"
+                  : "bg-gold/[0.02] border-gold/10 text-ink-dim"
               }`}
             >
               Female
@@ -136,7 +136,7 @@ export function CompatibilityCheck() {
             <button
               type="button"
               onClick={() => setShowForm(false)}
-              className="px-4 py-3 rounded-xl bg-black/[0.02] border border-gold/10
+              className="px-4 py-3 rounded-xl bg-gold/[0.02] border border-gold/10
                          text-ink-dim text-sm hover:text-ink-muted transition-colors"
             >
               Cancel
@@ -160,7 +160,7 @@ export function CompatibilityCheck() {
       )}
 
       {result && (
-        <div className="rounded-xl bg-black/[0.02] border border-gold/08 p-5 space-y-4">
+        <div className="rounded-xl bg-gold/[0.02] border border-gold/08 p-5 space-y-4">
           <p className="text-ink text-sm leading-relaxed whitespace-pre-line">
             {result.analysis}
           </p>
@@ -191,7 +191,7 @@ export function CompatibilityCheck() {
 
           <button
             onClick={() => { setResult(null); setShowForm(true); }}
-            className="w-full py-2.5 rounded-xl bg-black/[0.02] border border-gold/10
+            className="w-full py-2.5 rounded-xl bg-gold/[0.02] border border-gold/10
                        text-ink-dim text-xs hover:text-ink-muted transition-colors"
           >
             Check with someone else

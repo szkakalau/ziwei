@@ -131,7 +131,7 @@ export default function YearlyPage() {
         {sections.map((s) => (
           <section
             key={s.heading}
-            className="rounded-xl bg-black/[0.02] border border-gold/10 p-5 md:p-6"
+            className="rounded-xl bg-gold/[0.02] border border-gold/10 p-5 md:p-6"
           >
             <h2 className="text-gold/80 text-sm font-semibold mb-3 tracking-wide">
               {s.heading}

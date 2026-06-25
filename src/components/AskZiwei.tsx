@@ -80,7 +80,7 @@ export function AskZiwei() {
                 key={q}
                 onClick={() => handleSend(q)}
                 className="block w-full text-left px-4 py-2.5 rounded-xl
-                           bg-black/[0.02] border border-gold/10
+                           bg-gold/[0.02] border border-gold/10
                            text-ink-muted text-xs hover:text-ink
                            hover:border-gold/15 transition-colors"
               >
@@ -99,7 +99,7 @@ export function AskZiwei() {
               className={`max-w-[85%] px-4 py-3 rounded-2xl text-sm leading-relaxed ${
                 msg.role === "user"
                   ? "bg-amber-500/15 text-amber-100/90 rounded-br-md"
-                  : "bg-black/[0.04] text-ink rounded-bl-md border border-gold/10"
+                  : "bg-gold/[0.04] text-ink rounded-bl-md border border-gold/10"
               }`}
             >
               {msg.content}
@@ -109,7 +109,7 @@ export function AskZiwei() {
 
         {loading && (
           <div className="flex justify-start">
-            <div className="bg-black/[0.04] border border-gold/10 rounded-2xl rounded-bl-md px-4 py-3">
+            <div className="bg-gold/[0.04] border border-gold/10 rounded-2xl rounded-bl-md px-4 py-3">
               <div className="flex gap-1.5">
                 <span className="w-2 h-2 rounded-full bg-amber-400/40 animate-bounce" style={{ animationDelay: "0ms" }} />
                 <span className="w-2 h-2 rounded-full bg-amber-400/40 animate-bounce" style={{ animationDelay: "150ms" }} />
@@ -144,7 +144,7 @@ export function AskZiwei() {
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={(e) => { if (e.key === "Enter") handleSend(); }}
           placeholder="Ask about your chart..."
-          className="flex-1 px-4 py-3 rounded-xl bg-black/[0.04] border border-gold/10
+          className="flex-1 px-4 py-3 rounded-xl bg-gold/[0.04] border border-gold/10
                      text-ink text-sm placeholder:text-ink-dim/60
                      focus:outline-none focus:border-gold/15"
         />
