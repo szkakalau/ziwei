@@ -383,6 +383,17 @@ export default function DailyPage() {
             <p className="text-cinnabar/70 text-xs mt-3">{trialError}</p>
           )}
         </div>
+        <div className="mt-6 text-center space-y-2">
+          <button
+            onClick={async () => {
+              await fetch("/api/auth/logout", { method: "POST" });
+              window.location.reload();
+            }}
+            className="text-ink-dim text-xs hover:text-ink-muted transition-colors"
+          >
+            Not you? Log out and sign in with a different account
+          </button>
+        </div>
       </main>
     );
   }
