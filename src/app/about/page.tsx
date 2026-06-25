@@ -42,7 +42,7 @@ export default function AboutPage() {
       <h1 className="font-display text-4xl font-semibold tracking-tight text-ink md:text-5xl">
         Our mission: make ancient astrology accessible
       </h1>
-      <div className="prose prose-invert prose-lg mt-10 max-w-none prose-headings:font-display prose-headings:text-ink prose-p:font-body prose-p:text-ink-muted prose-strong:text-ink prose-li:text-ink-muted">
+      <div className="prose prose-lg mt-10 max-w-none prose-headings:font-display prose-headings:text-ink prose-p:font-body prose-p:text-ink-muted prose-strong:text-ink prose-li:text-ink-muted">
         <p>
           Zi Wei Dou Shu and related traditions are part of East Asian cultural
           heritage. We treat them as <strong>cultural wisdom</strong>: symbolic
