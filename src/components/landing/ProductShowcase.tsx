@@ -64,7 +64,7 @@ export default function ProductShowcase() {
 
         <div className="mt-10 grid gap-6 sm:grid-cols-3">
           {cards.map((c) => (
-            <div key={c.label} className={`rounded-sm border ${c.featured ? "border-gold/25 bg-gradient-to-br from-gold/[0.06] to-panel/90" : "border-white/[0.08] bg-panel/80"} p-5 shadow-panel backdrop-blur-md`}>
+            <div key={c.label} className={`rounded-sm border ${c.featured ? "border-gold/25" : "border-white/[0.08]"} bg-panel/80 p-5 shadow-panel backdrop-blur-md`}>
               <span className="inline-flex h-10 w-10 items-center justify-center rounded-sm border border-gold/20 bg-gold/[0.06]">
                 <c.icon className="h-5 w-5 text-gold" aria-hidden />
               </span>
