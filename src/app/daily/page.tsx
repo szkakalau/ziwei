@@ -537,7 +537,7 @@ export default function DailyPage() {
           <div className="relative rounded-sm border border-gold/[0.12] bg-white shadow-[0_2px_12px_-4px_rgba(0,0,0,0.06)] overflow-hidden">
             <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-gold/25 to-transparent" aria-hidden />
             <div className="p-6 md:p-8">
-              <p className="text-ink text-[19px] md:text-[22px] leading-relaxed md:leading-loose whitespace-pre-line">
+              <p className="text-ink text-base md:text-lg leading-relaxed md:leading-loose whitespace-pre-line">
                 {data.horoscope}
               </p>
 
