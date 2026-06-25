@@ -17,7 +17,7 @@ export default function LandingFooter() {
           <div className="max-w-xs">
             <Link
               href="/#top"
-              className="inline-flex items-center gap-2 font-display text-lg font-semibold text-ink transition-colors hover:text-gold"
+              className="inline-flex items-center gap-2 font-display text-xl font-semibold text-ink transition-colors hover:text-gold"
             >
               <Compass className="h-5 w-5 text-gold/60" aria-hidden />
               DestinyBlueprint.xyz

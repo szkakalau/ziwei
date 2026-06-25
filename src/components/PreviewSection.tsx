@@ -16,7 +16,7 @@ export default function PreviewSection() {
               className="mb-4 h-px w-12 bg-gradient-to-r from-cinnabar to-transparent"
               aria-hidden
             />
-            <h4 className="font-display text-lg font-semibold text-ink">
+            <h4 className="font-display text-xl font-semibold text-ink">
               Personality Snapshot
             </h4>
             <p className="mt-3 font-body text-sm leading-relaxed text-ink-muted">
@@ -31,7 +31,7 @@ export default function PreviewSection() {
               className="mb-4 h-px w-12 bg-gradient-to-r from-jade to-transparent"
               aria-hidden
             />
-            <h4 className="font-display text-lg font-semibold text-ink">
+            <h4 className="font-display text-xl font-semibold text-ink">
               Love Style Insight
             </h4>
             <p className="mt-3 font-body text-sm leading-relaxed text-ink-muted">

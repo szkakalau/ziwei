@@ -96,7 +96,7 @@ export default function AccountPage() {
 
   return (
     <main className="min-h-screen bg-void text-ink px-5 py-8 pb-20 md:px-8 max-w-3xl mx-auto">
-      <h1 className="text-ink text-lg font-semibold mb-6">Account</h1>
+      <h1 className="text-ink text-xl font-semibold mb-6">Account</h1>
 
       <div className="md:grid md:grid-cols-2 md:gap-4">
         {/* Email */}

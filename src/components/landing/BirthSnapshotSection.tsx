@@ -942,7 +942,7 @@ export default function BirthSnapshotSection() {
                 <CardContent className="space-y-4">
                   {structured.coreTraits.map((t) => (
                     <div key={t.title} className="rounded-sm border border-gold/[0.08] bg-gold/[0.03] p-4">
-                      <p className="font-display text-lg font-semibold text-ink">
+                      <p className="font-display text-xl font-semibold text-ink">
                         {t.title}
                       </p>
                       <p className="mt-2 font-body text-sm leading-relaxed text-ink-muted">
@@ -981,7 +981,7 @@ export default function BirthSnapshotSection() {
                 <CardContent className="space-y-4">
                   {structured.growthAreas.map((g) => (
                     <div key={g.title} className="rounded-sm border border-gold/[0.08] bg-gold/[0.03] p-4">
-                      <p className="font-display text-lg font-semibold text-ink">
+                      <p className="font-display text-xl font-semibold text-ink">
                         {g.title}
                       </p>
                       <p className="mt-2 font-body text-sm leading-relaxed text-ink-muted">

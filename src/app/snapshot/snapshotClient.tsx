@@ -352,7 +352,7 @@ export default function SnapshotClient() {
             <CardContent className="space-y-4">
               {structured.coreTraits.map((t) => (
                 <div key={t.title} className="rounded-sm border border-gold/10 bg-gold/[0.03] p-4">
-                  <p className="font-display text-lg font-semibold text-ink">{t.title}</p>
+                  <p className="font-display text-xl font-semibold text-ink">{t.title}</p>
                   <p className="mt-2 font-body text-sm leading-relaxed text-ink-muted">{t.body}</p>
                 </div>
               ))}
@@ -385,7 +385,7 @@ export default function SnapshotClient() {
             <CardContent className="space-y-4">
               {structured.growthAreas.map((g) => (
                 <div key={g.title} className="rounded-sm border border-gold/10 bg-gold/[0.03] p-4">
-                  <p className="font-display text-lg font-semibold text-ink">{g.title}</p>
+                  <p className="font-display text-xl font-semibold text-ink">{g.title}</p>
                   <p className="mt-2 font-body text-sm leading-relaxed text-ink-muted">{g.body}</p>
                 </div>
               ))}
@@ -421,7 +421,7 @@ export default function SnapshotClient() {
                       checked={focusArea === option.value}
                       onChange={() => setFocusArea(option.value)}
                     />
-                    <p className="font-display text-lg font-semibold text-ink">{option.label}</p>
+                    <p className="font-display text-xl font-semibold text-ink">{option.label}</p>
                     <p className="mt-1 font-body text-sm text-ink-muted">{option.help}</p>
                   </label>
                 ))}

@@ -97,7 +97,7 @@ export default function Testimonials() {
                 </span>
                 <span className="font-display text-2xl font-semibold text-ink-dim sm:text-3xl">{s.step}</span>
               </div>
-              <h3 className="mt-5 font-display text-lg font-semibold text-ink">{s.title}</h3>
+              <h3 className="mt-5 font-display text-xl font-semibold text-ink">{s.title}</h3>
               <p className="mt-2 font-body text-sm leading-relaxed text-ink-muted">{s.body}</p>
             </article>
           ))}

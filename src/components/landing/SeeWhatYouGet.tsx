@@ -58,7 +58,7 @@ export default function SeeWhatYouGet() {
               <span className="inline-flex h-10 w-10 items-center justify-center rounded-sm border border-gold/20 bg-gold/[0.06]">
                 <f.icon className="h-5 w-5 text-gold" aria-hidden />
               </span>
-              <h3 className="mt-4 font-display text-lg font-semibold text-ink">{f.label}</h3>
+              <h3 className="mt-4 font-display text-xl font-semibold text-ink">{f.label}</h3>
               <p className="mt-2 font-body text-sm leading-relaxed text-ink-muted">{f.body}</p>
             </article>
           ))}

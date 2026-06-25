@@ -16,7 +16,7 @@ export default function ApiDocsPage() {
     <main className="min-h-screen bg-void text-ink px-5 py-8 max-w-2xl mx-auto">
       <div className="flex items-center gap-3 mb-2">
         <Code className="h-5 w-5 text-gold/60" />
-        <h1 className="text-ink text-lg font-semibold">Zi Wei Dou Shu API</h1>
+        <h1 className="text-ink text-xl font-semibold">Zi Wei Dou Shu API</h1>
       </div>
       <p className="text-ink-dim text-sm mb-8">
         Integrate Zi Wei Dou Shu astrology into your own applications.

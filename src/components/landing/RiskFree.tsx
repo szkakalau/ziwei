@@ -55,7 +55,7 @@ export default function RiskFree() {
               <span className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-gold/25 bg-void shadow-[0_0_20px_-4px_oklch(0.74_0.12_78/0.15)]">
                 <item.icon className="h-5 w-5 text-gold" aria-hidden />
               </span>
-              <h3 className="mt-5 font-display text-lg font-semibold text-ink">{item.title}</h3>
+              <h3 className="mt-5 font-display text-xl font-semibold text-ink">{item.title}</h3>
               <p className="mt-2 font-body text-sm leading-relaxed text-ink-muted">
                 {item.body}
               </p>

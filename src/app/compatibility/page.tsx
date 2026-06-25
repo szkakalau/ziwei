@@ -41,7 +41,7 @@ export default function CompatibilityPage() {
     <main className="min-h-screen bg-void text-ink px-5 pt-8 pb-24 max-w-3xl mx-auto">
       <div className="flex items-center gap-3 mb-8">
         <Heart className="h-5 w-5 text-gold/60" />
-        <h1 className="text-ink text-lg font-semibold">Compatibility</h1>
+        <h1 className="text-ink text-xl font-semibold">Compatibility</h1>
       </div>
 
       <p className="text-ink-dim text-sm mb-6">

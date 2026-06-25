@@ -106,7 +106,7 @@ export function BirthdaySurprise({ birthDate, streak }: BirthdaySurpriseProps) {
         <div className="mb-6 rounded-2xl bg-gradient-to-b from-amber-500/[0.08] to-amber-500/[0.02]
                         border border-gold/15 p-6 text-center">
           <Sparkles className="h-6 w-6 text-amber-400 mx-auto mb-3" />
-          <h2 className="text-amber-700 text-lg font-semibold mb-1">
+          <h2 className="text-amber-700 text-xl font-semibold mb-1">
             Happy Birthday! 🎉
           </h2>
           <p className="text-ink-muted text-sm mb-5">

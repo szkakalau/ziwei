@@ -254,7 +254,7 @@ export default function AuthoritySection() {
         </div>
 
         <div className="mx-auto mt-10 max-w-2xl rounded-xl border border-gold/10 bg-void/60 px-6 py-7 text-center md:px-10 md:py-8">
-          <h3 className="font-display text-lg font-semibold tracking-tight text-ink md:text-xl">
+          <h3 className="font-display text-xl font-semibold tracking-tight text-ink md:text-xl">
             Ancient system <span className="text-gold/95">×</span> Modern AI
           </h3>
           <p className="mt-3 font-body leading-relaxed text-ink-muted md:text-[17px]">

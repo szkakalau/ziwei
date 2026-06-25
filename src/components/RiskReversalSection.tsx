@@ -169,7 +169,7 @@ export default function RiskReversalSection() {
                 <div className="relative flex h-14 w-14 items-center justify-center rounded-lg border border-jade/25 bg-jade/[0.06] shadow-[inset_0_1px_0_rgba(0,0,0,0.04)]">
                   <Icon className="h-10 w-10" />
                 </div>
-                <h3 className="relative mt-5 font-display text-lg font-semibold leading-snug text-ink md:text-xl">
+                <h3 className="relative mt-5 font-display text-xl font-semibold leading-snug text-ink md:text-xl">
                   {card.title}
                 </h3>
                 <div className="relative mt-3 flex-1 font-body text-base leading-relaxed text-ink-muted">

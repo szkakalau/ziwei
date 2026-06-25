@@ -37,7 +37,7 @@ export default function AnnualSuccessPage() {
         </div>
 
         <div className="rounded-sm border border-gold/10 bg-void/50 p-6 text-left shadow-inner">
-          <h3 className="font-display text-lg font-semibold text-ink">
+          <h3 className="font-display text-xl font-semibold text-ink">
             What happens now?
           </h3>
           <ul className="mt-4 space-y-2 font-body text-sm leading-relaxed text-ink-muted">

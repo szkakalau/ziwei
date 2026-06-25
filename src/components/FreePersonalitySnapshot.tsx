@@ -179,7 +179,7 @@ export default function FreePersonalitySnapshot() {
 
                 <div className="mt-8 space-y-8">
                   <article>
-                    <h4 className="flex items-center gap-2 font-display text-lg font-semibold text-ink">
+                    <h4 className="flex items-center gap-2 font-display text-xl font-semibold text-ink">
                       <span aria-hidden>✨</span> Personality
                     </h4>
                     <p className="mt-3 whitespace-pre-line font-body text-base leading-relaxed text-ink-muted">
@@ -190,7 +190,7 @@ export default function FreePersonalitySnapshot() {
                   <div className="h-px bg-gradient-to-r from-transparent via-white/15 to-transparent" aria-hidden />
 
                   <article>
-                    <h4 className="flex items-center gap-2 font-display text-lg font-semibold text-ink">
+                    <h4 className="flex items-center gap-2 font-display text-xl font-semibold text-ink">
                       <span aria-hidden>✨</span> Hidden Strength
                     </h4>
                     <p className="mt-3 whitespace-pre-line font-body text-base leading-relaxed text-ink-muted">
@@ -201,7 +201,7 @@ export default function FreePersonalitySnapshot() {
                   <div className="h-px bg-gradient-to-r from-transparent via-white/15 to-transparent" aria-hidden />
 
                   <article>
-                    <h4 className="flex items-center gap-2 font-display text-lg font-semibold text-ink">
+                    <h4 className="flex items-center gap-2 font-display text-xl font-semibold text-ink">
                       <span aria-hidden>✨</span> Career Hint
                     </h4>
                     <p className="mt-3 whitespace-pre-line font-body text-base leading-relaxed text-ink-muted">
