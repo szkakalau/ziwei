@@ -47,11 +47,13 @@ export async function GET() {
           status: "all",
           limit: 100,
         })) {
+          // Stripe SDK v22 types may differ; access properties dynamically
+          const s = sub as Record<string, unknown>;
           allSubs.push({
-            status: sub.status,
-            trial_end: sub.trial_end,
-            current_period_end: sub.current_period_end,
-            cancel_at_period_end: sub.cancel_at_period_end,
+            status: s.status as string,
+            trial_end: (s.trial_end as number) ?? null,
+            current_period_end: s.current_period_end as number,
+            cancel_at_period_end: (s.cancel_at_period_end as boolean) ?? false,
           });
         }
 
