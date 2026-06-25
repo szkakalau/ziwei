@@ -152,7 +152,7 @@ export function BirthdaySurprise({ birthDate, streak }: BirthdaySurpriseProps) {
             />
           </div>
 
-          <p className="text-ink-dim/60 text-[11px] mt-4">
+          <p className="text-ink-dim text-[11px] mt-4">
             This reading is based on your personality patterns and the current year&apos;s life-phase dynamics.
           </p>
         </div>

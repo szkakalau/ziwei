@@ -83,7 +83,7 @@ export default function AccountPage() {
   if (!info) {
     return (
       <main className="min-h-screen bg-void text-ink px-5 py-8 pb-20 max-w-3xl mx-auto text-center">
-        <AlertCircle className="h-8 w-8 text-ink-dim/60 mx-auto mb-3" />
+        <AlertCircle className="h-8 w-8 text-ink-dim mx-auto mb-3" />
         <p className="text-ink-muted">Could not load account info.</p>
         <Link href="/daily" className="text-gold/60 text-sm mt-4 inline-block">
           ← Back to daily
@@ -182,7 +182,7 @@ export default function AccountPage() {
       {/* Back link */}
       <Link
         href="/daily"
-        className="block text-center text-ink-dim/70 text-xs mt-8 hover:text-ink-dim transition-colors"
+        className="block text-center text-ink-dim text-xs mt-8 hover:text-ink-dim transition-colors"
       >
         ← Back to daily
       </Link>

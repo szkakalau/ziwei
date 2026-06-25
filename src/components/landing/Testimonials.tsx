@@ -95,7 +95,7 @@ export default function Testimonials() {
                 <span className="inline-flex h-12 w-12 items-center justify-center rounded-sm border border-gold/20 bg-gold/[0.06]">
                   <s.icon className="h-5 w-5 text-gold" aria-hidden />
                 </span>
-                <span className="font-display text-2xl font-semibold text-ink-dim/45 sm:text-3xl">{s.step}</span>
+                <span className="font-display text-2xl font-semibold text-ink-dim sm:text-3xl">{s.step}</span>
               </div>
               <h3 className="mt-5 font-display text-lg font-semibold text-ink">{s.title}</h3>
               <p className="mt-2 font-body text-sm leading-relaxed text-ink-muted">{s.body}</p>

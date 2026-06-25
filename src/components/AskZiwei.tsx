@@ -145,7 +145,7 @@ export function AskZiwei() {
           onKeyDown={(e) => { if (e.key === "Enter") handleSend(); }}
           placeholder="Ask about your chart..."
           className="flex-1 px-4 py-3 rounded-xl bg-gold/[0.04] border border-gold/10
-                     text-ink text-sm placeholder:text-ink-dim/60
+                     text-ink text-sm placeholder:text-ink-dim
                      focus:outline-none focus:border-gold/15"
         />
         <button

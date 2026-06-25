@@ -43,7 +43,7 @@ export default function YearlyPage() {
       <main className="min-h-screen bg-void text-ink px-5 py-12 pb-20 max-w-2xl mx-auto text-center">
         <Sparkles className="h-8 w-8 text-gold/50 mx-auto mb-4 animate-pulse" />
         <p className="text-ink-muted text-base mb-2">Writing your annual reading...</p>
-        <p className="text-ink-dim/70 text-xs">This takes about 20 seconds. Worth the wait.</p>
+        <p className="text-ink-dim text-xs">This takes about 20 seconds. Worth the wait.</p>
         <div className="mt-8 space-y-3">
           {[1,2,3,4,5].map(i => (
             <div key={i} className="h-4 bg-black/[0.03] rounded animate-pulse" style={{ width: `${60 + i * 8}%` }} />
@@ -151,7 +151,7 @@ export default function YearlyPage() {
         >
           ← Back to daily horoscope
         </Link>
-        <p className="text-ink-dim/50 text-[10px] mt-4">
+        <p className="text-ink-dim text-[10px] mt-4">
           DestinyBlueprint — Zi Wei Dou Shu
         </p>
       </div>

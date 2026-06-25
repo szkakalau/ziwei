@@ -280,10 +280,10 @@ export default function DailyPage() {
   if (authStatus === "unauthenticated") {
     return (
       <main className="min-h-screen px-5 py-8 pb-20 max-w-lg mx-auto">
-        <p className="text-gold/60 text-sm mb-8 text-center">{dateLabel}</p>
+        <p className="text-gold/80 text-sm mb-8 text-center">{dateLabel}</p>
 
         <div className="card-cosmic p-6 mb-4">
-          <h2 className="text-ink/80 text-lg font-semibold mb-1">
+          <h2 className="text-ink text-lg font-semibold mb-1">
             {authMode === "register" ? "Start your free trial" : "Welcome back"}
           </h2>
           <p className="text-ink-dim text-sm mb-6">
@@ -310,7 +310,7 @@ export default function DailyPage() {
           />
 
           {authError && (
-            <p className="text-cinnabar/80 text-xs mb-4">{authError}</p>
+            <p className="text-cinnabar text-xs mb-4">{authError}</p>
           )}
 
           <button
@@ -328,7 +328,7 @@ export default function DailyPage() {
           </button>
         </div>
 
-        <p className="text-ink-dim/55 text-[11px] text-center mt-8">
+        <p className="text-ink-dim text-xs text-center mt-8">
           DestinyBlueprint — Zi Wei Dou Shu Daily
         </p>
       </main>
@@ -339,9 +339,9 @@ export default function DailyPage() {
   if (authStatus === "no_chart") {
     return (
       <main className="min-h-screen px-5 py-8 pb-20 max-w-lg mx-auto">
-        <p className="text-gold/60 text-sm mb-8 text-center">{dateLabel}</p>
+        <p className="text-gold/80 text-sm mb-8 text-center">{dateLabel}</p>
         <div className="card-cosmic p-8 text-center">
-          <h2 className="text-ink/80 text-lg font-semibold mb-2">Set up your birth chart</h2>
+          <h2 className="text-ink text-lg font-semibold mb-2">Set up your birth chart</h2>
           <p className="text-ink-dim text-sm mb-6">
             Enter your birth details to generate your personalized Zi Wei Dou Shu chart.
           </p>
@@ -371,9 +371,9 @@ export default function DailyPage() {
   if (authStatus === "no_subscription") {
     return (
       <main className="min-h-screen px-5 py-8 pb-20 max-w-lg mx-auto">
-        <p className="text-gold/60 text-sm mb-8 text-center">{dateLabel}</p>
+        <p className="text-gold/80 text-sm mb-8 text-center">{dateLabel}</p>
         <div className="card-cosmic-highlight p-8 text-center">
-          <h2 className="text-ink/80 text-lg font-semibold mb-2">
+          <h2 className="text-ink text-lg font-semibold mb-2">
             Get your daily horoscope
           </h2>
           <p className="text-ink-dim text-sm mb-2">
@@ -391,15 +391,15 @@ export default function DailyPage() {
           >
             {hasUsedTrial ? "Subscribe — $4.99/month" : "Start 7-Day Free Trial"}
           </button>
-          <p className="text-ink-dim/60 text-xs">
+          <p className="text-ink-dim text-xs">
             {hasUsedTrial ? "Cancel anytime." : "Then $4.99/month. Cancel anytime."}
           </p>
           {trialError && (
-            <p className="text-cinnabar/70 text-xs mt-3">{trialError}</p>
+            <p className="text-cinnabar/85 text-xs mt-3">{trialError}</p>
           )}
         </div>
         {currentStatus && (
-          <p className="mt-5 text-ink-dim/50 text-[11px]">
+          <p className="mt-5 text-ink-dim text-xs">
             Account status: <span className="font-mono">{currentStatus}</span>
             {hasStripeId ? " · Stripe connected" : ""}
           </p>
@@ -453,7 +453,7 @@ export default function DailyPage() {
   if (error) {
     return (
       <main className="min-h-screen px-5 py-8 pb-20 max-w-lg mx-auto">
-        <p className="text-gold/60 text-sm mb-2">{dateLabel}</p>
+        <p className="text-gold/80 text-sm mb-2">{dateLabel}</p>
         <div className="card-cosmic p-8 text-center">
           <p className="text-ink-muted text-base mb-4">{error}</p>
           <button
@@ -472,7 +472,7 @@ export default function DailyPage() {
   if (!data?.horoscope) {
     return (
       <main className="min-h-screen px-5 py-8 pb-20 max-w-lg mx-auto">
-        <p className="text-gold/60 text-sm mb-2">{dateLabel}</p>
+        <p className="text-gold/80 text-sm mb-2">{dateLabel}</p>
         <div className="card-cosmic p-8 text-center">
           <p className="text-ink-muted text-base mb-2">
             Your first horoscope is being written...
@@ -488,7 +488,7 @@ export default function DailyPage() {
             {loading ? "Generating…" : "Refresh"}
           </button>
           {error && (
-            <p className="text-cinnabar/70 text-sm mt-4">{error}</p>
+            <p className="text-cinnabar/85 text-sm mt-4">{error}</p>
           )}
         </div>
       </main>
@@ -514,7 +514,7 @@ export default function DailyPage() {
       <div className="flex items-center justify-between mb-6 md:mb-6">
         <div>
           <p className="text-gold/80 text-base md:text-lg font-medium">{dateLabel}</p>
-          <p className="text-ink-dim/55 text-[11px] mt-0.5">Your daily Zi Wei Dou Shu reading</p>
+          <p className="text-ink-dim text-xs mt-0.5">Your daily Zi Wei Dou Shu reading</p>
         </div>
         <StreakBadge streak={streak} />
       </div>
@@ -545,7 +545,7 @@ export default function DailyPage() {
               {data.source && data.source !== "cached" && (
                 <div className="mt-6 pt-5 border-t border-gold/10 flex items-center gap-2">
                   <span className="inline-flex h-1.5 w-1.5 rounded-full bg-gold/50" aria-hidden />
-                  <p className="text-ink-dim/70 text-xs">
+                  <p className="text-ink-dim text-xs">
                     {data.source === "template"
                       ? "Generated from Zi Wei chart template"
                       : "AI-generated — powered by your Zi Wei chart data"}
@@ -555,20 +555,20 @@ export default function DailyPage() {
 
               {/* Daily Ritual */}
               <div className="mt-5 rounded-sm border border-jade/[0.10] bg-jade/[0.03] px-5 py-4">
-                <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-jade/70 mb-2">Today&rsquo;s Practice</p>
+                <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-jade/85 mb-2">Today&rsquo;s Practice</p>
                 <p className="text-ink-muted text-sm leading-relaxed">{ritual}</p>
               </div>
 
               {/* Yesterday feedback */}
               <div className="mt-5 pt-4 border-t border-gold/10 flex items-center gap-4">
-                <span className="text-ink-dim/60 text-[11px]">Was yesterday&rsquo;s reading accurate?</span>
+                <span className="text-ink-dim text-xs">Was yesterday&rsquo;s reading accurate?</span>
                 <button
-                  className="inline-flex items-center gap-1 rounded-sm px-2 py-1 text-xs text-ink-dim/70 hover:text-jade hover:bg-jade/[0.06] transition-colors"
+                  className="inline-flex items-center gap-1 rounded-sm px-2 py-1 text-xs text-ink-dim hover:text-jade hover:bg-jade/[0.06] transition-colors"
                   onClick={() => {/* TODO: POST /api/feedback */}}
                   aria-label="Thumbs up — accurate"
                 >👍</button>
                 <button
-                  className="inline-flex items-center gap-1 rounded-sm px-2 py-1 text-xs text-ink-dim/70 hover:text-cinnabar hover:bg-cinnabar/[0.06] transition-colors"
+                  className="inline-flex items-center gap-1 rounded-sm px-2 py-1 text-xs text-ink-dim hover:text-cinnabar hover:bg-cinnabar/[0.06] transition-colors"
                   onClick={() => {/* TODO: POST /api/feedback */}}
                   aria-label="Thumbs down — not accurate"
                 >👎</button>
@@ -607,8 +607,8 @@ export default function DailyPage() {
             <div className="mb-8 md:mb-0">
               {/* Section label — prominent on mobile */}
               <div className="mb-4">
-                <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-gold/70 mb-1">Active Stars Today</p>
-                <p className="text-ink-dim/55 text-[11px]">Your chart&rsquo;s dominant archetypes shaping today&rsquo;s reading</p>
+                <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-gold/85 mb-1">Active Stars Today</p>
+                <p className="text-ink-dim text-xs">Your chart&rsquo;s dominant archetypes shaping today&rsquo;s reading</p>
               </div>
 
               {/* Star cards — full-width vertical on mobile, compact stack on desktop */}
@@ -629,14 +629,14 @@ export default function DailyPage() {
                       {keywords.length > 0 && (
                         <div className="mt-2.5 flex flex-wrap gap-1.5">
                           {keywords.slice(0, 3).map((kw) => (
-                            <span key={kw} className="inline-block rounded-full border border-gold/[0.08] bg-gold/[0.03] px-2.5 py-0.5 text-[10px] text-ink-dim/55 font-mono tracking-wider">
+                            <span key={kw} className="inline-block rounded-full border border-gold/[0.08] bg-gold/[0.03] px-2.5 py-0.5 text-[10px] text-ink-dim font-mono tracking-wider">
                               {kw}
                             </span>
                           ))}
                         </div>
                       )}
                       {brief && (
-                        <p className="mt-2.5 text-ink-dim/55 text-[11px] md:text-[11px] leading-relaxed">{brief}</p>
+                        <p className="mt-2.5 text-ink-dim text-xs md:text-xs leading-relaxed">{brief}</p>
                       )}
                     </div>
                   );
@@ -650,10 +650,10 @@ export default function DailyPage() {
 
           {/* ── Tools section ── */}
           <div>
-            <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-dim/50 mb-3 md:hidden">Explore</p>
+            <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-dim mb-3 md:hidden">Explore</p>
             <div className="space-y-3 md:space-y-4">
               <Link href="/yearly" className="flex items-center gap-3 rounded-sm border border-gold/10 bg-panel/60 px-5 py-4 hover:border-gold/15 transition-colors group">
-                <Calendar className="h-5 w-5 text-gold/60 shrink-0 group-hover:text-gold/80 transition-colors" />
+                <Calendar className="h-5 w-5 text-gold/80 shrink-0 group-hover:text-gold/80 transition-colors" />
                 <div>
                   <p className="text-sm font-medium text-ink">Yearly Forecast</p>
                   <p className="text-xs text-ink-dim mt-0.5">Career · Love · Wealth · Health</p>
@@ -672,7 +672,7 @@ export default function DailyPage() {
         </aside>
       </div>
 
-      <p className="text-ink-dim/45 text-[11px] mt-16 text-center mb-20">
+      <p className="text-ink-dim text-xs mt-16 text-center mb-20">
         DestinyBlueprint · Zi Wei Dou Shu Daily
       </p>
 

@@ -81,7 +81,7 @@ function IconStripe({ className }: { className?: string }) {
         d="M8 20h32"
         stroke="currentColor"
         strokeWidth="1"
-        className="text-ink-dim/60"
+        className="text-ink-dim"
       />
       <rect x="12" y="26" width="10" height="3" rx="1" fill="currentColor" className="text-jade/90" />
       <rect x="26" y="26" width="10" height="3" rx="1" fill="currentColor" className="text-ink-dim" />

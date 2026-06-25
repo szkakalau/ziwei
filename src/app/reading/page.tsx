@@ -59,7 +59,7 @@ export default function ReadingPage() {
     no_order: <Mail className="h-10 w-10 text-gold/30 mx-auto mb-4" />,
     writing: <Clock className="h-10 w-10 text-gold/50 mx-auto mb-4" />,
     delivered: <CheckCircle className="h-10 w-10 text-green-400/50 mx-auto mb-4" />,
-    expired: <Mail className="h-10 w-10 text-ink-dim/60 mx-auto mb-4" />,
+    expired: <Mail className="h-10 w-10 text-ink-dim mx-auto mb-4" />,
   };
 
   const titles: Record<string, string> = {

@@ -76,7 +76,7 @@ export default function ApiDocsPage() {
 
             <div className="p-4 space-y-3">
               <div>
-                <p className="text-ink-dim/70 text-[10px] uppercase tracking-wider mb-1.5">Request</p>
+                <p className="text-ink-dim text-[10px] uppercase tracking-wider mb-1.5">Request</p>
                 <div className="relative">
                   <pre className="text-ink-muted text-[11px] font-mono bg-black/30 rounded-lg p-3 overflow-x-auto">{ep.body}</pre>
                   <button
@@ -85,13 +85,13 @@ export default function ApiDocsPage() {
                   >
                     {copied === ep.path + "-req"
                       ? <Check className="h-3 w-3 text-emerald-400" />
-                      : <Copy className="h-3 w-3 text-ink-dim/60" />}
+                      : <Copy className="h-3 w-3 text-ink-dim" />}
                   </button>
                 </div>
               </div>
 
               <div>
-                <p className="text-ink-dim/70 text-[10px] uppercase tracking-wider mb-1.5">Response</p>
+                <p className="text-ink-dim text-[10px] uppercase tracking-wider mb-1.5">Response</p>
                 <pre className="text-ink-muted text-[11px] font-mono bg-black/30 rounded-lg p-3 overflow-x-auto">{ep.response}</pre>
               </div>
             </div>
@@ -109,7 +109,7 @@ export default function ApiDocsPage() {
         </div>
       </section>
 
-      <p className="text-ink-dim/50 text-[11px] text-center mt-12">
+      <p className="text-ink-dim text-[11px] text-center mt-12">
         DestinyBlueprint API v1 — Beta
       </p>
     </main>

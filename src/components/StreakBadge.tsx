@@ -28,13 +28,13 @@ export function StreakBadge({ streak }: StreakBadgeProps) {
           <p className="text-[10px] uppercase tracking-wider text-ink-dim mb-1">Achievement</p>
           <p className={`text-sm font-semibold ${achievement.color}`}>
             {achievement.icon} {achievement.name}{" "}
-            <span className="text-ink-dim/70 text-xs">({achievement.nameZh})</span>
+            <span className="text-ink-dim text-xs">({achievement.nameZh})</span>
           </p>
           <p className="text-ink-dim text-xs mt-1">{achievement.description}</p>
 
           {next && (
             <div className="mt-3 pt-3 border-t border-gold/10">
-              <p className="text-[10px] uppercase tracking-wider text-ink-dim/60 mb-1">Next</p>
+              <p className="text-[10px] uppercase tracking-wider text-ink-dim mb-1">Next</p>
               <p className="text-ink-dim text-xs">
                 {next.icon} {next.name} — {next.minStreak - streak} more {next.minStreak - streak === 1 ? "day" : "days"}
               </p>
