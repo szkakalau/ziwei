@@ -258,8 +258,8 @@ export default function Hero() {
                 <div>
                   <Label>Gender</Label>
                   <div className="mt-1 flex rounded-sm border border-gold/10 overflow-hidden">
-                    <button type="button" className={`flex-1 py-1.5 text-xs font-medium transition rounded-sm ${gender === "female" ? "bg-gold text-void" : "text-ink-dim hover:text-ink"}`} onClick={() => setGender("female")}>♀</button>
-                    <button type="button" className={`flex-1 py-1.5 text-xs font-medium transition rounded-sm ${gender === "male" ? "bg-gold text-void" : "text-ink-dim hover:text-ink"}`} onClick={() => setGender("male")}>♂</button>
+                    <button type="button" className={`flex-1 py-1.5 text-xs font-medium transition rounded-sm ${gender === "female" ? "bg-gold text-void" : "bg-gold/[0.04] text-ink-muted hover:text-ink hover:bg-gold/[0.06]"}`} onClick={() => setGender("female")}>♀</button>
+                    <button type="button" className={`flex-1 py-1.5 text-xs font-medium transition rounded-sm ${gender === "male" ? "bg-gold text-void" : "bg-gold/[0.04] text-ink-muted hover:text-ink hover:bg-gold/[0.06]"}`} onClick={() => setGender("male")}>♂</button>
                   </div>
                 </div>
               </div>

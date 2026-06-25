@@ -105,7 +105,7 @@ export function CompatibilityCheck() {
               className={`flex-1 py-2.5 rounded-sm text-xs border transition-colors ${
                 gender === "male"
                   ? "bg-gold text-void border-gold"
-                  : "bg-gold/[0.02] border-gold/10 text-ink-dim"
+                  : "bg-gold/[0.04] border-gold/10 text-ink-muted hover:text-ink hover:bg-gold/[0.06]"
               }`}
             >
               Male
@@ -116,7 +116,7 @@ export function CompatibilityCheck() {
               className={`flex-1 py-2.5 rounded-sm text-xs border transition-colors ${
                 gender === "female"
                   ? "bg-gold text-void border-gold"
-                  : "bg-gold/[0.02] border-gold/10 text-ink-dim"
+                  : "bg-gold/[0.04] border-gold/10 text-ink-muted hover:text-ink hover:bg-gold/[0.06]"
               }`}
             >
               Female
