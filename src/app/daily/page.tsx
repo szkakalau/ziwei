@@ -348,6 +348,17 @@ export default function DailyPage() {
             Enter Birth Details <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
+        <div className="mt-6 text-center">
+          <button
+            onClick={async () => {
+              await fetch("/api/auth/logout", { method: "POST" });
+              window.location.reload();
+            }}
+            className="text-ink-dim text-xs hover:text-ink-muted transition-colors"
+          >
+            Not you? Log out
+          </button>
+        </div>
       </main>
     );
   }
