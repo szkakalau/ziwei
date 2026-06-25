@@ -42,6 +42,47 @@
   --background: var(--color-void);
   --foreground: var(--color-ink);
   --landing-diagonal: oklch(0.34 0.13 282 / 0.04);
+
+  /* ── Material Design 3 Semantic Tokens ── */
+  /* Role → Existing variable mapping. Replace with direct oklch() when
+     migrating fully away from legacy names. */
+  --md-sys-color-primary: var(--color-gold);
+  --md-sys-color-on-primary: var(--color-void);
+  --md-sys-color-primary-container: oklch(0.34 0.13 282 / 0.10);
+  --md-sys-color-on-primary-container: var(--color-gold);
+
+  --md-sys-color-secondary: var(--color-jade);
+  --md-sys-color-secondary-container: oklch(0.42 0.09 278 / 0.08);
+
+  --md-sys-color-error: var(--color-cinnabar);
+  --md-sys-color-error-container: oklch(0.50 0.20 24 / 0.10);
+
+  --md-sys-color-surface: var(--color-void);
+  --md-sys-color-surface-dim: oklch(0.96 0.003 92);
+  --md-sys-color-surface-bright: oklch(0.99 0.002 92);
+  --md-sys-color-surface-container-lowest: oklch(0.99 0.002 92);
+  --md-sys-color-surface-container-low: var(--color-mist);
+  --md-sys-color-surface-container: var(--color-panel);
+  --md-sys-color-surface-container-high: oklch(0.95 0.005 95);
+  --md-sys-color-surface-container-highest: oklch(0.93 0.005 95);
+
+  --md-sys-color-on-surface: var(--color-ink);
+  --md-sys-color-on-surface-variant: var(--color-ink-muted);
+  --md-sys-color-on-surface-dim: var(--color-ink-dim);
+
+  --md-sys-color-outline: oklch(0.34 0.13 282 / 0.10);
+  --md-sys-color-outline-variant: oklch(0.34 0.13 282 / 0.06);
+  --md-sys-color-outline-subtle: oklch(0.34 0.13 282 / 0.04);
+
+  /* ── MD3 Elevation (shadow) Tokens ── */
+  /* Level 0 → no shadow (flat)
+     Level 1 → cards, elevated buttons
+     Level 2 → floating action buttons, sticky headers
+     Level 3 → dialogs, sheets
+  */
+  --md-sys-elevation-1: 0 1px 3px 0 rgba(0,0,0,0.06), 0 1px 2px -1px rgba(0,0,0,0.06);
+  --md-sys-elevation-2: 0 2px 6px 2px rgba(0,0,0,0.06), 0 1px 2px 0 rgba(0,0,0,0.08);
+  --md-sys-elevation-3: 0 4px 8px 3px rgba(0,0,0,0.08), 0 1px 3px 0 rgba(0,0,0,0.08);
 }
 
 /* ── Base ── */
@@ -292,17 +333,17 @@ body::before {
     color: var(--color-ink);
   }
 
-  /* Card — white with thin indigo border, subtle shadow */
+  /* Card — white with thin indigo border, MD3 elevation-1 shadow */
   .card-cosmic {
     @apply rounded-sm border bg-white/80 backdrop-blur-sm;
     border-color: oklch(0.34 0.13 282 / 0.10);
-    box-shadow: 0 1px 3px oklch(0.15 0.01 260 / 0.04);
+    box-shadow: var(--md-sys-elevation-1);
   }
 
   .card-cosmic-highlight {
     @apply rounded-sm border bg-white/90 backdrop-blur-sm;
     border-color: oklch(0.34 0.13 282 / 0.20);
-    box-shadow: 0 2px 8px oklch(0.34 0.13 282 / 0.06);
+    box-shadow: var(--md-sys-elevation-2);
   }
 }
 

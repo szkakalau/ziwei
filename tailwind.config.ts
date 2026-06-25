@@ -151,6 +151,11 @@ const config: Config = {
         },
       },
       boxShadow: {
+        // Material Design 3 elevation tokens
+        "elevation-1": "0 1px 3px 0 rgba(0,0,0,0.06), 0 1px 2px -1px rgba(0,0,0,0.06)",
+        "elevation-2": "0 2px 6px 2px rgba(0,0,0,0.06), 0 1px 2px 0 rgba(0,0,0,0.08)",
+        "elevation-3": "0 4px 8px 3px rgba(0,0,0,0.08), 0 1px 3px 0 rgba(0,0,0,0.08)",
+        // Legacy — kept for backward compat; gradually migrate to elevation-* above
         glow: "0 0 40px -8px oklch(0.34 0.13 282 / 0.12)",
         panel:
           "0 8px 32px -12px oklch(0.15 0.01 260 / 0.08), 0 1px 2px oklch(0.15 0.01 260 / 0.04)",
