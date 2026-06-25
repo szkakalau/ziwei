@@ -256,7 +256,7 @@ body::before {
   /* Form inputs — dark text on white, indigo focus */
   .input-ink {
     @apply w-full rounded-sm border bg-white/70 px-3 py-3 font-body text-sm transition-colors;
-    border-color: oklch(0.15 0.01 260 / 0.12);
+    border-color: oklch(0.34 0.13 282 / 0.12);
     color: var(--color-ink);
   }
 
@@ -292,16 +292,16 @@ body::before {
     color: var(--color-ink);
   }
 
-  /* Card — white with thin border, subtle shadow */
+  /* Card — white with thin indigo border, subtle shadow */
   .card-cosmic {
     @apply rounded-sm border bg-white/80 backdrop-blur-sm;
-    border-color: oklch(0.15 0.01 260 / 0.06);
+    border-color: oklch(0.34 0.13 282 / 0.10);
     box-shadow: 0 1px 3px oklch(0.15 0.01 260 / 0.04);
   }
 
   .card-cosmic-highlight {
     @apply rounded-sm border bg-white/90 backdrop-blur-sm;
-    border-color: oklch(0.34 0.13 282 / 0.12);
+    border-color: oklch(0.34 0.13 282 / 0.20);
     box-shadow: 0 2px 8px oklch(0.34 0.13 282 / 0.06);
   }
 }

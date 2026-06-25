@@ -31,7 +31,7 @@ export default function SeeWhatYouGet() {
       <div className="relative mx-auto max-w-6xl">
         {/* Header */}
         <div className="text-center">
-          <div className="inline-flex items-center gap-2 rounded-full border border-white/[0.08] bg-white/[0.03] px-4 py-1.5 backdrop-blur-sm">
+          <div className="inline-flex items-center gap-2 rounded-full border border-gold/10 bg-white/[0.03] px-4 py-1.5 backdrop-blur-sm">
             <Bell className="h-3.5 w-3.5 text-gold/70" aria-hidden />
             <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-ink-dim">What You Get</span>
           </div>
@@ -53,7 +53,7 @@ export default function SeeWhatYouGet() {
           {features.map((f) => (
             <article
               key={f.label}
-              className="rounded-sm border border-white/[0.08] bg-panel/80 p-6 shadow-panel backdrop-blur-md transition-all duration-300 hover:border-gold/20"
+              className="rounded-sm border border-gold/10 bg-panel/80 p-6 shadow-panel backdrop-blur-md transition-all duration-300 hover:border-gold/20"
             >
               <span className="inline-flex h-10 w-10 items-center justify-center rounded-sm border border-gold/20 bg-gold/[0.06]">
                 <f.icon className="h-5 w-5 text-gold" aria-hidden />
@@ -66,8 +66,8 @@ export default function SeeWhatYouGet() {
 
         {/* Chart preview */}
         <div className="mt-12 sm:mt-16">
-          <article className="mx-auto max-w-2xl rounded-sm border border-white/[0.08] bg-panel/80 shadow-panel backdrop-blur-md">
-            <div className="flex items-start gap-3 border-b border-white/[0.07] px-4 py-4 sm:gap-4 sm:px-6 sm:py-5">
+          <article className="mx-auto max-w-2xl rounded-sm border border-gold/10 bg-panel/80 shadow-panel backdrop-blur-md">
+            <div className="flex items-start gap-3 border-b border-gold/[0.08] px-4 py-4 sm:gap-4 sm:px-6 sm:py-5">
               <span className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-sm border border-jade/25 bg-jade/[0.08]">
                 <Sparkles className="h-5 w-5 text-jade" aria-hidden />
               </span>
@@ -81,7 +81,7 @@ export default function SeeWhatYouGet() {
               </div>
             </div>
             <div className="p-4 sm:p-5">
-              <div className="overflow-hidden rounded-sm border border-white/[0.06] bg-void/60">
+              <div className="overflow-hidden rounded-sm border border-gold/[0.06] bg-void/60">
                 <Image
                   src="/images/destiny-chart-preview.jpg"
                   alt="Your personalized Zi Wei Dou Shu birth chart showing 12 palaces and 100+ stars"

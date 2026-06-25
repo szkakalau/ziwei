@@ -13,7 +13,7 @@ export const AccordionItem = React.forwardRef<
   <AccordionPrimitive.Item
     ref={ref}
     className={cn(
-      "rounded-sm border border-white/10 bg-panel shadow-panel backdrop-blur-sm data-[state=open]:border-gold/25",
+      "rounded-sm border border-gold/[0.08] bg-panel shadow-panel backdrop-blur-sm data-[state=open]:border-gold/25",
       className,
     )}
     {...props}

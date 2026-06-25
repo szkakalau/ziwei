@@ -540,7 +540,7 @@ export default function BirthSnapshotSection() {
   return (
     <section
       id="birth-form"
-      className="relative scroll-mt-28 border-y border-white/10 bg-gradient-to-b from-void/50 via-mist/30 to-void/40 py-20 md:py-28"
+      className="relative scroll-mt-28 border-y border-gold/[0.08] bg-gradient-to-b from-void/50 via-mist/30 to-void/40 py-20 md:py-28"
     >
       <div className="mx-auto max-w-3xl px-4 pb-24 sm:px-6">
         {!snapshot ? (
@@ -567,7 +567,7 @@ export default function BirthSnapshotSection() {
                   className={`rounded-sm border px-3 py-2 text-xs font-mono uppercase tracking-widest ${
                     step === 1
                       ? "border-gold/40 bg-white/[0.04] text-ink"
-                      : "border-white/10 text-ink-dim"
+                      : "border-gold/10 text-ink-dim"
                   }`}
                 >
                   Step 1: Birth Date
@@ -576,7 +576,7 @@ export default function BirthSnapshotSection() {
                   className={`rounded-sm border px-3 py-2 text-xs font-mono uppercase tracking-widest ${
                     step === 2
                       ? "border-gold/40 bg-white/[0.04] text-ink"
-                      : "border-white/10 text-ink-dim"
+                      : "border-gold/10 text-ink-dim"
                   }`}
                 >
                   Step 2: Birth Time
@@ -585,7 +585,7 @@ export default function BirthSnapshotSection() {
                   className={`rounded-sm border px-3 py-2 text-xs font-mono uppercase tracking-widest ${
                     step === 3
                       ? "border-gold/40 bg-white/[0.04] text-ink"
-                      : "border-white/10 text-ink-dim"
+                      : "border-gold/10 text-ink-dim"
                   }`}
                 >
                   Step 3: Birth Place
@@ -600,7 +600,7 @@ export default function BirthSnapshotSection() {
             </div>
 
             <Card className="mt-10 overflow-hidden border-gold/25 bg-void/60">
-              <CardHeader className="border-b border-white/10 bg-gradient-to-r from-void/60 via-transparent to-jade-dim/20">
+              <CardHeader className="border-b border-gold/[0.08] bg-gradient-to-r from-void/60 via-transparent to-jade-dim/20">
                 <div className="flex items-end justify-between gap-3">
                   <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-gold/90">
                     Step {step} of 3
@@ -692,7 +692,7 @@ export default function BirthSnapshotSection() {
                           className={`cursor-pointer rounded-sm border p-3 ${
                             gender === "female"
                               ? "border-gold/35 bg-white/[0.05]"
-                              : "border-white/10 bg-white/[0.02]"
+                              : "border-gold/10 bg-white/[0.02]"
                           }`}
                         >
                           <input
@@ -708,7 +708,7 @@ export default function BirthSnapshotSection() {
                           className={`cursor-pointer rounded-sm border p-3 ${
                             gender === "male"
                               ? "border-gold/35 bg-white/[0.05]"
-                              : "border-white/10 bg-white/[0.02]"
+                              : "border-gold/10 bg-white/[0.02]"
                           }`}
                         >
                           <input
@@ -740,7 +740,7 @@ export default function BirthSnapshotSection() {
 
                 {step === 2 ? (
                   <div className="space-y-4">
-                    <div className="flex items-start gap-3 rounded-sm border border-white/10 bg-white/[0.03] p-4">
+                    <div className="flex items-start gap-3 rounded-sm border border-gold/10 bg-white/[0.03] p-4">
                       <input
                         id="unknown-birth-time"
                         type="checkbox"
@@ -882,7 +882,7 @@ export default function BirthSnapshotSection() {
               </CardContent>
             </Card>
 
-            <div className="mt-6 space-y-3 rounded-sm border border-white/10 bg-void/60 p-4 backdrop-blur-sm">
+            <div className="mt-6 space-y-3 rounded-sm border border-gold/10 bg-void/60 p-4 backdrop-blur-sm">
               <p className="flex items-start gap-2 font-body text-sm text-ink-muted">
                 <span className="inline-flex shrink-0 gap-0.5 text-gold" aria-hidden>
                   {Array.from({ length: 5 }).map((_, i) => (
@@ -941,7 +941,7 @@ export default function BirthSnapshotSection() {
                 </CardHeader>
                 <CardContent className="space-y-4">
                   {structured.coreTraits.map((t) => (
-                    <div key={t.title} className="rounded-sm border border-white/10 bg-white/[0.03] p-4">
+                    <div key={t.title} className="rounded-sm border border-gold/[0.08] bg-white/[0.03] p-4">
                       <p className="font-display text-lg font-semibold text-ink">
                         {t.title}
                       </p>
@@ -959,7 +959,7 @@ export default function BirthSnapshotSection() {
                 </CardHeader>
                 <CardContent className="grid gap-4 md:grid-cols-3">
                   {structured.strengths.map((s) => (
-                    <div key={s.title} className="rounded-sm border border-white/10 bg-white/[0.03] p-4">
+                    <div key={s.title} className="rounded-sm border border-gold/[0.08] bg-white/[0.03] p-4">
                       <div className="flex items-center gap-2">
                         <s.icon className="h-4 w-4 text-gold" aria-hidden />
                         <p className="font-display text-base font-semibold text-ink">
@@ -980,7 +980,7 @@ export default function BirthSnapshotSection() {
                 </CardHeader>
                 <CardContent className="space-y-4">
                   {structured.growthAreas.map((g) => (
-                    <div key={g.title} className="rounded-sm border border-white/10 bg-white/[0.03] p-4">
+                    <div key={g.title} className="rounded-sm border border-gold/[0.08] bg-white/[0.03] p-4">
                       <p className="font-display text-lg font-semibold text-ink">
                         {g.title}
                       </p>
@@ -993,7 +993,7 @@ export default function BirthSnapshotSection() {
               </Card>
             </div>
 
-            <div className="mt-10 rounded-sm border border-white/10 bg-panel/60 p-5 backdrop-blur-sm">
+            <div className="mt-10 rounded-sm border border-gold/10 bg-panel/60 p-5 backdrop-blur-sm">
               <p className="font-body text-sm text-ink-muted">
                 Continue to your personalized email reading with human delivery in 24-48 hours
               </p>

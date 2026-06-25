@@ -43,7 +43,7 @@ const faqs = [
 
 export default function FAQ() {
   return (
-    <section className="relative overflow-hidden border-y border-white/[0.07] bg-mist/40 py-20 backdrop-blur-sm sm:py-24 md:py-32">
+    <section className="relative overflow-hidden border-y border-gold/[0.06] bg-mist/40 py-20 backdrop-blur-sm sm:py-24 md:py-32">
       {/* Decorative elements */}
       <div
         className="pointer-events-none absolute -right-20 bottom-10 h-80 w-80 rounded-full border border-jade/[0.06] bg-jade/[0.02]"
@@ -81,7 +81,7 @@ export default function FAQ() {
             <AccordionItem
               key={f.q}
               value={`item-${idx + 1}`}
-              className="rounded-sm border border-white/[0.07] bg-panel/70 px-5 backdrop-blur-sm transition-all duration-300 hover:border-white/[0.12] data-[state=open]:border-gold/[0.2] data-[state=open]:bg-panel/90"
+              className="rounded-sm border border-gold/[0.08] bg-panel/70 px-5 backdrop-blur-sm transition-all duration-300 hover:border-gold/[0.12] data-[state=open]:border-gold/25 data-[state=open]:bg-panel/90"
             >
               <AccordionTrigger className="py-5 font-body text-sm font-semibold text-ink hover:no-underline data-[state=open]:text-gold md:text-base">
                 <span className="mr-3 font-mono text-[10px] text-ink-dim">

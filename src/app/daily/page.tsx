@@ -499,7 +499,7 @@ export default function DailyPage() {
 
               {/* AI transparency + source */}
               {data.source && data.source !== "cached" && (
-                <div className="mt-6 pt-5 border-t border-black/5 flex items-center gap-2">
+                <div className="mt-6 pt-5 border-t border-gold/10 flex items-center gap-2">
                   <span className="inline-flex h-1.5 w-1.5 rounded-full bg-gold/50" aria-hidden />
                   <p className="text-ink-dim/70 text-xs">
                     {data.source === "template"
@@ -516,7 +516,7 @@ export default function DailyPage() {
               </div>
 
               {/* Yesterday feedback */}
-              <div className="mt-5 pt-4 border-t border-black/5 flex items-center gap-4">
+              <div className="mt-5 pt-4 border-t border-gold/10 flex items-center gap-4">
                 <span className="text-ink-dim/60 text-[11px]">Was yesterday&rsquo;s reading accurate?</span>
                 <button
                   className="inline-flex items-center gap-1 rounded-sm px-2 py-1 text-xs text-ink-dim/70 hover:text-jade hover:bg-jade/[0.06] transition-colors"
@@ -608,7 +608,7 @@ export default function DailyPage() {
           <div>
             <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-dim/50 mb-3 md:hidden">Explore</p>
             <div className="space-y-3 md:space-y-4">
-              <Link href="/yearly" className="flex items-center gap-3 rounded-sm border border-black/5 bg-panel/60 px-5 py-4 hover:border-gold/15 transition-colors group">
+              <Link href="/yearly" className="flex items-center gap-3 rounded-sm border border-gold/10 bg-panel/60 px-5 py-4 hover:border-gold/15 transition-colors group">
                 <Calendar className="h-5 w-5 text-gold/60 shrink-0 group-hover:text-gold/80 transition-colors" />
                 <div>
                   <p className="text-sm font-medium text-ink">Yearly Forecast</p>
@@ -616,11 +616,11 @@ export default function DailyPage() {
                 </div>
               </Link>
 
-              <div className="rounded-sm border border-black/5 bg-panel/60">
+              <div className="rounded-sm border border-gold/10 bg-panel/60">
                 <AskZiwei />
               </div>
 
-              <div className="rounded-sm border border-black/5 bg-panel/60">
+              <div className="rounded-sm border border-gold/10 bg-panel/60">
                 <CompatibilityCheck />
               </div>
             </div>

@@ -42,7 +42,7 @@ export default function FreeVsPaidTable() {
 
         <div className="mt-10 grid gap-4 sm:grid-cols-2">
           {/* Free */}
-          <div className="rounded-sm border border-white/[0.08] bg-panel/80 p-6 backdrop-blur-sm">
+          <div className="rounded-sm border border-gold/10 bg-panel/80 p-6 backdrop-blur-sm">
             <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-ink-dim">Free Snapshot</p>
             <p className="mt-2 font-display text-3xl font-semibold text-ink">$0</p>
             <ul className="mt-5 space-y-2">

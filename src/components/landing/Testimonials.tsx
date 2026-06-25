@@ -67,7 +67,7 @@ export default function Testimonials() {
       <div className="relative mx-auto max-w-6xl">
         {/* Header */}
         <div className="text-center">
-          <div className="inline-flex items-center gap-2 rounded-full border border-white/[0.08] bg-white/[0.03] px-4 py-1.5 backdrop-blur-sm">
+          <div className="inline-flex items-center gap-2 rounded-full border border-gold/10 bg-white/[0.03] px-4 py-1.5 backdrop-blur-sm">
             <Zap className="h-3.5 w-3.5 text-gold/70" aria-hidden />
             <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-ink-dim">How It Works</span>
           </div>
@@ -89,7 +89,7 @@ export default function Testimonials() {
           {steps.map((s) => (
             <article
               key={s.step}
-              className="relative flex flex-col rounded-sm border border-white/[0.08] bg-panel/80 p-6 shadow-panel backdrop-blur-md transition-all duration-300 hover:border-gold/20"
+              className="relative flex flex-col rounded-sm border border-gold/10 bg-panel/80 p-6 shadow-panel backdrop-blur-md transition-all duration-300 hover:border-gold/20"
             >
               <div className="flex items-start justify-between">
                 <span className="inline-flex h-12 w-12 items-center justify-center rounded-sm border border-gold/20 bg-gold/[0.06]">
@@ -106,7 +106,7 @@ export default function Testimonials() {
         {/* Features grid */}
         <div className="mt-20">
           <div className="text-center">
-            <div className="inline-flex items-center gap-2 rounded-full border border-white/[0.08] bg-white/[0.03] px-4 py-1.5 backdrop-blur-sm">
+            <div className="inline-flex items-center gap-2 rounded-full border border-gold/10 bg-white/[0.03] px-4 py-1.5 backdrop-blur-sm">
               <Gift className="h-3.5 w-3.5 text-gold/70" aria-hidden />
               <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-ink-dim">Everything Included</span>
             </div>
@@ -119,7 +119,7 @@ export default function Testimonials() {
             {realFeatures.map((f) => (
               <div
                 key={f.label}
-                className="flex flex-col rounded-sm border border-white/[0.07] bg-panel/60 p-5 backdrop-blur-sm transition-all duration-200 hover:border-gold/[0.15]"
+                className="flex flex-col rounded-sm border border-gold/[0.08] bg-panel/60 p-5 backdrop-blur-sm transition-all duration-200 hover:border-gold/[0.15]"
               >
                 <span className="inline-flex h-9 w-9 items-center justify-center rounded-sm border border-gold/[0.15] bg-gold/[0.04]">
                   <f.icon className="h-4 w-4 text-gold/80" aria-hidden />

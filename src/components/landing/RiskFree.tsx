@@ -50,7 +50,7 @@ export default function RiskFree() {
           {items.map((item) => (
             <div
               key={item.title}
-              className="flex flex-col items-center rounded-sm border border-white/[0.08] bg-panel/80 p-6 shadow-panel backdrop-blur-md text-center transition-all duration-300 hover:border-white/[0.14]"
+              className="flex flex-col items-center rounded-sm border border-gold/10 bg-panel/80 p-6 shadow-panel backdrop-blur-md text-center transition-all duration-300 hover:border-gold/15"
             >
               <span className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-gold/25 bg-void shadow-[0_0_20px_-4px_oklch(0.74_0.12_78/0.15)]">
                 <item.icon className="h-5 w-5 text-gold" aria-hidden />

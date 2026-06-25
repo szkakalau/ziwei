@@ -5,7 +5,7 @@
 export default function EmailReadingPreviewSample() {
   return (
     <div
-      className="max-h-[min(70vh,36rem)] overflow-y-auto overscroll-y-contain rounded-sm border border-zinc-200/80 bg-white px-4 py-5 shadow-inner sm:px-5"
+      className="max-h-[min(70vh,36rem)] overflow-y-auto overscroll-y-contain rounded-sm border border-gold/10 bg-white px-4 py-5 shadow-inner sm:px-5"
       tabIndex={0}
       role="region"
       aria-label="Sample email reading text preview"
@@ -284,7 +284,7 @@ export default function EmailReadingPreviewSample() {
           </p>
         </section>
 
-        <p className="mt-6 border-t border-zinc-200 pt-4 font-body text-xs italic leading-relaxed text-zinc-500">
+        <p className="mt-6 border-t border-gold/[0.08] pt-4 font-body text-xs italic leading-relaxed text-zinc-500">
           The above is only about 30% of the total content.
         </p>
       </article>
