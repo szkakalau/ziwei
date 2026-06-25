@@ -69,7 +69,7 @@ export default function Testimonials() {
         <div className="text-center">
           <div className="inline-flex items-center gap-2 rounded-full border border-gold/10 bg-gold/[0.03] px-4 py-1.5 backdrop-blur-sm">
             <Zap className="h-3.5 w-3.5 text-gold/70" aria-hidden />
-            <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-ink-dim">How It Works</span>
+            <span className="font-mono text-[11px] uppercase tracking-[0.25em] text-ink-dim">How It Works</span>
           </div>
           <h2 className="landing-headline mt-4 text-2xl sm:text-3xl md:text-4xl lg:text-5xl">
             From birth chart
@@ -108,7 +108,7 @@ export default function Testimonials() {
           <div className="text-center">
             <div className="inline-flex items-center gap-2 rounded-full border border-gold/10 bg-gold/[0.03] px-4 py-1.5 backdrop-blur-sm">
               <Gift className="h-3.5 w-3.5 text-gold/70" aria-hidden />
-              <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-ink-dim">Everything Included</span>
+              <span className="font-mono text-[11px] uppercase tracking-[0.25em] text-ink-dim">Everything Included</span>
             </div>
             <h3 className="mt-3 font-display text-xl font-semibold text-ink sm:text-2xl md:text-3xl">
               One subscription. Every feature.

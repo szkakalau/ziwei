@@ -30,7 +30,7 @@ export default function FreeVsPaidTable() {
         <div className="text-center">
           <div className="inline-flex items-center gap-2 rounded-full border border-gold/[0.10] bg-gold/[0.03] px-4 py-1.5 backdrop-blur-sm">
             <Sparkles className="h-3.5 w-3.5 text-gold/70" aria-hidden />
-            <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-gold/80">Pricing</span>
+            <span className="font-mono text-[11px] uppercase tracking-[0.25em] text-gold/80">Pricing</span>
           </div>
           <h2 className="landing-headline mt-4 text-2xl sm:text-3xl md:text-4xl">
             Free to start. $4.99/month to go deeper.
@@ -43,7 +43,7 @@ export default function FreeVsPaidTable() {
         <div className="mt-10 grid gap-4 sm:grid-cols-2">
           {/* Free */}
           <div className="rounded-sm border border-gold/10 bg-panel/80 p-6 backdrop-blur-sm">
-            <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-ink-dim">Free Snapshot</p>
+            <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-ink-dim">Free Snapshot</p>
             <p className="mt-2 font-display text-3xl font-semibold text-ink">$0</p>
             <ul className="mt-5 space-y-2">
               {freeFeatures.map((f) => (
@@ -58,9 +58,9 @@ export default function FreeVsPaidTable() {
           {/* Premium */}
           <div className="relative rounded-sm border border-gold/25 bg-gradient-to-br from-gold/[0.05] to-panel/80 p-6 backdrop-blur-sm">
             <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-              <span className="inline-block rounded-full border border-gold/30 bg-gold/15 px-4 py-1 font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-gold">Most Popular</span>
+              <span className="inline-block rounded-full border border-gold/30 bg-gold/15 px-4 py-1 font-mono text-[11px] font-semibold uppercase tracking-[0.2em] text-gold">Most Popular</span>
             </div>
-            <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-gold/80">Premium</p>
+            <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-gold/80">Premium</p>
             <div className="mt-2 flex items-baseline gap-1.5">
               <span className="font-display text-3xl font-semibold text-ink">$4.99</span>
               <span className="font-body text-sm text-ink-muted">/month</span>

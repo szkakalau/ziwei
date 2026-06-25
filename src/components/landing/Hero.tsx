@@ -197,7 +197,7 @@ export default function Hero() {
         {/* Pill badge */}
         <div className="inline-flex items-center gap-2 rounded-full border border-gold/[0.10] bg-gold/[0.03] px-4 py-1.5 backdrop-blur-sm">
           <Sparkles className="h-3.5 w-3.5 text-gold/70" aria-hidden />
-          <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-gold/80">1,000 years of imperial astrology &middot; now in your pocket</span>
+          <span className="font-mono text-[11px] uppercase tracking-[0.25em] text-gold/80">1,000 years of imperial astrology &middot; now in your pocket</span>
         </div>
 
         {/* Headline — centered, larger, text-driven (Ephemeris-style) */}
@@ -230,7 +230,7 @@ export default function Hero() {
           className="animate-on-load-delay-3 mt-8 mx-auto max-w-lg text-left rounded-sm border border-gold/20 bg-void/70 p-6 backdrop-blur-md sm:p-7"
               onSubmit={(e) => { e.preventDefault(); void handleSubmit(); }}
             >
-              <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-gold/70 mb-4">Your free snapshot is 30 seconds away</p>
+              <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-gold/70 mb-4">Your free snapshot is 30 seconds away</p>
 
               {/* Date row */}
               <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
@@ -271,7 +271,7 @@ export default function Hero() {
                     <Label htmlFor="hero-hour">Time</Label>
                     <label className="flex items-center gap-1.5 cursor-pointer">
                       <input type="checkbox" className="h-3 w-3 accent-gold" checked={unknownTime} onChange={(e) => { setUnknownTime(e.target.checked); if (e.target.checked) { setHour("12"); setMinute("0"); } }} />
-                      <span className="font-body text-[10px] text-ink-dim">Unknown</span>
+                      <span className="font-body text-[11px] text-ink-dim">Unknown</span>
                     </label>
                   </div>
                   <div className="mt-1 grid grid-cols-2 gap-2">

@@ -43,7 +43,7 @@ export default function LandingNavbar({ formAnchorId = "" }: Props) {
             asChild
             variant="cta"
             size="sm"
-            className="min-h-9 px-3 text-[10px] font-semibold uppercase tracking-wider sm:min-h-10 sm:px-4 sm:text-xs"
+            className="min-h-9 px-3 text-[11px] font-semibold uppercase tracking-wider sm:min-h-10 sm:px-4 sm:text-xs"
           >
             <a
               href={formAnchorId ? `#${formAnchorId}` : "/#top"}

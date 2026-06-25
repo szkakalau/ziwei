@@ -84,7 +84,7 @@ export default function FAQ() {
               className="rounded-sm border border-gold/[0.08] bg-panel/70 px-5 backdrop-blur-sm transition-all duration-300 hover:border-gold/[0.12] data-[state=open]:border-gold/25 data-[state=open]:bg-panel/90"
             >
               <AccordionTrigger className="py-5 font-body text-sm font-semibold text-ink hover:no-underline data-[state=open]:text-gold md:text-base">
-                <span className="mr-3 font-mono text-[10px] text-ink-dim">
+                <span className="mr-3 font-mono text-[11px] text-ink-dim">
                   {String(idx + 1).padStart(2, "0")}
                 </span>
                 {f.q}

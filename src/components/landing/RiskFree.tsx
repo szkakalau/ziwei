@@ -32,7 +32,7 @@ export default function RiskFree() {
         <div className="text-center">
           <div className="inline-flex items-center gap-2 rounded-full border border-jade/[0.15] bg-jade/[0.04] px-4 py-1.5 backdrop-blur-sm">
             <ShieldCheck className="h-3.5 w-3.5 text-jade/70" aria-hidden />
-            <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-jade">Risk-Free Trial</span>
+            <span className="font-mono text-[11px] uppercase tracking-[0.25em] text-jade">Risk-Free Trial</span>
           </div>
           <h2 className="landing-headline mt-4 text-2xl sm:text-3xl md:text-4xl lg:text-5xl">
             Try everything for 7 days.

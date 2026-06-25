@@ -157,7 +157,7 @@ export default function FreePersonalitySnapshot() {
               <div className="relative rounded-[0.9rem] border border-gold/[0.06] bg-void/90 px-5 py-8 sm:px-8 sm:py-10">
                 <div className="flex flex-wrap items-start justify-between gap-4 border-b border-gold/10 pb-6">
                   <div>
-                    <p className="font-mono text-[10px] uppercase tracking-widest text-gold/75">
+                    <p className="font-mono text-[11px] uppercase tracking-widest text-gold/75">
                       🔮 Snapshot · {snapshot.soulPalaceLabel}
                     </p>
                     <h3 className="mt-2 font-display text-xl font-semibold leading-snug text-ink sm:text-2xl">
@@ -170,7 +170,7 @@ export default function FreePersonalitySnapshot() {
                     ) : null}
                   </div>
                   <span
-                    className="shrink-0 rounded-full border border-gold/30 bg-gold/10 px-3 py-1 font-mono text-[10px] uppercase tracking-wider text-gold"
+                    className="shrink-0 rounded-full border border-gold/30 bg-gold/10 px-3 py-1 font-mono text-[11px] uppercase tracking-wider text-gold"
                     aria-hidden
                   >
                     Sample · ~20% shown
@@ -182,7 +182,7 @@ export default function FreePersonalitySnapshot() {
                     <h4 className="flex items-center gap-2 font-display text-lg font-semibold text-ink">
                       <span aria-hidden>✨</span> Personality
                     </h4>
-                    <p className="mt-3 whitespace-pre-line font-body text-[15px] leading-relaxed text-ink-muted">
+                    <p className="mt-3 whitespace-pre-line font-body text-base leading-relaxed text-ink-muted">
                       {snapshot.personality}
                     </p>
                   </article>
@@ -193,7 +193,7 @@ export default function FreePersonalitySnapshot() {
                     <h4 className="flex items-center gap-2 font-display text-lg font-semibold text-ink">
                       <span aria-hidden>✨</span> Hidden Strength
                     </h4>
-                    <p className="mt-3 whitespace-pre-line font-body text-[15px] leading-relaxed text-ink-muted">
+                    <p className="mt-3 whitespace-pre-line font-body text-base leading-relaxed text-ink-muted">
                       {snapshot.hiddenStrength}
                     </p>
                   </article>
@@ -204,14 +204,14 @@ export default function FreePersonalitySnapshot() {
                     <h4 className="flex items-center gap-2 font-display text-lg font-semibold text-ink">
                       <span aria-hidden>✨</span> Career Hint
                     </h4>
-                    <p className="mt-3 whitespace-pre-line font-body text-[15px] leading-relaxed text-ink-muted">
+                    <p className="mt-3 whitespace-pre-line font-body text-base leading-relaxed text-ink-muted">
                       {snapshot.careerHint}
                     </p>
                   </article>
                 </div>
 
                 <div className="mt-10 rounded-xl border border-gold/10 bg-black/40 p-5 sm:p-6">
-                  <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-ink-dim">
+                  <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-ink-dim">
                     Unlock with subscription
                   </p>
                   <ul className="mt-4 space-y-2.5 font-body text-sm text-ink-muted">
@@ -252,7 +252,7 @@ export default function FreePersonalitySnapshot() {
 
                 {/* Daily Insight CTA */}
                 <div className="mt-6 rounded-xl border border-gold/15 bg-gold/[0.02] p-5 sm:p-6">
-                  <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-amber-300/70">
+                  <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-amber-300/70">
                     🌅 Daily insight
                   </p>
                   <p className="mt-2 font-body text-sm text-ink-muted">

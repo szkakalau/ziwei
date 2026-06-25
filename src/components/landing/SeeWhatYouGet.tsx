@@ -33,7 +33,7 @@ export default function SeeWhatYouGet() {
         <div className="text-center">
           <div className="inline-flex items-center gap-2 rounded-full border border-gold/10 bg-gold/[0.03] px-4 py-1.5 backdrop-blur-sm">
             <Bell className="h-3.5 w-3.5 text-gold/70" aria-hidden />
-            <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-ink-dim">What You Get</span>
+            <span className="font-mono text-[11px] uppercase tracking-[0.25em] text-ink-dim">What You Get</span>
           </div>
           <h2 className="landing-headline mt-4 text-2xl sm:text-3xl md:text-4xl lg:text-5xl">
             One subscription.

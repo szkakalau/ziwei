@@ -26,7 +26,7 @@ export default function LandingFooter() {
               Ancient Zi Wei Dou Shu astrology, delivered with modern precision.
               Daily AI horoscopes and human-written email readings based on your unique birth chart.
             </p>
-            <p className="mt-3 font-mono text-[10px] uppercase tracking-[0.2em] text-ink-dim">
+            <p className="mt-3 font-mono text-[11px] uppercase tracking-[0.2em] text-ink-dim">
               © {new Date().getFullYear()} DestinyBlueprint.xyz. All rights reserved.
             </p>
           </div>
@@ -34,7 +34,7 @@ export default function LandingFooter() {
           {/* Links */}
           <div className="flex flex-wrap gap-x-10 gap-y-3">
             <div>
-              <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-ink-dim">Pages</p>
+              <p className="font-mono text-[11px] uppercase tracking-[0.25em] text-ink-dim">Pages</p>
               <ul className="mt-3 space-y-2">
                 {[
                   ["Home", "/#top"],
@@ -54,7 +54,7 @@ export default function LandingFooter() {
               </ul>
             </div>
             <div>
-              <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-ink-dim">Legal</p>
+              <p className="font-mono text-[11px] uppercase tracking-[0.25em] text-ink-dim">Legal</p>
               <ul className="mt-3 space-y-2">
                 {[
                   ["Privacy Policy", "/privacy"],
@@ -76,7 +76,7 @@ export default function LandingFooter() {
 
           {/* Contact */}
           <div>
-            <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-ink-dim">Get in touch</p>
+            <p className="font-mono text-[11px] uppercase tracking-[0.25em] text-ink-dim">Get in touch</p>
             <a
               href="mailto:castro.liu@me.com"
               className="mt-3 inline-flex items-center gap-2 font-body text-sm text-ink-muted transition-colors hover:text-gold"

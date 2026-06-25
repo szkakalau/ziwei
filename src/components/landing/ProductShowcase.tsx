@@ -13,7 +13,7 @@ const cards = [
         Your <span className="font-semibold text-gold">Resources & Values</span> domain is activated today. A conversation about money or direction may surface — pay attention to what people reveal. Your <span className="font-semibold text-star">Professional Life</span> domain suggests opportunity within 72 hours. Trust your instinct.
         <div className="mt-2 flex flex-wrap gap-1.5">
           {["Architect", "Stabilizer", "Executor"].map((a) => (
-            <span key={a} className="inline-flex items-center gap-1 rounded-sm border border-gold/[0.10] bg-gold/[0.04] px-2 py-0.5 font-mono text-[10px] text-gold/70">{a}</span>
+            <span key={a} className="inline-flex items-center gap-1 rounded-sm border border-gold/[0.10] bg-gold/[0.04] px-2 py-0.5 font-mono text-[11px] text-gold/70">{a}</span>
           ))}
         </div>
       </div>
@@ -52,7 +52,7 @@ export default function ProductShowcase() {
         <div className="text-center">
           <div className="inline-flex items-center gap-2 rounded-full border border-gold/[0.10] bg-gold/[0.03] px-4 py-1.5 backdrop-blur-sm">
             <Sparkles className="h-3.5 w-3.5 text-gold/70" aria-hidden />
-            <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-gold/80">What You Get</span>
+            <span className="font-mono text-[11px] uppercase tracking-[0.25em] text-gold/80">What You Get</span>
           </div>
           <h2 className="landing-headline mt-4 text-2xl sm:text-3xl md:text-4xl">
             Everything in one subscription.

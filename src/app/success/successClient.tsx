@@ -52,7 +52,7 @@ export default function SuccessClient() {
 
       <div className="relative w-full space-y-8 overflow-hidden rounded-sm border border-gold/25 bg-panel p-8 shadow-panel backdrop-blur-sm sm:p-10">
         <header className="text-center">
-          <p className="font-mono text-[10px] uppercase tracking-widest text-ink-dim">
+          <p className="font-mono text-[11px] uppercase tracking-widest text-ink-dim">
             Order confirmed
           </p>
           <h1 className="mt-2 font-display text-3xl font-semibold text-ink md:text-4xl">

@@ -394,7 +394,7 @@ export default function BirthFormModal({
                           />
                           I don&apos;t know my birth time
                         </label>
-                        <p className="font-mono text-[10px] text-ink-dim sm:text-xs">
+                        <p className="font-mono text-[11px] text-ink-dim sm:text-xs">
                           If unknown → 12:00 noon
                         </p>
                       </div>
@@ -576,10 +576,10 @@ export default function BirthFormModal({
           <div className="relative flex flex-col">
             <div className="shrink-0 border-b border-gold/10 bg-gradient-to-r from-void/50 via-transparent to-jade-dim/20 px-5 pb-4 pt-5 sm:px-6 sm:pb-5 sm:pt-6">
               <div className="flex flex-wrap items-end justify-between gap-3">
-                <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-gold/90">
+                <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-gold/90">
                   Chart Registry
                 </p>
-                <p className="font-mono text-[10px] uppercase tracking-widest text-ink-dim">
+                <p className="font-mono text-[11px] uppercase tracking-widest text-ink-dim">
                   Step 1 of 2
                 </p>
               </div>
@@ -594,7 +594,7 @@ export default function BirthFormModal({
                 <div className="h-1 min-w-[4.5rem] flex-1 max-w-[9rem] overflow-hidden rounded-full bg-white/10">
                   <div className="h-full w-1/2 origin-left bg-gradient-to-r from-jade to-gold shadow-[0_0_12px_rgba(201,167,94,0.35)]" />
                 </div>
-                <p className="font-mono text-[10px] uppercase tracking-widest text-ink-dim sm:text-xs">
+                <p className="font-mono text-[11px] uppercase tracking-widest text-ink-dim sm:text-xs">
                   ~30 sec · private
                 </p>
               </div>
@@ -634,11 +634,11 @@ export default function BirthFormModal({
                     Birth data for Zi Wei only — not stored or shared. Gregorian
                     date; lunar used in the calculation.
                   </p>
-                  <p className="mt-2 font-mono text-[10px] uppercase tracking-widest text-ink-dim sm:text-xs">
+                  <p className="mt-2 font-mono text-[11px] uppercase tracking-widest text-ink-dim sm:text-xs">
                     ~30 sec · private · free preview
                   </p>
                   <div className="mt-3 flex items-center justify-between gap-3">
-                    <p className="font-mono text-[10px] uppercase tracking-widest text-ink-dim sm:text-xs">
+                    <p className="font-mono text-[11px] uppercase tracking-widest text-ink-dim sm:text-xs">
                       Step 1 of 2
                     </p>
                     <div className="h-1 min-w-[5rem] max-w-[7rem] flex-1 overflow-hidden rounded-full bg-white/10">

@@ -148,7 +148,7 @@ export default function WhyZiWeiBetter() {
                     <span className={`inline-flex h-12 w-12 items-center justify-center rounded-sm border ${colors.border} ${colors.bg} transition-transform duration-500 group-hover:scale-110`}>
                       <c.icon className={`h-5 w-5 ${colors.icon}`} aria-hidden />
                     </span>
-                    <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-ink-dim">
+                    <span className="font-mono text-[11px] uppercase tracking-[0.3em] text-ink-dim">
                       {String(idx + 1).padStart(2, "0")}
                     </span>
                   </div>

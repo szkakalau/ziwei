@@ -226,7 +226,7 @@ export default function AuthoritySection() {
                 <h3 className="relative mt-6 font-display text-xl font-semibold leading-snug text-ink">
                   {card.title}
                 </h3>
-                <div className="relative mt-4 flex-1 text-sm sm:text-[15px]">{card.body}</div>
+                <div className="relative mt-4 flex-1 text-sm sm:text-base">{card.body}</div>
               </article>
             );
           })}

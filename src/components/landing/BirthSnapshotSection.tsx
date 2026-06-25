@@ -602,10 +602,10 @@ export default function BirthSnapshotSection() {
             <Card className="mt-10 overflow-hidden border-gold/25 bg-void/60">
               <CardHeader className="border-b border-gold/[0.08] bg-gradient-to-r from-void/60 via-transparent to-jade-dim/20">
                 <div className="flex items-end justify-between gap-3">
-                  <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-gold/90">
+                  <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-gold/90">
                     Step {step} of 3
                   </p>
-                  <p className="font-mono text-[10px] uppercase tracking-widest text-ink-dim">
+                  <p className="font-mono text-[11px] uppercase tracking-widest text-ink-dim">
                     ~60 sec · private
                   </p>
                 </div>

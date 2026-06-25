@@ -171,7 +171,7 @@ function RelatedPosts({
               href={`/blog/${p.slug}`}
               className="group block rounded-lg border border-gold/[0.06] bg-void/40 p-4 transition-all hover:border-gold/15 hover:bg-void/60"
             >
-              <span className="font-mono text-[10px] font-semibold uppercase tracking-wider text-jade">
+              <span className="font-mono text-[11px] font-semibold uppercase tracking-wider text-jade">
                 {p.category}
               </span>
               <h3 className="mt-1 font-body text-sm font-semibold text-ink group-hover:text-gold transition-colors line-clamp-2">

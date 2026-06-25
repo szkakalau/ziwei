@@ -139,7 +139,7 @@ export function BirthdaySurprise({ birthDate, streak }: BirthdaySurpriseProps) {
             </h2>
           </div>
 
-          <p className="text-ink text-[15px] leading-relaxed whitespace-pre-line mb-4">
+          <p className="text-ink text-base leading-relaxed whitespace-pre-line mb-4">
             {reading}
           </p>
 

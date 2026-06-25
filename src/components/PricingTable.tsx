@@ -26,7 +26,7 @@ export default function PricingTable() {
     <div className="mt-14 grid gap-6 lg:grid-cols-2 lg:gap-8">
       {/* Free */}
       <div className="flex min-h-0 flex-col rounded-sm border border-gold/10 bg-panel p-6 shadow-panel backdrop-blur-sm sm:p-8">
-        <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-ink-dim">
+        <p className="font-mono text-[11px] uppercase tracking-[0.25em] text-ink-dim">
           Free Snapshot
         </p>
         <p className="mt-4 font-display text-3xl font-bold text-ink sm:text-4xl">
@@ -54,12 +54,12 @@ export default function PricingTable() {
       {/* Premium */}
       <div className="relative flex min-h-0 flex-col rounded-sm border border-gold/50 bg-gradient-to-br from-gold/[0.06] via-panel to-cinnabar/[0.04] p-6 shadow-glow backdrop-blur-sm ring-1 ring-gold/30 sm:p-8">
         <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-          <span className="inline-block rounded-full border border-gold/30 bg-gold/15 px-4 py-1 font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-gold">
+          <span className="inline-block rounded-full border border-gold/30 bg-gold/15 px-4 py-1 font-mono text-[11px] font-semibold uppercase tracking-[0.2em] text-gold">
             Most Popular
           </span>
         </div>
 
-        <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-gold/80">
+        <p className="font-mono text-[11px] uppercase tracking-[0.25em] text-gold/80">
           DestinyBlueprint Premium
         </p>
         <p className="mt-4 font-display text-3xl font-bold text-ink sm:text-4xl">

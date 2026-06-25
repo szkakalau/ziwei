@@ -172,7 +172,7 @@ export default function RiskReversalSection() {
                 <h3 className="relative mt-5 font-display text-lg font-semibold leading-snug text-ink md:text-xl">
                   {card.title}
                 </h3>
-                <div className="relative mt-3 flex-1 font-body text-[15px] leading-relaxed text-ink-muted">
+                <div className="relative mt-3 flex-1 font-body text-base leading-relaxed text-ink-muted">
                   {card.body}
                 </div>
               </article>

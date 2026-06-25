@@ -136,7 +136,7 @@ export default function YearlyPage() {
             <h2 className="text-gold/80 text-sm font-semibold mb-3 tracking-wide">
               {s.heading}
             </h2>
-            <p className="text-ink text-[15px] leading-relaxed whitespace-pre-line">
+            <p className="text-ink text-base leading-relaxed whitespace-pre-line">
               {s.body}
             </p>
           </section>
@@ -151,7 +151,7 @@ export default function YearlyPage() {
         >
           ← Back to daily horoscope
         </Link>
-        <p className="text-ink-dim text-[10px] mt-4">
+        <p className="text-ink-dim text-[11px] mt-4">
           DestinyBlueprint — Zi Wei Dou Shu
         </p>
       </div>

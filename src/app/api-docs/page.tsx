@@ -67,7 +67,7 @@ export default function ApiDocsPage() {
         ].map((ep) => (
           <div key={ep.path} className="mb-4 rounded-xl bg-gold/[0.02] border border-gold/10 overflow-hidden">
             <div className="flex items-center gap-3 px-4 py-3 border-b border-gold/[0.04]">
-              <span className="text-[10px] font-bold uppercase px-2 py-0.5 rounded bg-gold/[0.06] text-gold/80">
+              <span className="text-[11px] font-bold uppercase px-2 py-0.5 rounded bg-gold/[0.06] text-gold/80">
                 {ep.method}
               </span>
               <code className="text-ink text-sm font-mono">{ep.path}</code>
@@ -76,7 +76,7 @@ export default function ApiDocsPage() {
 
             <div className="p-4 space-y-3">
               <div>
-                <p className="text-ink-dim text-[10px] uppercase tracking-wider mb-1.5">Request</p>
+                <p className="text-ink-dim text-[11px] uppercase tracking-wider mb-1.5">Request</p>
                 <div className="relative">
                   <pre className="text-ink-muted text-[11px] font-mono bg-black/30 rounded-lg p-3 overflow-x-auto">{ep.body}</pre>
                   <button
@@ -91,7 +91,7 @@ export default function ApiDocsPage() {
               </div>
 
               <div>
-                <p className="text-ink-dim text-[10px] uppercase tracking-wider mb-1.5">Response</p>
+                <p className="text-ink-dim text-[11px] uppercase tracking-wider mb-1.5">Response</p>
                 <pre className="text-ink-muted text-[11px] font-mono bg-black/30 rounded-lg p-3 overflow-x-auto">{ep.response}</pre>
               </div>
             </div>
