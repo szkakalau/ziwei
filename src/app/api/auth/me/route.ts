@@ -32,42 +32,81 @@ export async function GET() {
       try {
         const { getStripe } = await import("@/lib/stripeServer");
         const stripe = getStripe();
-        const subs = await stripe.subscriptions.list({
+
+        // Fetch ALL subscriptions for this customer — don't limit to 1.
+        // A user may have multiple subscriptions (old canceled + new active),
+        // and `limit: 1 status: "all"` might return a stale canceled one first.
+        const allSubs: Array<{
+          status: string;
+          trial_end: number | null;
+          current_period_end: number;
+          cancel_at_period_end: boolean;
+        }> = [];
+        for await (const sub of stripe.subscriptions.list({
           customer: user.stripe_customer_id,
-          limit: 1,
           status: "all",
-        });
-        const activeSub = subs.data[0];
-        if (activeSub) {
-          const { mapStripeStatus } = await import("@/lib/stripeStatus");
-          const mapped = mapStripeStatus(activeSub.status);
-          // Only update if Stripe says they have an active/trialing subscription.
-          // Don't overwrite if Stripe also says inactive — preserve "free" in that
-          // case so we don't mask a real cancellation.
+          limit: 100,
+        })) {
+          allSubs.push({
+            status: sub.status,
+            trial_end: sub.trial_end,
+            current_period_end: sub.current_period_end,
+            cancel_at_period_end: sub.cancel_at_period_end,
+          });
+        }
+
+        const { mapStripeStatus } = await import("@/lib/stripeStatus");
+        const now = Date.now() / 1000; // Stripe uses Unix seconds
+
+        // Find the BEST subscription to use:
+        // 1. Any active/trialing/past_due subscription → grant access
+        // 2. A canceled subscription where the current period hasn't ended yet
+        //    (cancel_at_period_end + current_period_end in future) → still has access
+        let bestStatus: string | null = null;
+        let bestTrialEnd: string | undefined;
+
+        for (const sub of allSubs) {
+          const mapped = mapStripeStatus(sub.status);
           if (mapped === "active" || mapped === "trial") {
-            await updateSubscription(user.id, {
-              status: mapped,
-              trialEndsAt: activeSub.trial_end
-                ? new Date(activeSub.trial_end * 1000).toISOString()
-                : undefined,
+            bestStatus = mapped;
+            bestTrialEnd = sub.trial_end
+              ? new Date(sub.trial_end * 1000).toISOString()
+              : undefined;
+            break; // Found a clearly active subscription — stop looking
+          }
+          // canceled but still within the paid-through period
+          if (
+            sub.status === "canceled" &&
+            sub.cancel_at_period_end &&
+            sub.current_period_end > now
+          ) {
+            bestStatus = "active"; // Treat as active — user has paid access
+            bestTrialEnd = undefined;
+            // Don't break — an explicit active subscription would be better
+          }
+        }
+
+        if (bestStatus) {
+          await updateSubscription(user.id, {
+            status: bestStatus,
+            trialEndsAt: bestTrialEnd,
+          });
+          // Re-read the user to get the updated value
+          const { getCurrentUser: reGetUser } = await import("@/lib/auth");
+          const refreshed = await reGetUser();
+          if (refreshed) {
+            return NextResponse.json({
+              ok: true,
+              user: {
+                id: refreshed.id,
+                email: refreshed.email,
+                birthDate: refreshed.birth_date,
+                subscriptionStatus: refreshed.subscription_status,
+                trialEndsAt: refreshed.trial_ends_at,
+                hasUsedTrial: refreshed.has_used_trial === true,
+                hasStripeId: true,
+              },
             });
-            // Re-read the user to get the updated value
-            const { getCurrentUser: reGetUser } = await import("@/lib/auth");
-            const refreshed = await reGetUser();
-            if (refreshed) {
-              return NextResponse.json({
-                ok: true,
-                user: {
-                  id: refreshed.id,
-                  email: refreshed.email,
-                  birthDate: refreshed.birth_date,
-                  subscriptionStatus: refreshed.subscription_status,
-                  trialEndsAt: refreshed.trial_ends_at,
-                  hasUsedTrial: refreshed.has_used_trial === true,
-                  hasStripeId: true,
-                },
-              });
-            }
           }
         }
       } catch {

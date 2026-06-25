@@ -87,13 +87,20 @@ export async function POST(request: Request) {
         const VALID_STATUSES = new Set(["trial", "trialing", "active", "past_due", "unpaid", "canceled", "incomplete", "incomplete_expired"]);
         const userId = obj.metadata?.userId ?? null;
         if (userId && obj.status && VALID_STATUSES.has(obj.status)) {
-          // Guard against stale events re-activating a canceled subscription:
-          // if the DB already says canceled, an out-of-order .updated retry
-          // must not flip it back to active/past_due. Only .deleted or a fresh
-          // subscription lifecycle should move it out of canceled.
+          // Guard against stale events: only reject a non-canceled update if the
+          // DB already says "canceled" AND the event is old (> 5 min). This
+          // prevents out-of-order webhook retries from re-activating a genuinely
+          // canceled subscription, while allowing legitimate re-subscriptions
+          // (which fire near-instantly) to update the DB correctly.
           const current = await sql`SELECT subscription_status FROM users WHERE id = ${userId} LIMIT 1`;
           if (current[0]?.subscription_status === "canceled" && obj.status !== "canceled") {
-            break;
+            const eventAge = (Date.now() - (obj.created as number) * 1000);
+            if (eventAge > 5 * 60 * 1000) {
+              // Event is stale (> 5 min old) — skip it to avoid race conditions
+              break;
+            }
+            // Event is fresh — this is a legitimate status change (e.g. re-subscription
+            // after cancellation). Allow it through.
           }
           const { updateSubscription } = await import("@/lib/db");
           const trialEnd = obj.trial_end
