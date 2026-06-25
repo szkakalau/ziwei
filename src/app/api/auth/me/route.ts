@@ -48,7 +48,7 @@ export async function GET() {
           limit: 100,
         })) {
           // Stripe SDK v22 types may differ; access properties dynamically
-          const s = sub as Record<string, unknown>;
+          const s = sub as unknown as Record<string, unknown>;
           allSubs.push({
             status: s.status as string,
             trial_end: (s.trial_end as number) ?? null,
