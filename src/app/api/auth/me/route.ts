@@ -8,7 +8,7 @@ export async function GET() {
     // Ensure the database schema is up to date before querying — initDatabase
     // uses IF NOT EXISTS / IF NOT EXISTS so it's idempotent and near-instant
     // when there's nothing to migrate.
-    const [{ getCurrentUser }, { initDatabase }] = await Promise.all([
+    const [{ getCurrentUser }, { initDatabase, updateSubscription }] = await Promise.all([
       import("@/lib/auth"),
       import("@/lib/db"),
     ]);
@@ -18,6 +18,63 @@ export async function GET() {
     if (!user) {
       return NextResponse.json({ ok: false, error: "NOT_AUTHENTICATED" }, { status: 401 });
     }
+
+    // If the user has a Stripe customer ID but their local status is still
+    // "free" (webhook not yet received, or webhook missed), sync from Stripe
+    // so paying users aren't locked out behind the paywall.
+    if (
+      user.subscription_status === "free" &&
+      typeof user.stripe_customer_id === "string" &&
+      user.stripe_customer_id.length > 0
+    ) {
+      try {
+        const { getStripe } = await import("@/lib/stripeServer");
+        const stripe = getStripe();
+        const subs = await stripe.subscriptions.list({
+          customer: user.stripe_customer_id,
+          limit: 1,
+          status: "all",
+        });
+        const activeSub = subs.data[0];
+        if (activeSub) {
+          const { mapStripeStatus } = await import("@/lib/stripeStatus");
+          const mapped = mapStripeStatus(activeSub.status);
+          // Only update if Stripe says they have an active/trialing subscription.
+          // Don't overwrite if Stripe also says inactive — preserve "free" in that
+          // case so we don't mask a real cancellation.
+          if (mapped === "active" || mapped === "trial") {
+            await updateSubscription(user.id, {
+              status: mapped,
+              trialEndsAt: activeSub.trial_end
+                ? new Date(activeSub.trial_end * 1000).toISOString()
+                : undefined,
+            });
+            // Re-read the user to get the updated value
+            const { getCurrentUser: reGetUser } = await import("@/lib/auth");
+            const refreshed = await reGetUser();
+            if (refreshed) {
+              return NextResponse.json({
+                ok: true,
+                user: {
+                  id: refreshed.id,
+                  email: refreshed.email,
+                  birthDate: refreshed.birth_date,
+                  subscriptionStatus: refreshed.subscription_status,
+                  trialEndsAt: refreshed.trial_ends_at,
+                  hasUsedTrial: refreshed.has_used_trial === true,
+                },
+              });
+            }
+          }
+        }
+      } catch {
+        // Stripe sync failed — don't block the user. Return whatever is in the DB
+        // and let the client show the appropriate UI. The async webhook may still
+        // catch up later.
+        console.warn("[me] Stripe sync failed for user", user.id);
+      }
+    }
+
     return NextResponse.json({
       ok: true,
       user: {
