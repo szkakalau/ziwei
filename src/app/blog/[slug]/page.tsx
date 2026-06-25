@@ -105,7 +105,7 @@ export default async function BlogPostPage({ params }: Props) {
       >
         ← Back to blog
       </Link>
-      <header className="mt-8 border-b border-white/10 pb-8">
+      <header className="mt-8 border-b border-gold/10 pb-8">
         <p className="font-mono text-xs font-semibold uppercase tracking-wider text-jade">
           {post.meta.category}
         </p>

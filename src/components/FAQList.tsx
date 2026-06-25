@@ -81,7 +81,7 @@ export default function FAQList() {
             {section.items.map((item) => (
               <details
                 key={item.q}
-                className="group rounded-sm border border-white/10 bg-panel p-4 open:border-gold/25 open:shadow-panel backdrop-blur-sm"
+                className="group rounded-sm border border-gold/10 bg-panel p-4 open:border-gold/25 open:shadow-panel backdrop-blur-sm"
               >
                 <summary className="cursor-pointer list-none font-medium text-ink after:float-right after:text-gold/70 after:content-['+'] open:after:content-['−']">
                   {item.q}

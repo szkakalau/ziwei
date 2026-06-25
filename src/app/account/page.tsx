@@ -63,8 +63,8 @@ export default function AccountPage() {
       case "trial": return { label: "Trial", color: "text-gold/80 bg-gold/[0.06] border-gold/10" };
       case "active": return { label: "Active", color: "text-emerald-300/80 bg-emerald-500/10 border-emerald-500/15" };
       case "canceled": return { label: "Canceled", color: "text-red-300/70 bg-red-500/10 border-red-500/15" };
-      case "expired": return { label: "Expired", color: "text-ink-dim bg-black/[0.03] border-black/5" };
-      default: return { label: "None", color: "text-ink-dim bg-black/[0.03] border-black/5" };
+      case "expired": return { label: "Expired", color: "text-ink-dim bg-black/[0.03] border-gold/10" };
+      default: return { label: "None", color: "text-ink-dim bg-black/[0.03] border-gold/10" };
     }
   };
 
@@ -100,7 +100,7 @@ export default function AccountPage() {
 
       <div className="md:grid md:grid-cols-2 md:gap-4">
         {/* Email */}
-        <div className="rounded-xl bg-black/[0.02] border border-black/5 p-4 mb-3 md:mb-0">
+        <div className="rounded-xl bg-black/[0.02] border border-gold/10 p-4 mb-3 md:mb-0">
         <div className="flex items-center gap-3">
           <User className="h-4 w-4 text-ink-dim" />
           <div>
@@ -111,7 +111,7 @@ export default function AccountPage() {
       </div>
 
       {/* Subscription */}
-      <div className="rounded-xl bg-black/[0.02] border border-black/5 p-4 mb-3">
+      <div className="rounded-xl bg-black/[0.02] border border-gold/10 p-4 mb-3">
         <div className="flex items-center gap-3 mb-3">
           <CreditCard className="h-4 w-4 text-ink-dim" />
           <div>
@@ -155,7 +155,7 @@ export default function AccountPage() {
 
       {/* Birth Info */}
       {info.birthDate && (
-        <div className="rounded-xl bg-black/[0.02] border border-black/5 p-4 mb-3">
+        <div className="rounded-xl bg-black/[0.02] border border-gold/10 p-4 mb-3">
           <div className="flex items-center gap-3">
             <Calendar className="h-4 w-4 text-ink-dim" />
             <div>
@@ -172,7 +172,7 @@ export default function AccountPage() {
       <button
         onClick={handleLogout}
         className="flex items-center gap-2 px-4 py-3 rounded-xl bg-black/[0.02]
-                   border border-black/5 text-ink-dim text-sm
+                   border border-gold/10 text-ink-dim text-sm
                    hover:text-red-300/70 hover:border-red-500/20 transition-colors mt-6"
       >
         <LogOut className="h-4 w-4" />

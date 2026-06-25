@@ -25,7 +25,7 @@ export default function PricingTable() {
   return (
     <div className="mt-14 grid gap-6 lg:grid-cols-2 lg:gap-8">
       {/* Free */}
-      <div className="flex min-h-0 flex-col rounded-sm border border-white/10 bg-panel p-6 shadow-panel backdrop-blur-sm sm:p-8">
+      <div className="flex min-h-0 flex-col rounded-sm border border-gold/10 bg-panel p-6 shadow-panel backdrop-blur-sm sm:p-8">
         <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-ink-dim">
           Free Snapshot
         </p>
@@ -45,7 +45,7 @@ export default function PricingTable() {
         </ul>
         <Link
           href="/#hero-form"
-          className="mt-8 inline-flex min-h-11 w-full items-center justify-center rounded-sm border border-white/[0.12] bg-white/[0.03] py-3 font-mono text-sm font-semibold uppercase tracking-wide text-ink-muted transition-all hover:border-gold/30 hover:text-ink"
+          className="mt-8 inline-flex min-h-11 w-full items-center justify-center rounded-sm border border-gold/10 bg-white/[0.03] py-3 font-mono text-sm font-semibold uppercase tracking-wide text-ink-muted transition-all hover:border-gold/30 hover:text-ink"
         >
           Get Free Snapshot
         </Link>

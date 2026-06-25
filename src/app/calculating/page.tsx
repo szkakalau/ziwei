@@ -16,7 +16,7 @@ export default function CalculatingPage() {
         className="pointer-events-none absolute inset-0 bg-grid-fine bg-grid opacity-25"
         aria-hidden
       />
-      <div className="relative w-full rounded-sm border border-white/10 bg-panel p-10 shadow-panel backdrop-blur-sm">
+      <div className="relative w-full rounded-sm border border-gold/10 bg-panel p-10 shadow-panel backdrop-blur-sm">
         <h1 className="font-display text-3xl font-semibold text-ink md:text-4xl">
           Redirecting to your email reading flow...
         </h1>

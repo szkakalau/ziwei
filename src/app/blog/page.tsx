@@ -79,7 +79,7 @@ export default async function BlogPage({ searchParams }: Props) {
           className={`rounded-sm px-4 py-1.5 font-mono text-sm font-medium uppercase tracking-wide ${
             !activeCategory
               ? "border border-gold/40 bg-cinnabar/20 text-gold"
-              : "border border-white/10 bg-void/50 text-ink-muted hover:border-gold/25 hover:text-ink"
+              : "border border-gold/10 bg-void/50 text-ink-muted hover:border-gold/25 hover:text-ink"
           }`}
         >
           All
@@ -91,7 +91,7 @@ export default async function BlogPage({ searchParams }: Props) {
             className={`rounded-sm px-4 py-1.5 font-mono text-sm font-medium ${
               activeCategory === c
                 ? "border border-gold/40 bg-cinnabar/20 text-gold"
-                : "border border-white/10 bg-void/50 text-ink-muted hover:border-gold/25 hover:text-ink"
+                : "border border-gold/10 bg-void/50 text-ink-muted hover:border-gold/25 hover:text-ink"
             }`}
           >
             {c}
@@ -102,7 +102,7 @@ export default async function BlogPage({ searchParams }: Props) {
       <ul className="mt-12 space-y-8">
         {posts.map((post) => (
           <li key={post.slug}>
-            <article className="rounded-sm border border-white/10 bg-panel p-6 shadow-panel backdrop-blur-sm transition hover:border-gold/30">
+            <article className="rounded-sm border border-gold/10 bg-panel p-6 shadow-panel backdrop-blur-sm transition hover:border-gold/30">
               <p className="font-mono text-xs font-semibold uppercase tracking-wider text-jade">
                 {post.category}
               </p>

@@ -304,12 +304,12 @@ export default function BirthFormModal({
     const fieldShell =
       variant === "inline"
         ? "rounded-sm border border-gold/15 bg-white p-3 shadow-[inset_0_1px_0_rgba(0,0,0,0.04)] backdrop-blur-sm transition-[border-color,box-shadow] duration-300 focus-within:border-gold/40 focus-within:shadow-[0_0_0_1px_rgba(55,48,163,0.14),inset_0_1px_0_rgba(0,0,0,0.06)]"
-        : "rounded-sm border border-black/8 bg-white p-3";
+        : "rounded-sm border border-gold/10 bg-white p-3";
 
     const footerShell =
       variant === "inline"
-        ? "shrink-0 space-y-2 border-t border-black/5 bg-white/90 px-4 py-4 backdrop-blur-md sm:px-5"
-        : "shrink-0 space-y-2 border-t border-white/10 bg-mist/95 px-4 py-3 backdrop-blur-md sm:px-5";
+        ? "shrink-0 space-y-2 border-t border-gold/10 bg-white/90 px-4 py-4 backdrop-blur-md sm:px-5"
+        : "shrink-0 space-y-2 border-t border-gold/10 bg-mist/95 px-4 py-3 backdrop-blur-md sm:px-5";
 
     return (
       <form onSubmit={handleSubmit} className={formClassName}>
@@ -574,7 +574,7 @@ export default function BirthFormModal({
             aria-hidden
           />
           <div className="relative flex flex-col">
-            <div className="shrink-0 border-b border-white/10 bg-gradient-to-r from-void/50 via-transparent to-jade-dim/20 px-5 pb-4 pt-5 sm:px-6 sm:pb-5 sm:pt-6">
+            <div className="shrink-0 border-b border-gold/10 bg-gradient-to-r from-void/50 via-transparent to-jade-dim/20 px-5 pb-4 pt-5 sm:px-6 sm:pb-5 sm:pt-6">
               <div className="flex flex-wrap items-end justify-between gap-3">
                 <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-gold/90">
                   Chart Registry
@@ -626,7 +626,7 @@ export default function BirthFormModal({
                 aria-hidden
               />
               <div className="relative flex min-h-0 flex-1 flex-col">
-                <div className="shrink-0 border-b border-white/10 px-4 pb-3 pt-4 sm:px-5 sm:pt-5">
+                <div className="shrink-0 border-b border-gold/10 px-4 pb-3 pt-4 sm:px-5 sm:pt-5">
                   <DialogTitle className="font-display text-xl font-semibold leading-snug text-ink sm:text-2xl">
                     Create your chart
                   </DialogTitle>

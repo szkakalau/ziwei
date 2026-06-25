@@ -31,7 +31,7 @@ export default function ApiDocsPage() {
         <p className="text-ink-dim text-xs mb-3">
           All API requests require an API key passed in the <code className="text-gold/60 bg-black/[0.04] px-1.5 py-0.5 rounded text-[11px]">X-API-Key</code> header.
         </p>
-        <div className="rounded-lg bg-black/[0.03] border border-black/5 p-3 font-mono text-xs text-ink-muted">
+        <div className="rounded-lg bg-black/[0.03] border border-gold/10 p-3 font-mono text-xs text-ink-muted">
           curl -H &quot;X-API-Key: zwds_xxxx&quot; https://api.destinyblueprint.xyz/v1/chart
         </div>
       </section>
@@ -65,8 +65,8 @@ export default function ApiDocsPage() {
             response: `{\n  "ok": true,\n  "analysis": "These charts show strong..."\n}`,
           },
         ].map((ep) => (
-          <div key={ep.path} className="mb-4 rounded-xl bg-black/[0.02] border border-black/5 overflow-hidden">
-            <div className="flex items-center gap-3 px-4 py-3 border-b border-white/[0.04]">
+          <div key={ep.path} className="mb-4 rounded-xl bg-black/[0.02] border border-gold/10 overflow-hidden">
+            <div className="flex items-center gap-3 px-4 py-3 border-b border-gold/[0.04]">
               <span className="text-[10px] font-bold uppercase px-2 py-0.5 rounded bg-gold/[0.06] text-gold/80">
                 {ep.method}
               </span>
@@ -100,7 +100,7 @@ export default function ApiDocsPage() {
       </section>
 
       {/* Rate Limits */}
-      <section className="mb-8 rounded-xl bg-black/[0.02] border border-black/5 p-5">
+      <section className="mb-8 rounded-xl bg-black/[0.02] border border-gold/10 p-5">
         <h2 className="text-ink-muted text-sm font-semibold mb-2">Rate Limits</h2>
         <div className="space-y-2 text-ink-dim text-xs">
           <p>• Free tier: 100 requests/day</p>

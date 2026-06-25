@@ -13,7 +13,7 @@ export function LanguageSwitcher() {
       <button
         onClick={() => setOpen(!open)}
         className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg
-                   bg-white/[0.03] border border-white/[0.06]
+                   bg-white/[0.03] border border-gold/[0.06]
                    text-white/40 text-xs hover:text-white/60 transition-colors"
       >
         <Globe className="h-3.5 w-3.5" />
@@ -24,7 +24,7 @@ export function LanguageSwitcher() {
         <>
           <div className="fixed inset-0 z-10" onClick={() => setOpen(false)} />
           <div className="absolute right-0 top-10 z-20 w-40 rounded-xl bg-white
-                          border border-black/5 py-1 shadow-lg">
+                          border border-gold/10 py-1 shadow-lg">
             {locales.map((l) => (
               <button
                 key={l.key}

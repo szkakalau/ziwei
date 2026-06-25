@@ -7,7 +7,7 @@ const EMAIL_SUBJECT_HINT = "We received your Zi Wei reading order";
 
 function TrustBlock() {
   return (
-    <div className="rounded-sm border border-white/10 bg-void/50 p-6 text-left shadow-inner">
+    <div className="rounded-sm border border-gold/10 bg-void/50 p-6 text-left shadow-inner">
       <h3 className="font-display text-lg font-semibold text-ink">
         What happens now?
       </h3>
@@ -94,13 +94,13 @@ export default function SuccessClient() {
           </Link>
           <Link
             href="/"
-            className="inline-flex items-center justify-center rounded-sm border border-white/10 px-6 py-3.5 text-center text-sm text-ink-muted transition hover:border-gold/20 hover:text-ink sm:text-base"
+            className="inline-flex items-center justify-center rounded-sm border border-gold/10 px-6 py-3.5 text-center text-sm text-ink-muted transition hover:border-gold/20 hover:text-ink sm:text-base"
           >
             Back to home
           </Link>
         </div>
 
-        <footer className="border-t border-white/10 pt-6 text-center">
+        <footer className="border-t border-gold/10 pt-6 text-center">
           <p className="font-body text-xs leading-relaxed text-ink-dim">
             You will receive an email titled:{" "}
             <strong className="text-ink-muted">{EMAIL_SUBJECT_HINT}</strong>

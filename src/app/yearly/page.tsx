@@ -131,7 +131,7 @@ export default function YearlyPage() {
         {sections.map((s) => (
           <section
             key={s.heading}
-            className="rounded-xl bg-black/[0.02] border border-black/5 p-5 md:p-6"
+            className="rounded-xl bg-black/[0.02] border border-gold/10 p-5 md:p-6"
           >
             <h2 className="text-gold/80 text-sm font-semibold mb-3 tracking-wide">
               {s.heading}
@@ -144,7 +144,7 @@ export default function YearlyPage() {
       </div>
 
       {/* Footer */}
-      <div className="mt-10 pt-6 border-t border-black/5 text-center">
+      <div className="mt-10 pt-6 border-t border-gold/10 text-center">
         <Link
           href="/daily"
           className="text-gold/50 text-xs hover:text-gold transition-colors"

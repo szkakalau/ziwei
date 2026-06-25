@@ -180,7 +180,7 @@ export default function AuthoritySection() {
   return (
     <section
       id="authority-zi-wei"
-      className="relative scroll-mt-28 border-y border-black/5 bg-mist/40 py-20 md:py-28"
+      className="relative scroll-mt-28 border-y border-gold/10 bg-mist/40 py-20 md:py-28"
     >
       <div
         className="pointer-events-none absolute inset-0 bg-radial-mist opacity-90"
@@ -214,7 +214,7 @@ export default function AuthoritySection() {
             return (
               <article
                 key={card.title}
-                className="group relative flex flex-col overflow-hidden rounded-xl border border-white/[0.09] bg-gradient-to-b from-mist/80 to-void/95 p-6 shadow-panel backdrop-blur-sm transition-[border-color,box-shadow] duration-300 hover:border-gold/25 hover:shadow-[0_0_40px_-12px_rgba(201,167,94,0.15)] md:p-7"
+                className="group relative flex flex-col overflow-hidden rounded-xl border border-gold/10 bg-gradient-to-b from-mist/80 to-void/95 p-6 shadow-panel backdrop-blur-sm transition-[border-color,box-shadow] duration-300 hover:border-gold/25 hover:shadow-[0_0_40px_-12px_rgba(201,167,94,0.15)] md:p-7"
               >
                 <div
                   className="pointer-events-none absolute -right-8 -top-8 h-32 w-32 rounded-full bg-cinnabar/10 blur-2xl transition-opacity group-hover:opacity-100"
@@ -253,7 +253,7 @@ export default function AuthoritySection() {
           </p>
         </div>
 
-        <div className="mx-auto mt-10 max-w-2xl rounded-xl border border-white/10 bg-void/60 px-6 py-7 text-center md:px-10 md:py-8">
+        <div className="mx-auto mt-10 max-w-2xl rounded-xl border border-gold/10 bg-void/60 px-6 py-7 text-center md:px-10 md:py-8">
           <h3 className="font-display text-lg font-semibold tracking-tight text-ink md:text-xl">
             Ancient system <span className="text-gold/95">×</span> Modern AI
           </h3>

@@ -154,7 +154,7 @@ export function PushPrompt({
 
   if (pushState === "denied") {
     return (
-      <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-black/[0.02] border border-white/[0.04]">
+      <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-black/[0.02] border border-gold/[0.04]">
         <BellOff className="h-3.5 w-3.5 text-ink-dim/60" />
         <span className="text-[11px] text-ink-dim/70">
           Notifications blocked. Enable in browser settings.

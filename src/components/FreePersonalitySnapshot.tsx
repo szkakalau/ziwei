@@ -97,7 +97,7 @@ export default function FreePersonalitySnapshot() {
   return (
     <section
       id="free-personality-snapshot"
-      className="relative scroll-mt-28 border-y border-white/10 bg-gradient-to-b from-void/40 via-mist/25 to-void/30 py-20 md:py-28"
+      className="relative scroll-mt-28 border-y border-gold/10 bg-gradient-to-b from-void/40 via-mist/25 to-void/30 py-20 md:py-28"
     >
       <div
         className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(201,84,60,0.12),transparent_50%)]"
@@ -154,8 +154,8 @@ export default function FreePersonalitySnapshot() {
                 aria-hidden
               />
 
-              <div className="relative rounded-[0.9rem] border border-white/5 bg-void/90 px-5 py-8 sm:px-8 sm:py-10">
-                <div className="flex flex-wrap items-start justify-between gap-4 border-b border-white/10 pb-6">
+              <div className="relative rounded-[0.9rem] border border-gold/[0.06] bg-void/90 px-5 py-8 sm:px-8 sm:py-10">
+                <div className="flex flex-wrap items-start justify-between gap-4 border-b border-gold/10 pb-6">
                   <div>
                     <p className="font-mono text-[10px] uppercase tracking-widest text-gold/75">
                       🔮 Snapshot · {snapshot.soulPalaceLabel}
@@ -210,7 +210,7 @@ export default function FreePersonalitySnapshot() {
                   </article>
                 </div>
 
-                <div className="mt-10 rounded-xl border border-white/10 bg-black/40 p-5 sm:p-6">
+                <div className="mt-10 rounded-xl border border-gold/10 bg-black/40 p-5 sm:p-6">
                   <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-ink-dim">
                     Unlock with subscription
                   </p>
@@ -271,13 +271,13 @@ export default function FreePersonalitySnapshot() {
                   </div>
                 </div>
 
-                <div className="mt-8 flex flex-col items-stretch gap-4 border-t border-white/10 pt-6 sm:flex-row sm:items-center sm:justify-between">
+                <div className="mt-8 flex flex-col items-stretch gap-4 border-t border-gold/10 pt-6 sm:flex-row sm:items-center sm:justify-between">
                   <p className="font-body text-sm text-ink-dim">
                     Want a different birth profile? Generate again — your snapshot updates instantly.
                   </p>
                   <BirthFormModal
                     triggerText="New birth details"
-                    triggerClassName="rounded-sm border border-white/15 bg-white/5 px-4 py-2.5 font-mono text-xs uppercase tracking-wider text-ink-muted transition-colors hover:border-gold/35 hover:text-ink"
+                    triggerClassName="rounded-sm border border-gold/15 bg-white/5 px-4 py-2.5 font-mono text-xs uppercase tracking-wider text-ink-muted transition-colors hover:border-gold/35 hover:text-ink"
                     successBehavior="callback"
                   />
                 </div>

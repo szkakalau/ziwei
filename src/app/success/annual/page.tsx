@@ -21,7 +21,7 @@ export default function AnnualSuccessPage() {
           </p>
         </header>
 
-        <div className="space-y-3 rounded-sm border border-white/10 bg-void/40 p-6 font-body text-sm text-ink-muted">
+        <div className="space-y-3 rounded-sm border border-gold/10 bg-void/40 p-6 font-body text-sm text-ink-muted">
           <p className="flex items-center gap-2">
             <span aria-hidden>🪐</span>
             <span>Reviewing your base Zi Wei chart</span>
@@ -36,7 +36,7 @@ export default function AnnualSuccessPage() {
           </p>
         </div>
 
-        <div className="rounded-sm border border-white/10 bg-void/50 p-6 text-left shadow-inner">
+        <div className="rounded-sm border border-gold/10 bg-void/50 p-6 text-left shadow-inner">
           <h3 className="font-display text-lg font-semibold text-ink">
             What happens now?
           </h3>
@@ -64,7 +64,7 @@ export default function AnnualSuccessPage() {
           </Link>
           <Link
             href="/contact"
-            className="rounded-sm border border-white/10 bg-void/40 px-6 py-3.5 text-center font-body text-sm text-ink-muted hover:bg-white/5 sm:text-base"
+            className="rounded-sm border border-gold/10 bg-void/40 px-6 py-3.5 text-center font-body text-sm text-ink-muted hover:bg-white/5 sm:text-base"
           >
             Contact support
           </Link>

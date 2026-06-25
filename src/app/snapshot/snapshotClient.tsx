@@ -351,7 +351,7 @@ export default function SnapshotClient() {
             </CardHeader>
             <CardContent className="space-y-4">
               {structured.coreTraits.map((t) => (
-                <div key={t.title} className="rounded-sm border border-white/10 bg-black/[0.03] p-4">
+                <div key={t.title} className="rounded-sm border border-gold/10 bg-black/[0.03] p-4">
                   <p className="font-display text-lg font-semibold text-ink">{t.title}</p>
                   <p className="mt-2 font-body text-sm leading-relaxed text-ink-muted">{t.body}</p>
                 </div>
@@ -365,7 +365,7 @@ export default function SnapshotClient() {
             </CardHeader>
             <CardContent className="grid gap-4 md:grid-cols-3">
               {structured.strengths.map((s) => (
-                <div key={s.title} className="rounded-sm border border-white/10 bg-black/[0.03] p-4">
+                <div key={s.title} className="rounded-sm border border-gold/10 bg-black/[0.03] p-4">
                   <div className="flex items-center gap-2">
                     <s.icon className="h-4 w-4 text-gold" aria-hidden />
                     <p className="font-display text-base font-semibold text-ink">{s.title}</p>
@@ -384,7 +384,7 @@ export default function SnapshotClient() {
             </CardHeader>
             <CardContent className="space-y-4">
               {structured.growthAreas.map((g) => (
-                <div key={g.title} className="rounded-sm border border-white/10 bg-black/[0.03] p-4">
+                <div key={g.title} className="rounded-sm border border-gold/10 bg-black/[0.03] p-4">
                   <p className="font-display text-lg font-semibold text-ink">{g.title}</p>
                   <p className="mt-2 font-body text-sm leading-relaxed text-ink-muted">{g.body}</p>
                 </div>
@@ -411,7 +411,7 @@ export default function SnapshotClient() {
                     className={`cursor-pointer rounded-sm border p-4 transition ${
                       focusArea === option.value
                         ? "border-gold/40 bg-black/[0.05]"
-                        : "border-white/10 bg-black/[0.02]"
+                        : "border-gold/10 bg-black/[0.02]"
                     }`}
                   >
                     <input
@@ -432,7 +432,7 @@ export default function SnapshotClient() {
               <Label htmlFor="consultation-question">What is your main question?</Label>
               <textarea
                 id="consultation-question"
-                className="mt-2 min-h-36 w-full rounded-sm border border-white/10 bg-black/[0.03] px-3 py-3 font-body text-sm text-ink outline-none transition placeholder:text-ink-dim focus:border-gold/35"
+                className="mt-2 min-h-36 w-full rounded-sm border border-gold/10 bg-black/[0.03] px-3 py-3 font-body text-sm text-ink outline-none transition placeholder:text-ink-dim focus:border-gold/35"
                 maxLength={500}
                 placeholder="Example: I want clarity on whether I should stay in my current job, and whether the next 6 months are better for changing direction."
                 value={question}
@@ -445,10 +445,10 @@ export default function SnapshotClient() {
           </div>
 
           <div className="mt-6 grid gap-3 sm:grid-cols-2">
-            <div className="rounded-sm border border-white/10 bg-black/[0.03] p-4 font-body text-sm text-ink-muted">
+            <div className="rounded-sm border border-gold/10 bg-black/[0.03] p-4 font-body text-sm text-ink-muted">
               Included: human-written email reading, daily AI insights, AI chat, compatibility check, yearly forecast PDF, birthday surprises, and streak tracking — all for $4.99/month.
             </div>
-            <div className="rounded-sm border border-white/10 bg-black/[0.03] p-4 font-body text-sm text-ink-muted">
+            <div className="rounded-sm border border-gold/10 bg-black/[0.03] p-4 font-body text-sm text-ink-muted">
               Risk-free: 7-day free trial. You won&apos;t be charged until the trial ends. Cancel anytime from your account page. Human reading delivered within 24-48 hours of subscribing.
             </div>
           </div>
