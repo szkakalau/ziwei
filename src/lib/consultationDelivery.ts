@@ -28,6 +28,37 @@ type ConsultationInput = {
   chartText?: string;
 };
 
+/** Deliver via Resend with automatic SMTP fallback.
+ *  Shared pattern for operator alerts and customer confirmations — avoids
+ *  duplicating the try-Resend-then-SMTP logic for each notification type. */
+async function deliverWithFallback(
+  label: string,
+  hasResend: boolean,
+  sendViaResend: () => Promise<void>,
+  sendViaSmtp: () => Promise<void>,
+): Promise<void> {
+  if (hasResend) {
+    try {
+      await sendViaResend();
+      return; // succeeded — done
+    } catch (resendErr) {
+      console.error(
+        `[consultation] Resend ${label} failed, falling back to SMTP:`,
+        resendErr instanceof Error ? resendErr.message : resendErr,
+      );
+    }
+  }
+  // SMTP fallback (or primary when Resend is not configured)
+  try {
+    await sendViaSmtp();
+  } catch (smtpErr) {
+    console.error(
+      `[consultation] SMTP ${label} also failed:`,
+      smtpErr instanceof Error ? smtpErr.message : smtpErr,
+    );
+  }
+}
+
 export async function notifyConsultationOrder(input: ConsultationInput): Promise<void> {
   const orderedAtIso = new Date().toISOString();
   const deliveryWindow = buildDeliveryWindow(orderedAtIso);
@@ -54,19 +85,35 @@ export async function notifyConsultationOrder(input: ConsultationInput): Promise
   const recipients = getOrderNotificationRecipients();
   const tasks: Promise<unknown>[] = [];
 
-  // Operator-facing order alert. Prefer Resend if configured; fall back to SMTP.
-  if (process.env.RESEND_API_KEY) {
-    const { sendConsultationOrderAlertViaResend } = await import("@/lib/resendDelivery");
-    for (const to of recipients) {
-      tasks.push(
-        sendConsultationOrderAlertViaResend({ to, ...payload }).catch((err) =>
-          console.error("[consultation] Resend alert failed:", err),
-        ),
-      );
-    }
-    // Customer confirmation email (the success page promises this).
+  // ── Operator alert ──────────────────────────────────────────────────
+  // Try Resend first; fall back to SMTP per-recipient on failure so a
+  // single Resend outage doesn't silently drop operator notifications.
+
+  const hasResend = Boolean(process.env.RESEND_API_KEY);
+
+  for (const to of recipients) {
     tasks.push(
-      (async () => {
+      deliverWithFallback(
+        "alert",
+        hasResend,
+        async () => {
+          const { sendConsultationOrderAlertViaResend } = await import("@/lib/resendDelivery");
+          await sendConsultationOrderAlertViaResend({ to, ...payload });
+        },
+        async () => {
+          const { sendConsultationOrderAlertEmail } = await import("@/lib/email");
+          await sendConsultationOrderAlertEmail({ to, ...payload });
+        },
+      ),
+    );
+  }
+
+  // ── Customer confirmation ───────────────────────────────────────────
+  tasks.push(
+    deliverWithFallback(
+      "confirmation",
+      hasResend,
+      async () => {
         const { sendConsultationConfirmationViaResend } = await import("@/lib/resendDelivery");
         await sendConsultationConfirmationViaResend({
           to: input.customerEmail,
@@ -76,20 +123,8 @@ export async function notifyConsultationOrder(input: ConsultationInput): Promise
           birthDate: input.birthDate,
           birthTime: input.birthTime,
         });
-      })().catch((err) => console.error("[consultation] Resend confirmation failed:", err)),
-    );
-  } else {
-    const { sendConsultationOrderAlertEmail } = await import("@/lib/email");
-    for (const to of recipients) {
-      tasks.push(
-        sendConsultationOrderAlertEmail({ to, ...payload }).catch((err) =>
-          console.error("[consultation] SMTP alert failed:", err),
-        ),
-      );
-    }
-    // Customer confirmation via SMTP fallback.
-    tasks.push(
-      (async () => {
+      },
+      async () => {
         const { sendConsultationConfirmationEmail } = await import("@/lib/email");
         await sendConsultationConfirmationEmail({
           to: input.customerEmail,
@@ -99,9 +134,9 @@ export async function notifyConsultationOrder(input: ConsultationInput): Promise
           birthDate: input.birthDate,
           birthTime: input.birthTime,
         });
-      })().catch((err) => console.error("[consultation] SMTP confirmation failed:", err)),
-    );
-  }
+      },
+    ),
+  );
 
   // Ops webhook (Slack/Discord/etc.) — only if configured. Send ONLY minimal
   // order metadata: no PII (birth data, question, chart, gender). The operator

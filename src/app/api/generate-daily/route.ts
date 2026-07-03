@@ -60,7 +60,7 @@ export async function POST() {
       });
     }
   } catch {
-    // DB read failed — continue to generate fresh
+    console.warn("[generate-daily] cache read failed, generating fresh");
   }
 
   // Step 4: Build the best chart we can.
@@ -104,7 +104,7 @@ export async function POST() {
       highlightedStars: result.highlightedStars,
     });
   } catch {
-    // Cache save failed — user still gets their reading
+    console.warn("[generate-daily] cache persist failed — reading still returned");
   }
 
   // Step 7: Push notification (fire-and-forget)

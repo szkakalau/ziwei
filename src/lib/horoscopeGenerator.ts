@@ -1,5 +1,6 @@
 import type { ChartLike } from "@/lib/personalitySnapshot";
 import { getDailyTransit, type DailyTransit } from "@/lib/dailyTransit";
+import { callAiWithFallback } from "@/lib/aiProviders";
 
 
 export interface HoroscopeOutput {
@@ -52,58 +53,6 @@ Write today's Zi Wei Dou Shu horoscope in English following the system prompt fo
 }
 
 // ═══════════════════════════════════════════════════════════════════════
-// API Callers
-// ═══════════════════════════════════════════════════════════════════════
-
-async function callDeepSeek(systemPrompt: string, userPrompt: string): Promise<string> {
-  const res = await fetch("https://api.deepseek.com/chat/completions", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${process.env.DEEPSEEK_API_KEY}`,
-    },
-    body: JSON.stringify({
-      model: "deepseek-chat",
-      messages: [
-        { role: "system", content: systemPrompt },
-        { role: "user", content: userPrompt },
-      ],
-      max_tokens: 1200,
-      temperature: 0.8,
-    }),
-    signal: AbortSignal.timeout(20_000),
-  });
-
-  if (!res.ok) throw new Error(`DeepSeek returned ${res.status}`);
-  const json = await res.json();
-  return (json.choices?.[0]?.message?.content ?? "").trim();
-}
-
-async function callOpenAI(systemPrompt: string, userPrompt: string): Promise<string> {
-  const res = await fetch("https://api.openai.com/v1/chat/completions", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
-    },
-    body: JSON.stringify({
-      model: "gpt-4o-mini",
-      messages: [
-        { role: "system", content: systemPrompt },
-        { role: "user", content: userPrompt },
-      ],
-      max_tokens: 1200,
-      temperature: 0.8,
-    }),
-    signal: AbortSignal.timeout(20_000),
-  });
-
-  if (!res.ok) throw new Error(`OpenAI returned ${res.status}`);
-  const json = await res.json();
-  return (json.choices?.[0]?.message?.content ?? "").trim();
-}
-
-// ═══════════════════════════════════════════════════════════════════════
 // Template Fallback — structured, no API needed
 // ═══════════════════════════════════════════════════════════════════════
 
@@ -138,7 +87,22 @@ Today's stars remind us: flow with the opportunities, heed the cautions, and sta
 
 function validateHoroscope(text: string): string {
   const cleaned = text.trim();
-  if (cleaned.length < 80) throw new Error("Horoscope too short");
+
+  // Minimum length — rejects truncated or error-message responses.
+  if (cleaned.length < 80) {
+    console.warn("[validateHoroscope] rejected — too short (%d chars)", cleaned.length);
+    throw new Error("Horoscope too short");
+  }
+
+  // Required opening line — verifies the AI followed the system prompt.
+  // This is intentionally the ONLY structural check. Emoji markers are NOT
+  // validated here because they couple the validation to the prompt's exact
+  // phrasing. If the AI model changes its emoji style, a stricter check would
+  // silently degrade ALL horoscopes to template with zero observability.
+  if (!cleaned.startsWith("Your core guidance for today")) {
+    console.warn("[validateHoroscope] rejected — missing opening line");
+    throw new Error("Horoscope missing required opening line");
+  }
 
   const MAX_CHARS = 2000;
   if (cleaned.length <= MAX_CHARS) return cleaned;
@@ -183,13 +147,21 @@ function formatHighlightedStars(daily: DailyTransit): string[] {
 
 /**
  * Generate a daily horoscope with three-tier fallback:
- * 1. DeepSeek (primary)
- * 2. OpenAI (fallback)
+ * 1. DeepSeek (primary) via callAiWithFallback
+ * 2. OpenAI (fallback) via callAiWithFallback
  * 3. Template (guaranteed — no API, always returns valid output)
  *
  * The horoscope is now transit-driven: it uses the actual 流日四化
  * (4 daily transformation stars) computed from the day's Heavenly Stem,
  * rather than matching against the user's natal chart stars.
+ *
+ * **IMPORTANT — Caller contract:**
+ * The `userChart` parameter is intentionally IGNORED. The daily transit is
+ * computed internally via getDailyTransit(). Callers (including the cron
+ * route at src/app/api/cron/generate-daily/route.ts) may pass an empty
+ * `{ palaces: [] }` chart — this is a documented, supported usage, not an
+ * implementation detail. If this function ever starts using `userChart`,
+ * all callers that pass empty charts MUST be updated simultaneously.
  */
 export async function generateHoroscope(
   userChart: ChartLike,
@@ -198,43 +170,49 @@ export async function generateHoroscope(
   // Signature compatibility: userChart and transitSummary are kept for
   // backward compatibility with callers. The daily transit is now computed
   // internally from the current date's Heavenly Stem.
+  //
+  // Callers (e.g. cron route) depend on this behavior — see JSDoc above.
   void userChart;
   void transitSummary;
 
-  // Compute today's real 四化 transit data
-  const daily = getDailyTransit();
+  // Compute today's real 四化 transit data.
+  // Wrapped in its own try/catch so a star-name lookup failure doesn't
+  // prevent the template fallback from returning a result (P1-2).
+  let daily: DailyTransit;
+  try {
+    daily = getDailyTransit();
+  } catch (err) {
+    console.error("[generateHoroscope] getDailyTransit failed:", err instanceof Error ? err.message : err);
+    return {
+      text: "Today's horoscope is temporarily unavailable. Our star chart computation encountered an issue — please try again in a moment.",
+      highlightedStars: [],
+      transitSummary: "Unavailable",
+      source: "template",
+    };
+  }
 
   const systemPrompt = buildSystemPrompt(daily);
   const userPrompt = buildUserPrompt(daily);
 
-  // Tier 1: DeepSeek
-  if (process.env.DEEPSEEK_API_KEY) {
-    try {
-      const text = await callDeepSeek(systemPrompt, userPrompt);
-      return {
-        text: validateHoroscope(text),
-        highlightedStars: formatHighlightedStars(daily),
-        transitSummary: daily.summary,
-        source: "deepseek",
-      };
-    } catch {
-      // Fall through to OpenAI
-    }
-  }
-
-  // Tier 2: OpenAI
-  if (process.env.OPENAI_API_KEY) {
-    try {
-      const text = await callOpenAI(systemPrompt, userPrompt);
-      return {
-        text: validateHoroscope(text),
-        highlightedStars: formatHighlightedStars(daily),
-        transitSummary: daily.summary,
-        source: "openai",
-      };
-    } catch {
-      // Fall through to template
-    }
+  // Tier 1–2: AI providers via shared fallback chain (DeepSeek → OpenAI)
+  try {
+    const result = await callAiWithFallback({
+      messages: [
+        { role: "system", content: systemPrompt },
+        { role: "user", content: userPrompt },
+      ],
+      maxTokens: 1200,
+      temperature: 0.8,
+      timeoutMs: 20_000,
+    });
+    return {
+      text: validateHoroscope(result.text),
+      highlightedStars: formatHighlightedStars(daily),
+      transitSummary: daily.summary,
+      source: result.provider as "deepseek" | "openai",
+    };
+  } catch {
+    // Both AI providers unavailable — fall through to template
   }
 
   // Tier 3: Template (guaranteed)

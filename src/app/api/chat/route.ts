@@ -118,7 +118,8 @@ export async function POST(request: Request) {
     }
 
     return NextResponse.json({ ok: true, answer });
-  } catch {
+  } catch (err) {
+    console.error("[chat]", err instanceof Error ? err.stack : err);
     return NextResponse.json({ ok: false, error: "INTERNAL_ERROR" }, { status: 500 });
   }
 }

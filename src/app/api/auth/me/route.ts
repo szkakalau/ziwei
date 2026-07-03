@@ -136,9 +136,8 @@ export async function GET() {
     // Without this, a 500 is a black box — the client only sees INTERNAL_ERROR.
     console.error("[me]", err instanceof Error ? err.stack : err);
 
-    // TEMPORARY DIAGNOSTIC: include the actual error message in the response
-    // so we can see what's really happening in production.
-    const errMsg = err instanceof Error ? err.message : String(err);
+    // Error details are logged server-side via console.error above — never
+    // exposed to the client to avoid leaking stack traces / DB internals.
 
     // Distinguish infrastructure failures from unknown errors.
     // AuthError with known codes → 503 (service misconfigured / unavailable).
@@ -152,11 +151,11 @@ export async function GET() {
       const code = (err as { code: string }).code;
       if (code === "SESSION_MISCONFIGURED") {
         return NextResponse.json(
-          { ok: false, error: "AUTH_MISCONFIGURED", debug: errMsg },
+          { ok: false, error: "AUTH_MISCONFIGURED" },
           { status: 503 },
         );
       }
     }
-    return NextResponse.json({ ok: false, error: "INTERNAL_ERROR", debug: errMsg }, { status: 500 });
+    return NextResponse.json({ ok: false, error: "INTERNAL_ERROR" }, { status: 500 });
   }
 }

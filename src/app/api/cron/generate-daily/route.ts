@@ -25,7 +25,6 @@ export async function GET(request: Request) {
 
     const { generateHoroscope } = await import("@/lib/horoscopeGenerator");
     const { getDailyTransit } = await import("@/lib/dailyTransit");
-    const { computeChartFromStored } = await import("@/lib/chartCache");
     const today = new Date().toISOString().slice(0, 10);
     const daily = getDailyTransit();
 
@@ -35,19 +34,33 @@ export async function GET(request: Request) {
     const batchSize = 5;
 
     const generateForUser = async (user: (typeof users)[number]): Promise<void> => {
+      // Only generate for users who have completed birth data — skip incomplete
+      // accounts (no birth_place, no chart_data) so we don't burn LLM calls.
       if (!user.birth_place || !user.chart_data) { return; }
       const cd = user.chart_data as Record<string, unknown> | null;
       if (!cd || typeof cd !== "object" || !Array.isArray(cd.palaces)) { return; }
 
-      const bp = user.birth_place as { lat: number; lng: number; tz: string };
-      const chart = await computeChartFromStored({
-        birthDate: user.birth_date ?? "1990-01-01",
-        birthTime: user.birth_time ?? "12:00",
-        location: `${bp.lat},${bp.lng}`,
-        allowFallback: true,
-      });
+      // generateHoroscope() ignores the userChart parameter (it computes today's
+      // 四化 transit internally via getDailyTransit()). Passing a minimal dummy
+      // chart avoids N expensive iztro computations per cron run that would be
+      // thrown away immediately (P1 — performance).
+      //
+      // This dependency is documented in the generateHoroscope JSDoc.
+      const chart = { palaces: [] };
 
       const result = await generateHoroscope(chart, daily.summary);
+
+      // Runtime guard: if generateHoroscope ever starts using the chart
+      // parameter, highlightedStars may come back empty or incomplete for
+      // empty-chart callers. Detect drift before it silently degrades all cron
+      // output. Template fallback always produces exactly 4 stars.
+      if (result.highlightedStars.length !== 4) {
+        console.error(
+          "[cron] generateHoroscope returned %d highlightedStars (expected 4) for user %s — " +
+            "the contract may have changed. All cron-generated horoscopes may be degraded.",
+          result.highlightedStars.length, user.id,
+        );
+      }
 
       await upsertHoroscope({
         userId: user.id,

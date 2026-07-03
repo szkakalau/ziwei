@@ -147,6 +147,12 @@ export async function getCurrentUser() {
   return getUserById(session.userId);
 }
 
+/** Normalize email: lowercase, trim, strip + aliases to prevent trial abuse
+ *  (user+1@mail.com, user+2@mail.com, etc.). */
+function normalizeEmail(email: string): string {
+  return email.toLowerCase().trim().replace(/\+[^@]*@/, "@");
+}
+
 /** Register a new user. Returns the user or throws on duplicate email. */
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -161,8 +167,7 @@ export async function registerUser(email: string, password: string) {
     throw new AuthError("Password must include uppercase, lowercase, and a number", "WEAK_PASSWORD");
   }
 
-  // Strip + aliases to prevent trial abuse (user+1@mail.com, user+2@mail.com, etc.)
-  const normalizedEmail = email.toLowerCase().trim().replace(/\+[^@]*@/, "@");
+  const normalizedEmail = normalizeEmail(email);
   const existing = await getUserByEmail(normalizedEmail);
 
   if (existing) {
@@ -170,10 +175,26 @@ export async function registerUser(email: string, password: string) {
   }
 
   const hash = await bcrypt.hash(password, 12);
-  const user = await createUser({
-    email: normalizedEmail,
-    passwordHash: hash,
-  });
+  let user;
+  try {
+    user = await createUser({
+      email: normalizedEmail,
+      passwordHash: hash,
+    });
+  } catch (err) {
+    // Postgres unique violation (23505) — another request won the TOCTOU race
+    // between the getUserByEmail check above and this INSERT. Surface it as a
+    // proper AuthError instead of leaking the raw DB error to the client.
+    if (
+      err != null &&
+      typeof err === "object" &&
+      "code" in err &&
+      (err as { code: string }).code === "23505"
+    ) {
+      throw new AuthError("Email already registered", "DUPLICATE_EMAIL");
+    }
+    throw err;
+  }
   const session = await getSession();
   session.userId = user.id;
   await session.save();
@@ -183,7 +204,7 @@ export async function registerUser(email: string, password: string) {
 
 /** Log in an existing user. Returns the user or throws on invalid credentials. */
 export async function loginUser(email: string, password: string) {
-  const normalizedEmail = email.toLowerCase().trim().replace(/\+[^@]*@/, "@");
+  const normalizedEmail = normalizeEmail(email);
   const user = await getUserByEmail(normalizedEmail);
   if (!user) {
     // Constant-time defense: run bcrypt anyway to prevent timing-based email enumeration

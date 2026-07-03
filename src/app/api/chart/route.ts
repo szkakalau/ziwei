@@ -33,9 +33,19 @@ export async function POST(request: Request) {
       return NextResponse.json({ ok: false, error: "INVALID_CHART_DATA" }, { status: 400 });
     }
 
+    // Validate birthDate — empty strings or non-ISO dates silently corrupt the
+    // DB and break downstream consumers (daily generation, cron, etc.).
+    const birthDate = body.birthDate ?? user.birth_date ?? "";
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(birthDate)) {
+      return NextResponse.json(
+        { ok: false, error: "INVALID_BIRTH_DATE", message: "Birth date must be in YYYY-MM-DD format" },
+        { status: 400 },
+      );
+    }
+
     const { updateUserChart } = await import("@/lib/db");
     await updateUserChart(user.id, {
-      birthDate: body.birthDate ?? user.birth_date ?? "",
+      birthDate,
       birthTime: body.birthTime ?? user.birth_time ?? "12:00",
       birthPlace: body.birthPlace ?? (user.birth_place as { lat: number; lng: number; tz: string }) ?? { lat: 0, lng: 0, tz: "UTC" },
       chartData: body.chartData,

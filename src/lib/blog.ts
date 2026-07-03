@@ -40,7 +40,11 @@ export function getPostBySlug(slug: string): {
   meta: PostMeta;
   content: string;
 } | null {
-  const full = path.join(postsDir, `${slug}.mdx`);
+  // Prevent directory traversal — resolve the canonical path and verify it
+  // stays within postsDir. Slugs containing "../" or similar escape sequences
+  // are rejected before any filesystem read.
+  const full = path.resolve(postsDir, `${slug}.mdx`);
+  if (!full.startsWith(path.resolve(postsDir) + path.sep)) return null;
   if (!fs.existsSync(full)) return null;
   const raw = fs.readFileSync(full, "utf8");
   const { data, content } = matter(raw);
@@ -52,9 +56,10 @@ export function getPostBySlug(slug: string): {
 
 export function getAllPosts(): PostMeta[] {
   return getPostSlugs()
-    .map((slug) => getPostBySlug(slug)!)
+    .map((slug) => getPostBySlug(slug))
+    .filter((p): p is NonNullable<typeof p> => p !== null)
     .map((p) => p.meta)
-    .sort((a, b) => +new Date(b.date) - +new Date(a.date));
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 }
 
 export const BLOG_CATEGORIES: BlogCategory[] = [
