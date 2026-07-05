@@ -1,5 +1,6 @@
 ﻿"use client";
 
+import { Sparkles, Orbit, Sunrise } from "lucide-react";
 import BirthFormModal from "@/components/BirthFormModal";
 import { SUBSCRIPTION_PRICE_LABEL } from "@/lib/brand";
 import { CHART_SAVED_EVENT } from "@/lib/chartSavedEvent";
@@ -113,8 +114,8 @@ export default function FreePersonalitySnapshot() {
 
       <div className="relative mx-auto max-w-3xl px-6">
         <div className="text-center">
-          <p className="font-mono text-[11px] uppercase tracking-[0.25em] text-gold/90">
-            ✨ Free preview
+          <p className="font-mono text-[11px] uppercase tracking-[0.25em] text-gold/90 inline-flex items-center gap-1.5">
+            <Sparkles className="h-3.5 w-3.5" aria-hidden /> Free preview
           </p>
           <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight text-ink md:text-4xl">
             Get your FREE Personality Snapshot
@@ -157,8 +158,8 @@ export default function FreePersonalitySnapshot() {
               <div className="relative rounded-[0.9rem] bg-void/90 px-5 py-8 shadow-xs sm:px-8 sm:py-10">
                 <div className="flex flex-wrap items-start justify-between gap-4 border-b border-gold/10 pb-6">
                   <div>
-                    <p className="font-mono text-[11px] uppercase tracking-widest text-gold/75">
-                      🔮 Snapshot · {snapshot.soulPalaceLabel}
+                    <p className="font-mono text-[11px] uppercase tracking-widest text-gold/75 inline-flex items-center gap-1.5">
+                      <Orbit className="h-3.5 w-3.5" aria-hidden /> Snapshot · {snapshot.soulPalaceLabel}
                     </p>
                     <h3 className="mt-2 font-display text-xl font-semibold leading-snug text-ink sm:text-2xl">
                       Your Life Palace: Destiny &amp; Personality
@@ -180,7 +181,7 @@ export default function FreePersonalitySnapshot() {
                 <div className="mt-8 space-y-8">
                   <article>
                     <h4 className="flex items-center gap-2 font-display text-xl font-semibold text-ink">
-                      <span aria-hidden>✨</span> Personality
+                      <Sparkles className="h-5 w-5 shrink-0" aria-hidden /> Personality
                     </h4>
                     <p className="mt-3 whitespace-pre-line font-body text-base leading-relaxed text-ink-muted">
                       {snapshot.personality}
@@ -191,7 +192,7 @@ export default function FreePersonalitySnapshot() {
 
                   <article>
                     <h4 className="flex items-center gap-2 font-display text-xl font-semibold text-ink">
-                      <span aria-hidden>✨</span> Hidden Strength
+                      <Sparkles className="h-5 w-5 shrink-0" aria-hidden /> Hidden Strength
                     </h4>
                     <p className="mt-3 whitespace-pre-line font-body text-base leading-relaxed text-ink-muted">
                       {snapshot.hiddenStrength}
@@ -202,7 +203,7 @@ export default function FreePersonalitySnapshot() {
 
                   <article>
                     <h4 className="flex items-center gap-2 font-display text-xl font-semibold text-ink">
-                      <span aria-hidden>✨</span> Career Hint
+                      <Sparkles className="h-5 w-5 shrink-0" aria-hidden /> Career Hint
                     </h4>
                     <p className="mt-3 whitespace-pre-line font-body text-base leading-relaxed text-ink-muted">
                       {snapshot.careerHint}
@@ -252,8 +253,8 @@ export default function FreePersonalitySnapshot() {
 
                 {/* Daily Insight CTA */}
                 <div className="mt-6 rounded-xl border border-gold/15 bg-gold/[0.02] p-5 sm:p-6">
-                  <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-amber-300/70">
-                    🌅 Daily insight
+                  <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-amber-300/70 inline-flex items-center gap-1.5">
+                    <Sunrise className="h-3.5 w-3.5" aria-hidden /> Daily insight
                   </p>
                   <p className="mt-2 font-body text-sm text-ink-muted">
                     Get a personalized insight every morning based on your personality patterns.

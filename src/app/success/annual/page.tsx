@@ -1,3 +1,4 @@
+import { Orbit, CalendarDays, Mail } from "lucide-react";
 import Link from "next/link";
 
 export default function AnnualSuccessPage() {
@@ -14,7 +15,7 @@ export default function AnnualSuccessPage() {
             Add-on confirmed
           </p>
           <h1 className="mt-2 font-display text-3xl font-semibold text-ink md:text-4xl">
-            🔮 Annual Forecast purchased
+            Annual Forecast purchased
           </h1>
           <p className="mt-3 font-body text-base text-ink-muted md:text-lg">
             Thank you — we&apos;re preparing your 12‑month luck forecast.
@@ -23,15 +24,15 @@ export default function AnnualSuccessPage() {
 
         <div className="space-y-3 rounded-sm border border-gold/10 bg-void/40 p-6 font-body text-sm text-ink-muted">
           <p className="flex items-center gap-2">
-            <span aria-hidden>🪐</span>
+            <Orbit className="h-4 w-4 shrink-0 text-jade/60" aria-hidden />
             <span>Reviewing your base Zi Wei chart</span>
           </p>
           <p className="flex items-center gap-2">
-            <span aria-hidden>📅</span>
+            <CalendarDays className="h-4 w-4 shrink-0 text-jade/60" aria-hidden />
             <span>Generating a 12‑month timing forecast</span>
           </p>
           <p className="flex items-center gap-2">
-            <span aria-hidden>📧</span>
+            <Mail className="h-4 w-4 shrink-0 text-jade/60" aria-hidden />
             <span>Delivering to your email</span>
           </p>
         </div>

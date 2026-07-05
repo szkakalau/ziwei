@@ -1,5 +1,6 @@
 "use client";
 
+import { Orbit, ScrollText, Mail } from "lucide-react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 
@@ -24,15 +25,15 @@ function ProgressSteps() {
   return (
     <div className="space-y-3 rounded-sm border border-gold/20 bg-void/40 p-6 font-body text-sm text-ink-muted">
       <p className="flex items-center gap-2">
-        <span aria-hidden>🪐</span>
+        <Orbit className="h-4 w-4 shrink-0 text-gold/60" aria-hidden />
         <span>Reviewing your birth chart details</span>
       </p>
       <p className="flex items-center gap-2">
-        <span aria-hidden>📜</span>
+        <ScrollText className="h-4 w-4 shrink-0 text-gold/60" aria-hidden />
         <span>Preparing your personalized written reading</span>
       </p>
       <p className="flex items-center gap-2">
-        <span aria-hidden>📧</span>
+        <Mail className="h-4 w-4 shrink-0 text-gold/60" aria-hidden />
         <span>Sending your order confirmation and final reading by email</span>
       </p>
     </div>
