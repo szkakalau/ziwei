@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Fraunces, Source_Serif_4, IBM_Plex_Mono } from "next/font/google";
+import { Fira_Sans, Source_Serif_4, IBM_Plex_Mono } from "next/font/google";
 import Script from "next/script";
 import LayoutChrome from "@/components/LayoutChrome";
 import { BRAND_NAME, DEFAULT_META_DESCRIPTION, DEFAULT_SUPPORT_EMAIL } from "@/lib/brand";
@@ -7,9 +7,10 @@ import { getSiteUrl } from "@/lib/site";
 import JsonLd from "@/components/JsonLd";
 import "./globals.css";
 
-const display = Fraunces({
+const display = Fira_Sans({
   subsets: ["latin"],
   variable: "--font-display",
+  weight: ["300", "400", "500", "600", "700", "800"],
   display: "swap",
 });
 

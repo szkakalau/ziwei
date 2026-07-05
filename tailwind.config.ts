@@ -55,7 +55,7 @@ const config: Config = {
         foreground: "var(--foreground)",
       } as unknown as Record<string, string | Record<string, string>>,
       fontFamily: {
-        display: ["var(--font-display)", "Georgia", "serif"],
+        display: ["var(--font-display)", "system-ui", "sans-serif"],
         body: ["var(--font-body)", "Georgia", "serif"],
         mono: ["var(--font-mono)", "ui-monospace", "monospace"],
       },
