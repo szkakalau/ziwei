@@ -189,7 +189,7 @@ export default function Hero() {
   }, [year, month, day, hour, minute, location, gender, unknownTime, router]);
 
   return (
-    <section className="relative overflow-hidden px-5 pt-20 pb-24 sm:px-6 sm:pt-28 sm:pb-32 md:pt-36 md:pb-40">
+    <section className="hero-glow px-5 pt-20 pb-24 sm:px-6 sm:pt-28 sm:pb-32 md:pt-36 md:pb-40">
       {/* Background — deep cosmic: dark void with subtle warm core */}
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-10%,oklch(0.34_0.13_282/0.06),transparent_50%),radial-gradient(ellipse_40%_30%_at_50%_50%,oklch(0.34_0.13_282/0.03),transparent_60%)]" aria-hidden />
 

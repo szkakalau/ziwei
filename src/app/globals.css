@@ -168,6 +168,28 @@ body::before {
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.78' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
+/* ── Hero glow — radial gradient halo ── */
+.hero-glow {
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-glow::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse 50% 50% at 50% 0%, oklch(0.34 0.13 282 / 0.10) 0%, oklch(0.34 0.13 282 / 0.04) 40%, transparent 70%),
+    radial-gradient(ellipse 30% 25% at 50% 20%, oklch(0.42 0.09 278 / 0.06) 0%, transparent 60%);
+}
+
+.hero-glow > * {
+  position: relative;
+  z-index: 1;
+}
+
 /* ── Section divider — thin indigo line with central dot ── */
 .cosmic-divider {
   position: relative;
