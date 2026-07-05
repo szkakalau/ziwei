@@ -89,7 +89,7 @@ export default function Testimonials() {
           {steps.map((s) => (
             <article
               key={s.step}
-              className="relative flex flex-col rounded-sm border border-gold/10 bg-panel/80 p-6 shadow-panel backdrop-blur-md transition-all duration-300 hover:border-gold/20"
+              className="relative flex flex-col rounded-sm bg-panel/80 p-6 shadow-xs backdrop-blur-md transition-all duration-300 hover:shadow-md hover:-translate-y-px"
             >
               <div className="flex items-start justify-between">
                 <span className="inline-flex h-12 w-12 items-center justify-center rounded-sm border border-gold/20 bg-gold/[0.06]">
@@ -119,7 +119,7 @@ export default function Testimonials() {
             {realFeatures.map((f) => (
               <div
                 key={f.label}
-                className="flex flex-col rounded-sm border border-gold/[0.08] bg-panel/60 p-5 backdrop-blur-sm transition-all duration-200 hover:border-gold/[0.15]"
+                className="flex flex-col rounded-sm bg-panel/60 p-5 shadow-xs backdrop-blur-sm transition-all duration-200 hover:shadow-md hover:-translate-y-px"
               >
                 <span className="inline-flex h-9 w-9 items-center justify-center rounded-sm border border-gold/[0.15] bg-gold/[0.04]">
                   <f.icon className="h-4 w-4 text-gold/80" aria-hidden />

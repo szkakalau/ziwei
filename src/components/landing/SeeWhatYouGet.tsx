@@ -53,7 +53,7 @@ export default function SeeWhatYouGet() {
           {features.map((f) => (
             <article
               key={f.label}
-              className="rounded-sm border border-gold/10 bg-panel/80 p-6 shadow-panel backdrop-blur-md transition-all duration-300 hover:border-gold/20"
+              className="rounded-sm bg-panel/80 p-6 shadow-xs backdrop-blur-md transition-all duration-300 hover:shadow-md hover:-translate-y-px"
             >
               <span className="inline-flex h-10 w-10 items-center justify-center rounded-sm border border-gold/20 bg-gold/[0.06]">
                 <f.icon className="h-5 w-5 text-gold" aria-hidden />
@@ -66,7 +66,7 @@ export default function SeeWhatYouGet() {
 
         {/* Chart preview */}
         <div className="mt-12 sm:mt-16">
-          <article className="mx-auto max-w-2xl rounded-sm border border-gold/10 bg-panel/80 shadow-panel backdrop-blur-md">
+          <article className="mx-auto max-w-2xl rounded-sm bg-panel/80 shadow-xs backdrop-blur-md transition-all duration-300 hover:shadow-md hover:-translate-y-px">
             <div className="flex items-start gap-3 border-b border-gold/[0.08] px-4 py-4 sm:gap-4 sm:px-6 sm:py-5">
               <span className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-sm border border-jade/25 bg-jade/[0.08]">
                 <Sparkles className="h-5 w-5 text-jade" aria-hidden />

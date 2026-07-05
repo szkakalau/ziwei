@@ -151,6 +151,10 @@ const config: Config = {
         },
       },
       boxShadow: {
+        // Shadow scale — border-free card upgrade
+        "xs": "0 1px 2px 0 oklch(0.14 0.01 265 / 0.04), 0 1px 3px 0 oklch(0.14 0.01 265 / 0.03)",
+        "sm": "0 2px 8px -2px oklch(0.14 0.01 265 / 0.06), 0 1px 3px 0 oklch(0.14 0.01 265 / 0.04)",
+        "md": "0 4px 16px -4px oklch(0.14 0.01 265 / 0.10), 0 2px 6px -2px oklch(0.14 0.01 265 / 0.06)",
         // Material Design 3 elevation tokens
         "elevation-1": "0 1px 3px 0 rgba(0,0,0,0.06), 0 1px 2px -1px rgba(0,0,0,0.06)",
         "elevation-2": "0 2px 6px 2px rgba(0,0,0,0.06), 0 1px 2px 0 rgba(0,0,0,0.08)",

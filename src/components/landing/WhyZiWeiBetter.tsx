@@ -129,7 +129,7 @@ export default function WhyZiWeiBetter() {
             return (
               <article
                 key={c.title}
-                className={`group relative rounded-sm border ${colors.border} ${colors.glow} backdrop-blur-sm transition-all duration-500`}
+                className={`group relative rounded-sm shadow-xs backdrop-blur-sm transition-all duration-500 hover:shadow-md hover:-translate-y-px`}
                 style={{
                   background: `linear-gradient(135deg, oklch(0.34 0.13 282 / 0.06) 0%, oklch(0.42 0.09 278 / 0.04) 100%)`,
                 }}
@@ -169,7 +169,7 @@ export default function WhyZiWeiBetter() {
 
         {/* Bottom insight */}
         <div className="mt-10 mx-auto max-w-2xl sm:mt-14">
-          <div className="flex items-start gap-3 rounded-sm border border-gold/10 bg-gold/[0.03] p-4 backdrop-blur-sm sm:gap-4 sm:p-5">
+          <div className="flex items-start gap-3 rounded-sm bg-gold/[0.03] p-4 shadow-xs backdrop-blur-sm transition-all duration-300 hover:shadow-md sm:gap-4 sm:p-5">
             <Binary className="mt-0.5 h-5 w-5 shrink-0 text-gold/50" aria-hidden />
             <p className="font-body text-sm leading-relaxed text-ink-muted">
               <span className="font-semibold text-ink">The math matters.</span>{" "}

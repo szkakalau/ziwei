@@ -144,7 +144,7 @@ export default function FreePersonalitySnapshot() {
 
         {snapshot ? (
           <div ref={resultRef} className="mt-14">
-            <div className="relative overflow-hidden rounded-2xl border border-gold/20 bg-white p-1 shadow-[0_8px_32px_-12px_rgba(0,0,0,0.08)]">
+            <div className="relative overflow-hidden rounded-2xl bg-white p-1 shadow-md transition-all duration-300 hover:shadow-lg">
               <div
                 className="pointer-events-none absolute -right-20 -top-20 h-56 w-56 rounded-full bg-cinnabar/20 blur-3xl"
                 aria-hidden
@@ -154,7 +154,7 @@ export default function FreePersonalitySnapshot() {
                 aria-hidden
               />
 
-              <div className="relative rounded-[0.9rem] border border-gold/[0.06] bg-void/90 px-5 py-8 sm:px-8 sm:py-10">
+              <div className="relative rounded-[0.9rem] bg-void/90 px-5 py-8 shadow-xs sm:px-8 sm:py-10">
                 <div className="flex flex-wrap items-start justify-between gap-4 border-b border-gold/10 pb-6">
                   <div>
                     <p className="font-mono text-[11px] uppercase tracking-widest text-gold/75">
