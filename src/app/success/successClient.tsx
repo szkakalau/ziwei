@@ -1,8 +1,10 @@
 "use client";
 
+import { useEffect } from "react";
 import { Orbit, ScrollText, Mail } from "lucide-react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
+import { track } from "@/lib/analytics";
 
 const EMAIL_SUBJECT_HINT = "We received your Zi Wei reading order";
 
@@ -43,6 +45,10 @@ function ProgressSteps() {
 export default function SuccessClient() {
   const sp = useSearchParams();
   const sessionId = sp.get("session_id") ?? "";
+
+  useEffect(() => {
+    track("purchase", { value: 4.99, currency: "USD" });
+  }, []);
 
   return (
     <div className="relative mx-auto flex min-h-[calc(100vh-8rem)] max-w-xl flex-col items-stretch px-6 py-16 md:max-w-3xl md:py-20">

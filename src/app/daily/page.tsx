@@ -12,6 +12,7 @@ import { BirthdaySurprise } from "@/components/BirthdaySurprise";
 import { AppNav } from "@/components/AppNav";
 import { getStarBrief } from "@/lib/zwdsKnowledge";
 import { formatStarName, getStarKeywords } from "@/lib/zwdsNaming";
+import { track } from "@/lib/analytics";
 import Link from "next/link";
 
 interface HoroscopeData {
@@ -263,6 +264,9 @@ export default function DailyPage() {
       });
       const d = await r.json();
       if (d.ok) {
+        if (mode === "register") {
+          track("registration_completed");
+        }
         window.location.reload();
       } else {
         setAuthError(d.error === "DUPLICATE_EMAIL"

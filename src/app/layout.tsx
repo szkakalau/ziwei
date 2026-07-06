@@ -82,6 +82,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const gaId = process.env.NEXT_PUBLIC_GA4_ID;
+  const rdtId = process.env.NEXT_PUBLIC_REDDIT_PIXEL_ID;
   return (
     <html lang="en-US">
       <body
@@ -103,6 +104,18 @@ export default function RootLayout({
               `}
             </Script>
           </>
+        ) : null}
+        {rdtId ? (
+          <script
+            id="reddit-pixel-init"
+            dangerouslySetInnerHTML={{
+              __html: `
+              !function(w,d){if(!w.rdt){var p=w.rdt=function(){p.sendEvent?p.sendEvent.apply(p,arguments):p.callQueue.push(arguments)};p.callQueue=[];var t=d.createElement("script");t.src="https://s.adroll.com/j/roundtrip.js";t.async=!0;var s=d.getElementsByTagName("script")[0];s.parentNode.insertBefore(t,s)}}(window,document);
+              rdt('init', '${rdtId}');
+              rdt('track', 'PageVisit');
+            `,
+            }}
+          />
         ) : null}
         {/* JSON-LD Structured Data */}
         <JsonLd
