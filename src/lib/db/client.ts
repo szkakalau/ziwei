@@ -137,6 +137,15 @@ async function migrateSchema(c: ReturnType<typeof getSql>): Promise<void> {
     CREATE INDEX IF NOT EXISTS blog_posts_topic_key_idx ON blog_posts (topic_key)
   `;
 
+  await c`
+    CREATE TABLE IF NOT EXISTS waitlist_emails (
+      id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+      email TEXT UNIQUE NOT NULL,
+      source TEXT DEFAULT 'landing',
+      created_at TIMESTAMPTZ DEFAULT now()
+    )
+  `;
+
   // Add columns to users for existing deployments (idempotent).
   // has_used_trial: prevents infinite-free-trial abuse — once a user has
   //   consumed a trial, /api/checkout rejects re-granting one.

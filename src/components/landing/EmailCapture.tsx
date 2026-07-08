@@ -2,10 +2,11 @@
 
 import { useState } from "react";
 import { Mail, ArrowRight, Check } from "lucide-react";
+import { track } from "@/lib/analytics";
 
 export default function EmailCapture() {
   const [email, setEmail] = useState("");
-  const [status, setStatus] = useState<"idle" | "submitted">("idle");
+  const [status, setStatus] = useState<"idle" | "submitted" | "sending">("idle");
   const [error, setError] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -15,11 +16,28 @@ export default function EmailCapture() {
       setError("Please enter a valid email address.");
       return;
     }
-    // Store locally — no backend endpoint for email capture yet.
-    // In production, POST to /api/waitlist or similar.
-    localStorage.setItem("db_email_capture", trimmed);
-    setStatus("submitted");
     setError(null);
+    setStatus("sending");
+
+    try {
+      const r = await fetch("/api/waitlist", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: trimmed, source: "landing_email_capture" }),
+      });
+      if (r.ok) {
+        track("waitlist_signup", { source: "landing_email_capture" });
+        localStorage.setItem("db_email_capture", trimmed);
+        setStatus("submitted");
+      } else {
+        setError("Something went wrong. Please try again.");
+        setStatus("idle");
+      }
+    } catch {
+      // Fallback: store locally if API is unreachable
+      localStorage.setItem("db_email_capture", trimmed);
+      setStatus("submitted");
+    }
   };
 
   if (status === "submitted") {

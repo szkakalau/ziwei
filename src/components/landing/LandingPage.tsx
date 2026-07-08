@@ -14,6 +14,7 @@ import RiskFree from "@/components/landing/RiskFree";
 import FAQ from "@/components/landing/FAQ";
 import LandingFooter from "@/components/landing/LandingFooter";
 import StickyUnlockBar from "@/components/landing/StickyUnlockBar";
+import EmailCapture from "@/components/landing/EmailCapture";
 
 export default function LandingPage() {
   const pathname = usePathname();
@@ -56,6 +57,9 @@ export default function LandingPage() {
 
         {/* 2. Trust bar — social proof stats */}
         <TrustBar />
+
+        {/* 2.5 Email capture — fallback for visitors not ready to enter birth data */}
+        <EmailCapture />
 
         {/* 3. Why Zi Wei Dou Shu — problem agitation + differentiation */}
         <WhyZiWeiBetter />

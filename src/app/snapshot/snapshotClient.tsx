@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Sparkles, TrendingUp, Shield, ArrowRight, Sun, Clock } from "lucide-react";
+import { Sparkles, TrendingUp, Shield, ArrowRight, Sun, Clock, X } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -222,6 +222,14 @@ export default function SnapshotClient() {
   const [checkoutError, setCheckoutError] = useState<string | null>(null);
   const [hasUsedTrial, setHasUsedTrial] = useState(false);
 
+  // ── Inline auth modal state ──
+  const [showAuth, setShowAuth] = useState(false);
+  const [authMode, setAuthMode] = useState<"login" | "register">("register");
+  const [authEmail, setAuthEmail] = useState("");
+  const [authPassword, setAuthPassword] = useState("");
+  const [authError, setAuthError] = useState<string | null>(null);
+  const [authPending, setAuthPending] = useState(false);
+
   const structured = useMemo(() => (snapshot ? buildStructured(snapshot) : null), [snapshot]);
   const shouldShowUnknownTimeModule = Boolean(
     birthInput?.allowFallback || meta?.isApproximate,
@@ -275,6 +283,12 @@ export default function SnapshotClient() {
           allowTrial: !hasUsedTrial,
         });
         if (!result.ok) {
+          // NOT_AUTHENTICATED: show inline auth modal instead of a dead-end error
+          if (result.message.includes("sign up or log in")) {
+            setShowAuth(true);
+            setCheckoutPending(false);
+            return;
+          }
           setCheckoutError(result.message);
           setCheckoutPending(false);
           return;
@@ -287,6 +301,42 @@ export default function SnapshotClient() {
     },
     [focusArea, question, hasUsedTrial],
   );
+
+  // ── Inline auth: login or register, then retry checkout ──
+  const handleAuth = useCallback(async () => {
+    setAuthError(null);
+    setAuthPending(true);
+    try {
+      const r = await fetch(`/api/auth/${authMode}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: authEmail.trim(), password: authPassword }),
+      });
+      const d = await r.json();
+      if (d.ok) {
+        if (authMode === "register") track("registration_completed");
+        // Refresh trial status after auth
+        const me = await fetch("/api/auth/me").then((r2) => (r2.ok ? r2.json() : null)).catch(() => null);
+        if (me?.user?.hasUsedTrial) setHasUsedTrial(true);
+        setShowAuth(false);
+        setAuthError(null);
+        // Auto-retry checkout
+        startCheckout("main");
+      } else {
+        setAuthError(
+          d.error === "DUPLICATE_EMAIL"
+            ? "Email already registered. Try logging in."
+            : d.error === "WEAK_PASSWORD"
+              ? "Password must be 10+ chars with uppercase, lowercase, and a digit."
+              : d.message || "Authentication failed",
+        );
+      }
+    } catch {
+      setAuthError("Network error. Please try again.");
+    } finally {
+      setAuthPending(false);
+    }
+  }, [authMode, authEmail, authPassword, startCheckout]);
 
   if (!birthInput || !snapshot || !structured) {
     return (
@@ -491,6 +541,74 @@ export default function SnapshotClient() {
         priceLabel={SUBSCRIPTION_PRICE_LABEL}
         error={checkoutError}
       />
+
+      {/* ── Inline Auth Modal ── */}
+      {showAuth ? (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-void/70 backdrop-blur-sm px-4" role="dialog" aria-modal="true">
+          <div className="w-full max-w-sm rounded-sm border border-gold/20 bg-panel/95 p-6 shadow-2xl">
+            <div className="flex items-center justify-between mb-5">
+              <h2 className="font-display text-lg font-semibold text-ink">
+                {authMode === "register" ? "Create your account" : "Welcome back"}
+              </h2>
+              <button
+                onClick={() => { setShowAuth(false); setAuthError(null); }}
+                className="p-1 rounded-sm text-ink-dim hover:text-ink transition-colors"
+                aria-label="Close"
+              >
+                <X className="h-4 w-4" />
+              </button>
+            </div>
+
+            <p className="mb-5 font-body text-sm text-ink-muted">
+              {authMode === "register"
+                ? "7 days free, then $4.99/month. Cancel anytime."
+                : "Log in to continue to checkout."}
+            </p>
+
+            <input
+              type="email"
+              placeholder="Email"
+              value={authEmail}
+              onChange={(e) => { setAuthEmail(e.target.value); setAuthError(null); }}
+              className="input-ink mb-3"
+              autoFocus
+            />
+            <input
+              type="password"
+              placeholder={authMode === "login" ? "Password" : "10+ chars: upper, lower, digit"}
+              value={authPassword}
+              onChange={(e) => { setAuthPassword(e.target.value); setAuthError(null); }}
+              onKeyDown={(e) => { if (e.key === "Enter") void handleAuth(); }}
+              className="input-ink mb-4"
+            />
+
+            {authError ? (
+              <p className="mb-4 font-body text-xs text-cinnabar">{authError}</p>
+            ) : null}
+
+            <button
+              onClick={() => void handleAuth()}
+              disabled={authPending}
+              className="btn-cta w-full py-3 text-sm mb-3"
+            >
+              {authPending
+                ? "Please wait…"
+                : authMode === "register"
+                  ? "Create Account & Continue"
+                  : "Log In & Continue"}
+            </button>
+
+            <button
+              onClick={() => { setAuthMode(authMode === "login" ? "register" : "login"); setAuthError(null); }}
+              className="w-full text-center text-ink-dim text-xs hover:text-ink-muted transition-colors"
+            >
+              {authMode === "register"
+                ? "Already have an account? Log in"
+                : "New here? Create an account"}
+            </button>
+          </div>
+        </div>
+      ) : null}
     </>
   );
 }
