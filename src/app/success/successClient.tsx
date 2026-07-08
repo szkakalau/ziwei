@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import { Orbit, ScrollText, Mail } from "lucide-react";
+import { Orbit, ScrollText, Mail, Sparkles } from "lucide-react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { track } from "@/lib/analytics";
@@ -81,6 +81,25 @@ export default function SuccessClient() {
 
         <TrustBlock />
 
+        {/* ── Daily horoscope entry — the user just subscribed, get them activated ── */}
+        <div className="rounded-sm border border-jade/20 bg-jade/[0.04] p-6 text-center">
+          <Sparkles className="mx-auto h-6 w-6 text-jade/80" aria-hidden />
+          <h3 className="mt-3 font-display text-xl font-semibold text-ink">
+            Your daily horoscope is ready
+          </h3>
+          <p className="mt-2 font-body text-sm text-ink-muted">
+            While you wait for your human-written reading, explore your daily
+            AI-powered Zi Wei Dou Shu horoscope — it&apos;s included in your subscription.
+          </p>
+          <Link
+            href="/daily"
+            className="mt-4 inline-flex items-center gap-2 rounded-sm bg-jade/90 text-void px-6 py-3 font-mono text-xs font-medium uppercase tracking-wider hover:bg-jade transition-colors"
+          >
+            <Sparkles className="h-4 w-4" />
+            Go to Your Daily Horoscope
+          </Link>
+        </div>
+
         <div className="space-y-2 text-center">
           <p className="font-body text-sm text-ink-muted">
             Typical delivery: <strong className="text-ink">24-48 hours</strong>{" "}
@@ -94,18 +113,27 @@ export default function SuccessClient() {
 
         <div className="flex flex-col items-stretch gap-3 sm:flex-row sm:justify-center">
           <Link
-            href="/contact"
-            className="btn-cta px-6 py-3.5 text-center text-sm sm:text-base"
+            href="/daily"
+            className="btn-cta px-6 py-3.5 text-center text-sm sm:text-base inline-flex items-center justify-center gap-2"
           >
-            Contact support →
+            <Sparkles className="h-4 w-4" />
+            Go to Your Daily Horoscope
           </Link>
           <Link
-            href="/"
+            href="/contact"
             className="inline-flex items-center justify-center rounded-sm border border-gold/10 px-6 py-3.5 text-center text-sm text-ink-muted transition hover:border-gold/20 hover:text-ink sm:text-base"
+          >
+            Contact support
+          </Link>
+        </div>
+        <p className="text-center">
+          <Link
+            href="/"
+            className="text-ink-dim text-xs hover:text-ink-muted transition-colors"
           >
             Back to home
           </Link>
-        </div>
+        </p>
 
         <footer className="border-t border-gold/10 pt-6 text-center">
           <p className="font-body text-xs leading-relaxed text-ink-dim">
