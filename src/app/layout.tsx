@@ -132,7 +132,15 @@ export default function RootLayout({
             "@type": "WebSite",
             name: BRAND_NAME,
             url: siteUrl.toString(),
+            dateModified: new Date().toISOString().slice(0, 10),
           }}
+        />
+        {/* RSS feed discovery for AI crawlers and RSS readers */}
+        <link
+          rel="alternate"
+          type="application/rss+xml"
+          title={`${BRAND_NAME} Blog`}
+          href="/rss.xml"
         />
         <LayoutChrome>{children}</LayoutChrome>
       </body>

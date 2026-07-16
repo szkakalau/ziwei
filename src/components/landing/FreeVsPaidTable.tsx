@@ -1,7 +1,7 @@
 ﻿"use client";
 
 import Link from "next/link";
-import { Check, Sparkles, ArrowRight } from "lucide-react";
+import { Check, Sparkles } from "lucide-react";
 
 const freeFeatures = [
   "Personalized birth chart (100+ patterns, 12 life domains)",
@@ -73,10 +73,11 @@ export default function FreeVsPaidTable() {
                 </li>
               ))}
             </ul>
-            <Link href="/daily" className="btn-cta mt-6 w-full">
-              Start 7-Day Free Trial
-              <ArrowRight className="h-4 w-4" aria-hidden />
-            </Link>
+            <p className="mt-6 text-center font-body text-xs text-ink-dim">
+              <Link href="/pricing" className="text-gold/70 underline-offset-2 hover:text-gold hover:underline transition-colors">
+                Learn more →
+              </Link>
+            </p>
             <p className="mt-2 text-center font-body text-xs text-ink-dim">No charge until trial ends. Cancel with one click.</p>
           </div>
         </div>

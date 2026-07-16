@@ -1,5 +1,4 @@
-﻿import { ClipboardCheck, Sparkles, Zap, Star, MessageCircle, Heart, Calendar, Gift, Flame, Mail, ArrowRight } from "lucide-react";
-import Link from "next/link";
+﻿import { ClipboardCheck, Sparkles, Zap, Star, MessageCircle, Heart, Calendar, Gift, Flame, Mail } from "lucide-react";
 
 const steps = [
   {
@@ -131,16 +130,9 @@ export default function Testimonials() {
           </div>
         </div>
 
-        {/* Bottom CTA */}
+        {/* Bottom assurance */}
         <div className="mt-16 text-center">
-          <Link
-            href="/daily"
-            className="btn-cta px-8 py-4"
-          >
-            Start 7-Day Free Trial
-            <ArrowRight className="h-4 w-4" aria-hidden />
-          </Link>
-          <p className="mt-3 font-body text-sm text-ink-dim">
+          <p className="font-body text-sm text-ink-dim">
             $4.99/month after trial. Cancel anytime.
           </p>
         </div>

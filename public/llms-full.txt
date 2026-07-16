@@ -1,0 +1,57 @@
+# DestinyBlueprint.xyz — Complete Site Guide
+
+## What is DestinyBlueprint?
+
+DestinyBlueprint.xyz is an AI-powered Zi Wei Dou Shu (紫微斗数, Purple Star Astrology) platform that generates personalized daily horoscopes based on your exact birth chart. Zi Wei Dou Shu is a classical Chinese astrological system that maps over 100 stars across 12 palaces using your birth date and time.
+
+## How It Works
+
+1. Enter your birth date, time, and place
+2. The system computes your natal chart — 12 palaces with major and minor stars
+3. Each day, AI analyzes the day's heavenly stem (日干) to determine the four transformations (四化: 化禄, 化权, 化科, 化忌)
+4. A personalized horoscope is generated highlighting which stars are activated and what it means for you
+
+## Key Features
+
+### Free Birth Chart Snapshot
+Instant birth chart computation without signup. See your 12 palaces, major stars, and their positions. Uses the iztro computation library for accurate ZWDS chart calculation.
+
+### Daily Horoscope
+AI-generated daily reading based on your natal chart and the day's transit stars. Includes:
+- Personalized horoscope text
+- Highlighted stars with meanings
+- Streak tracking for daily engagement
+- Push notification support via OneSignal
+- Interactive chart visualization
+
+### Compatibility Reading
+Compare two birth charts for relationship compatibility using Zi Wei Dou Shu principles. Analyzes palace interactions and star combinations between two charts.
+
+### Yearly Forecast
+Annual forecast based on yearly transits (流年) overlaid on your natal chart. Covers career, relationships, health, and fortune for the year ahead.
+
+### Email Consultation
+Human-written Zi Wei Dou Shu reading delivered in 24-48 hours. A real practitioner analyzes your chart and writes a personalized reading. 30% sample shown on the site.
+
+## Pricing
+
+One simple plan: $4.99/month with a 7-day free trial. Includes:
+- Daily AI horoscopes
+- Compatibility readings
+- Yearly forecasts
+- Email consultations
+- No upsells, no tiered pricing
+
+## Technical Details
+
+- Built with Next.js 14 App Router
+- Deployed on Vercel
+- PostgreSQL via Neon serverless
+- Zi Wei Dou Shu computation via iztro library
+- AI horoscope generation via DeepSeek (primary) with OpenAI fallback
+- Stateless authentication via iron-session
+- Stripe for subscription payments
+
+## Zi Wei Dou Shu Basics
+
+Zi Wei Dou Shu (Purple Star Astrology) uses 12 palaces (命宫, 兄弟, 夫妻, 子女, 财帛, 疾厄, 迁移, 交友, 事业, 田宅, 福德, 父母) and major stars including Zi Wei (Emperor), Tian Ji (Oracle), Tai Yang (Sun), Wu Qu (Finance), Tian Tong (Harmony), Lian Zhen (Virtue), and more. The four transformations (四化) — 化禄 (Prosperity), 化权 (Authority), 化科 (Fame), 化忌 (Obstacle) — change daily based on the heavenly stem and indicate which life areas are activated.

@@ -1,8 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { track } from "@/lib/analytics";
 import { Compass } from "lucide-react";
 
 type Props = {
@@ -40,20 +38,12 @@ export default function LandingNavbar({ formAnchorId = "" }: Props) {
           >
             Pricing
           </Link>
-          <Button
-            asChild
-            variant="cta"
-            size="sm"
-            className="min-h-9 px-3 text-[11px] font-semibold uppercase tracking-wider sm:min-h-10 sm:px-4 sm:text-xs"
+          <a
+            href={formAnchorId ? `#${formAnchorId}` : "/#top"}
+            className="font-body text-sm text-gold/70 transition-colors hover:text-gold"
           >
-            <a
-              href={formAnchorId ? `#${formAnchorId}` : "/#top"}
-              onClick={() => track("cta_nav_email_reading_click")}
-            >
-              <span className="hidden sm:inline">Get My Free Snapshot</span>
-              <span className="sm:hidden">Free Snapshot</span>
-            </a>
-          </Button>
+            Free Snapshot
+          </a>
         </nav>
       </div>
     </header>

@@ -35,10 +35,21 @@ const breadcrumbJsonLd = {
   ],
 };
 
+const personJsonLd = {
+  "@type": "Person",
+  name: "Castro Liu",
+  jobTitle: "Zi Wei Dou Shu Practitioner & Developer",
+  description:
+    "Practitioner of classical Chinese astrology with a background in software engineering. Built DestinyBlueprint to make Zi Wei Dou Shu accessible to English-speaking audiences through AI-assisted interpretation and open-source chart computation.",
+  url: new URL("/about", site).toString(),
+  sameAs: ["https://github.com/szkakalau"],
+};
+
 export default function AboutPage() {
   return (
     <main className="mx-auto max-w-3xl px-5 py-20 sm:px-6">
       <JsonLd data={breadcrumbJsonLd} />
+      <JsonLd data={personJsonLd} />
       <h1 className="font-display text-4xl font-semibold tracking-tight text-ink md:text-5xl">
         Our mission: make ancient astrology accessible
       </h1>
@@ -85,6 +96,31 @@ export default function AboutPage() {
           personalized to your chart — not a one-size-fits-all paragraph for
           millions of people. You also get a human-written email reading delivered
           by a trained astrologer, covering your core patterns in plain English.
+        </p>
+
+        <h2>Who built this?</h2>
+        <p>
+          DestinyBlueprint is built and maintained by <strong>Castro Liu</strong>,
+          a software engineer and practitioner of classical Chinese astrology.
+          With over a decade of software engineering experience and years of
+          studying Zi Wei Dou Shu under traditional methods, the goal is to
+          bridge the gap between rigorous chart computation and plain-English
+          interpretation — using AI to scale what was once only accessible to
+          Mandarin-speaking audiences.
+        </p>
+        <p>
+          The birth chart engine is powered by{" "}
+          <a
+            href="https://github.com/Ruoyan-Zhao/iztro"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-gold underline-offset-2 hover:underline"
+          >
+            iztro
+          </a>
+          , an open-source Zi Wei Dou Shu computation library. The AI horoscope
+          pipeline uses a multi-model fallback (DeepSeek → OpenAI → template)
+          to ensure every reading is delivered regardless of API availability.
         </p>
 
         <h2>Why Zi Wei Dou Shu instead of Western astrology?</h2>

@@ -1,23 +1,24 @@
-import Script from "next/script";
-
 type JsonLdObject = Record<string, unknown>;
 
 /**
  * Injects a JSON-LD structured data script tag.
- * Uses default afterInteractive strategy — beforeInteractive is only valid
- * in pages/_document.js and is unnecessary for JSON-LD (crawlers render JS).
+ *
+ * Uses a native <script> tag (not next/script) so the JSON-LD is server-rendered
+ * into the initial HTML. Google, Bing, and AI crawlers (ChatGPT, Perplexity,
+ * Claude) all parse structured data from static HTML — they do NOT execute
+ * client-side JavaScript, so next/script's afterInteractive hydration was
+ * invisible to them.
  */
 export default function JsonLd({ data }: { data: JsonLdObject }) {
+  const json = JSON.stringify({
+    "@context": "https://schema.org",
+    ...data,
+  });
+
   return (
-    <Script
-      id={`jsonld-${(data["@type"] as string)?.toLowerCase() ?? "generic"}`}
+    <script
       type="application/ld+json"
-      dangerouslySetInnerHTML={{
-        __html: JSON.stringify({
-          "@context": "https://schema.org",
-          ...data,
-        }),
-      }}
+      dangerouslySetInnerHTML={{ __html: json }}
     />
   );
 }

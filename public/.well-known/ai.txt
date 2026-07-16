@@ -1,0 +1,36 @@
+# AI Crawler Permissions for destinyblueprint.xyz
+# Format: https://geo-checklist.dev/ai-txt
+
+# Allow all AI crawlers to index the site
+Allow: GPTBot
+Allow: OAI-SearchBot
+Allow: ChatGPT-User
+Allow: anthropic-ai
+Allow: ClaudeBot
+Allow: Claude-SearchBot
+Allow: claude-web
+Allow: PerplexityBot
+Allow: Perplexity-User
+Allow: Google-Extended
+Allow: Google-CloudVertexBot
+Allow: Bingbot
+Allow: Applebot-Extended
+Allow: cohere-ai
+Allow: DuckAssistBot
+Allow: Bytespider
+Allow: meta-externalagent
+Allow: Meta-ExternalFetcher
+Allow: facebookexternalhit
+Allow: Amazonbot
+Allow: AI2Bot
+Allow: AI2Bot-Dolma
+Allow: xAI-Bot
+Allow: Applebot
+Allow: PetalBot
+Allow: YouBot
+
+# Site description for AI engines
+Name: DestinyBlueprint.xyz
+Type: AI-powered Zi Wei Dou Shu (Purple Star Astrology) platform
+Features: Daily horoscopes, birth chart computation, compatibility readings, yearly forecasts
+Contact: castro.liu@me.com

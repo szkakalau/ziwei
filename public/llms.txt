@@ -1,0 +1,25 @@
+# DestinyBlueprint.xyz — Zi Wei Dou Shu Daily Horoscopes
+> AI-powered daily Zi Wei Dou Shu (Purple Star Astrology) horoscopes based on your birth chart. Free birth chart snapshot, daily readings, compatibility, yearly forecasts, and human-written email consultations.
+
+## Core Pages
+- [Home](https://www.destinyblueprint.xyz): Landing page — free birth chart snapshot, AI-powered Zi Wei Dou Shu horoscope generation. Start with a free chart, then unlock daily readings.
+- [Daily Horoscope](https://www.destinyblueprint.xyz/daily): Personalized daily Zi Wei Dou Shu reading based on your exact birth chart. AI-powered with star highlights and streak tracking.
+- [Pricing](https://www.destinyblueprint.xyz/pricing): $4.99/month with 7-day free trial. One plan includes daily readings, compatibility, yearly forecasts, and email consultations.
+- [Blog](https://www.destinyblueprint.xyz/blog): Articles on Zi Wei Dou Shu (Purple Star Astrology), Chinese zodiac, five elements, love and compatibility — explained in plain English.
+
+## Readings & Tools
+- [Free Birth Chart Snapshot](https://www.destinyblueprint.xyz/#hero-form): Free birth chart computation — no signup required. See your palace positions and major stars.
+- [Compatibility Reading](https://www.destinyblueprint.xyz/compatibility): Zi Wei Dou Shu relationship compatibility analysis between two birth charts.
+- [Yearly Forecast](https://www.destinyblueprint.xyz/yearly): Annual Zi Wei Dou Shu forecast based on yearly transits and your natal chart.
+- [Email Consultation](https://www.destinyblueprint.xyz/pricing): Human-written Zi Wei Dou Shu reading delivered in 24-48 hours by a real practitioner.
+
+## Information
+- [About Zi Wei Dou Shu](https://www.destinyblueprint.xyz/about): What is Purple Star Astrology, how readings work, and who is behind DestinyBlueprint.
+- [FAQ](https://www.destinyblueprint.xyz/faq): Frequently asked questions about Zi Wei Dou Shu readings, accuracy, privacy, and subscriptions.
+- [API Documentation](https://www.destinyblueprint.xyz/api-docs): Developer API for birth chart computation and horoscope generation.
+- [Contact](https://www.destinyblueprint.xyz/contact): Get in touch with the DestinyBlueprint team.
+
+## Optional
+- [Affiliate Program](https://www.destinyblueprint.xyz/affiliate): Earn commissions by referring users to DestinyBlueprint.
+- [Privacy Policy](https://www.destinyblueprint.xyz/privacy): How we handle your birth data and personal information.
+- [Terms of Service](https://www.destinyblueprint.xyz/terms): Terms and conditions for using DestinyBlueprint services.
