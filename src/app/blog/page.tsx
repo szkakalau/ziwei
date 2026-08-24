@@ -12,13 +12,13 @@ import JsonLd from "@/components/JsonLd";
 const site = getSiteUrl();
 
 export const metadata: Metadata = {
-  title: "Blog",
+  title: "Zi Wei Dou Shu Blog",
   description:
     "Articles on Zi Wei Dou Shu (Purple Star astrology), the Chinese zodiac, five elements, love and compatibility—explained in plain English.",
   alternates: { canonical: new URL("/blog", site).toString() },
   openGraph: {
     type: "website",
-    title: `Blog | ${BRAND_NAME}`,
+    title: `Zi Wei Dou Shu Blog | ${BRAND_NAME}`,
     description:
       "Articles on Zi Wei Dou Shu (Purple Star astrology), the Chinese zodiac, five elements, love and compatibility—explained in plain English.",
     url: new URL("/blog", site),

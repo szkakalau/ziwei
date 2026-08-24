@@ -5,12 +5,12 @@ import { getSiteUrl } from "@/lib/site";
 const site = getSiteUrl();
 
 export const metadata: Metadata = {
-  title: "Contact",
+  title: "Contact Support",
   description: `Contact ${BRAND_NAME} for support and privacy requests.`,
   alternates: { canonical: new URL("/contact", site).toString() },
   openGraph: {
     type: "website",
-    title: `Contact | ${BRAND_NAME}`,
+    title: `Contact Support | ${BRAND_NAME}`,
     description: `Contact ${BRAND_NAME} for support and privacy requests.`,
     url: new URL("/contact", site),
     images: [

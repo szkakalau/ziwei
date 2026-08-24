@@ -6,13 +6,13 @@ import JsonLd from "@/components/JsonLd";
 const site = getSiteUrl();
 
 export const metadata: Metadata = {
-  title: "About",
+  title: "About Zi Wei Dou Shu",
   description:
     "Our mission: make classical Chinese astrology accessible with AI—for reflection and entertainment.",
   alternates: { canonical: new URL("/about", site).toString() },
   openGraph: {
     type: "website",
-    title: `About | ${BRAND_NAME}`,
+    title: `About Zi Wei Dou Shu | ${BRAND_NAME}`,
     description:
       "Our mission: make classical Chinese astrology accessible with AI—for reflection and entertainment.",
     url: new URL("/about", site),

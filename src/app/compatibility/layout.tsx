@@ -5,7 +5,7 @@ import { getSiteUrl } from "@/lib/site";
 const site = getSiteUrl();
 
 export const metadata: Metadata = {
-  title: `Compatibility | ${BRAND_NAME}`,
+  title: "Zi Wei Dou Shu Compatibility",
   description:
     "Check your Zi Wei Dou Shu compatibility with a partner. Purple Star astrology love & relationship matching based on both birth charts.",
   alternates: { canonical: new URL("/compatibility", site).toString() },
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
       },
     ],
   },
-  robots: { index: false, follow: false },
+  robots: { index: false, follow: true },
 };
 
 export default function CompatibilityLayout({

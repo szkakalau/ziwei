@@ -132,7 +132,6 @@ export default function RootLayout({
             "@type": "WebSite",
             name: BRAND_NAME,
             url: siteUrl.toString(),
-            dateModified: new Date().toISOString().slice(0, 10),
           }}
         />
         {/* RSS feed discovery for AI crawlers and RSS readers */}

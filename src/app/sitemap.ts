@@ -20,6 +20,7 @@ const staticPages: { path: string; priority: number }[] = [
   { path: "/privacy", priority: 0.3 },
   { path: "/terms", priority: 0.3 },
   { path: "/contact", priority: 0.5 },
+  { path: "/api-docs", priority: 0.5 },
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {

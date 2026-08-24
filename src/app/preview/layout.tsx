@@ -4,6 +4,7 @@ export const metadata: Metadata = {
   title: "Chart preview",
   description:
     "Your free DestinyBlueprint Zi Wei chart preview — continue to a personalized email reading when you are ready.",
+  robots: { index: false, follow: false },
 };
 
 export default function PreviewLayout({

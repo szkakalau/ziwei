@@ -5,13 +5,13 @@ import { BRAND_NAME } from "@/lib/brand";
 const site = getSiteUrl();
 
 export const metadata: Metadata = {
-  title: "Affiliate program",
+  title: "Zi Wei Dou Shu Affiliate Program",
   description:
     "Affiliate program for DestinyBlueprint—coming soon with competitive commissions for partners.",
   alternates: { canonical: new URL("/affiliate", site).toString() },
   openGraph: {
     type: "website",
-    title: `Affiliate Program | ${BRAND_NAME}`,
+    title: `Zi Wei Dou Shu Affiliate Program | ${BRAND_NAME}`,
     description:
       "Affiliate program for DestinyBlueprint—coming soon with competitive commissions for partners.",
     url: new URL("/affiliate", site),

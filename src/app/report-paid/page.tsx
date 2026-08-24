@@ -1,4 +1,9 @@
+import type { Metadata } from "next";
 import LegacyReportNotice from "@/components/LegacyReportNotice";
+
+export const metadata: Metadata = {
+  robots: { index: false, follow: false },
+};
 
 export default function ReportPaidPage() {
   return (

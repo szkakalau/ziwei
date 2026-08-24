@@ -7,13 +7,13 @@ import JsonLd from "@/components/JsonLd";
 const site = getSiteUrl();
 
 export const metadata: Metadata = {
-  title: "Pricing",
+  title: "Zi Wei Dou Shu Pricing",
   description:
     "Simple pricing for DestinyBlueprint — free chart snapshot and personalized Zi Wei email readings.",
   alternates: { canonical: new URL("/pricing", site).toString() },
   openGraph: {
     type: "website",
-    title: `Pricing | ${BRAND_NAME}`,
+    title: `Zi Wei Dou Shu Pricing | ${BRAND_NAME}`,
     description:
       "Simple pricing for DestinyBlueprint — free chart snapshot and personalized Zi Wei email readings.",
     url: new URL("/pricing", site),
